@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
-    // Start is called before the first frame update
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -22,17 +21,30 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // pressing the arrow keys or AWSD the character moves
         float vertical = Input.GetAxis("Vertical") * speed * Time.deltaTime;
         float horizontal = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
 
         transform.Translate(horizontal, 0, vertical);
 
+        // press the space bar to jump and press it again to double jump
         if (Input.GetKeyDown("space") && (onGround || maxJump > currentJump))
         {
             rb.AddForce(new Vector3(0, 5, 0) * jumpSpeed, ForceMode.Impulse);
             onGround = false;
             currentJump++;
+        }
+
+        // press x to glide
+        if(Input.GetKey("x") && (onGround == false))
+        {
+            rb.drag = 15;
+            currentJump = 2;
+        }
+
+        if(Input.GetKeyUp("x"))
+        {
+            rb.drag = 0;
         }
 
     }
