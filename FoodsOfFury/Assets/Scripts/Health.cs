@@ -5,15 +5,19 @@ using UnityEngine;
 //----------------------------------------------------------------------------------------
 // Author: Jose Villanueva
 //
-// Description: A simple health construct that manages an amount of health
-//
-// TODO: set time limits to when amount can be changed negatively (i.e. invisibility time)
+// Description: This class manages an 'amount' of "health" with the ability
+//              to handle invicibility time as well was send event messages when 'amount'
+//              changes.
 //----------------------------------------------------------------------------------------
 
 public class Health : MonoBehaviour
 {
     public float max = 0.0f;                    // max amount of health
     public float amount { get; private set; }   // current amount of health
+    public delegate void Update(float amount);  // delegate used with  OnUpdate
+    public event Update OnUpdate;               // event that sends a message when amount updates
+
+    private bool isInvincible = false;          // invincibility boolean
 
     private void Start()
     {
@@ -24,7 +28,7 @@ public class Health : MonoBehaviour
     public void add(float value)
     {
         // sum = amount + (value normalized to a positive)
-        float sum = (value >= 0) ? amount + value : amount + -value;
+        float sum = (value >= 0.0f) ? amount + value : amount + -value;
 
         // sum is above max, set to max
         if (sum > max)
@@ -35,13 +39,23 @@ public class Health : MonoBehaviour
         {
             amount = sum;
         }
+
+        if (OnUpdate != null)
+        {
+            OnUpdate(amount); // send update message
+        }
     }
 
-    // subtracts from the health given a value normalized
-    public void subtract(float value)
+    // subtracts from the health given a value normalized and starts the invincibility timer (if time is specified)
+    public void subtract(float value, float time = 0.0f)
     {
+        if (isInvincible || amount == 0.0f) // return if invincible or 'dead'
+        {
+            return;
+        }
+
         // difference = amount - (value normalized to a positive)
-        float difference = (value >= 0) ? amount - value : amount - -value;
+        float difference = (value >= 0.0f) ? amount - value : amount - -value;
 
         // difference is below 0, set amount to 0
         if (difference < 0)
@@ -52,5 +66,42 @@ public class Health : MonoBehaviour
         {
             amount = difference;
         }
+
+        if (time > 0.0f) // don't start timer if not needed
+        {
+            StartCoroutine(CountInvisibility(time));
+        }
+
+        if (OnUpdate != null)
+        {
+            OnUpdate(amount); // send update message
+        }
+    }
+
+    // function to act as a kill (to get around invincibility)
+    public void deplete()
+    {
+        amount = 0.0f;
+
+        if (OnUpdate != null)
+        {
+            OnUpdate(amount); // send update message
+        }
+    }
+
+    // this counts the invincibility timer
+    public IEnumerator CountInvisibility(float time)
+    {
+        isInvincible = true;
+        float passed = 0.0f;
+
+        // count up the passed until we reach time
+        while (passed < time)
+        {
+            passed += Time.deltaTime;
+            yield return null;
+        }
+
+        isInvincible = false;
     }
 }
