@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*-------------------------------------------------------
+ * Author: Abdon J. Puente IV
+ * 
+ *  Description: This class handles the players controls
+ *  
+ *  */
+
 public class PlayerMovement : MonoBehaviour
 {
 
@@ -11,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
     private const int maxJump = 1;
     private int currentJump = 0;
     public float GroundDistance = 0.2f;
-    // public float DashDistance = 5f;
     public LayerMask Ground;
 
     private Rigidbody rb;
@@ -28,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     // Moves the character with arrow keys and AWSD
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + inputs * Speed * Time.fixedDeltaTime);
+        rb.velocity = new Vector3(inputs.x * Speed, rb.velocity.y, inputs.z * Speed);
     }
 
 
@@ -66,11 +72,6 @@ public class PlayerMovement : MonoBehaviour
             currentJump++;
         }
 
-        /*if (Input.GetButtonDown("Dash"))
-        {
-            Vector3 dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
-            rb.AddForce(dashVelocity, ForceMode.VelocityChange);
-        }*/
     }
 
 }
