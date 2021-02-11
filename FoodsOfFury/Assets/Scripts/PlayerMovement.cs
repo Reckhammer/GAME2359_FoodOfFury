@@ -5,56 +5,72 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public float speed = 10f;
-    public float jumpSpeed = 1.5f;
-    private const int maxJump = 2;
+    public float Speed = 5f;
+    public float JumpHeight = 2f;
+    public float fallRate = 10f;
+    private const int maxJump = 1;
     private int currentJump = 0;
-    private bool onGround = true;
+    public float GroundDistance = 0.2f;
+    // public float DashDistance = 5f;
+    public LayerMask Ground;
 
-    Rigidbody rb;
+    private Rigidbody rb;
+    private Vector3 inputs = Vector3.zero;
+    private bool isGrounded = true;
+    private Transform groundChecker;
 
-    private void Awake()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        groundChecker = transform.GetChild(0);
     }
 
-    // Update is called once per frame
+    // Moves the character with arrow keys and AWSD
+    void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + inputs * Speed * Time.fixedDeltaTime);
+    }
+
+
     void Update()
     {
-        // pressing the arrow keys or AWSD the character moves
-        float vertical = Input.GetAxis("Vertical") * speed * Time.deltaTime;
-        float horizontal = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        isGrounded = Physics.CheckSphere(groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
 
-        transform.Translate(horizontal, 0, vertical);
-
-        // press the space bar to jump and press it again to double jump
-        if (Input.GetKeyDown("space") && (onGround || maxJump > currentJump))
+        if (isGrounded == true)
         {
-            rb.AddForce(new Vector3(0, 5, 0) * jumpSpeed, ForceMode.Impulse);
-            onGround = false;
-            currentJump++;
+            currentJump = 0;
         }
 
-        // press x to glide
-        if(Input.GetKey("x") && (onGround == false))
+        // X makes the character glide down
+        if (Input.GetKey("x") && (isGrounded == false))
         {
-            rb.drag = 15;
-            currentJump = 2;
+            rb.drag = fallRate;
+            currentJump = 1;
         }
 
-        if(Input.GetKeyUp("x"))
+        if (Input.GetKeyUp("x"))
         {
             rb.drag = 0;
         }
 
+        inputs = Vector3.zero;
+        inputs.x = Input.GetAxis("Horizontal");
+        inputs.z = Input.GetAxis("Vertical");
+        if (inputs != Vector3.zero)
+            transform.forward = inputs;
+
+        // space bar makes the character jump.
+        if (Input.GetButtonDown("Jump") && (isGrounded || maxJump > currentJump))
+        {
+            rb.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+            currentJump++;
+        }
+
+        /*if (Input.GetButtonDown("Dash"))
+        {
+            Vector3 dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
+            rb.AddForce(dashVelocity, ForceMode.VelocityChange);
+        }*/
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "floor")
-        {
-            onGround = true;
-            currentJump = 0;
-        }
-    }
 }
