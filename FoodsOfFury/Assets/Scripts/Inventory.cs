@@ -5,11 +5,11 @@ using UnityEngine;
 //----------------------------------------------------------------------------------------
 // Author: Jose Villanueva
 //
-// Description: This class manages a inventory of 'Item's  using a dictionary that
-//              holds 'InventoryList' (which hold items)
+// Description: This class manages a inventory of gameobjects ('Item's) using a dictionary that
+//              holds 'InventoryList's (which holds the gameObjects).
 //
-// TODO: Overall Development, Change creation of world objects from manual to prefabs,
-//       add constructor for inpector Initilization (Item array paramer and set lists)
+// TODO: Overall Development, add constructor for inpector 
+//       initilization (Item array paramer and set lists)
 //----------------------------------------------------------------------------------------
 
 public class Inventory : MonoBehaviour
@@ -44,8 +44,8 @@ public class Inventory : MonoBehaviour
 
     //}
 
-    // return current item in list from inventory
-    public Item get(ItemType type)
+    // return current item reference in list from inventory
+    public GameObject get(ItemType type)
     {
         InventoryList temp;
         if (inventory.TryGetValue(type, out temp))
@@ -56,22 +56,33 @@ public class Inventory : MonoBehaviour
     }
 
     // add item to inventory
-    public void add(Item item)
+    public bool add(Item item)
     {
+        if (itemMaximums.getMax(item.type) == 0)
+        {
+            print("Can't pickup this item!");
+            return false;
+        }
+
+        item.gameObject.SetActive(false);
         InventoryList temp;
 
-        if (inventory.TryGetValue(item.Type(), out temp))
+        if (inventory.TryGetValue(item.type, out temp))
         {
-            if (!temp.add(item)) // add item to existing list
+            GameObject copy = Instantiate(item.gameObject, transform); // create copy (also parent to this transform)
+            copy.name = item.type.ToString();
+            if (!temp.add(copy)) // add copy to existing list
             {
                 //temp.exchange(item); // exchange item (TODO: need to test)
             }
+
+            return true;
         }
         else
         {
-            ItemType type = item.Type();
+            ItemType type = item.type;
             inventory.Add(type, new InventoryList(itemMaximums.getMax(type))); // create new list and add to inventory
-            add(item); // call add again to add item to newly added list
+            return add(item);                                                  // call add again to add item to newly added list
         }
     }
 
@@ -81,8 +92,10 @@ public class Inventory : MonoBehaviour
         InventoryList temp;
         if (inventory.TryGetValue(type, out temp))
         {
-            drop(temp.get());
-            temp.delete(); // delete item
+            GameObject reference = temp.get();  // get reference from list
+            drop(reference, type);              // drop new copy
+            temp.delete();                      // delete reference from list
+            Destroy(reference);                 // destroy original item gameobject
 
             if (temp.isEmpty())
             {
@@ -91,27 +104,26 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    // drop item in world (TODO: create from prefab)
-    private void drop(Item item)
+    // drop item in world
+    private void drop(GameObject item, ItemType type)
     {
-        GameObject obj = new GameObject();
-        obj.transform.position = transform.position + new Vector3(0, 0, 5);
-        obj.transform.rotation = transform.rotation;
+        GameObject copy = Instantiate(item);
+        copy.transform.position = transform.position + new Vector3(0, 0, 5);
+        copy.transform.rotation = transform.rotation;
+        copy.name = type.ToString();
+        copy.SetActive(true);
+    }
 
-        BoxCollider col = obj.AddComponent<BoxCollider>();
-        col.isTrigger = true;
-
-        switch (item.Type())
+    public void printList(ItemType type)
+    {
+        InventoryList temp;
+        if (inventory.TryGetValue(type, out temp))
         {
-            case ItemType.Weapon:
-                obj.AddComponent<Weapon>();
-                obj.AddComponent<Pickupable>();
-                break;
-            case ItemType.Health:
-                // obj.AddComponent<HealthItem>();
-                break;
-            default:
-                break;
+            temp.printList();
+        }
+        else
+        {
+            print(type + " list does not exist");
         }
     }
 }

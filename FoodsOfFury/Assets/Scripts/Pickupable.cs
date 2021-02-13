@@ -24,8 +24,10 @@ public class Pickupable : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.GetComponent<Inventory>().add(item);
-            Destroy(gameObject);
+            if (other.GetComponent<Inventory>().add(item))
+            {
+                Destroy(gameObject); // item succesfully added, delete this object
+            }
         }
     }
 }

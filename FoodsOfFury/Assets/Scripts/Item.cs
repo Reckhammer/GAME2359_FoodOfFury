@@ -12,7 +12,8 @@ using UnityEngine;
 
 public interface Item
 {
-    ItemType Type();    // return the type
-    //void Image();       // return the image icon
+    GameObject gameObject { get; }
+    ItemType type { get; }
+    //Image imageIcon { get; } // return image icon
     //void Use();         // use the item
 }

@@ -12,13 +12,9 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour, Item
 {
-    // some varialbes here
+    public ItemType type { get { return ItemType.Weapon; } }
 
-    // return the type
-    public ItemType Type()
-    {
-        return ItemType.Weapon;
-    }
+    // some varialbes here
 
     // some methods here
 }

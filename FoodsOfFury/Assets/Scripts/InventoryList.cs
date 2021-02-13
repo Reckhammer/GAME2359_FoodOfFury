@@ -5,7 +5,7 @@ using UnityEngine;
 //----------------------------------------------------------------------------------------
 // Author: Jose Villanueva
 //
-// Description: This class acts as a manager for a 'Item's list.
+// Description: This class acts as a manager for a list of 'GameObject's.
 //
 // TODO: add infinite maximum, test commented methods, add constructor to allow for 
 //       initialization from Item array
@@ -15,8 +15,8 @@ public class InventoryList
 {
     public int max; // max entries to list
 
-    private List<Item> list = new List<Item>(); // list of items
-    private int current;                        // current index of item
+    private List<GameObject> list = new List<GameObject>(); // list of items
+    private int current;                                    // current index of item
 
     // Constructor
     public InventoryList(int max)
@@ -25,13 +25,13 @@ public class InventoryList
     }
 
     // returns the current item from the list
-    public Item get()
+    public GameObject get()
     {
         return list[current];
     }
 
-    // adds to list if not at max (return bool if successful)
-    public bool add(Item item)
+    // adds to list if not at max (return true if successful)
+    public bool add(GameObject item)
     {
         if (list.Count != max)
         {
@@ -95,5 +95,17 @@ public class InventoryList
             return true;
         }
         return false;
+    }
+
+    // prints list in debugger
+    public void printList()
+    {
+        int amount = 1;
+
+        foreach (GameObject item in list)
+        {
+            Debug.Log(item + " : " + amount);
+            amount++;
+        }
     }
 }
