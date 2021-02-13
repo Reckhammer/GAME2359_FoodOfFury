@@ -41,12 +41,6 @@ public class InventoryList
         return false;
     }
 
-    // exchanges current item
-    //public void exchange(Item item)
-    //{
-    //    list[current] = item;
-    //}
-
     // return next 'Item' in list and update 'current'
     //public Item next()
     //{

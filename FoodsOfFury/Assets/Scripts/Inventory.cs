@@ -65,23 +65,22 @@ public class Inventory : MonoBehaviour
         }
 
         item.gameObject.SetActive(false);
-        InventoryList temp;
 
+        InventoryList temp;
         if (inventory.TryGetValue(item.type, out temp))
         {
             GameObject copy = Instantiate(item.gameObject, transform); // create copy (also parent to this transform)
             copy.name = item.type.ToString();
             if (!temp.add(copy)) // add copy to existing list
             {
-                //temp.exchange(item); // exchange item (TODO: need to test)
+                remove(item.type);  // add failed, do exchange (remove current obj in list)
+                temp.add(copy);     // add copy to list
             }
-
             return true;
         }
         else
         {
-            ItemType type = item.type;
-            inventory.Add(type, new InventoryList(itemMaximums.getMax(type))); // create new list and add to inventory
+            inventory.Add(item.type, new InventoryList(itemMaximums.getMax(item.type))); // create new list and add to inventory
             return add(item);                                                  // call add again to add item to newly added list
         }
     }
