@@ -14,34 +14,14 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [System.Serializable]
-    public struct Maximums
-    {
-        public int maxWeaponItems;
-        public int maxHealthItems;
-
-        public int getMax(ItemType type)
-        {
-            switch (type)
-            {
-                case ItemType.Weapon:
-                    return maxWeaponItems;
-                case ItemType.Health:
-                    return maxHealthItems;
-                default:
-                    return -1;
-            }
-        }
-    };
-
-    public Maximums itemMaximums; // struct to hold maximums of 'ItemType's (need to add to this as ItemType grows)
+    public ItemRestraints restraints; // struct to hold maximums of 'ItemType's (need to add to this as ItemType grows)
 
     private Dictionary<ItemType, InventoryList> inventory = new Dictionary<ItemType, InventoryList>(); // Dictionary of 'ItemLists'
 
     // use item
     //public void use(ItemType type)
     //{
-
+            
     //}
 
     // return current item reference in list from inventory
@@ -58,7 +38,7 @@ public class Inventory : MonoBehaviour
     // add item to inventory
     public bool add(Item item)
     {
-        if (itemMaximums.getMax(item.type) == 0)
+        if (restraints.getMax(item.type) == 0)
         {
             print("Can't pickup this item!");
             return false;
@@ -80,8 +60,8 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            inventory.Add(item.type, new InventoryList(itemMaximums.getMax(item.type))); // create new list and add to inventory
-            return add(item);                                                  // call add again to add item to newly added list
+            inventory.Add(item.type, new InventoryList(restraints.getMax(item.type)));  // create new list and add to inventory
+            return add(item);                                                           // call add again to add item to newly added list
         }
     }
 
