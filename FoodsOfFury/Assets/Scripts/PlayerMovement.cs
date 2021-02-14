@@ -34,6 +34,9 @@ public class PlayerMovement : MonoBehaviour
     // Moves the character with arrow keys and AWSD
     void FixedUpdate()
     {
+        Vector3 camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+        Vector3 camRight = Camera.main.transform.right;
+        Vector3 movement = inputs.z * camForward + inputs.x * camRight;
         rb.velocity = new Vector3(inputs.x * Speed, rb.velocity.y, inputs.z * Speed);
     }
 
@@ -62,8 +65,8 @@ public class PlayerMovement : MonoBehaviour
         inputs = Vector3.zero;
         inputs.x = Input.GetAxis("Horizontal");
         inputs.z = Input.GetAxis("Vertical");
-        if (inputs != Vector3.zero)
-            transform.forward = inputs;
+        //if (inputs != Vector3.zero)
+            //transform.forward = inputs;
 
         // space bar makes the character jump.
         if (Input.GetButtonDown("Jump") && (isGrounded || maxJump > currentJump))
