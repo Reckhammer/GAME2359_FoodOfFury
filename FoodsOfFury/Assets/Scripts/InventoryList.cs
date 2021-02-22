@@ -27,7 +27,11 @@ public class InventoryList
     // returns the current item from the list
     public GameObject get()
     {
-        return list[current];
+        if (!isEmpty())
+        {
+            return list[current];
+        }
+        return null;
     }
 
     // adds to list if not at max (return true if successful)

@@ -5,8 +5,7 @@ using UnityEngine;
 //----------------------------------------------------------------------------------------
 // Author: Jose Villanueva
 //
-// Description: This class manages a inventory of gameobjects ('Item's) using a dictionary that
-//              holds 'InventoryList's (which holds the gameObjects).
+// Description: This class manages a simple inventory of 'Weapon's and 'Consumable's.
 //
 // TODO: Overall Development, add constructor for inpector 
 //       initilization (Item array paramer and set lists)
@@ -14,73 +13,133 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public ItemRestraints restraints; // struct to hold maximums of 'ItemType's (need to add to this as ItemType grows)
+    public int maxWeapons       = 0;    // max amount of weapons
+    public int maxConsumables   = 0;    // max amount of consumables
 
-    private Dictionary<ItemType, InventoryList> inventory = new Dictionary<ItemType, InventoryList>(); // Dictionary of 'ItemLists'
+    private InventoryList weapons;      // list for 'Weapon' objects
+    private InventoryList consumables;  // list for 'Consumable' objects
 
-    // use item
-    //public void use(ItemType type)
-    //{
-            
-    //}
-
-    // return current item reference in list from inventory
-    public GameObject get(ItemType type)
+    private void Awake()
     {
-        InventoryList temp;
-        if (inventory.TryGetValue(type, out temp))
-        {
-            return temp.get(); // return item
-        }
-        return null; // no item to return
+        weapons     = new InventoryList(maxWeapons);
+        consumables = new InventoryList(maxConsumables);
     }
 
-    // add item to inventory
-    public bool add(Item item)
+    private void Update()
     {
-        if (restraints.getMax(item.type) == 0)
+        if (Input.GetKeyDown(KeyCode.O))
         {
-            print("Can't pickup this item!");
-            return false;
+            printInventory();
         }
 
-        item.gameObject.SetActive(false);
-
-        InventoryList temp;
-        if (inventory.TryGetValue(item.type, out temp))
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            GameObject copy = Instantiate(item.gameObject, transform); // create copy (also parent to this transform)
-            copy.name = item.type.ToString();
-            if (!temp.add(copy)) // add copy to existing list
+            remove(ItemType.Weapon);
+        }
+    }
+
+    // return current item reference in list
+    //public GameObject get(ItemType type)
+    //{
+    //    switch (type)
+    //    {
+    //        case ItemType.Weapon:
+    //            return weapons.get();
+    //        case ItemType.Consumable:
+    //            return consumables.get();
+    //        default:
+    //            return null;
+    //    }
+    //}
+
+    // add item to list
+    public bool add(ItemType type, GameObject item)
+    {
+        switch (type)
+        {
+            case ItemType.Weapon:
+                return addWeapon(type, item);
+            case ItemType.Consumable:
+                return addConsumable(type, item);
+            default:
+                return false;
+        }
+    }
+
+    // add weapon to list
+    private bool addWeapon(ItemType type, GameObject item)
+    {
+        if (maxWeapons != 0)
+        {
+            GameObject copy = Instantiate(item, transform); // make copy and parent to gameobject
+            copy.name = type.ToString();                    // set name
+            copy.SetActive(false);                          // make copy inactive
+
+            if (!weapons.add(copy)) // try to add item to list
             {
-                remove(item.type);  // add failed, do exchange (remove current obj in list)
-                temp.add(copy);     // add copy to list
+                removeWeapon(ItemType.Weapon);  // remove current weapon from list
+                weapons.add(copy);              // add failed (list at max), swap item
             }
             return true;
         }
-        else
+        return false; // return false if at max
+    }
+
+    // add consumalbe to list
+    private bool addConsumable(ItemType type, GameObject item)
+    {
+        if (maxConsumables != 0)
         {
-            inventory.Add(item.type, new InventoryList(restraints.getMax(item.type)));  // create new list and add to inventory
-            return add(item);                                                           // call add again to add item to newly added list
+            GameObject copy = Instantiate(item, transform); // make copy and parent to gameobject
+            copy.name = type.ToString();                    // set name
+            copy.SetActive(false);                          // make copy inactive
+
+            if (!consumables.add(copy)) // try to add item to list
+            {
+                removeConsumable(ItemType.Consumable);  // remove current consumable from list
+                consumables.add(copy);                  // add failed (list at max), swap item
+            }
+            return true;
         }
+        return false; // return false if at max
     }
 
     // remove item from inventory
     public void remove(ItemType type)
     {
-        InventoryList temp;
-        if (inventory.TryGetValue(type, out temp))
+        switch (type)
         {
-            GameObject reference = temp.get();  // get reference from list
-            drop(reference, type);              // drop new copy
-            temp.delete();                      // delete reference from list
-            Destroy(reference);                 // destroy original item gameobject
-
-            if (temp.isEmpty())
-            {
-                inventory.Remove(type); // remove empty list from dictionary
-            }
+            case ItemType.Weapon:
+                removeWeapon(type);
+                break;
+            case ItemType.Consumable:
+                removeConsumable(type);
+                break;
         }
+    }
+
+    // removes current weapon
+    private void removeWeapon(ItemType type)
+    {
+        GameObject reference = weapons.get();   // get reference from list
+
+        if (reference == null)
+        {
+            return; // there is no object to drop, return
+        }
+
+        drop(reference, type);                  // drop new copy
+        weapons.delete();                       // delete reference from list
+        Destroy(reference);                     // destroy original item gameobject
+    }
+
+    // removes current consumable
+    private void removeConsumable(ItemType type)
+    {
+        GameObject reference = consumables.get();   // get reference from list
+        drop(reference, type);                      // drop new copy
+        consumables.delete();                       // delete reference from list
+        Destroy(reference);                         // destroy original item gameobject
     }
 
     // drop item in world
@@ -93,16 +152,10 @@ public class Inventory : MonoBehaviour
         copy.SetActive(true);
     }
 
-    public void printList(ItemType type)
+    // prints inventory items
+    public void printInventory()
     {
-        InventoryList temp;
-        if (inventory.TryGetValue(type, out temp))
-        {
-            temp.printList();
-        }
-        else
-        {
-            print(type + " list does not exist");
-        }
+        weapons.printList();
+        consumables.printList();
     }
 }

@@ -10,7 +10,8 @@ using UnityEngine;
 
 public class Pickupable : MonoBehaviour
 {
-    private Item        item;                   // item that will be moved into an inventory
+    public ItemType    type;                    // type of item
+
     private GameObject  player      = null;     // target that can pick item up
     private Coroutine   highlightCr = null;     // Highlight() coroutine
     private Renderer    render      = null;     // object renderer
@@ -19,7 +20,6 @@ public class Pickupable : MonoBehaviour
 
     void Start()
     {
-        item    = (Item)gameObject.GetComponent(typeof(Item));
         render  = GetComponent<Renderer>();
         orignal = render.material.color;
     }
@@ -34,7 +34,7 @@ public class Pickupable : MonoBehaviour
                 render.material.color = orignal;    // return to orignal color (before pickup)
             }
 
-            if (player.GetComponentInParent<Inventory>().add(item))
+            if (player.GetComponentInParent<Inventory>().add(type, gameObject))
             {
                 Destroy(gameObject); // item succesfully added, delete this object
             }

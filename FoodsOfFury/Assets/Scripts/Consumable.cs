@@ -5,15 +5,14 @@ using UnityEngine;
 //----------------------------------------------------------------------------------------
 // Author: Jose Villanueva
 //
-// Description: Interface for 'Item's.
+// Description: Empty 'Consumable' class
 //
 // TODO: Overall development
 //----------------------------------------------------------------------------------------
 
-public interface Item
+public class Consumable : MonoBehaviour
 {
-    GameObject gameObject { get; }
-    ItemType type { get; }
-    //Image imageIcon { get; } // return image icon
-    //void Use();         // use the item
+    // some varialbes here
+
+    // some methods here
 }

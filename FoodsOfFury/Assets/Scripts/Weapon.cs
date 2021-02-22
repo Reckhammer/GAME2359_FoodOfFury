@@ -5,15 +5,13 @@ using UnityEngine;
 //----------------------------------------------------------------------------------------
 // Author: Jose Villanueva
 //
-// Description: Simple 'Weapon' class that implements the 'Item' interface
+// Description: Empty 'Weapon' class
 //
 // TODO: Overall development
 //----------------------------------------------------------------------------------------
 
-public class Weapon : MonoBehaviour, Item
+public class Weapon : MonoBehaviour
 {
-    public ItemType type { get { return ItemType.Weapon; } }
-
     // some varialbes here
 
     // some methods here
