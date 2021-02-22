@@ -23,7 +23,7 @@ public class LoadScenes : MonoBehaviour
             SceneManager.LoadScene("MenuScene");
         }
 
-        if (Input.GetKeyDown("q"))
+        if (Input.GetKeyDown("escape"))
         {
             Application.Quit();
             Debug.Log("Quit game");
