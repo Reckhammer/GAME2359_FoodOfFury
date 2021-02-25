@@ -323,6 +323,7 @@ GameObject:
   - component: {fileID: 1626403465}
   - component: {fileID: 1626403464}
   - component: {fileID: 1626403467}
+  - component: {fileID: 1626403468}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -402,7 +403,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1626403463}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
@@ -429,6 +430,32 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1626403468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626403463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58972dfcc22720047a53d2b7e42fa2d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1702686909}
+  scrollSpeed: 2
+  topLimit: -20
+  bottomLimit: 80
+  minDistance: 3
+  maxDistance: 10
+  minCollidingDistance: 0.1
+  collisionDetectionDistance: 1
+  cameraDistance: 4
+--- !u!4 &1702686909 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4270859069507631207, guid: 6d5a26b43ba7291449680b97ed6354fe, type: 3}
+  m_PrefabInstance: {fileID: 4270859069217541632}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4270859069217541632
 PrefabInstance:
   m_ObjectHideFlags: 0
