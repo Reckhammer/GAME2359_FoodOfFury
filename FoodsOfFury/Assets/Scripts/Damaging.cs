@@ -11,9 +11,11 @@ using UnityEngine;
 
 public class Damaging : MonoBehaviour
 {
-    public string[] targets;            // targets to damage
-    public float damageAmount = 0.0f;   // amount of damage to be delt
-    public float delayAmount  = 0.0f;   // time delay to be able damage again
+    public string[] targets;                        // targets to damage
+    public float damageAmount           = 0.0f;     // amount of damage to be delt
+    public float delayAmount            = 0.0f;     // time delay to be able damage again
+    public bool doesKnockback           = false;
+    public float knockbackForce         = 0.0f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -28,7 +30,14 @@ public class Damaging : MonoBehaviour
         {
             if (other.tag == target)
             {
-                other.GetComponent<Health>().subtract(damageAmount, delayAmount); // subtract from other's 'health' and add delay
+                //print("collided!!!");
+                other.GetComponentInParent<Health>().subtract(damageAmount, delayAmount); // subtract from other's 'health' and add delay
+
+                if (doesKnockback)
+                {
+                    Vector3 dir = (other.transform.position - transform.position).normalized;
+                    other.GetComponentInParent<Rigidbody>().AddForce(dir * knockbackForce, ForceMode.VelocityChange); // apply basic knockback
+                }
             }
         }
     }
