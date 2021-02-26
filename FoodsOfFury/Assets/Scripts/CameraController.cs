@@ -23,6 +23,7 @@ public class CameraController : MonoBehaviour
     public float minCollidingDistance = 0.1f;
     public float collisionDetectionDistance = 1.0f;
     public float cameraDistance = 4.0f;
+    public LayerMask collideWith;
 
     private Camera cam;
     private float mouseX;
@@ -94,15 +95,24 @@ public class CameraController : MonoBehaviour
 
         float distance = 0.0f;
 
+        //for (int x = 0; x <= 3; x++)
+        //{
+        //    if (Physics.Raycast(starts[x], -transform.forward, out hit, Vector3.Distance(starts[x], ends[x])))
+        //    {
+        //        if (hit.collider.tag != "Player")
+        //        {
+        //            if (distance == 0.0f || distance > (hit.distance - collisionDetectionDistance))
+        //                distance = hit.distance - collisionDetectionDistance;
+        //        }
+        //    }
+        //}
+
         for (int x = 0; x <= 3; x++)
         {
-            if (Physics.Raycast(starts[x], -transform.forward, out hit, Vector3.Distance(starts[x], ends[x])))
+            if (Physics.Raycast(starts[x], -transform.forward, out hit, Vector3.Distance(starts[x], ends[x]), collideWith, QueryTriggerInteraction.Ignore))
             {
-                if (hit.collider.tag != "Player")
-                {
-                    if (distance == 0.0f || distance > (hit.distance - collisionDetectionDistance))
-                        distance = hit.distance - collisionDetectionDistance;
-                }
+                if (distance == 0.0f || distance > (hit.distance - collisionDetectionDistance))
+                    distance = hit.distance - collisionDetectionDistance;
             }
         }
 

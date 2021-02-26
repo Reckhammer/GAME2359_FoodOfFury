@@ -14,8 +14,9 @@ public class Damaging : MonoBehaviour
     public string[] targets;                        // targets to damage
     public float damageAmount           = 0.0f;     // amount of damage to be delt
     public float delayAmount            = 0.0f;     // time delay to be able damage again
-    public bool doesKnockback           = false;
-    public float knockbackForce         = 0.0f;
+    public bool destroyOnImpact         = false;    // option to destroy on impact
+    public bool doesKnockback           = false;    // option for knockback
+    public float knockbackForce         = 0.0f;     // force of knockback
 
     private void OnTriggerEnter(Collider other)
     {
@@ -39,6 +40,11 @@ public class Damaging : MonoBehaviour
                     other.GetComponentInParent<Rigidbody>().AddForce(dir * knockbackForce, ForceMode.VelocityChange); // apply basic knockback
                 }
             }
+        }
+
+        if (destroyOnImpact)
+        {
+            Destroy(gameObject);
         }
     }
 }

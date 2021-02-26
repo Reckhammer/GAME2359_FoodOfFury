@@ -146,7 +146,7 @@ public class Inventory : MonoBehaviour
     private void drop(GameObject item, ItemType type)
     {
         GameObject copy = Instantiate(item);
-        copy.transform.position = transform.position + new Vector3(0, 0, 5);
+        copy.transform.position = transform.position + (transform.forward * 5);
         copy.transform.rotation = transform.rotation;
         copy.name = type.ToString();
         copy.SetActive(true);

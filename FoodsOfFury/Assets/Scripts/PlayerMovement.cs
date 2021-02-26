@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight         = 2f;               // jump force of player
     public float glideRate          = 10f;              // drag rate when gliding
     public float groundDistance     = 0.2f;             // distance to check for ground
+    public float fallForce          = 1.0f;             // downwards force when falling
     public float rotationSpeed      = 1.0f;             // speed of rotation
     public LayerMask ground;                            // layers to check if grounded
 
@@ -28,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private const int maxJump       = 1;            // max amount of jumps
     private int currentJump         = 0;            // current jump index
     private bool isGrounded         = true;         // for ground check
+    private bool isGliding          = false;        // for gliding check
     private Vector3 groundNormal    = Vector3.up;   // normal of the ground
 
     void Awake()
@@ -83,12 +85,14 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.drag = glideRate;
             currentJump = 1;
+            isGliding = true;
         }
 
         // stop glide if 'x' is released or grounded
         if (Input.GetKeyUp("x") || isGrounded)
         {
             rb.drag = originalDrag;
+            isGliding = false;
         }
 
         if (isGrounded)
@@ -101,6 +105,12 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
             currentJump++;
+        }
+
+        // falling & not gliding, add downward force
+        if (!isGrounded && !isGliding && rb.velocity.y < 0)
+        {
+            rb.AddForce(fallForce * Vector3.down, ForceMode.Force);
         }
 
         checkSlope();
