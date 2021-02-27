@@ -25,32 +25,33 @@ public class Inventory : MonoBehaviour
         consumables = new InventoryList(maxConsumables);
     }
 
-    private void Update()
+    // return current item reference in list
+    public GameObject get(ItemType type)
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        switch (type)
         {
-            printInventory();
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            remove(ItemType.Weapon);
+            case ItemType.Weapon:
+                return weapons.get();
+            case ItemType.Consumable:
+                return consumables.get();
+            default:
+                return null;
         }
     }
 
-    // return current item reference in list
-    //public GameObject get(ItemType type)
-    //{
-    //    switch (type)
-    //    {
-    //        case ItemType.Weapon:
-    //            return weapons.get();
-    //        case ItemType.Consumable:
-    //            return consumables.get();
-    //        default:
-    //            return null;
-    //    }
-    //}
+    // returns the next item reference in list
+    public GameObject next(ItemType type)
+    {
+        switch (type)
+        {
+            case ItemType.Weapon:
+                return weapons.next();
+            case ItemType.Consumable:
+                return consumables.next();
+            default:
+                return null;
+        }
+    }
 
     // add item to list
     public bool add(ItemType type, GameObject item)
@@ -71,18 +72,22 @@ public class Inventory : MonoBehaviour
     {
         if (maxWeapons != 0)
         {
-            GameObject copy = Instantiate(item, transform); // make copy and parent to gameobject
-            copy.name = type.ToString();                    // set name
-            copy.SetActive(false);                          // make copy inactive
+            GameObject copy = Instantiate(item, transform.position, transform.rotation, transform); // make copy and parent to gameobject
+            Destroy(copy.GetComponent<Pickupable>());           // remove 'Pickupable'
+            Destroy(copy.GetComponent<Rigidbody>());            // remove rigibody
+            copy.GetComponent<Collider>().enabled = false;      // turn off collider (non trigger)
+            copy.name = type.ToString();                        // set name
+            copy.SetActive(false);                              // make copy inactive
 
             if (!weapons.add(copy)) // try to add item to list
             {
                 removeWeapon(ItemType.Weapon);  // remove current weapon from list
                 weapons.add(copy);              // add failed (list at max), swap item
             }
+
             return true;
         }
-        return false; // return false if at max
+        return false; // return false if max at zero
     }
 
     // add consumalbe to list
@@ -90,7 +95,10 @@ public class Inventory : MonoBehaviour
     {
         if (maxConsumables != 0)
         {
-            GameObject copy = Instantiate(item, transform); // make copy and parent to gameobject
+            GameObject copy = Instantiate(item, transform.position, transform.rotation, transform); // make copy and parent to gameobject
+            Destroy(copy.GetComponent<Pickupable>());       // remove 'Pickupable'
+            Destroy(copy.GetComponent<Rigidbody>());        // remove rigibody
+            copy.GetComponent<Collider>().enabled = false;  // turn off collider (non trigger)
             copy.name = type.ToString();                    // set name
             copy.SetActive(false);                          // make copy inactive
 
@@ -99,6 +107,7 @@ public class Inventory : MonoBehaviour
                 removeConsumable(ItemType.Consumable);  // remove current consumable from list
                 consumables.add(copy);                  // add failed (list at max), swap item
             }
+
             return true;
         }
         return false; // return false if at max
@@ -121,35 +130,45 @@ public class Inventory : MonoBehaviour
     // removes current weapon
     private void removeWeapon(ItemType type)
     {
-        GameObject reference = weapons.get();   // get reference from list
+        GameObject reference = weapons.get(); // get reference from list
 
         if (reference == null)
         {
             return; // there is no object to drop, return
         }
 
-        drop(reference, type);                  // drop new copy
-        weapons.delete();                       // delete reference from list
-        Destroy(reference);                     // destroy original item gameobject
+        drop(reference, type);  // drop new copy
+        weapons.delete();       // delete reference from list
+        Destroy(reference);     // destroy original item gameobject
     }
 
     // removes current consumable
     private void removeConsumable(ItemType type)
     {
-        GameObject reference = consumables.get();   // get reference from list
-        drop(reference, type);                      // drop new copy
-        consumables.delete();                       // delete reference from list
-        Destroy(reference);                         // destroy original item gameobject
+        GameObject reference = consumables.get(); // get reference from list
+
+        if (reference == null)
+        {
+            return; // there is no object to drop, return
+        }
+
+        drop(reference, type);  // drop new copy
+        consumables.delete();   // delete reference from list
+        Destroy(reference);     // destroy original item gameobject
     }
 
     // drop item in world
     private void drop(GameObject item, ItemType type)
     {
         GameObject copy = Instantiate(item);
-        copy.transform.position = transform.position + (transform.forward * 5);
-        copy.transform.rotation = transform.rotation;
-        copy.name = type.ToString();
-        copy.SetActive(true);
+        Pickupable p = copy.AddComponent<Pickupable>();                         // Add 'Pickable' component
+        p.type = type;                                                          // set item type
+        copy.AddComponent<Rigidbody>();                                         // add rigidbody
+        copy.GetComponent<Collider>().enabled = true;                           // turn on collider (non trigger)
+        copy.transform.position = transform.position + (transform.forward * 5); // set item in front of this object
+        copy.transform.rotation = transform.rotation;                           // set rotation to this rotation
+        copy.name = type.ToString();                                            // set name to type
+        copy.SetActive(true);                                                   // make item active
     }
 
     // prints inventory items

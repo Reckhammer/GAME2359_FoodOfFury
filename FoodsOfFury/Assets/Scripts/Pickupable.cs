@@ -36,6 +36,7 @@ public class Pickupable : MonoBehaviour
 
             if (player.GetComponentInParent<Inventory>().add(type, gameObject))
             {
+                player.GetComponentInParent<PlayerManager>().equipItem(type); // call player manager to equip item
                 Destroy(gameObject); // item succesfully added, delete this object
             }
         }

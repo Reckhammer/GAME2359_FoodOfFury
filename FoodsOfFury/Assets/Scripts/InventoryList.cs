@@ -7,8 +7,7 @@ using UnityEngine;
 //
 // Description: This class acts as a manager for a list of 'GameObject's.
 //
-// TODO: add infinite maximum, test commented methods, add constructor to allow for 
-//       initialization from Item array
+// TODO: add constructor to allow for initialization from Item array
 //----------------------------------------------------------------------------------------
 
 public class InventoryList
@@ -27,7 +26,7 @@ public class InventoryList
     // returns the current item from the list
     public GameObject get()
     {
-        if (!isEmpty())
+        if (list.Count != 0)
         {
             return list[current];
         }
@@ -46,11 +45,17 @@ public class InventoryList
     }
 
     // return next 'Item' in list and update 'current'
-    //public Item next()
-    //{
-    //    current = (current++ != max) ? current++ : 0; // update current to next index (loops back to begging '0')
-    //    return list[current];
-    //}
+    public GameObject next()
+    {
+        if (list.Count == 0) // if empty return
+        {
+            return null;
+        }
+
+        current = (current + 1 != max && current + 1 != list.Count) ? current + 1 : 0; // update current to next available index (loops back to beginning '0')
+
+        return list[current];
+    }
 
     // return previous 'Item' in list and update 'current'
     //public Item previous()
