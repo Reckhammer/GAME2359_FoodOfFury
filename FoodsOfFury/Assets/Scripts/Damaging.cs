@@ -31,13 +31,11 @@ public class Damaging : MonoBehaviour
         {
             if (other.tag == target)
             {
-                //print("collided!!!");
                 other.GetComponentInParent<Health>().subtract(damageAmount, delayAmount); // subtract from other's 'health' and add delay
 
                 if (doesKnockback)
                 {
-                    Vector3 dir = (other.transform.position - transform.position).normalized;
-                    other.GetComponentInParent<Rigidbody>().AddForce(dir * knockbackForce, ForceMode.VelocityChange); // apply basic knockback
+                    doKnockback(other.gameObject);
                 }
             }
         }
@@ -45,6 +43,22 @@ public class Damaging : MonoBehaviour
         if (destroyOnImpact)
         {
             Destroy(gameObject);
+        }
+    }
+
+    // does specific knockback cases
+    private void doKnockback(GameObject obj)
+    {
+        Vector3 dir = (obj.transform.position - transform.position).normalized;
+
+        switch (obj.tag)
+        {
+            case "Player":
+                obj.GetComponentInParent<PlayerMovement>().applyExtraForce(dir * knockbackForce);
+                break;
+            default:
+                obj.GetComponentInParent<Rigidbody>().AddForce(dir * knockbackForce, ForceMode.VelocityChange); // apply basic knockback
+                break;
         }
     }
 }
