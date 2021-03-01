@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8375683140921275358}
   - component: {fileID: 4869443318076423291}
   - component: {fileID: 7239338128426191025}
+  - component: {fileID: 919132149224155744}
   m_Layer: 0
   m_Name: ZG_Proxy_Freezer
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9185012121227192676}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.522369, y: 29, z: -168.1}
   m_LocalScale: {x: 11.594976, y: 11.594976, z: 11.594976}
   m_Children: []
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &919132149224155744
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9185012121227192676}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.5972621, y: 4.6137943, z: 3.3993158}
+  m_Center: {x: 0, y: 0, z: 0.0000009536743}
