@@ -12,7 +12,10 @@ using UnityEngine;
 
 public class Consumable : MonoBehaviour
 {
-    // some varialbes here
+    public float healthAmount = 1.0f;
 
-    // some methods here
+    public bool use(GameObject obj)
+    {
+        return gameObject.GetComponentInParent<Health>().add(healthAmount);
+    }
 }
