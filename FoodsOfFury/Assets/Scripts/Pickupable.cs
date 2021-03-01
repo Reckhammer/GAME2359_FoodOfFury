@@ -71,6 +71,11 @@ public class Pickupable : MonoBehaviour
     // coroutine to lerp objects color (does a highlight effect)
     private IEnumerator Highlight(Color color, float speed)
     {
+        if (render == null)
+        {
+            yield return null;
+        }
+
         while (canPickUp) // do color lerp
         {
             render.material.color = Color.Lerp(orignal, color, Mathf.PingPong(Time.time * speed, 1));

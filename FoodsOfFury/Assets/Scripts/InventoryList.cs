@@ -6,8 +6,6 @@ using UnityEngine;
 // Author: Jose Villanueva
 //
 // Description: This class acts as a manager for a list of 'GameObject's.
-//
-// TODO: add constructor to allow for initialization from Item array
 //----------------------------------------------------------------------------------------
 
 public class InventoryList
@@ -90,10 +88,20 @@ public class InventoryList
         }
     }
 
-    // returns false if empty
+    // returns true if empty
     public bool isEmpty()
     {
         if (list.Count == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    // returns true if at max
+    public bool atMax()
+    {
+        if (list.Count == max)
         {
             return true;
         }

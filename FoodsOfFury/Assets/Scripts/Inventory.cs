@@ -6,13 +6,12 @@ using UnityEngine;
 // Author: Jose Villanueva
 //
 // Description: This class manages a simple inventory of 'Weapon's and 'Consumable's.
-//
-// TODO: Overall Development, add constructor for inpector 
-//       initilization (Item array paramer and set lists)
 //----------------------------------------------------------------------------------------
 
 public class Inventory : MonoBehaviour
 {
+    public GameObject[] startingWeapons;
+    public GameObject[] startingConsumables;
     public int maxWeapons       = 0;    // max amount of weapons
     public int maxConsumables   = 0;    // max amount of consumables
 
@@ -23,6 +22,40 @@ public class Inventory : MonoBehaviour
     {
         weapons     = new InventoryList(maxWeapons);
         consumables = new InventoryList(maxConsumables);
+
+        // set starting weapons
+        if (startingWeapons != null)
+        {
+            foreach (GameObject weapon in startingWeapons)
+            {
+                if (!weapons.atMax())
+                {
+                    addWeapon(weapon); // add until we reach max
+                }
+                else
+                {
+                    print(gameObject.name + ": can't add anymore weapons. Inventory is at max weapons!");
+                    break;
+                }
+            }
+        }
+
+        // sets starting consumables
+        if (startingConsumables != null)
+        {
+            foreach (GameObject consumable in startingConsumables)
+            {
+                if (!consumables.atMax())
+                {
+                    addConsumable(consumable); // add until we reach max
+                }
+                else
+                {
+                    print(gameObject.name + ": can't add anymore consumables. Inventory is at max consumables!");
+                    break;
+                }
+            }
+        }
     }
 
     // return current item reference in list
@@ -59,25 +92,25 @@ public class Inventory : MonoBehaviour
         switch (type)
         {
             case ItemType.Weapon:
-                return addWeapon(type, item);
+                return addWeapon(item);
             case ItemType.Consumable:
-                return addConsumable(type, item);
+                return addConsumable(item);
             default:
                 return false;
         }
     }
 
     // add weapon to list
-    private bool addWeapon(ItemType type, GameObject item)
+    private bool addWeapon(GameObject item)
     {
         if (maxWeapons != 0)
         {
             GameObject copy = Instantiate(item, transform.position, transform.rotation, transform); // make copy and parent to gameobject
-            Destroy(copy.GetComponent<Pickupable>());           // remove 'Pickupable'
-            Destroy(copy.GetComponent<Rigidbody>());            // remove rigibody
-            copy.GetComponent<Collider>().enabled = false;      // turn off collider (non trigger)
-            copy.name = type.ToString();                        // set name
-            copy.SetActive(false);                              // make copy inactive
+            Destroy(copy.GetComponent<Pickupable>());       // remove 'Pickupable'
+            Destroy(copy.GetComponent<Rigidbody>());        // remove rigibody
+            copy.GetComponent<Collider>().enabled = false;  // turn off collider (non trigger)
+            copy.name = ItemType.Weapon.ToString();         // set name
+            copy.SetActive(false);                          // make copy inactive
 
             if (!weapons.add(copy)) // try to add item to list
             {
@@ -91,7 +124,7 @@ public class Inventory : MonoBehaviour
     }
 
     // add consumalbe to list
-    private bool addConsumable(ItemType type, GameObject item)
+    private bool addConsumable(GameObject item)
     {
         if (maxConsumables != 0)
         {
@@ -99,7 +132,7 @@ public class Inventory : MonoBehaviour
             Destroy(copy.GetComponent<Pickupable>());       // remove 'Pickupable'
             Destroy(copy.GetComponent<Rigidbody>());        // remove rigibody
             copy.GetComponent<Collider>().enabled = false;  // turn off collider (non trigger)
-            copy.name = type.ToString();                    // set name
+            copy.name = ItemType.Consumable.ToString();     // set name
             copy.SetActive(false);                          // make copy inactive
 
             if (!consumables.add(copy)) // try to add item to list

@@ -19,6 +19,8 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         inventory = GetComponent<Inventory>();
+        equipItem(ItemType.Weapon);
+        equipItem(ItemType.Consumable);
     }
 
     private void OnEnable()
