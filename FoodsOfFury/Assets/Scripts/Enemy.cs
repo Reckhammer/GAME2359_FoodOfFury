@@ -11,12 +11,22 @@ using UnityEngine.AI;
 //----------------------------------------------------------------------------------------
 public class Enemy : MonoBehaviour
 {
-    public  float           aggroRange  = 10;   //The distance in unity units to start aggressive behavior when player is in range
-    public  float           patrolTime  = 15;   //The wait time in seconds before moving to next waypoint
-    public  Transform[]     waypoints;          //Locations that the npc will travel to
+    //Enumeration to describe attacking behavior
+    public enum EnemyType { Melee, Range }; //Maybe we could make an enemy with both melee and range attacks?
+
+    public  EnemyType       attackType = EnemyType.Melee;   //Attack behavior of the enemy
+    public  float           attackRange = 1f;               //The distance in unity units to start attacking
+    public  float           aggroRange  = 10f;              //The distance in unity units to start aggressive behavior when player is in range
+    public  float           patrolTime  = 15f;              //The wait time in seconds before moving to next waypoint
+    public  float           attackRate  = 2f;               //The time between attacks
+    public  float           projectileSpeed = 100f;         //Speed of the projectile
+    public  Transform[]     waypoints;                      //Locations that the npc will travel to
+    public  Transform       attackPoint;                    //Child gameObj that the projectiles will come from or that is the hitbox of melee
+    public  GameObject      projectile;                     //GameObj. that will be shot out from attackPoint if it's a ranged enemy
 
     private int     index = 0;                  //Index of current waypoint
     private float   agentSpeed;                 //NavMesh movement speed. Maximum movement speed of enemy
+    private float   nextFire;                   //The next point in time where the enemy can attack again
 
     private Transform       player;             //Reference to the player's transform
     private Animator        animator;           //Reference to animator component
@@ -60,15 +70,55 @@ public class Enemy : MonoBehaviour
         index = index == waypoints.Length - 1 ? 0 : index++;
     }
 
+    //----------------------------------------------------------------------------------------
+    // attack() - handles the behavior when the enemy is attacking and damages player
+    //
+    //----------------------------------------------------------------------------------------
+    private void attack()
+    {
+        //Check if the enemy can attack again
+        if ( Time.time > nextFire )
+        {
+            //Use switch statement to jump to the code to do corresponding attack behavior
+            switch( attackType )
+            {
+                case EnemyType.Melee:
+                    Collider[] hitEnemies = Physics.OverlapSphere( attackPoint.position, attackRange, LayerMask.NameToLayer( "Player" ) );   //See if the attackPoint is colliding with the player
+                    Debug.Log( "Enemy Hit player" );
+                    //Insert damaging code here
+                    break;
+                case EnemyType.Range:
+                    GameObject projectileInst = Instantiate( projectile, attackPoint.position, Quaternion.identity ); //Create the projectile
+                    Rigidbody projectileRB = projectileInst.GetComponent<Rigidbody>(); //Get a reference to its rigidbody
+                    projectileRB.AddForce( Vector3.forward * projectileSpeed ); //add some force to send it forward
+                    break;
+            }
+
+            nextFire = Time.time + attackRate;
+        }
+    }
+
+    //----------------------------------------------------------------------------------------
+    // checkStatus() - control and change the behavior of the enemy
+    //
+    //----------------------------------------------------------------------------------------
+
     private void checkStatus()
     {
         //Patrol behavior
         agent.destination = waypoints[index].position;  //Tell the navmesh to move the enemy to the waypoint
         agent.speed = agentSpeed / 2;   //Set the movement to a walking pace
 
+
+        //Attack behavior
+        //Check if the player is w/in attackRange
+        if ( player != null && Vector3.Distance( transform.position, player.position ) < attackRange )
+        {
+            attack();
+        }
         //Aggro behavior
         //Check if the player is w/in aggroRange
-        if ( player != null && Vector3.Distance( transform.position, player.position ) < aggroRange )
+        else if ( player != null && Vector3.Distance( transform.position, player.position ) < aggroRange )
         {
             agent.destination = player.position;    //Tell the navmesh to move to the player
             agent.speed = agentSpeed;   //Set speed to their maximum speed

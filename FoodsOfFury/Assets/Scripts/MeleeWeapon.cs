@@ -37,7 +37,7 @@ public class MeleeWeapon : MonoBehaviour
 
     void Attack()
     {
-       Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
+        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
 
         foreach(Collider enemy in hitEnemies)
         {
