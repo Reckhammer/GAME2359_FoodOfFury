@@ -25,8 +25,13 @@ public class Health : MonoBehaviour
     }
 
     // adds to the health given a value normalized
-    public void add(float value)
+    public bool add(float value)
     {
+        if (amount == max || amount == 0) // don't set if full or dead
+        {
+            return false;
+        }
+
         // sum = amount + (value normalized to a positive)
         float sum = (value >= 0.0f) ? amount + value : amount + -value;
 
@@ -44,6 +49,8 @@ public class Health : MonoBehaviour
         {
             OnUpdate(amount); // send update message
         }
+
+        return true;
     }
 
     // subtracts from the health given a value normalized and starts the invincibility timer (if time is specified)

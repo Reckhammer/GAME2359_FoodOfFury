@@ -12,23 +12,27 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    Inventory inventory;
-    GameObject currWeapon;
-    GameObject currConsumable;
+    private Inventory inventory;        // inventory reference
+    private GameObject currWeapon;      // current reference to weapon object
+    private GameObject currConsumable;  // current reference to consumable object
+    private float oldHealth = 0.0f;     // old amount of health
 
     private void Start()
     {
         inventory = GetComponent<Inventory>();
         equipItem(ItemType.Weapon);
         equipItem(ItemType.Consumable);
+        oldHealth = GetComponent<Health>().amount;
     }
 
+    // subscribe to Health.OnUpdate() event
     private void OnEnable()
     {
         Health health = GetComponent<Health>();
         health.OnUpdate += HealthUpdated;
     }
 
+    // unsubscribe to Health.OnUpdate() event
     private void OnDisable()
     {
         Health health = GetComponent<Health>();
@@ -68,6 +72,20 @@ public class PlayerManager : MonoBehaviour
             currConsumable = null;
             inventory.remove(ItemType.Consumable);
         }
+
+        // use consumable
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (currConsumable != null) // if currConsumable exists
+            {
+                if (currConsumable.GetComponent<Consumable>().use(gameObject)) // if health was added
+                {
+                    currConsumable = null;                          // set currConsumable to null
+                    inventory.remove(ItemType.Consumable, false);   // remove consumable from inventory (dont drop in world)
+                    equipNextItem(ItemType.Consumable);             // equip next consumable
+                }
+            }
+        }
     }
 
     // equips item
@@ -77,7 +95,7 @@ public class PlayerManager : MonoBehaviour
         {
             case ItemType.Weapon:
                 currWeapon?.SetActive(false);       // set old item inactive
-                currWeapon = inventory.get(type);  // get item
+                currWeapon = inventory.get(type);   // get item
                 currWeapon?.SetActive(true);        // set new item active
                 break;
             case ItemType.Consumable:
@@ -113,16 +131,24 @@ public class PlayerManager : MonoBehaviour
     // Does health reactions
     private void HealthUpdated(float amount)
     {
-        if (amount == 0)
+        if (amount == 0) // // player died
         {
             doDie();
         }
-        else
+        else if (amount < oldHealth) // player damaged
         {
             print("Player was damaged!");
             // hurt animations?
             // update UI (from GameController)
         }
+        else if (amount > oldHealth) // player healed
+        {
+            print("Player was healed!");
+            // healed animations?
+            // update UI (from GameController)
+        }
+
+        oldHealth = amount;
     }
 
     // hangles death operations

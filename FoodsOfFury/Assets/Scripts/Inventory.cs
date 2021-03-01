@@ -10,13 +10,13 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public GameObject[] startingWeapons;
-    public GameObject[] startingConsumables;
-    public int maxWeapons       = 0;    // max amount of weapons
-    public int maxConsumables   = 0;    // max amount of consumables
+    public GameObject[] startingWeapons;        // weapons to start with
+    public GameObject[] startingConsumables;    // consumables to start with
+    public int maxWeapons       = 0;            // max amount of weapons
+    public int maxConsumables   = 0;            // max amount of consumables
 
-    private InventoryList weapons;      // list for 'Weapon' objects
-    private InventoryList consumables;  // list for 'Consumable' objects
+    private InventoryList weapons;              // list for 'Weapon' objects
+    private InventoryList consumables;          // list for 'Consumable' objects
 
     private void Awake()
     {
@@ -147,21 +147,21 @@ public class Inventory : MonoBehaviour
     }
 
     // remove item from inventory
-    public void remove(ItemType type)
+    public void remove(ItemType type, bool dropItemInWorld = true)
     {
         switch (type)
         {
             case ItemType.Weapon:
-                removeWeapon(type);
+                removeWeapon(type, dropItemInWorld);
                 break;
             case ItemType.Consumable:
-                removeConsumable(type);
+                removeConsumable(type, dropItemInWorld);
                 break;
         }
     }
 
     // removes current weapon
-    private void removeWeapon(ItemType type)
+    private void removeWeapon(ItemType type, bool dropItemInWorld = true)
     {
         GameObject reference = weapons.get(); // get reference from list
 
@@ -170,13 +170,17 @@ public class Inventory : MonoBehaviour
             return; // there is no object to drop, return
         }
 
-        drop(reference, type);  // drop new copy
+        if (dropItemInWorld)
+        {
+            drop(reference, type);  // drop new copy
+        }
+
         weapons.delete();       // delete reference from list
         Destroy(reference);     // destroy original item gameobject
     }
 
     // removes current consumable
-    private void removeConsumable(ItemType type)
+    private void removeConsumable(ItemType type, bool dropItemInWorld = true)
     {
         GameObject reference = consumables.get(); // get reference from list
 
@@ -185,7 +189,11 @@ public class Inventory : MonoBehaviour
             return; // there is no object to drop, return
         }
 
-        drop(reference, type);  // drop new copy
+        if (dropItemInWorld)
+        {
+            drop(reference, type);  // drop new copy
+        }
+
         consumables.delete();   // delete reference from list
         Destroy(reference);     // destroy original item gameobject
     }
