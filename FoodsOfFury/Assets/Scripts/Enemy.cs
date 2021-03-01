@@ -44,6 +44,12 @@ public class Enemy : MonoBehaviour
             agentSpeed = agent.speed;
         }
 
+        //if there is now waypoints given, initialize a waypoint to be on the enemy's position
+        if ( waypoints == null )
+        {
+            waypoints = new Transform[] { this.transform };
+        }
+
         //Do the checkStatus function repeatedly
         InvokeRepeating( "checkStatus", 0, 0.5f );
 
@@ -102,13 +108,11 @@ public class Enemy : MonoBehaviour
     // checkStatus() - control and change the behavior of the enemy
     //
     //----------------------------------------------------------------------------------------
-
     private void checkStatus()
     {
         //Patrol behavior
         agent.destination = waypoints[index].position;  //Tell the navmesh to move the enemy to the waypoint
         agent.speed = agentSpeed / 2;   //Set the movement to a walking pace
-
 
         //Attack behavior
         //Check if the player is w/in attackRange
