@@ -94,10 +94,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  glideSpeed: 5
   jumpHeight: 2
   dashForce: 10
   dashDelay: 0.5
-  glideRate: 10
   groundDistance: 0.2
   fallForce: 1
   rotationSpeed: 10
@@ -105,6 +105,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   airControll: 0.5
+  glideFallRate: 0.9
 --- !u!114 &280872964040223689
 MonoBehaviour:
   m_ObjectHideFlags: 0
