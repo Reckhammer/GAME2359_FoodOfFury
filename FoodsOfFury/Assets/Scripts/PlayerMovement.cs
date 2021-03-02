@@ -12,10 +12,10 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed              = 5f;           // speed if player
+    public float glideSpeed         = 1.0f;         // movement speed while gliding
     public float jumpHeight         = 2f;           // jump force of player
     public float dashForce          = 1.0f;         // force of dash
     public float dashDelay          = 0.5f;         // time before dash can be used again
-    public float glideRate          = 10f;          // drag rate when gliding
     public float groundDistance     = 0.2f;         // distance to check for ground
     public float fallForce          = 1.0f;         // downwards force when falling
     public float rotationSpeed      = 1.0f;         // speed of rotation
@@ -24,12 +24,14 @@ public class PlayerMovement : MonoBehaviour
     [Range(0.0f, 1.0f)]
     public float airControll = 0.5f;                // amount of controll while in air
 
+    [Range(1.0f, 0.0f)]
+    public float glideFallRate = 0.9f;              // falling rate for gliding (how much gravity)
+
     private Rigidbody rb;                           // rigidbody of player
     private bool inputStopped       = false;        // for stopping input
     private Transform groundChecker;                // position of groundchecker
     private Vector3 inputs          = Vector3.zero; // inputs from player
     private Vector3 movement        = Vector3.zero; // calculated velocity to move the character
-    private float originalDrag      = 1.0f;         // original drag of object
     private const int maxJump       = 1;            // max amount of jumps
     private int currentJump         = 0;            // current jump index
     private bool isGrounded         = true;         // for ground check
@@ -42,7 +44,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         groundChecker = transform.GetChild(0);
-        originalDrag = rb.drag;
     }
 
     private void FixedUpdate()
@@ -50,6 +51,11 @@ public class PlayerMovement : MonoBehaviour
         if (!inputStopped)
         {
             rb.AddForce(movement); // apply movement
+
+            if (isGliding)
+            {
+                rb.AddForce(-Physics.gravity * glideFallRate);
+            }
         }
 
         // if object is moving set rotation
@@ -75,25 +81,9 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, ground, QueryTriggerInteraction.Ignore);
         inputs = Vector3.zero;
 
-        // get player horzontal and vertical inputs
-        if (isGrounded) // normal movement
-        {
-            inputs.x = Input.GetAxisRaw("Vertical") * speed;
-            inputs.z = Input.GetAxisRaw("Horizontal") * speed;
-        }
-        else // in air, use air modifier
-        {
-            inputs.x = Input.GetAxisRaw("Vertical") * speed * airControll;
-            inputs.z = Input.GetAxisRaw("Horizontal") * speed * airControll;
-        }
-
-        checkSlope();           // get slope normal
-        calculateMovement();    // calculate movement
-
         // start glide if 'x' is pressed (when not grounded)
         if (Input.GetKey("x") && !isGrounded)
         {
-            rb.drag = glideRate;
             currentJump = 1;
             isGliding = true;
         }
@@ -101,9 +91,29 @@ public class PlayerMovement : MonoBehaviour
         // stop glide if 'x' is released or grounded
         if (Input.GetKeyUp("x") || isGrounded)
         {
-            rb.drag = originalDrag;
             isGliding = false;
         }
+
+        // get player horzontal and vertical inputs
+        if (isGrounded) // grounded movement
+        {
+            inputs.x = Input.GetAxisRaw("Vertical") * speed;
+            inputs.z = Input.GetAxisRaw("Horizontal") * speed;
+        }
+        else if (isGliding) // gliding movement
+        {
+            print("using glide modifier");
+            inputs.x = Input.GetAxisRaw("Vertical") * glideSpeed;
+            inputs.z = Input.GetAxisRaw("Horizontal") * glideSpeed;
+        }
+        else // air movement (not gliding)
+        {
+            inputs.x = Input.GetAxisRaw("Vertical") * speed * airControll;
+            inputs.z = Input.GetAxisRaw("Horizontal") * speed * airControll;
+        }
+
+        checkSlope();           // get slope normal
+        calculateMovement();    // calculate movement
 
         // reset currrentJump when grounded
         if (isGrounded)
