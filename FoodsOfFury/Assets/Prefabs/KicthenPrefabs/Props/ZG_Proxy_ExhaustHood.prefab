@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1874103005013556530}
   - component: {fileID: 3291565447016362647}
   - component: {fileID: 741134730166847069}
+  - component: {fileID: 2669090902765641065}
   m_Layer: 0
   m_Name: ZG_Proxy_ExhaustHood
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1245797717622613896}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.8367443, y: 55.59493, z: -100.52309}
   m_LocalScale: {x: 12.297988, y: 8.322522, z: 8.322522}
   m_Children: []
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2669090902765641065
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245797717622613896}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.489685, y: 1.2059954, z: 0.82181454}
+  m_Center: {x: 0, y: 0, z: 0}
