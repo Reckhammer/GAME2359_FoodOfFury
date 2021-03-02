@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/*-------------------------------------------------------
- * Author: Abdon J. Puente IV, Jose Villanueva
- * 
- *  Description: This class handles the players movement
- *  
- *  */
+//----------------------------------------------------------------------------------------
+// Author: Abdon J. Puente IV, Jose Villanueva
+//
+// Description: This class handles the players movement
+//----------------------------------------------------------------------------------------
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -102,7 +101,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (isGliding) // gliding movement
         {
-            print("using glide modifier");
             inputs.x = Input.GetAxisRaw("Vertical") * glideSpeed;
             inputs.z = Input.GetAxisRaw("Horizontal") * glideSpeed;
         }

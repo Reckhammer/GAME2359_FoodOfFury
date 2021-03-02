@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//----------------------------------------------------------------------------------------
+// Author: Jose Villanueva
+//
+// Description: Acts as a moving platform allowing selected gameobjects to move with
+//              this object
+//----------------------------------------------------------------------------------------
+
 public class MovingPlatform : MonoBehaviour
 {
-    public LayerMask stickTo;
+    public LayerMask stickTo; // objects that can stick to platform
 
     private void Start()
     {
