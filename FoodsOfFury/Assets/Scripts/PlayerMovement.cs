@@ -176,6 +176,10 @@ public class PlayerMovement : MonoBehaviour
             //float angle = Vector3.Angle(hit.normal, transform.forward);
             //print("angle: " + angle);
         }
+        else
+        {
+            groundNormal = Vector3.up; // no normal detected, set to world up
+        }
     }
 
     public void applyExtraForce(Vector3 force, float inputStopDuration = 0.0f)
