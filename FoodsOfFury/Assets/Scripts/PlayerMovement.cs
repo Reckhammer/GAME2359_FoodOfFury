@@ -10,34 +10,34 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed              = 5f;           // speed if player
-    public float glideSpeed         = 1.0f;         // movement speed while gliding
-    public float jumpHeight         = 2f;           // jump force of player
-    public float dashForce          = 1.0f;         // force of dash
-    public float dashDelay          = 0.5f;         // time before dash can be used again
-    public float groundDistance     = 0.2f;         // distance to check for ground
-    public float fallForce          = 1.0f;         // downwards force when falling
-    public float rotationSpeed      = 1.0f;         // speed of rotation
-    public LayerMask ground;                        // layers to check if grounded
+    public float speed                  = 5f;           // speed if player
+    public float glideSpeed             = 1.0f;         // movement speed while gliding
+    public float jumpHeight             = 2f;           // jump force of player
+    public float dashForce              = 1.0f;         // force of dash
+    public float dashDelay              = 0.5f;         // time before dash can be used again
+    public float groundDistance         = 0.2f;         // distance to check for ground
+    public float fallForce              = 1.0f;         // downwards force when falling
+    public float rotationSpeed          = 1.0f;         // speed of rotation
+    public LayerMask ground;                            // layers to check if grounded
 
     [Range(0.0f, 1.0f)]
-    public float airControll = 0.5f;                // amount of controll while in air
+    public float airControll            = 0.5f;         // amount of controll while in air
 
     [Range(1.0f, 0.0f)]
-    public float glideFallRate = 0.9f;              // falling rate for gliding (how much gravity)
+    public float glideFallRate          = 0.9f;         // falling rate for gliding (how much gravity)
 
-    private Rigidbody rb;                           // rigidbody of player
-    private bool inputStopped       = false;        // for stopping input
-    private Transform groundChecker;                // position of groundchecker
-    private Vector3 inputs          = Vector3.zero; // inputs from player
-    private Vector3 movement        = Vector3.zero; // calculated velocity to move the character
-    private const int maxJump       = 1;            // max amount of jumps
-    private int currentJump         = 0;            // current jump index
-    private bool isGrounded         = true;         // for ground check
-    private bool isGliding          = false;        // for gliding check
-    private bool canDash            = true;         // for dash delay check
-    private Vector3 groundNormal    = Vector3.up;   // normal of the ground
-    private Coroutine extraForceCr  = null;         // reference to ExtraForeceTime coroutine
+    private Rigidbody rb                = null;         // rigidbody of player
+    private bool inputStopped           = false;        // for stopping input
+    private Transform groundChecker     = null;         // position of groundchecker
+    private Vector3 inputs              = Vector3.zero; // inputs from player
+    private Vector3 movement            = Vector3.zero; // calculated velocity to move the character
+    private const int maxJump           = 1;            // max amount of jumps
+    private int currentJump             = 0;            // current jump index
+    private bool isGrounded             = true;         // for ground check
+    private bool isGliding              = false;        // for gliding check
+    private bool canDash                = true;         // for dash delay check
+    private Vector3 groundNormal        = Vector3.up;   // normal of the ground
+    private Coroutine extraForceCr      = null;         // reference to ExtraForeceTime coroutine
 
     private void Awake()
     {
@@ -77,8 +77,9 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        // check ground
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, ground, QueryTriggerInteraction.Ignore);
-        inputs = Vector3.zero;
+        inputs = Vector3.zero; // reset inputs
 
         // start glide if 'x' is pressed (when not grounded)
         if (Input.GetKey("x") && !isGrounded)
@@ -113,10 +114,15 @@ public class PlayerMovement : MonoBehaviour
         checkSlope();           // get slope normal
         calculateMovement();    // calculate movement
 
-        // reset currrentJump when grounded
+        // when grounded reset current jump and turn off gravity
         if (isGrounded)
         {
             currentJump = 0;
+            rb.useGravity = false;
+        }
+        else
+        {
+            rb.useGravity = true;
         }
 
         // space bar makes the character jump
@@ -156,7 +162,7 @@ public class PlayerMovement : MonoBehaviour
     // sets groundNormal to the normal of the ground
     private void checkSlope(float distance = 1.0f)
     {
-        Vector3 start = groundChecker.position;
+        Vector3 start = groundChecker.position + (Vector3.up * 0.1f); // ground position, but a little up (to get ground that is close)
         Vector3 end = groundChecker.position + (Vector3.down * distance);
         Debug.DrawLine(start, end, Color.green);
 
@@ -164,7 +170,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Physics.Raycast(start, Vector3.down, out hit, distance, ground, QueryTriggerInteraction.Ignore))
         {
-            //Debug.DrawLine(start, start + (hit.normal * 5.0f), Color.red); // draw normal of ground
+            Debug.DrawLine(start, start + (hit.normal * 5.0f), Color.red); // draw normal of ground
             groundNormal = hit.normal;
 
             //float angle = Vector3.Angle(hit.normal, Vector3.up);
@@ -182,6 +188,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // applies extra force to gameobject with an option of stopping player input for a duration
     public void applyExtraForce(Vector3 force, float inputStopDuration = 0.0f)
     {
         rb.AddForce(-rb.velocity, ForceMode.VelocityChange);    // cancel current velocity
@@ -199,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // timer for stopping input
     private IEnumerator InputStopTimer(float duration)
     {
         float passed = 0.0f;
@@ -213,6 +221,7 @@ public class PlayerMovement : MonoBehaviour
         inputStopped = false;
     }
 
+    // timer for dash delay
     private IEnumerator DashDelayTimer()
     {
         float passed = 0.0f;
@@ -225,5 +234,25 @@ public class PlayerMovement : MonoBehaviour
         }
 
         canDash = true;
+    }
+
+    // DEBUG: draw ground checker sphere
+    private void OnDrawGizmos()
+    {
+        if (!Application.isPlaying)
+        { 
+            return;
+        }
+
+        if (isGrounded)
+        {
+            Gizmos.color = Color.cyan;
+        }
+        else
+        {
+            Gizmos.color = Color.yellow;
+        }
+
+        Gizmos.DrawSphere(groundChecker.position, groundDistance);
     }
 }
