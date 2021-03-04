@@ -31,6 +31,11 @@ public class MovingPlatform : MonoBehaviour
             {
                 //print("parenting: " + other.gameObject);
                 other.transform.SetParent(transform); // set parent to parent of this obj
+
+                if (other.tag == "Player")
+                {
+                    other.attachedRigidbody.interpolation = RigidbodyInterpolation.None;
+                }
             }
         }
     }
@@ -41,6 +46,11 @@ public class MovingPlatform : MonoBehaviour
         {
             //print("unparenting: " + other.gameObject);
             other.transform.SetParent(null);
+
+            if (other.tag == "Player")
+            {
+                other.attachedRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+            }
         }
     }
 }
