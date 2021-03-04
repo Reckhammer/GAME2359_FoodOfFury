@@ -57,7 +57,7 @@ public class Damaging : MonoBehaviour
         switch (obj.tag)
         {
             case "Player":
-                obj.GetComponentInParent<PlayerMovement>().applyExtraForce(dir * knockbackForce);
+                obj.GetComponentInParent<PlayerMovement>().applyExtraForce(dir * knockbackForce, 0.1f);
                 break;
             default:
                 obj.GetComponentInParent<Rigidbody>().AddForce(dir * knockbackForce, ForceMode.VelocityChange); // apply basic knockback

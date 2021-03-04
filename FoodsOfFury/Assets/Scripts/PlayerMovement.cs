@@ -26,6 +26,9 @@ public class PlayerMovement : MonoBehaviour
     [Range(1.0f, 0.0f)]
     public float glideFallRate          = 0.9f;         // falling rate for gliding (how much gravity)
 
+    [Range(0.0f, 1.0f)]
+    public float slowDownRate           = 0.1f;         // rate to slow down player when not moving
+
     private Rigidbody rb                = null;         // rigidbody of player
     private bool inputStopped           = false;        // for stopping input
     private Transform groundChecker     = null;         // position of groundchecker
@@ -38,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private bool canDash                = true;         // for dash delay check
     private Vector3 groundNormal        = Vector3.up;   // normal of the ground
     private Coroutine extraForceCr      = null;         // reference to ExtraForeceTime coroutine
+    private float extraForceTime        = 0.0f;         // time to allow extra force to be applied
 
     private void Awake()
     {
@@ -55,6 +59,26 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.AddForce(-Physics.gravity * glideFallRate);
             }
+
+            // slow player down when on ground, no input and not in extra force
+            if (isGrounded && movement == Vector3.zero && extraForceTime == 0.0)
+            {
+                if (rb.velocity.magnitude > 0.1f) // stop calculating when not needed (already slowed down)
+                {
+                    Vector3 velocityChange = Vector3.Scale(rb.velocity, new Vector3(1, 1, 1) * -slowDownRate); // velocityChange = opposite velocity * rate
+                    rb.AddForce(velocityChange, ForceMode.VelocityChange);
+                }
+                else
+                {
+                    rb.velocity = Vector3.zero; // stop player
+                }
+            }
+            else if (extraForceTime == 0.0 && rb.velocity.magnitude > speed) // slow down if not in extra force and going faster than speed
+            {
+                Vector3 velocityChange = Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));  // get velocity without y (leave gravity alone)
+                velocityChange -= velocityChange * speed;                                   // calculate difference between velocity and max velocity
+                rb.AddForce(velocityChange);                                                // apply difference to return to normal (unless it was gravity)
+            }
         }
 
         // if object is moving set rotation
@@ -68,6 +92,8 @@ public class PlayerMovement : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.fixedDeltaTime * rotationSpeed); // slerp rotation with rotation speed
             }
         }
+
+        extraForceTime = (extraForceTime > 0.0f) ? extraForceTime - Time.fixedDeltaTime : 0.0f; // decrease timer
     }
 
     private void Update()
@@ -193,6 +219,8 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.AddForce(-rb.velocity, ForceMode.VelocityChange);    // cancel current velocity
         rb.AddForce(force, ForceMode.VelocityChange);           // applyforce
+
+        extraForceTime = 1.0f; // since we do a velocity change, time to complete extra force is roughly 1 second
 
         if (extraForceCr != null) // new movement stop timer
         {

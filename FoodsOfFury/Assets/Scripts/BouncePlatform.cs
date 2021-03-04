@@ -46,7 +46,7 @@ public class BouncePlatform : MonoBehaviour
         switch (obj.tag)
         {
             case "Player":
-                obj.GetComponentInParent<PlayerMovement>().applyExtraForce(direction * bounceForce);
+                obj.GetComponentInParent<PlayerMovement>().applyExtraForce(direction * bounceForce, 0.1f);
                 break;
             default:
                 obj.GetComponent<Rigidbody>().AddForce(direction * bounceForce, ForceMode.VelocityChange); // apply basic bounce force
