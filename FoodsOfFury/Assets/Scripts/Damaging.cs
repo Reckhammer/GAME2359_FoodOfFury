@@ -26,16 +26,19 @@ public class Damaging : MonoBehaviour
             return;
         }
 
-        // iterate through targets and compare with 'other.tag'
-        foreach (string target in targets)
+        if (other.transform.parent == null) // check if parent
         {
-            if (other.tag == target)
+            // iterate through targets and compare with 'other.tag'
+            foreach (string target in targets)
             {
-                other.GetComponentInParent<Health>().subtract(damageAmount, delayAmount); // subtract from other's 'health' and add delay
-
-                if (doesKnockback)
+                if (other.tag == target)
                 {
-                    doKnockback(other.gameObject);
+                    other.GetComponentInParent<Health>().subtract(damageAmount, delayAmount); // subtract from other's 'health' and add delay
+
+                    if (doesKnockback)
+                    {
+                        doKnockback(other.gameObject);
+                    }
                 }
             }
         }

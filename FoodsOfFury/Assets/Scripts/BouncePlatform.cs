@@ -31,9 +31,12 @@ public class BouncePlatform : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (allowBounce == (allowBounce | (1 << other.gameObject.layer))) // check if object is in layermask
+        if (other.transform.parent == null) // check if parent
         {
-            doBounce(other.gameObject);
+            if (allowBounce == (allowBounce | (1 << other.gameObject.layer))) // check if object is in layermask
+            {
+                doBounce(other.gameObject);
+            }
         }
     }
 
