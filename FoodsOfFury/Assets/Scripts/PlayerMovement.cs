@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; // get rid of this later
 
 //----------------------------------------------------------------------------------------
 // Author: Abdon J. Puente IV, Jose Villanueva
@@ -172,6 +173,12 @@ public class PlayerMovement : MonoBehaviour
                 applyExtraForce(movement.normalized * dashForce, 0.1f); // apply dash
                 StartCoroutine(DashDelayTimer());                       // start dash delay timer
             }
+        }
+
+        // DEBUG: RESET LEVEL (delete later)
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
