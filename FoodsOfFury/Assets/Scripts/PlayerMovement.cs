@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
                     rb.velocity = Vector3.zero; // stop player
                 }
             }
-            else if (extraForceTime == 0.0 && rb.velocity.magnitude > speed) // slow down if not in extra force and going faster than speed
+            else if (isGrounded && extraForceTime == 0.0 && rb.velocity.magnitude > speed) // slow down if grounded, not in extra force and going faster than speed
             {
                 Vector3 velocityChange = Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));  // get velocity without y (leave gravity alone)
                 velocityChange -= velocityChange * speed;                                   // calculate difference between velocity and max velocity
