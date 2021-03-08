@@ -2679,6 +2679,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &1227798434
@@ -3212,17 +3213,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_ProtoType
       objectReference: {fileID: 0}
-    - target: {fileID: 4270859069507631202, guid: 6d5a26b43ba7291449680b97ed6354fe, type: 3}
-      propertyPath: Speed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4270859069507631202, guid: 6d5a26b43ba7291449680b97ed6354fe, type: 3}
-      propertyPath: JumpHeight
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4270859069507631203, guid: 6d5a26b43ba7291449680b97ed6354fe, type: 3}
-      propertyPath: m_Constraints
-      value: 80
+    - target: {fileID: 4270859069507631207, guid: 6d5a26b43ba7291449680b97ed6354fe, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4270859069507631207, guid: 6d5a26b43ba7291449680b97ed6354fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3237,6 +3230,10 @@ PrefabInstance:
       value: 101.15287
       objectReference: {fileID: 0}
     - target: {fileID: 4270859069507631207, guid: 6d5a26b43ba7291449680b97ed6354fe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270859069507631207, guid: 6d5a26b43ba7291449680b97ed6354fe, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -3247,14 +3244,6 @@ PrefabInstance:
     - target: {fileID: 4270859069507631207, guid: 6d5a26b43ba7291449680b97ed6354fe, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4270859069507631207, guid: 6d5a26b43ba7291449680b97ed6354fe, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4270859069507631207, guid: 6d5a26b43ba7291449680b97ed6354fe, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4270859069507631207, guid: 6d5a26b43ba7291449680b97ed6354fe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
