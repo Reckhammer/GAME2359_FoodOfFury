@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        groundChecker = transform.GetChild(0);
+        groundChecker = transform.GetChild(1);
     }
 
     private void FixedUpdate()
