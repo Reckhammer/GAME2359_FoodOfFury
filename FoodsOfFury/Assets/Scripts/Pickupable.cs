@@ -34,7 +34,7 @@ public class Pickupable : MonoBehaviour
                 render.material.color = orignal;    // return to orignal color (before pickup)
             }
 
-            if (player.GetComponentInParent<Inventory>().add(type, gameObject))
+            if (player.GetComponentInParent<Inventory>().add(gameObject, type))
             {
                 player.GetComponentInParent<PlayerManager>().equipItem(type); // call player manager to equip item
                 Destroy(gameObject); // item succesfully added, delete this object
