@@ -74,6 +74,7 @@ public class PlayerManager : MonoBehaviour
         {
             currWeapon = null;
             inventory.remove(ItemType.Weapon);
+            equipNextItem(ItemType.Weapon);
         }
 
         // remove consumable
@@ -81,6 +82,7 @@ public class PlayerManager : MonoBehaviour
         {
             currConsumable = null;
             inventory.remove(ItemType.Consumable);
+            equipNextItem(ItemType.Consumable);
         }
 
         // use consumable
