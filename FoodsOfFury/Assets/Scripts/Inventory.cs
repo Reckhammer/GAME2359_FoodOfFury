@@ -204,13 +204,16 @@ public class Inventory : MonoBehaviour
         GameObject copy = Instantiate(item);
         Pickupable p = copy.AddComponent<Pickupable>();                         // Add 'Pickable' component
         p.type = type;                                                          // set item type
-        copy.AddComponent<Rigidbody>();                                         // add rigidbody
+        Rigidbody rb = copy.AddComponent<Rigidbody>();                          // add rigidbody
         copy.GetComponent<Collider>().enabled = true;                           // turn on collider (non trigger)
-        copy.transform.position = transform.position + (transform.forward * 5); // set item in front of this object
+        copy.transform.position = transform.position;                           // set item position to this object
         copy.transform.rotation = transform.rotation;                           // set rotation to this rotation
         copy.name = type.ToString();                                            // set name to type
         copy.SetActive(true);                                                   // make item active
+        rb.AddForce(transform.forward * 5.0f, ForceMode.VelocityChange);        // throw item
     }
+
+
 
     // prints inventory items
     public void printInventory()
