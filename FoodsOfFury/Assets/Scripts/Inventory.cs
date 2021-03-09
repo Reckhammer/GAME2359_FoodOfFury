@@ -113,7 +113,7 @@ public class Inventory : MonoBehaviour
             if (!list.add(copy)) // try to add item to list
             {
                 removeFromList(ref list, type);             // add failed (list at max), remove current item from list
-                consumables.add(copy);                      // add item (swap)
+                list.add(copy);                             // add item (swap)
             }
 
             return true;
