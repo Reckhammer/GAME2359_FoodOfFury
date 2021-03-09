@@ -49,7 +49,9 @@ public class BouncePlatform : MonoBehaviour
                 obj.GetComponentInParent<PlayerMovement>().applyExtraForce(direction * bounceForce, 0.1f);
                 break;
             default:
-                obj.GetComponent<Rigidbody>().AddForce(direction * bounceForce, ForceMode.VelocityChange); // apply basic bounce force
+                Rigidbody rb = obj.GetComponent<Rigidbody>();
+                rb.AddForce(-rb.velocity, ForceMode.VelocityChange);            // cancel current velocity
+                rb.AddForce(direction * bounceForce, ForceMode.VelocityChange); // apply basic bounce force
                 break;
         }
     }
