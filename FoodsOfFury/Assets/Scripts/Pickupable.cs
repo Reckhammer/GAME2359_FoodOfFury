@@ -38,7 +38,7 @@ public class Pickupable : MonoBehaviour
             {
                 if (type == ItemType.Consumable)
                 {
-                    AudioController.Instance.playRandom(transform.position, "Pickup_Health_1", "Pickup_Health_2", "Pickup_Health_3");
+                    AudioManager.Instance.playRandom(transform.position, "Pickup_Health_1", "Pickup_Health_2", "Pickup_Health_3");
                 }
                 player.GetComponentInParent<PlayerManager>().equipItem(type); // call player manager to equip item
                 Destroy(gameObject); // item succesfully added, delete this object

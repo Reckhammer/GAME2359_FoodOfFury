@@ -9,24 +9,24 @@ using UnityEngine;
 //              to AudioSource's and allows the playing of their audio
 //----------------------------------------------------------------------------------------
 
-public class AudioController : MonoBehaviour
+public class AudioManager : MonoBehaviour
 {
-    private static AudioController instance; // AudioController instance
+    private static AudioManager instance; // AudioController instance
 
     private Dictionary<string, AudioSource> records = new Dictionary<string, AudioSource>(); // dictionary of AudioSources by Name
 
     public AudioSource[] audioInfo; // list of references to be set up
     
     // this creates the instance if there is none when accessed
-    public static AudioController Instance
+    public static AudioManager Instance
     {
         get
         {
             if (instance == null) // create from resources folder if accessed but none exists (if moved in folder, this needs to be relinked)
             {
-                GameObject go = Instantiate(Resources.Load("AudioController", typeof(GameObject))) as GameObject;
-                instance = go.GetComponent<AudioController>();
-                go.name = "AudioController";
+                GameObject go = Instantiate(Resources.Load("AudioManager", typeof(GameObject))) as GameObject;
+                instance = go.GetComponent<AudioManager>();
+                go.name = "AudioManager";
                 DontDestroyOnLoad(instance);
             }
 
