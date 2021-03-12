@@ -155,6 +155,7 @@ public class PlayerMovement : MonoBehaviour
         // space bar makes the character jump
         if (Input.GetButtonDown("Jump") && (isGrounded || maxJump > currentJump))
         {
+            AudioController.Instance.playRandom(transform.position, "Rollo_Jump_1", "Rollo_Jump_2").transform.SetParent(transform);
             rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
             currentJump++;
         }
