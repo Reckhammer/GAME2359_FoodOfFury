@@ -94,19 +94,19 @@ public class AudioController : MonoBehaviour
         }
     }
 
-    // DEBUG: DELETE THIS
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Alpha5))
-    //    {
-    //        printList();
-    //    }
+    // play random audio source from clips
+    public AudioSource playRandom(Vector3 position, params string[] clips)
+    {
+        int index = Random.Range(0, clips.Length);
+        return play(clips[index], position);
+    }
 
-    //    if (Input.GetKeyDown(KeyCode.Alpha6))
-    //    {
-    //        play("TESTING AUDIO", transform.position);
-    //    }
-    //}
+    // play random audio source from clips
+    public AudioSource playRandom(Vector3 position, bool destroyAfterPlay, params string[] clips)
+    {
+        int index = Random.Range(0, clips.Length);
+        return play(clips[index], position, destroyAfterPlay);
+    }
 
     // DEBUG: print all objects in dictionary
     public void printList()
