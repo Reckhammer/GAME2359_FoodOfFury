@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1927287014084238789}
   - component: {fileID: 3247309490092626528}
   - component: {fileID: 789314724380092074}
-  m_Layer: 0
+  - component: {fileID: 2522952599137437956}
+  m_Layer: 8
   m_Name: TV_Proxy_SquarePlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1293881091694167935}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 27.171518, y: 4.347873, z: 5.679234}
   m_LocalScale: {x: 155.80066, y: 155.80066, z: 155.80066}
   m_Children: []
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2522952599137437956
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1293881091694167935}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.009999999, y: 0.0029999998, z: 0.009999999}
+  m_Center: {x: 0, y: 0, z: 0}

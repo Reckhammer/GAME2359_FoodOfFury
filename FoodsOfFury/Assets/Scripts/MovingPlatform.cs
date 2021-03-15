@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//----------------------------------------------------------------------------------------
+// Author: Jose Villanueva
+//
+// Description: Acts as a moving platform allowing selected gameobjects to move with
+//              this object
+//----------------------------------------------------------------------------------------
+
 public class MovingPlatform : MonoBehaviour
 {
-    public LayerMask stickTo;
+    public LayerMask stickTo; // objects that can stick to platform
 
     private void Start()
     {
@@ -24,6 +31,11 @@ public class MovingPlatform : MonoBehaviour
             {
                 //print("parenting: " + other.gameObject);
                 other.transform.SetParent(transform); // set parent to parent of this obj
+
+                if (other.tag == "Player")
+                {
+                    other.attachedRigidbody.interpolation = RigidbodyInterpolation.None;
+                }
             }
         }
     }
@@ -34,6 +46,11 @@ public class MovingPlatform : MonoBehaviour
         {
             //print("unparenting: " + other.gameObject);
             other.transform.SetParent(null);
+
+            if (other.tag == "Player")
+            {
+                other.attachedRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+            }
         }
     }
 }

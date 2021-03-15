@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
     {
         //if the index is at the last index of the array, set it to 0
         //else add 1 to the current index
-        index = index == waypoints.Length - 1 ? 0 : index++;
+        index = index == (waypoints.Length - 1) ? 0 : index + 1;
     }
 
     //----------------------------------------------------------------------------------------
@@ -118,6 +118,7 @@ public class Enemy : MonoBehaviour
         //Check if the player is w/in attackRange
         if ( player != null && Vector3.Distance( transform.position, player.position ) < attackRange )
         {
+            agent.speed = 0;
             attack();
         }
         //Aggro behavior

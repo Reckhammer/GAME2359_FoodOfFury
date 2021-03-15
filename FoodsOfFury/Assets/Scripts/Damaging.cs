@@ -26,16 +26,19 @@ public class Damaging : MonoBehaviour
             return;
         }
 
-        // iterate through targets and compare with 'other.tag'
-        foreach (string target in targets)
+        if (other.transform.parent == null) // check if parent
         {
-            if (other.tag == target)
+            // iterate through targets and compare with 'other.tag'
+            foreach (string target in targets)
             {
-                other.GetComponentInParent<Health>().subtract(damageAmount, delayAmount); // subtract from other's 'health' and add delay
-
-                if (doesKnockback)
+                if (other.tag == target)
                 {
-                    doKnockback(other.gameObject);
+                    other.GetComponentInParent<Health>().subtract(damageAmount, delayAmount); // subtract from other's 'health' and add delay
+
+                    if (doesKnockback)
+                    {
+                        doKnockback(other.gameObject);
+                    }
                 }
             }
         }
@@ -54,7 +57,7 @@ public class Damaging : MonoBehaviour
         switch (obj.tag)
         {
             case "Player":
-                obj.GetComponentInParent<PlayerMovement>().applyExtraForce(dir * knockbackForce);
+                obj.GetComponentInParent<PlayerMovement>().applyExtraForce(dir * knockbackForce, 0.1f);
                 break;
             default:
                 obj.GetComponentInParent<Rigidbody>().AddForce(dir * knockbackForce, ForceMode.VelocityChange); // apply basic knockback

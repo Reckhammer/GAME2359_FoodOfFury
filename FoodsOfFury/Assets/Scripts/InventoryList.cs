@@ -50,7 +50,7 @@ public class InventoryList
             return null;
         }
 
-        current = (current + 1 != max && current + 1 != list.Count) ? current + 1 : 0; // update current to next available index (loops back to beginning '0')
+        current = (current + 1 <= max && current + 1 <= list.Count - 1) ? current + 1 : 0; // update current to next available index (loops back to beginning '0')
 
         return list[current];
     }

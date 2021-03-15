@@ -5,9 +5,7 @@ using UnityEngine;
 //----------------------------------------------------------------------------------------
 // Author: Jose Villanueva
 //
-// Description: Empty 'Consumable' class
-//
-// TODO: Overall development
+// Description: Acts as a health consumable that modifies a gameobjects 'Health' amount
 //----------------------------------------------------------------------------------------
 
 public class Consumable : MonoBehaviour

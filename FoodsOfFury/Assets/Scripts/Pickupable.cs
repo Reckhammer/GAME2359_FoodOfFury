@@ -34,8 +34,12 @@ public class Pickupable : MonoBehaviour
                 render.material.color = orignal;    // return to orignal color (before pickup)
             }
 
-            if (player.GetComponentInParent<Inventory>().add(type, gameObject))
+            if (player.GetComponentInParent<Inventory>().add(gameObject, type))
             {
+                if (type == ItemType.Consumable)
+                {
+                    AudioManager.Instance.playRandom(transform.position, "Pickup_Health_1", "Pickup_Health_2", "Pickup_Health_3");
+                }
                 player.GetComponentInParent<PlayerManager>().equipItem(type); // call player manager to equip item
                 Destroy(gameObject); // item succesfully added, delete this object
             }

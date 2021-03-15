@@ -7,7 +7,7 @@ using UnityEngine;
 //
 // Description: This class manages the player overall (health, inventory, UI)
 //
-// TODO: Overall Development, add UI
+// TODO: Overall Development
 //----------------------------------------------------------------------------------------
 
 public class PlayerManager : MonoBehaviour
@@ -23,6 +23,16 @@ public class PlayerManager : MonoBehaviour
         equipItem(ItemType.Weapon);
         equipItem(ItemType.Consumable);
         oldHealth = GetComponent<Health>().amount;
+
+        if (GameController.instance != null)
+        {
+            GameController.instance.setHealthBarMax(GetComponent<Health>().max);
+            GameController.instance.updateHealthBar(oldHealth);
+        }
+        else
+        {
+            print("GameController missing!!!");
+        }
     }
 
     // subscribe to Health.OnUpdate() event
@@ -64,6 +74,7 @@ public class PlayerManager : MonoBehaviour
         {
             currWeapon = null;
             inventory.remove(ItemType.Weapon);
+            equipNextItem(ItemType.Weapon);
         }
 
         // remove consumable
@@ -71,6 +82,7 @@ public class PlayerManager : MonoBehaviour
         {
             currConsumable = null;
             inventory.remove(ItemType.Consumable);
+            equipNextItem(ItemType.Consumable);
         }
 
         // use consumable
@@ -133,19 +145,21 @@ public class PlayerManager : MonoBehaviour
     {
         if (amount == 0) // // player died
         {
+            GameController.instance?.updateHealthBar(amount);
             doDie();
         }
         else if (amount < oldHealth) // player damaged
         {
             print("Player was damaged!");
+            AudioManager.Instance.playRandom(transform.position, "Rollo_Hurt_1", "Rollo_Hurt_2", "Rollo_Hurt_3").transform.SetParent(transform);
             // hurt animations?
-            // update UI (from GameController)
+            GameController.instance?.updateHealthBar(amount);
         }
         else if (amount > oldHealth) // player healed
         {
             print("Player was healed!");
             // healed animations?
-            // update UI (from GameController)
+            GameController.instance?.updateHealthBar(amount);
         }
 
         oldHealth = amount;
