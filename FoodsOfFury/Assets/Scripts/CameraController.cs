@@ -11,6 +11,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform target;                            // transform of target
+    public GameObject targetVisuals;                    // visuals to turn off if colliding with camera
     //public Vector3 offset     = new Vector3(0, 0, 0); // camera offset (not used)
     public float scrollSpeed  = 2.0f;                   // scroll speed for camera distance
     //public float cameraSmooth = 0.0f;                 // camera smooth modifier (not used)
@@ -35,6 +36,11 @@ public class CameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         cam = GetComponent<Camera>();
         wantedDistance = cameraDistance;
+
+        if (!GetComponent<Collider>())
+        {
+            gameObject.AddComponent<CapsuleCollider>().isTrigger = true;
+        }
     }
 
     void Update()
@@ -61,6 +67,22 @@ public class CameraController : MonoBehaviour
         transform.position = target.position + rotation * new Vector3(0, 0, -cameraDistance);   // set position
         //smoothFollow();
         transform.LookAt(target.position);                                                      // set rotation towards target
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player" && targetVisuals != null)
+        {
+            targetVisuals.SetActive(false);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player" && targetVisuals != null)
+        {
+            targetVisuals.SetActive(true);
+        }
     }
 
     // smoothly follows the target (this breaks collision checks if used)
