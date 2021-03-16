@@ -109,11 +109,29 @@ public class PlayerManager : MonoBehaviour
                 currWeapon?.SetActive(false);       // set old item inactive
                 currWeapon = inventory.get(type);   // get item
                 currWeapon?.SetActive(true);        // set new item active
+
+                if (currWeapon != null) // update UI
+                {
+                    GameController.instance.updateWeaponUI(currWeapon.GetComponent<Weapon>().sprite);
+                }
+                else
+                {
+                    GameController.instance.updateWeaponUI(null);
+                }
                 break;
             case ItemType.Consumable:
                 currConsumable?.SetActive(false);
                 currConsumable = inventory.get(type);
                 currConsumable?.SetActive(true);
+
+                if (currConsumable != null) // update UI
+                {
+                    GameController.instance.updateConsumablesUI(currConsumable.GetComponent<Consumable>().sprite);
+                }
+                else
+                {
+                    GameController.instance.updateConsumablesUI(null);
+                }
                 break;
             default:
                 break;
@@ -129,11 +147,29 @@ public class PlayerManager : MonoBehaviour
                 currWeapon?.SetActive(false);       // set old item inactive
                 currWeapon = inventory.next(type);  // get next item 
                 currWeapon?.SetActive(true);        // set new item active
+
+                if (currWeapon != null) // update UI
+                {
+                    GameController.instance.updateWeaponUI(currWeapon.GetComponent<Weapon>().sprite);
+                }
+                else
+                {
+                    GameController.instance.updateWeaponUI(null);
+                }
                 break;
             case ItemType.Consumable:
                 currConsumable?.SetActive(false);
                 currConsumable = inventory.next(type);
-                currConsumable?.SetActive(true);  
+                currConsumable?.SetActive(true);
+
+                if (currConsumable != null) // update UI
+                {
+                    GameController.instance.updateConsumablesUI(currConsumable.GetComponent<Consumable>().sprite);
+                }
+                else
+                {
+                    GameController.instance.updateConsumablesUI(null);
+                }
                 break;
             default:
                 break;

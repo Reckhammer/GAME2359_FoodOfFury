@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //----------------------------------------------------------------------------------------
 // Author: Jose Villanueva
@@ -12,7 +13,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    // some varialbes here
+    public Sprite sprite;
 
     // some methods here
 }
