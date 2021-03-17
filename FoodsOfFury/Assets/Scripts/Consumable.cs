@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //----------------------------------------------------------------------------------------
 // Author: Jose Villanueva
@@ -10,6 +11,7 @@ using UnityEngine;
 
 public class Consumable : MonoBehaviour
 {
+    public Sprite sprite;
     public float healthAmount = 1.0f;
 
     public bool use(GameObject obj)
