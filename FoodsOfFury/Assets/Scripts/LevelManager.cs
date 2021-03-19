@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 //----------------------------------------------------------------------------------------
 // Author: Joshua Rechkemmer
@@ -12,6 +14,14 @@ public class LevelManager : MonoBehaviour
 {
     public ArrayList objectiveList = new ArrayList();    //list of all of the objectives for the level
 
+    public Image    endGameMenu;        //UI elements for the level completion
+    public float    waitTime = .75f;    //Wait time for the popup to come up in seconds
+
+    void Awake()
+    {
+        Time.timeScale = 1;     //this resets the timescale after switching scenes
+    }
+
     void Update()
     {
         //if there are no more objectives in the list
@@ -19,7 +29,8 @@ public class LevelManager : MonoBehaviour
         if ( objectiveList.Count == 0 )
         {
             Debug.Log( "All objectives done. Level is completed" );
-            //Do code to put up some sort of menu and change scenes
+            setEndMessage();
+
         }
     }
 
@@ -40,5 +51,20 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log( "ERROR: An Unlisted Objective has been completed" );
         }
+    }
+
+    //-----------------------------------------------------------------------------------
+    // setEndMessage() - this 
+    public void setEndMessage()
+    {
+        StartCoroutine( ClickerEnd( waitTime ));
+        endGameMenu.gameObject.SetActive( true );
+
+        Time.timeScale = 0; //this makes everything stop. Need to do this when switching scenes
+    }
+
+    private IEnumerator ClickerEnd( float waiter )
+    {
+        yield return new WaitForSeconds( waiter );
     }
 }
