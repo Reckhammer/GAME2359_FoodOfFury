@@ -15,6 +15,7 @@ public class Damaging : MonoBehaviour
     public float damageAmount           = 0.0f;     // amount of damage to be delt
     public float delayAmount            = 0.0f;     // time delay to be able damage again
     public bool destroyOnImpact         = false;    // option to destroy on impact
+    public LayerMask destroyOnImpactIgnore;         // layers that destroy on impact will ignore
     public bool doesKnockback           = false;    // option for knockback
     public float knockbackForce         = 0.0f;     // force of knockback
 
@@ -45,7 +46,10 @@ public class Damaging : MonoBehaviour
 
         if (destroyOnImpact)
         {
-            Destroy(gameObject);
+            if (destroyOnImpactIgnore != (destroyOnImpactIgnore | (1 << other.gameObject.layer))) // check if object is not in layermask
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
