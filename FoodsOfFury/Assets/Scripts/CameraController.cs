@@ -57,6 +57,13 @@ public class CameraController : MonoBehaviour
         // if not colliding set camera distance to wanted distance
         if (!checkViewCollision())
             cameraDistance = wantedDistance;
+
+        if (PauseMenu.gameIsPaused)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+
     }
 
     void LateUpdate()
