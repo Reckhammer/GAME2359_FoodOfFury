@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
     private int     index = 0;                  //Index of current waypoint
     private float   agentSpeed;                 //NavMesh movement speed. Maximum movement speed of enemy
     private float   nextFire;                   //The next point in time where the enemy can attack again
+    private float   oldHealth = 0;
 
     private Transform       player;             //Reference to the player's transform
     private Animator        animator;           //Reference to animator component
@@ -38,6 +39,8 @@ public class Enemy : MonoBehaviour
         //animator = GetComponent<Animator>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag( "Player" ).transform;
+
+        oldHealth = GetComponent<Health>().amount;
 
         if ( agent != null )
         {
@@ -63,6 +66,37 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         //put animator code here
+    }
+
+    // subscribe to Health.OnUpdate() event
+    private void OnEnable()
+    {
+        Health health = GetComponent<Health>();
+        health.OnUpdate += HealthUpdated;
+    }
+
+    // unsubscribe to Health.OnUpdate() event
+    private void OnDisable()
+    {
+        Health health = GetComponent<Health>();
+        health.OnUpdate -= HealthUpdated;
+    }
+
+    // Does health reactions
+    private void HealthUpdated( float amount )
+    {
+        if (amount == 0) // // player died
+        {
+            onDeath();
+        }
+        else if (amount < oldHealth) // player damaged
+        {
+            print("Enemy was damaged!");
+            //play hurt sounds
+            // hurt animations?
+        }
+
+        oldHealth = amount;
     }
 
     //----------------------------------------------------------------------------------------
@@ -94,9 +128,9 @@ public class Enemy : MonoBehaviour
                     //Insert damaging code here
                     break;
                 case EnemyType.Range:
-                    GameObject projectileInst = Instantiate( projectile, attackPoint.position, Quaternion.identity ); //Create the projectile
+                    GameObject projectileInst = Instantiate( projectile, attackPoint.position, transform.rotation ); //Create the projectile
                     Rigidbody projectileRB = projectileInst.GetComponent<Rigidbody>(); //Get a reference to its rigidbody
-                    projectileRB.AddForce( transform.forward * projectileSpeed ); //add some force to send it forward
+                    //projectileRB.AddForce( transform.forward * projectileSpeed ); //add some force to send it forward
                     break;
             }
 
@@ -128,5 +162,10 @@ public class Enemy : MonoBehaviour
             agent.destination = player.position;    //Tell the navmesh to move to the player
             agent.speed = agentSpeed;   //Set speed to their maximum speed
         }
+    }
+
+    private void onDeath()
+    {
+        Destroy( gameObject );
     }
 }

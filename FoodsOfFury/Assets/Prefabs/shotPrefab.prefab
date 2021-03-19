@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3515018929666869186}
   - component: {fileID: 3300881983308401969}
   - component: {fileID: 4296007392201436776}
+  - component: {fileID: -1071131013024172457}
   m_Layer: 0
   m_Name: shotPrefab
   m_TagString: Untagged
@@ -133,3 +134,17 @@ MonoBehaviour:
   destroyOnImpact: 0
   doesKnockback: 0
   knockbackForce: 0
+--- !u!114 &-1071131013024172457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6527403849914598587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22fa26789cf4e0145b2a18081e40f2e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  delay: 3
