@@ -106,14 +106,38 @@ public class PlayerManager : MonoBehaviour
         switch (type)
         {
             case ItemType.Weapon:
-                currWeapon?.SetActive(false);       // set old item inactive
+                if (currWeapon != null)
+                {
+                    currWeapon.SetActive(false);       // set old item inactive
+                    currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = false; // turn off weapon script
+                }
+
                 currWeapon = inventory.get(type);   // get item
-                currWeapon?.SetActive(true);        // set new item active
+
+                if (currWeapon != null) // update UI & turn on weapon script
+                {
+                    currWeapon.SetActive(true);        // set new item active
+                    GameController.instance.updateWeaponUI(currWeapon.GetComponent<WeaponReferences>().sprite);
+                    currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = true;
+                }
+                else
+                {
+                    GameController.instance.updateWeaponUI(null);
+                }
                 break;
             case ItemType.Consumable:
                 currConsumable?.SetActive(false);
                 currConsumable = inventory.get(type);
                 currConsumable?.SetActive(true);
+
+                if (currConsumable != null) // update UI
+                {
+                    GameController.instance.updateConsumablesUI(currConsumable.GetComponent<Consumable>().sprite);
+                }
+                else
+                {
+                    GameController.instance.updateConsumablesUI(null);
+                }
                 break;
             default:
                 break;
@@ -126,14 +150,38 @@ public class PlayerManager : MonoBehaviour
         switch (type)
         {
             case ItemType.Weapon:
-                currWeapon?.SetActive(false);       // set old item inactive
-                currWeapon = inventory.next(type);  // get next item 
-                currWeapon?.SetActive(true);        // set new item active
+                if (currWeapon != null)
+                {
+                    currWeapon.SetActive(false);       // set old item inactive
+                    currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = false; // turn off weapon script
+                }
+
+                currWeapon = inventory.next(type);   // get next item
+
+                if (currWeapon != null) // update UI & turn on weapon script
+                {
+                    currWeapon.SetActive(true);        // set new item active
+                    GameController.instance.updateWeaponUI(currWeapon.GetComponent<WeaponReferences>().sprite);
+                    currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = true;
+                }
+                else
+                {
+                    GameController.instance.updateWeaponUI(null);
+                }
                 break;
             case ItemType.Consumable:
                 currConsumable?.SetActive(false);
                 currConsumable = inventory.next(type);
-                currConsumable?.SetActive(true);  
+                currConsumable?.SetActive(true);
+
+                if (currConsumable != null) // update UI
+                {
+                    GameController.instance.updateConsumablesUI(currConsumable.GetComponent<Consumable>().sprite);
+                }
+                else
+                {
+                    GameController.instance.updateConsumablesUI(null);
+                }
                 break;
             default:
                 break;

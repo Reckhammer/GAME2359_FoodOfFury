@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1009160487}
   - component: {fileID: 1009160488}
-  m_Layer: 10
+  - component: {fileID: 1267121337}
+  - component: {fileID: 1267121338}
+  m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,10 +42,48 @@ BoxCollider:
   m_GameObject: {fileID: 1009160486}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!111 &1267121337
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009160486}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 09858a5514f42e746abe8c0e2907994f, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 09858a5514f42e746abe8c0e2907994f, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!114 &1267121338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009160486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03136f49d1df6f4a95fc57c551452a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets:
+  - Enemy
+  damageAmount: 1
+  delayAmount: 1
+  destroyOnImpact: 0
+  destroyOnImpactIgnore:
+    serializedVersion: 2
+    m_Bits: 0
+  doesKnockback: 0
+  knockbackForce: 0
 --- !u!1 &3713839748455805344
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +98,8 @@ GameObject:
   - component: {fileID: 3713839748455805352}
   - component: {fileID: 3713839748455805353}
   - component: {fileID: 3713839748455805350}
-  - component: {fileID: 3713839748455805351}
+  - component: {fileID: -5320495455171108907}
+  - component: {fileID: -7666538021582209322}
   m_Layer: 10
   m_Name: WeaponPickup_Prototype
   m_TagString: Untagged
@@ -172,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
---- !u!114 &3713839748455805351
+--- !u!114 &-5320495455171108907
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -184,3 +225,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba5879eaf38309e4bb1e92b007e22ade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponScript: {fileID: -7666538021582209322}
+  sprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+--- !u!114 &-7666538021582209322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3713839748455805344}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2783598202fd7774d804f80d1cf3925f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackAnim: {fileID: 1267121337}

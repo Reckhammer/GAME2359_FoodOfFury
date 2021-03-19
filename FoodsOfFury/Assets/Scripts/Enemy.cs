@@ -23,10 +23,12 @@ public class Enemy : MonoBehaviour
     public  Transform[]     waypoints;                      //Locations that the npc will travel to
     public  Transform       attackPoint;                    //Child gameObj that the projectiles will come from or that is the hitbox of melee
     public  GameObject      projectile;                     //GameObj. that will be shot out from attackPoint if it's a ranged enemy
+    public  Animation       meleeAttackAnim;                //Melee attack animation for enemy
 
     private int     index = 0;                  //Index of current waypoint
     private float   agentSpeed;                 //NavMesh movement speed. Maximum movement speed of enemy
     private float   nextFire;                   //The next point in time where the enemy can attack again
+    private float   oldHealth = 0;
 
     private Transform       player;             //Reference to the player's transform
     private Animator        animator;           //Reference to animator component
@@ -38,6 +40,8 @@ public class Enemy : MonoBehaviour
         //animator = GetComponent<Animator>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag( "Player" ).transform;
+
+        oldHealth = GetComponent<Health>().amount;
 
         if ( agent != null )
         {
@@ -65,6 +69,37 @@ public class Enemy : MonoBehaviour
         //put animator code here
     }
 
+    // subscribe to Health.OnUpdate() event
+    private void OnEnable()
+    {
+        Health health = GetComponent<Health>();
+        health.OnUpdate += HealthUpdated;
+    }
+
+    // unsubscribe to Health.OnUpdate() event
+    private void OnDisable()
+    {
+        Health health = GetComponent<Health>();
+        health.OnUpdate -= HealthUpdated;
+    }
+
+    // Does health reactions
+    private void HealthUpdated( float amount )
+    {
+        if (amount == 0) // // player died
+        {
+            onDeath();
+        }
+        else if (amount < oldHealth) // player damaged
+        {
+            print("Enemy was damaged!");
+            //play hurt sounds
+            // hurt animations?
+        }
+
+        oldHealth = amount;
+    }
+
     //----------------------------------------------------------------------------------------
     // patrol() - increment the current index of the waypoints array
     //
@@ -89,14 +124,19 @@ public class Enemy : MonoBehaviour
             switch( attackType )
             {
                 case EnemyType.Melee:
-                    Collider[] hitEnemies = Physics.OverlapSphere( attackPoint.position, attackRange, LayerMask.NameToLayer( "Player" ) );   //See if the attackPoint is colliding with the player
-                    Debug.Log( "Enemy Hit player" );
+                    //Collider[] hitEnemies = Physics.OverlapSphere( attackPoint.position, attackRange, LayerMask.NameToLayer( "Player" ) );   //See if the attackPoint is colliding with the player
+                    //Debug.Log( "Enemy Hit player" );
                     //Insert damaging code here
+                    print("attacking");
+                    if (!meleeAttackAnim.isPlaying)
+                    {
+                        meleeAttackAnim.Play();
+                    }
                     break;
                 case EnemyType.Range:
-                    GameObject projectileInst = Instantiate( projectile, attackPoint.position, Quaternion.identity ); //Create the projectile
+                    GameObject projectileInst = Instantiate( projectile, attackPoint.position, transform.rotation ); //Create the projectile
                     Rigidbody projectileRB = projectileInst.GetComponent<Rigidbody>(); //Get a reference to its rigidbody
-                    projectileRB.AddForce( Vector3.forward * projectileSpeed ); //add some force to send it forward
+                    //projectileRB.AddForce( transform.forward * projectileSpeed ); //add some force to send it forward
                     break;
             }
 
@@ -114,6 +154,7 @@ public class Enemy : MonoBehaviour
         agent.destination = waypoints[index].position;  //Tell the navmesh to move the enemy to the waypoint
         agent.speed = agentSpeed / 2;   //Set the movement to a walking pace
 
+        //print("distance: " + Vector3.Distance(transform.position, player.position));
         //Attack behavior
         //Check if the player is w/in attackRange
         if ( player != null && Vector3.Distance( transform.position, player.position ) < attackRange )
@@ -128,5 +169,10 @@ public class Enemy : MonoBehaviour
             agent.destination = player.position;    //Tell the navmesh to move to the player
             agent.speed = agentSpeed;   //Set speed to their maximum speed
         }
+    }
+
+    private void onDeath()
+    {
+        Destroy( gameObject );
     }
 }
