@@ -11,25 +11,15 @@ using UnityEngine;
 
 public class MeleeWeapon : MonoBehaviour
 {
-
-    public Transform attackPoint;
-    public float attackRange = 0.5f;
-    public LayerMask enemyLayers;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Animation attackAnim;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("x"))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-
+            //print("doing attack");
             Attack();
-        
         }
 
     }
@@ -37,11 +27,9 @@ public class MeleeWeapon : MonoBehaviour
 
     void Attack()
     {
-        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
-
-        foreach(Collider enemy in hitEnemies)
+        if (!attackAnim.isPlaying)
         {
-            Debug.Log("Hit");
+            attackAnim.Play();
         }
     }
 
