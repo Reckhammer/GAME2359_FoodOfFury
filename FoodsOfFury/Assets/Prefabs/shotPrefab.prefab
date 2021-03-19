@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 913950058860457217}
   - component: {fileID: 3515018929666869186}
   - component: {fileID: 3300881983308401969}
-  - component: {fileID: 4757183116827170818}
+  - component: {fileID: 4296007392201436776}
   m_Layer: 0
   m_Name: shotPrefab
   m_TagString: Untagged
@@ -92,7 +92,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6527403849914598587}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -114,7 +114,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4757183116827170818
+--- !u!114 &4296007392201436776
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,7 +123,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6527403849914598587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22fa26789cf4e0145b2a18081e40f2e4, type: 3}
+  m_Script: {fileID: 11500000, guid: b03136f49d1df6f4a95fc57c551452a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  targets:
+  - Player
+  damageAmount: 1
+  delayAmount: 1
+  destroyOnImpact: 0
+  doesKnockback: 0
+  knockbackForce: 0
