@@ -11,9 +11,8 @@ using UnityEngine.UI;
 // TODO: Overall development
 //----------------------------------------------------------------------------------------
 
-public class Weapon : MonoBehaviour
+public class WeaponReferences : MonoBehaviour
 {
+    public MonoBehaviour weaponScript;
     public Sprite sprite;
-
-    // some methods here
 }

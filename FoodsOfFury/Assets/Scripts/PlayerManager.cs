@@ -106,13 +106,19 @@ public class PlayerManager : MonoBehaviour
         switch (type)
         {
             case ItemType.Weapon:
-                currWeapon?.SetActive(false);       // set old item inactive
-                currWeapon = inventory.get(type);   // get item
-                currWeapon?.SetActive(true);        // set new item active
-
-                if (currWeapon != null) // update UI
+                if (currWeapon != null)
                 {
-                    GameController.instance.updateWeaponUI(currWeapon.GetComponent<Weapon>().sprite);
+                    currWeapon.SetActive(false);       // set old item inactive
+                    currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = false; // turn off weapon script
+                }
+
+                currWeapon = inventory.get(type);   // get item
+
+                if (currWeapon != null) // update UI & turn on weapon script
+                {
+                    currWeapon.SetActive(true);        // set new item active
+                    GameController.instance.updateWeaponUI(currWeapon.GetComponent<WeaponReferences>().sprite);
+                    currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = true;
                 }
                 else
                 {
@@ -144,13 +150,19 @@ public class PlayerManager : MonoBehaviour
         switch (type)
         {
             case ItemType.Weapon:
-                currWeapon?.SetActive(false);       // set old item inactive
-                currWeapon = inventory.next(type);  // get next item 
-                currWeapon?.SetActive(true);        // set new item active
-
-                if (currWeapon != null) // update UI
+                if (currWeapon != null)
                 {
-                    GameController.instance.updateWeaponUI(currWeapon.GetComponent<Weapon>().sprite);
+                    currWeapon.SetActive(false);       // set old item inactive
+                    currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = false; // turn off weapon script
+                }
+
+                currWeapon = inventory.next(type);   // get next item
+
+                if (currWeapon != null) // update UI & turn on weapon script
+                {
+                    currWeapon.SetActive(true);        // set new item active
+                    GameController.instance.updateWeaponUI(currWeapon.GetComponent<WeaponReferences>().sprite);
+                    currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = true;
                 }
                 else
                 {
