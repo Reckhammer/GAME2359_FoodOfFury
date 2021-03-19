@@ -60,7 +60,8 @@ public class Damaging : MonoBehaviour
                 obj.GetComponentInParent<PlayerMovement>().applyExtraForce(dir * knockbackForce, 0.1f);
                 break;
             default:
-                obj.GetComponentInParent<Rigidbody>().AddForce(dir * knockbackForce, ForceMode.VelocityChange); // apply basic knockback
+                Rigidbody rb = obj.GetComponentInParent<Rigidbody>();
+                rb?.AddForce(dir * knockbackForce, ForceMode.VelocityChange); // apply basic knockback
                 break;
         }
     }
