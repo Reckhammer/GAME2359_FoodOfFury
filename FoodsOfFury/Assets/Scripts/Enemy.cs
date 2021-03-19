@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     public  Transform[]     waypoints;                      //Locations that the npc will travel to
     public  Transform       attackPoint;                    //Child gameObj that the projectiles will come from or that is the hitbox of melee
     public  GameObject      projectile;                     //GameObj. that will be shot out from attackPoint if it's a ranged enemy
+    public  Animation       meleeAttackAnim;                //Melee attack animation for enemy
 
     private int     index = 0;                  //Index of current waypoint
     private float   agentSpeed;                 //NavMesh movement speed. Maximum movement speed of enemy
@@ -123,9 +124,14 @@ public class Enemy : MonoBehaviour
             switch( attackType )
             {
                 case EnemyType.Melee:
-                    Collider[] hitEnemies = Physics.OverlapSphere( attackPoint.position, attackRange, LayerMask.NameToLayer( "Player" ) );   //See if the attackPoint is colliding with the player
-                    Debug.Log( "Enemy Hit player" );
+                    //Collider[] hitEnemies = Physics.OverlapSphere( attackPoint.position, attackRange, LayerMask.NameToLayer( "Player" ) );   //See if the attackPoint is colliding with the player
+                    //Debug.Log( "Enemy Hit player" );
                     //Insert damaging code here
+                    print("attacking");
+                    if (!meleeAttackAnim.isPlaying)
+                    {
+                        meleeAttackAnim.Play();
+                    }
                     break;
                 case EnemyType.Range:
                     GameObject projectileInst = Instantiate( projectile, attackPoint.position, transform.rotation ); //Create the projectile
@@ -148,6 +154,7 @@ public class Enemy : MonoBehaviour
         agent.destination = waypoints[index].position;  //Tell the navmesh to move the enemy to the waypoint
         agent.speed = agentSpeed / 2;   //Set the movement to a walking pace
 
+        //print("distance: " + Vector3.Distance(transform.position, player.position));
         //Attack behavior
         //Check if the player is w/in attackRange
         if ( player != null && Vector3.Distance( transform.position, player.position ) < attackRange )
