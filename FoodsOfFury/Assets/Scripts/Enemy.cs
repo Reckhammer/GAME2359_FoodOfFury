@@ -96,7 +96,7 @@ public class Enemy : MonoBehaviour
                 case EnemyType.Range:
                     GameObject projectileInst = Instantiate( projectile, attackPoint.position, Quaternion.identity ); //Create the projectile
                     Rigidbody projectileRB = projectileInst.GetComponent<Rigidbody>(); //Get a reference to its rigidbody
-                    projectileRB.AddForce( Vector3.forward * projectileSpeed ); //add some force to send it forward
+                    projectileRB.AddForce( transform.forward * projectileSpeed ); //add some force to send it forward
                     break;
             }
 
