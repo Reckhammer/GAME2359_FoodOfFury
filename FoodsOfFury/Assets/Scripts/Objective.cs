@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Enumeration that helps manage the behavior of the objective
+    //Defines what is the task for the objective
+public enum ObjectiveType { Waypoint, Rescue }; //Enemy Wave???
+
 //----------------------------------------------------------------------------------------
 // Author: Joshua Rechkemmer
 //
@@ -10,9 +14,7 @@ using UnityEngine;
 //----------------------------------------------------------------------------------------
 public class Objective : MonoBehaviour
 {
-    //Enumeration that helps manage the behavior of the objective
-    //Defines what is the task for the objective
-    public enum ObjectiveType { Waypoint, Rescue }; //Enemy Wave???
+    
 
     public ObjectiveType    objectiveType;      //The type of objective of THIS obj
     public Health           health;             //Health component for the rescue cage obj
