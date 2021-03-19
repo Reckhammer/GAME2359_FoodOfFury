@@ -12,7 +12,8 @@ using UnityEngine.UI;
 //----------------------------------------------------------------------------------------
 public class LevelManager : MonoBehaviour
 {
-    public ArrayList objectiveList = new ArrayList();    //list of all of the objectives for the level
+    public List<Objective> objectiveList = new List<Objective>();    //list of all of the objectives for the level
+
 
     public Image    endGameMenu;        //UI elements for the level completion
     public float    waitTime = .75f;    //Wait time for the popup to come up in seconds
@@ -29,8 +30,8 @@ public class LevelManager : MonoBehaviour
         if ( objectiveList.Count == 0 )
         {
             Debug.Log( "All objectives done. Level is completed" );
-            setEndMessage();
-
+            setEndMessage(); //Activate the UI and some work before loading a new scene
+            SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex +1 ); //Load the next scene in the build order
         }
     }
 
