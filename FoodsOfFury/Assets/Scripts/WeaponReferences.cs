@@ -6,13 +6,11 @@ using UnityEngine.UI;
 //----------------------------------------------------------------------------------------
 // Author: Jose Villanueva
 //
-// Description: Empty 'Weapon' class
-//
-// TODO: Overall development
+// Description: This class just hold references relating to weapons used by 'inventory'
 //----------------------------------------------------------------------------------------
 
 public class WeaponReferences : MonoBehaviour
 {
-    public MonoBehaviour weaponScript;
-    public Sprite sprite;
+    public MonoBehaviour weaponScript;  // reference to weapon script
+    public Sprite sprite;               // reference to sprite
 }
