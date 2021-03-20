@@ -80,6 +80,12 @@ public class PlayerMovement : MonoBehaviour
                 velocityChange -= velocityChange * speed;                                   // calculate difference between velocity and max velocity
                 rb.AddForce(velocityChange);                                                // apply difference to return to normal (unless it was gravity)
             }
+            else if (isGrounded && extraForceTime == 0.0f && rb.velocity.magnitude < speed) // help player reach max speed
+            {
+                Vector3 velocityChange = rb.velocity;                                       // get velocity
+                velocityChange -= movement.normalized * speed;                              // calculate difference between velocity and max velocity (using movement direction for quick turn speeds)
+                rb.AddForce(-velocityChange);                                               // apply difference to try to reach max speed
+            }
         }
 
         // if object is moving set rotation
