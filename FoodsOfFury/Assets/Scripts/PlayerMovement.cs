@@ -80,6 +80,12 @@ public class PlayerMovement : MonoBehaviour
                 velocityChange -= velocityChange * speed;                                   // calculate difference between velocity and max velocity
                 rb.AddForce(velocityChange);                                                // apply difference to return to normal (unless it was gravity)
             }
+            else if (isGrounded && extraForceTime == 0.0f && rb.velocity.magnitude < speed) // help player reach max speed
+            {
+                Vector3 velocityChange = rb.velocity;                                       // get velocity
+                velocityChange -= movement.normalized * speed;                              // calculate difference between velocity and max velocity (using movement direction for quick turn speeds)
+                rb.AddForce(-velocityChange);                                               // apply difference to try to reach max speed
+            }
         }
 
         // if object is moving set rotation
@@ -109,14 +115,14 @@ public class PlayerMovement : MonoBehaviour
         inputs = Vector3.zero; // reset inputs
 
         // start glide if 'x' is pressed (when not grounded)
-        if (Input.GetKey("x") && !isGrounded)
+        if (Input.GetKey(KeyCode.LeftShift) && !isGrounded)
         {
             currentJump = 1;
             isGliding = true;
         }
 
         // stop glide if 'x' is released or grounded
-        if (Input.GetKeyUp("x") || isGrounded)
+        if (Input.GetKeyUp(KeyCode.LeftShift) || isGrounded)
         {
             isGliding = false;
         }
