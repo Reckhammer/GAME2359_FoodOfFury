@@ -11,6 +11,14 @@ public class SettingsMenu : MonoBehaviour
 
     public Dropdown resolutionDropdown;
 
+    public Dropdown qualityDropdown;
+
+    public Dropdown textureDropdown;
+
+    public Slider volumeSlider;
+
+    float currentVolume;
+
     Resolution[] resolutions;
 
     /* Errors out
@@ -36,13 +44,26 @@ public class SettingsMenu : MonoBehaviour
     //Controls the audio for MainMixer
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("volume", volume);
+        audioMixer.SetFloat("Volume", volume);
+        currentVolume = volume;
     }
 
     //Dose not work
     public void SetQuatity(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
+    }
+
+    public void SetTextureQuality(int textureIndex)
+    {
+        QualitySettings.masterTextureLimit = textureIndex;
+        qualityDropdown.value = 6;
+    }
+
+    public void SetResolution(int resolutionIndex)
+    {
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 
     //Needs to be tested in a build
