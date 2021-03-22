@@ -21,6 +21,11 @@ public class LoadScenes : MonoBehaviour
         SceneManager.LoadScene("MenuScene");
     }
 
+    public void SettingsMenu()
+    {
+        SceneManager.LoadScene("SettingsScene");
+    }
+
     public void ExitGame()
     {
         Debug.Log("Quit Game");
