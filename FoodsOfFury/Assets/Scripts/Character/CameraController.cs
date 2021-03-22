@@ -62,6 +62,10 @@ public class CameraController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
 
 
     }
