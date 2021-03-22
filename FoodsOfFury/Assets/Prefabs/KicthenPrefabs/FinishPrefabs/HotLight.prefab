@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 665377684983769856}
   - component: {fileID: 3377438256894123978}
   - component: {fileID: 6562583381300203360}
+  - component: {fileID: 5114806472256947487}
   m_Layer: 0
   m_Name: HotLight
   m_TagString: Untagged
@@ -92,7 +93,21 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 4.5152073
-  m_Height: 31
+  m_Radius: 1.67
+  m_Height: 29.66
   m_Direction: 1
-  m_Center: {x: 0, y: -0.45, z: -0.0000023841858}
+  m_Center: {x: 0, y: 0.1, z: -0.0000023841858}
+--- !u!136 &5114806472256947487
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3882083377332010527}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 4.6
+  m_Height: 10.4
+  m_Direction: 1
+  m_Center: {x: 0, y: -11.89, z: -0.0000023841858}
