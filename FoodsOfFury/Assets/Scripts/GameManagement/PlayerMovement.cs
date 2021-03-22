@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private Transform groundChecker     = null;         // position of groundchecker
     private Vector3 inputs              = Vector3.zero; // inputs from player
     private Vector3 movement            = Vector3.zero; // calculated velocity to move the character
-    private const int maxJump           = 1;            // max amount of jumps
+    private const int maxJump           = 2;            // max amount of jumps
     private int currentJump             = 0;            // current jump index
     private bool isGrounded             = true;         // for ground check
     private bool isGliding              = false;        // for gliding check
