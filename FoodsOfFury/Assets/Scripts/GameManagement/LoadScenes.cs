@@ -16,6 +16,10 @@ public class LoadScenes : MonoBehaviour
         SceneManager.LoadScene("KitchenLevel");
     }
 
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MenuScene");
+    }
 
     public void ExitGame()
     {
