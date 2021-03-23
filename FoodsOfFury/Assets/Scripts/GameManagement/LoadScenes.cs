@@ -13,7 +13,7 @@ public class LoadScenes : MonoBehaviour
 
     public void KitchenScene()
     {
-        SceneManager.LoadScene("KitchenLevel");
+        SceneManager.LoadScene("KitchenLevel_1");
     }
 
     public void MainMenu()
