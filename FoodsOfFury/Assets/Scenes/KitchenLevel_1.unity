@@ -9887,18 +9887,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1270854319}
-  targetVisuals: {fileID: 0}
-  scrollSpeed: 3
+  targetVisuals: {fileID: 2116281819}
+  scrollSpeed: 10
   topLimit: -20
   bottomLimit: 80
-  minDistance: 8
+  minDistance: 5
   maxDistance: 10
   minCollidingDistance: 0.1
   collisionDetectionDistance: 1
-  cameraDistance: 4
+  cameraDistance: 8
   collideWith:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 311
 --- !u!1001 &2041758498
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10312,6 +10312,11 @@ Transform:
   m_Father: {fileID: 1725340492}
   m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2116281819 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2753625966934782566, guid: 6d5a26b43ba7291449680b97ed6354fe, type: 3}
+  m_PrefabInstance: {fileID: 1315085527}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &151908074741371195
 PrefabInstance:
   m_ObjectHideFlags: 0
