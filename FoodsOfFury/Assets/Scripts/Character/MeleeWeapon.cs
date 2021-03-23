@@ -29,6 +29,7 @@ public class MeleeWeapon : MonoBehaviour
     {
         if (!attackAnim.isPlaying)
         {
+            GetComponentInParent<Animator>().SetTrigger("OnionAttack");
             attackAnim.Play();
         }
     }

@@ -104,11 +104,16 @@ public class Inventory : MonoBehaviour
         if (list.max != 0)
         {
             GameObject copy = Instantiate(item, transform.position, transform.rotation, transform); // make copy and parent to gameobject
-            Destroy(copy.GetComponent<Pickupable>());       // remove 'Pickupable'
-            Destroy(copy.GetComponent<Rigidbody>());        // remove rigibody
-            copy.GetComponent<Collider>().enabled = false;  // turn off collider (non trigger)
-            copy.name = type.ToString();                    // set name
-            copy.SetActive(false);                          // make copy inactive
+            copy.GetComponent<Pickupable>().enabled = false;    // turn off 'Pickupable'
+            Destroy(copy.GetComponent<Rigidbody>());            // remove rigibody
+            copy.GetComponent<Collider>().enabled = false;      // turn off collider (non trigger)
+            copy.name = type.ToString();                        // set name
+            copy.SetActive(false);                              // make copy inactive
+
+            if (type == ItemType.Weapon)
+            {
+                copy.GetComponent<WeaponReferences>().weaponVisuals.enabled = false; // turn off weapon visuals
+            }
 
             if (!list.add(copy)) // try to add item to list
             {
@@ -158,8 +163,7 @@ public class Inventory : MonoBehaviour
     private void drop(GameObject item, ItemType type)
     {
         GameObject copy = Instantiate(item);
-        Pickupable p = copy.AddComponent<Pickupable>();                         // Add 'Pickable' component
-        p.type = type;                                                          // set item type
+        copy.GetComponent<Pickupable>().enabled = true;                         // turn on 'Pickupable'
         Rigidbody rb = copy.AddComponent<Rigidbody>();                          // add rigidbody
         copy.GetComponent<Collider>().enabled = true;                           // turn on collider (non trigger)
         copy.transform.position = transform.position;                           // set item position to this object
@@ -169,6 +173,7 @@ public class Inventory : MonoBehaviour
         if (type == ItemType.Weapon)
         {
             copy.GetComponent<WeaponReferences>().weaponScript.enabled = false; // turn off weapon script
+            copy.GetComponent<WeaponReferences>().weaponVisuals.enabled = true; // turn on weapon visuals
         }
 
         copy.SetActive(true);                                                   // make item active

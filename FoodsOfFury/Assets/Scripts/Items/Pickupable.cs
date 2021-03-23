@@ -10,17 +10,17 @@ using UnityEngine;
 
 public class Pickupable : MonoBehaviour
 {
-    public ItemType    type;                    // type of item
+    public ItemType     type;                   // type of item
+    public Renderer     render      = null;     // object renderer
 
     private GameObject  player      = null;     // target that can pick item up
     private Coroutine   highlightCr = null;     // Highlight() coroutine
-    private Renderer    render      = null;     // object renderer
     private bool        canPickUp   = false;    // to check if pickup is ready
     private Color       orignal;                // orignal renderer color
 
     void Start()
     {
-        render  = GetComponent<Renderer>();
+        //render  = GetComponent<Renderer>();
         orignal = render.material.color;
     }
 
