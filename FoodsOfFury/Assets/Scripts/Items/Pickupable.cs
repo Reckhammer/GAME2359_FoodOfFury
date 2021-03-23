@@ -20,8 +20,7 @@ public class Pickupable : MonoBehaviour
 
     void Start()
     {
-        //render  = GetComponent<Renderer>();
-        orignal = render.material.color;
+        orignal = render.material.GetColor("Color_23038745b9c94e5f899a6bcb26c1f301");
     }
 
     private void Update()
@@ -31,7 +30,7 @@ public class Pickupable : MonoBehaviour
             if (highlightCr != null)
             {
                 StopCoroutine(highlightCr);         // stop coroutine
-                render.material.color = orignal;    // return to orignal color (before pickup)
+                render.material.SetColor("Color_23038745b9c94e5f899a6bcb26c1f301", orignal);    // return to orignal color (before pickup)
             }
 
             if (player.GetComponentInParent<Inventory>().add(gameObject, type))
@@ -82,9 +81,9 @@ public class Pickupable : MonoBehaviour
 
         while (canPickUp) // do color lerp
         {
-            render.material.color = Color.Lerp(orignal, color, Mathf.PingPong(Time.time * speed, 1));
+            render.material.SetColor("Color_23038745b9c94e5f899a6bcb26c1f301", Color.Lerp(orignal, color, Mathf.PingPong(Time.time * speed, 1)));
             yield return null;
         }
-        render.material.color = orignal; // return to original color
+        render.material.SetColor("Color_23038745b9c94e5f899a6bcb26c1f301", orignal); // return to orignal color
     }
 }
