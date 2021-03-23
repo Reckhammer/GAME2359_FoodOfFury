@@ -29,6 +29,7 @@ public class LoadScenes : MonoBehaviour
     public void ExitGame()
     {
         Debug.Log("Quit Game");
+        Application.OpenURL("https://docs.google.com/forms/d/1i7uiVFnOXbPAyJPPxXvLberbDucR8U2HRrbW6Xsxqi0/viewform?edit_requested=true");
         Application.Quit();
     }
 
