@@ -34,6 +34,7 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         cam = GetComponent<Camera>();
         wantedDistance = cameraDistance;
 
@@ -45,6 +46,11 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
+        if (PauseMenu.gameIsPaused)
+        {
+            return;
+        }
+
         // get and clamp mouse pos
         mouseY += Input.GetAxis("Mouse Y");
         mouseX += Input.GetAxis("Mouse X");
@@ -57,17 +63,6 @@ public class CameraController : MonoBehaviour
         // if not colliding set camera distance to wanted distance
         if (!checkViewCollision())
             cameraDistance = wantedDistance;
-
-        if (PauseMenu.gameIsPaused)
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-
-
     }
 
     void LateUpdate()

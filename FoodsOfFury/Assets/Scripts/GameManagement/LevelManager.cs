@@ -79,6 +79,10 @@ public class LevelManager : MonoBehaviour
         endGameMenu.gameObject.SetActive( true );
         endGameText.text = endGameMessage;
 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        PauseMenu.gameIsPaused = true;
+
         GameObject.Find("Game_Canvas").GetComponent<PauseMenu>().Pause();
         GameObject pauseMenu = GameObject.Find( "PauseGroup" );
         pauseMenu.gameObject.SetActive( false );
