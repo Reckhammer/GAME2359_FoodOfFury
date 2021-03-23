@@ -51,7 +51,8 @@ public class Enemy : MonoBehaviour
         //if there is now waypoints given, initialize a waypoint to be on the enemy's position
         if ( waypoints == null )
         {
-            waypoints = new Transform[] { this.transform };
+            waypoints = new Transform[1];
+            waypoints[0] = this.transform;
         }
 
         //Do the checkStatus function repeatedly
@@ -108,7 +109,7 @@ public class Enemy : MonoBehaviour
     {
         //if the index is at the last index of the array, set it to 0
         //else add 1 to the current index
-        index = index == (waypoints.Length - 1) ? 0 : index + 1;
+        index = index == ( waypoints.Length - 1 ) ? 0 : index + 1;
     }
 
     //----------------------------------------------------------------------------------------
@@ -136,7 +137,9 @@ public class Enemy : MonoBehaviour
                 case EnemyType.Range:
                     GameObject projectileInst = Instantiate( projectile, attackPoint.position, transform.rotation ); //Create the projectile
                     Rigidbody projectileRB = projectileInst.GetComponent<Rigidbody>(); //Get a reference to its rigidbody
-                    //projectileRB.AddForce( transform.forward * projectileSpeed ); //add some force to send it forward
+
+                    
+
                     break;
             }
 
@@ -160,6 +163,7 @@ public class Enemy : MonoBehaviour
         if ( player != null && Vector3.Distance( transform.position, player.position ) < attackRange )
         {
             agent.speed = 0;
+            transform.LookAt( player ); //Rotate the enemy to face the player
             attack();
         }
         //Aggro behavior

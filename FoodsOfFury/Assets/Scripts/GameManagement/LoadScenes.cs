@@ -26,6 +26,16 @@ public class LoadScenes : MonoBehaviour
         SceneManager.LoadScene("SettingsScene");
     }
 
+    public void RestartScene()
+    {
+        SceneManager.LoadScene( SceneManager.GetActiveScene().name ); //load the current scene
+    }
+
+    public void NextScene()
+    {
+        SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex + 1 ); //Load the next scene in the build order
+    }
+
     public void ExitGame()
     {
         Debug.Log("Quit Game");

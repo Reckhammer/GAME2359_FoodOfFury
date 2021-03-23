@@ -14,13 +14,20 @@ public class LevelManager : MonoBehaviour
 {
     public List<Objective> objectiveList = new List<Objective>();    //list of all of the objectives for the level
 
+    private Health  playerHealth;       //the player's heath
+
 
     public Image    endGameMenu;        //UI elements for the level completion
+    public Text     endGameText;        //The text for the UI
+    public Button   nextLvlBtn;         //Reference to the next level button ui
+    public Button   restartBtn;         //Reference to the restart button ui
     public float    waitTime = .75f;    //Wait time for the popup to come up in seconds
 
     void Awake()
     {
         Time.timeScale = 1;     //this resets the timescale after switching scenes
+
+        playerHealth = GameObject.FindGameObjectWithTag( "Player" ).GetComponent<Health>(); //get the reference to the player's health componet
     }
 
     void Update()
@@ -30,9 +37,19 @@ public class LevelManager : MonoBehaviour
         if ( objectiveList.Count == 0 )
         {
             Debug.Log( "All objectives done. Level is completed" );
-            setEndMessage(); //Activate the UI and some work before loading a new scene
-            SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex +1 ); //Load the next scene in the build order
+            setEndMessage( "Level Complete" ); //Activate the UI
+            nextLvlBtn.gameObject.SetActive( true );
         }
+
+        //If the player died
+        //  restart level
+        if ( playerHealth.amount <= 0 )
+        {
+            Debug.Log( "Player has died" );
+            setEndMessage( "You have Expired" ); //Activate the UI
+            restartBtn.gameObject.SetActive( true );
+        }
+
     }
 
     //-----------------------------------------------------------------------------------
@@ -56,10 +73,15 @@ public class LevelManager : MonoBehaviour
 
     //-----------------------------------------------------------------------------------
     // setEndMessage() - this 
-    public void setEndMessage()
+    public void setEndMessage( string endGameMessage )
     {
         StartCoroutine( ClickerEnd( waitTime ));
         endGameMenu.gameObject.SetActive( true );
+        endGameText.text = endGameMessage;
+
+        GameObject.Find("Game_Canvas").GetComponent<PauseMenu>().Pause();
+        GameObject pauseMenu = GameObject.Find( "PauseGroup" );
+        pauseMenu.gameObject.SetActive( false );
 
         Time.timeScale = 0; //this makes everything stop. Need to do this when switching scenes
     }
