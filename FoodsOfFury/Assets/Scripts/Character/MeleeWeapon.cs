@@ -27,8 +27,9 @@ public class MeleeWeapon : MonoBehaviour
 
     void Attack()
     {
-        if (!attackAnim.isPlaying)
+        if (!attackAnim.isPlaying && GetComponentInParent<PlayerMovement>().onGround())
         {
+            GetComponentInParent<PlayerMovement>().stopInput(0.5f);
             GetComponentInParent<Animator>().SetTrigger("OnionAttack");
             attackAnim.Play();
         }

@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isGliding              = false;        // for gliding check
     private bool canDash                = true;         // for dash delay check
     private Vector3 groundNormal        = Vector3.up;   // normal of the ground
-    private Coroutine extraForceCr      = null;         // reference to ExtraForeceTime coroutine
+    private Coroutine inputStoppedCr    = null;         // reference to input stop timer coroutine
     private float extraForceTime        = 0.0f;         // time to allow extra force to be applied
 
     private void Awake()
@@ -88,16 +88,22 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        // if object is moving set rotation
-        if (rb.velocity != Vector3.zero)
-        {
-            Vector3 dir = Vector3.Scale(rb.velocity, new Vector3(1, 0, 1).normalized); // direction = velocity (without y) normalized
+        Vector3 dir = Vector3.zero;
 
-            if (dir != Vector3.zero) // direction is zero, don't set
-            {
-                Quaternion toRotation = Quaternion.LookRotation(dir); // target rotation
-                transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.fixedDeltaTime * rotationSpeed); // slerp rotation with rotation speed
-            }
+        if (isGrounded && extraForceTime == 0.0f) // do input (movement) + velocity affected rotation
+        {
+            dir = Vector3.Lerp(rb.velocity, movement, 0.5f);            // meet in middle
+            dir = Vector3.Scale(dir, new Vector3(1, 0, 1)).normalized;  // normalize (no y value)
+        }
+        else // do velocity affected rotation
+        {
+            dir = Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));     // regular velocity normalized (no y value)
+        }
+
+        if (dir != Vector3.zero) // direction is zero, don't set
+        {
+            Quaternion toRotation = Quaternion.LookRotation(dir); // target rotation
+            transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.fixedDeltaTime * rotationSpeed); // slerp rotation with rotation speed
         }
 
         extraForceTime = (extraForceTime > 0.0f) ? extraForceTime - Time.fixedDeltaTime : 0.0f; // decrease timer
@@ -105,11 +111,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (inputStopped)
-        {
-            return;
-        }
-
         // check ground
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, ground, QueryTriggerInteraction.Ignore);
         inputs = Vector3.zero; // reset inputs
@@ -231,20 +232,29 @@ public class PlayerMovement : MonoBehaviour
     // applies extra force to gameobject with an option of stopping player input for a duration
     public void applyExtraForce(Vector3 force, float inputStopDuration = 0.0f)
     {
-        rb.AddForce(-rb.velocity, ForceMode.VelocityChange);    // cancel current velocity
+        //rb.AddForce(-rb.velocity, ForceMode.VelocityChange);    // cancel current velocity
+        stopInput(inputStopDuration);
         rb.AddForce(force, ForceMode.VelocityChange);           // applyforce
 
         extraForceTime = 1.0f; // since we do a velocity change, time to complete extra force is roughly 1 second
+    }
 
-        if (extraForceCr != null) // new movement stop timer
+    public void stopInput(float inputStopDuration = 0.0f, bool stopPlayer = true)
+    {
+        if (stopPlayer)
         {
-            StopCoroutine(extraForceCr);
+            rb.AddForce(-rb.velocity, ForceMode.VelocityChange);    // cancel current velocity
+        }
+
+        if (inputStoppedCr != null) // new input stop timer
+        {
+            StopCoroutine(inputStoppedCr);
             inputStopped = false;
         }
 
-        if (inputStopDuration != 0.0f) // start new extra force timer (if duration is not 0)
+        if (inputStopDuration != 0.0f) // start input stop timer (if duration is not 0)
         {
-            extraForceCr = StartCoroutine(InputStopTimer(inputStopDuration));
+            inputStoppedCr = StartCoroutine(InputStopTimer(inputStopDuration));
         }
     }
 
@@ -276,6 +286,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         canDash = true;
+    }
+
+    // returns isGrounded
+    public bool onGround()
+    {
+        return isGrounded;
     }
 
     // DEBUG: draw ground checker sphere
