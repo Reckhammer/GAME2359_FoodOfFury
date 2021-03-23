@@ -28,7 +28,9 @@ public class Objective : MonoBehaviour
         //if this is a rescue objective type
         //      Get a reference to the health component/script
         if ( objectiveType == ObjectiveType.Rescue )
+        {
             health = GetComponent<Health>();
+        }
     }
 
     // Update is called once per frame
@@ -37,6 +39,7 @@ public class Objective : MonoBehaviour
         if ( objectiveType == ObjectiveType.Rescue && health.amount <= 0f )
         {
             lvlManager.setCompleted( this );
+            GetComponent<MeshRenderer>().enabled = false;
         }
     }
 
