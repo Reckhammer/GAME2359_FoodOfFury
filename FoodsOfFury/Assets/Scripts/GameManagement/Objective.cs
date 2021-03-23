@@ -19,7 +19,7 @@ public class Objective : MonoBehaviour
     public ObjectiveType    objectiveType;      //The type of objective of THIS obj
     public Health           health;             //Health component for the rescue cage obj
 
-    private boolean isDone = false;             //Boolean if the objective is done
+    private bool isDone = false;             //Boolean if the objective is done
 
     private LevelManager lvlManager;            //Reference to the levelManager obj. for the level
 
