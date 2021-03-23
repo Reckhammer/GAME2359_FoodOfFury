@@ -19,6 +19,8 @@ public class Objective : MonoBehaviour
     public ObjectiveType    objectiveType;      //The type of objective of THIS obj
     public Health           health;             //Health component for the rescue cage obj
 
+    private bool isDone = false;             //Boolean if the objective is done
+
     private LevelManager lvlManager;            //Reference to the levelManager obj. for the level
 
    void Awake()
@@ -36,7 +38,7 @@ public class Objective : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ( objectiveType == ObjectiveType.Rescue && health.amount <= 0f )
+        if ( !isDone && objectiveType == ObjectiveType.Rescue && health.amount <= 0f )
         {
             lvlManager.setCompleted( this );
             GetComponent<MeshRenderer>().enabled = false;
