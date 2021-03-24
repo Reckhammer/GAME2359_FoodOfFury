@@ -1961,6 +1961,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5136148522001549344}
+  - component: {fileID: 4506308432068386032}
   m_Layer: 5
   m_Name: UI_Group
   m_TagString: Untagged
@@ -1990,6 +1991,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 800, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4506308432068386032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5136148522001549345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68dffbb593f45142a7d396d3cb5432e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 5136148520837162090}
+  weaponImageUI: {fileID: 2126103805}
+  consumableImageUI: {fileID: 2144338081}
 --- !u!1 &5136148522352032790
 GameObject:
   m_ObjectHideFlags: 0

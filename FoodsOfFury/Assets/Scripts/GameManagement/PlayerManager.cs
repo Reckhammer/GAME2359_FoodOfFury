@@ -24,10 +24,10 @@ public class PlayerManager : MonoBehaviour
         equipItem(ItemType.Consumable);
         oldHealth = GetComponent<Health>().amount;
 
-        if (GameController.instance != null)
+        if (UIManager.instance != null)
         {
-            GameController.instance.setHealthBarMax(GetComponent<Health>().max);
-            GameController.instance.updateHealthBar(oldHealth);
+            UIManager.instance.setHealthBarMax(GetComponent<Health>().max);
+            UIManager.instance.updateHealthBar(oldHealth);
         }
         else
         {
@@ -117,12 +117,12 @@ public class PlayerManager : MonoBehaviour
                 if (currWeapon != null) // update UI & turn on weapon script
                 {
                     currWeapon.SetActive(true);        // set new item active
-                    GameController.instance.updateWeaponUI(currWeapon.GetComponent<WeaponReferences>().sprite);
+                    UIManager.instance.updateWeaponUI(currWeapon.GetComponent<WeaponReferences>().sprite);
                     currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = true;
                 }
                 else
                 {
-                    GameController.instance.updateWeaponUI(null);
+                    UIManager.instance.updateWeaponUI(null);
                 }
                 break;
             case ItemType.Consumable:
@@ -132,11 +132,11 @@ public class PlayerManager : MonoBehaviour
 
                 if (currConsumable != null) // update UI
                 {
-                    GameController.instance.updateConsumablesUI(currConsumable.GetComponent<Consumable>().sprite);
+                    UIManager.instance.updateConsumablesUI(currConsumable.GetComponent<Consumable>().sprite);
                 }
                 else
                 {
-                    GameController.instance.updateConsumablesUI(null);
+                    UIManager.instance.updateConsumablesUI(null);
                 }
                 break;
             default:
@@ -161,12 +161,12 @@ public class PlayerManager : MonoBehaviour
                 if (currWeapon != null) // update UI & turn on weapon script
                 {
                     currWeapon.SetActive(true);        // set new item active
-                    GameController.instance.updateWeaponUI(currWeapon.GetComponent<WeaponReferences>().sprite);
+                    UIManager.instance.updateWeaponUI(currWeapon.GetComponent<WeaponReferences>().sprite);
                     currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = true;
                 }
                 else
                 {
-                    GameController.instance.updateWeaponUI(null);
+                    UIManager.instance.updateWeaponUI(null);
                 }
                 break;
             case ItemType.Consumable:
@@ -176,11 +176,11 @@ public class PlayerManager : MonoBehaviour
 
                 if (currConsumable != null) // update UI
                 {
-                    GameController.instance.updateConsumablesUI(currConsumable.GetComponent<Consumable>().sprite);
+                    UIManager.instance.updateConsumablesUI(currConsumable.GetComponent<Consumable>().sprite);
                 }
                 else
                 {
-                    GameController.instance.updateConsumablesUI(null);
+                    UIManager.instance.updateConsumablesUI(null);
                 }
                 break;
             default:
@@ -193,7 +193,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (amount == 0) // // player died
         {
-            GameController.instance?.updateHealthBar(amount);
+            UIManager.instance?.updateHealthBar(amount);
             doDie();
         }
         else if (amount < oldHealth) // player damaged
@@ -201,13 +201,13 @@ public class PlayerManager : MonoBehaviour
             print("Player was damaged!");
             AudioManager.Instance.playRandom(transform.position, "Rollo_Hurt_1", "Rollo_Hurt_2", "Rollo_Hurt_3").transform.SetParent(transform);
             // hurt animations?
-            GameController.instance?.updateHealthBar(amount);
+            UIManager.instance?.updateHealthBar(amount);
         }
         else if (amount > oldHealth) // player healed
         {
             print("Player was healed!");
             // healed animations?
-            GameController.instance?.updateHealthBar(amount);
+            UIManager.instance?.updateHealthBar(amount);
         }
 
         oldHealth = amount;

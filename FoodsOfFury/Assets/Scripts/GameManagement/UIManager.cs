@@ -6,14 +6,12 @@ using UnityEngine.UI;
 //----------------------------------------------------------------------------------------
 // Author: Jose Villanueva
 //
-// Description: This class acts as a game manager. It currently manages UI
-//
-// TODO: Overall Development
+// Description: This class acts as a UI manager.
 //----------------------------------------------------------------------------------------
 
-public class GameController : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    public static GameController instance { get; private set; } // GameController instance
+    public static UIManager instance { get; private set; } // GameController instance
 
     public HealthBar healthBar;     // reference to player health bar
     public Image weaponImageUI;     // reference to weapon image
