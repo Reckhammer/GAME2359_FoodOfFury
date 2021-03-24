@@ -81,7 +81,6 @@ public class PlayerMovement : MonoBehaviour
                 Vector3 velocityChange = Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));  // get velocity without y (leave gravity alone)
                 velocityChange -= velocityChange.normalized * speed;                        // calculate difference between velocity and max velocity
                 rb.AddForce(-velocityChange, ForceMode.VelocityChange);                     // apply difference to return to normal (unless it was gravity)
-                print("slowing down by: " + -velocityChange);
             }
             //else if (isGrounded && extraForceTime == 0.0f && rb.velocity.magnitude < speed) // help player reach max speed
             //{
@@ -125,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // stop glide if 'x' is released or grounded
-        if (Input.GetKeyUp(KeyCode.LeftShift) || isGrounded)
+        if (Input.GetKeyUp(KeyCode.LeftShift) || isGrounded || rb.velocity.y > 0)
         {
             isGliding = false;
         }
@@ -165,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // space bar makes the character jump
-        if (Input.GetButtonDown("Jump") && (isGrounded || maxJump > currentJump) && canJump)
+        if (Input.GetButtonDown("Jump") && (maxJump > currentJump) && canJump)
         {
             StartCoroutine(JumpDelayTimer(0.1f)); // delay jump
             AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_1", "Rollo_Jump_2").transform.SetParent(transform);
