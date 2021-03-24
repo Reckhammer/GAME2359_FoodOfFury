@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public float dashForce              = 1.0f;         // force of dash
     public float dashDelay              = 0.5f;         // time before dash can be used again
     public float groundDistance         = 0.2f;         // distance to check for ground
-    public float fallForce              = 1.0f;         // downwards force when falling
+    //public float fallForce              = 1.0f;         // downwards force when falling
     public float rotationSpeed          = 1.0f;         // speed of rotation
     public LayerMask ground;                            // layers to check if grounded
 
@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     private int currentJump             = 0;            // current jump index
     private bool isGrounded             = true;         // for ground check
     private bool isGliding              = false;        // for gliding check
+    private bool canJump                = true;         // for jump delay
     private bool canDash                = true;         // for dash delay check
     private Vector3 groundNormal        = Vector3.up;   // normal of the ground
     private Coroutine inputStoppedCr    = null;         // reference to input stop timer coroutine
@@ -74,18 +75,18 @@ public class PlayerMovement : MonoBehaviour
                     rb.velocity = Vector3.zero; // stop player
                 }
             }
-            else if (isGrounded && extraForceTime == 0.0 && rb.velocity.magnitude > speed) // slow down if grounded, not in extra force and going faster than speed
+            else if (isGrounded && extraForceTime == 0.0 && rb.velocity.magnitude > speed)  // slow down if grounded, not in extra force and going faster than speed
             {
                 Vector3 velocityChange = Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));  // get velocity without y (leave gravity alone)
-                velocityChange -= velocityChange * speed;                                   // calculate difference between velocity and max velocity
-                rb.AddForce(velocityChange);                                                // apply difference to return to normal (unless it was gravity)
+                velocityChange -= velocityChange.normalized * speed;                        // calculate difference between velocity and max velocity
+                rb.AddForce(-velocityChange, ForceMode.VelocityChange);                     // apply difference to return to normal (unless it was gravity)
             }
-            else if (isGrounded && extraForceTime == 0.0f && rb.velocity.magnitude < speed) // help player reach max speed
-            {
-                Vector3 velocityChange = rb.velocity;                                       // get velocity
-                velocityChange -= movement.normalized * speed;                              // calculate difference between velocity and max velocity (using movement direction for quick turn speeds)
-                rb.AddForce(-velocityChange);                                               // apply difference to try to reach max speed
-            }
+            //else if (isGrounded && extraForceTime == 0.0f && rb.velocity.magnitude < speed) // help player reach max speed
+            //{
+            //    Vector3 velocityChange = rb.velocity;                                       // get velocity
+            //    velocityChange -= movement.normalized * speed;                              // calculate difference between velocity and max velocity (using movement direction for quick turn speeds)
+            //    rb.AddForce(-velocityChange);                                               // apply difference to try to reach max speed
+            //}
         }
 
         Vector3 dir = Vector3.zero;
@@ -116,9 +117,8 @@ public class PlayerMovement : MonoBehaviour
         inputs = Vector3.zero; // reset inputs
 
         // start glide if 'x' is pressed (when not grounded)
-        if (Input.GetKey(KeyCode.LeftShift) && !isGrounded)
+        if (Input.GetKey(KeyCode.LeftShift) && !isGrounded && rb.velocity.y < 0)
         {
-            currentJump = 1;
             isGliding = true;
         }
 
@@ -151,7 +151,10 @@ public class PlayerMovement : MonoBehaviour
         // when grounded reset current jump and turn off gravity
         if (isGrounded)
         {
-            currentJump = 0;
+            if (canJump == true) // check if in timer (to allow player to get off ground before reseting jumps)
+            {
+                currentJump = 0;
+            }
             rb.useGravity = false;
         }
         else
@@ -160,21 +163,22 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // space bar makes the character jump
-        if (Input.GetButtonDown("Jump") && (isGrounded || maxJump > currentJump))
+        if (Input.GetButtonDown("Jump") && (isGrounded || maxJump > currentJump) && canJump)
         {
+            StartCoroutine(JumpDelayTimer(0.1f)); // delay jump
             AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_1", "Rollo_Jump_2").transform.SetParent(transform);
             rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
             currentJump++;
         }
 
         // falling & not gliding, add downward force
-        if (!isGrounded && !isGliding && rb.velocity.y < 0)
-        {
-            rb.AddForce(fallForce * Vector3.down, ForceMode.Force);
-        }
+        //if (!isGrounded && !isGliding && rb.velocity.y < 0)
+        //{
+        //    //rb.AddForce(fallForce * Vector3.down, ForceMode.Force);
+        //}
 
         // do dash
-        if (!isGliding && canDash && Input.GetKeyDown(KeyCode.LeftShift))
+        if (isGrounded && canDash && Input.GetKeyDown(KeyCode.LeftShift))
         {
             if (movement.normalized != Vector3.zero) // don't dash if no movement
             {
@@ -286,6 +290,21 @@ public class PlayerMovement : MonoBehaviour
         }
 
         canDash = true;
+    }
+
+    // jump delay timer
+    private IEnumerator JumpDelayTimer(float duration)
+    {
+        float passed = 0.0f;
+        canJump = false;
+
+        while (passed < duration)
+        {
+            passed += Time.deltaTime;
+            yield return null;
+        }
+
+        canJump = true;
     }
 
     // returns isGrounded
