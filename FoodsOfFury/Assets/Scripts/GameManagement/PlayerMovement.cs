@@ -390,8 +390,17 @@ public class PlayerMovement : MonoBehaviour
     public void setBasicAnim(bool isBasic)
     {
         animator.SetBool("BasicAnim", isBasic);
-        animator.SetBool(idleAnim, false);
-        animator.SetBool(runAnim, false);
+
+        if (idleAnim != null)
+        {
+            animator.SetBool(idleAnim, false);
+        }
+
+        if (runAnim != null)
+        {
+            animator.SetBool(runAnim, false);
+        }
+
         idleAnim = null;
         runAnim = null;
     }
