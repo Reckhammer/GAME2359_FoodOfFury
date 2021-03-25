@@ -235,11 +235,16 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // applies extra force to gameobject with an option of stopping player input for a duration
-    public void applyExtraForce(Vector3 force, float inputStopDuration = 0.0f)
+    public void applyExtraForce(Vector3 force, float inputStopDuration = 0.0f, bool resetJump = false)
     {
         //rb.AddForce(-rb.velocity, ForceMode.VelocityChange);    // cancel current velocity
         stopInput(inputStopDuration);
         rb.AddForce(force, ForceMode.VelocityChange);           // applyforce
+
+        if (resetJump)
+        {
+            currentJump = 0;
+        }
 
         extraForceTime = 1.0f; // since we do a velocity change, time to complete extra force is roughly 1 second
     }
