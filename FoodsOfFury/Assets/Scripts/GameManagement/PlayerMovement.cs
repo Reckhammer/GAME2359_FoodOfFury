@@ -44,11 +44,15 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 groundNormal        = Vector3.up;   // normal of the ground
     private Coroutine inputStoppedCr    = null;         // reference to input stop timer coroutine
     private float extraForceTime        = 0.0f;         // time to allow extra force to be applied
+    private Animator animator           = null;         // reference to animator
+    private string idleAnim             = null;         // name of idle animation
+    private string runAnim              = null;         // name of run animation
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         groundChecker = transform.GetChild(1);
+        animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -193,6 +197,8 @@ public class PlayerMovement : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+
+        doAnimations();
     }
 
     // calculate movement based on camera rotation and player inputs
@@ -337,5 +343,56 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Gizmos.DrawSphere(groundChecker.position, groundDistance);
+    }
+
+    // do animations based on movement
+    private void doAnimations()
+    {
+        if (movement.magnitude > 0) // running
+        {
+            if (idleAnim != null)
+            {
+                animator.SetBool(idleAnim, false);
+            }
+
+            if (runAnim != null)
+            {
+                animator.SetBool(runAnim, true);
+            }
+        }
+        else // idle
+        {
+            if (runAnim != null)
+            {
+                animator.SetBool(runAnim, false);
+            }
+
+            if (idleAnim != null)
+            {
+                animator.SetBool(idleAnim, true);
+            }
+        }
+    }
+
+    // set run animation to be used
+    public void setIdleAnim(string anim)
+    {
+        idleAnim = anim;
+    }
+
+    // set idle animation to be used
+    public void setRunAnim(string anim)
+    {
+        runAnim = anim;
+    }
+
+    // reverts to basic animation (set old animations to false)
+    public void setBasicAnim(bool isBasic)
+    {
+        animator.SetBool("BasicAnim", isBasic);
+        animator.SetBool(idleAnim, false);
+        animator.SetBool(runAnim, false);
+        idleAnim = null;
+        runAnim = null;
     }
 }

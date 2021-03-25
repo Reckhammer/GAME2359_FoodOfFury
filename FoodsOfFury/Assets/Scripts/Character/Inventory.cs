@@ -152,6 +152,12 @@ public class Inventory : MonoBehaviour
 
         if (dropItemInWorld)
         {
+            if (type == ItemType.Weapon)
+            {
+                reference.GetComponent<WeaponReferences>().weaponScript.enabled = false; // turn off weapon script
+                reference.GetComponent<WeaponReferences>().weaponVisuals.enabled = true; // turn on weapon visuals
+            }
+
             drop(reference, type);  // drop new copy
         }
 
@@ -169,12 +175,6 @@ public class Inventory : MonoBehaviour
         copy.transform.position = transform.position;                           // set item position to this object
         copy.transform.rotation = transform.rotation;                           // set rotation to this rotation
         copy.name = type.ToString();                                            // set name to type
-
-        if (type == ItemType.Weapon)
-        {
-            copy.GetComponent<WeaponReferences>().weaponScript.enabled = false; // turn off weapon script
-            copy.GetComponent<WeaponReferences>().weaponVisuals.enabled = true; // turn on weapon visuals
-        }
 
         copy.SetActive(true);                                                   // make item active
         rb.AddForce(transform.forward * 5.0f, ForceMode.VelocityChange);        // throw item
