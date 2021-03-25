@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//----------------------------------------------------------------------------------------
+// Author: Abdon J. Puente IV
+//
+// Description: This class handles the pause menu
+//----------------------------------------------------------------------------------------
+
 public class PauseMenu : MonoBehaviour
 {
     public static bool gameIsPaused = false;
@@ -21,6 +27,7 @@ public class PauseMenu : MonoBehaviour
             else
             {
                 Pause();
+                AudioManager.Instance.playRandom(transform.position, "UI_Pause_1", "UI_Pause_2").transform.SetParent(transform);
             }
         }
     }
