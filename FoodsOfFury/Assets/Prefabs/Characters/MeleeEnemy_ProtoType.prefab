@@ -9,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1652323721}
-  - component: {fileID: 1652323724}
-  - component: {fileID: 1652323723}
   - component: {fileID: 1652323722}
+  - component: {fileID: 663204489}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -27,41 +26,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1652323720}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.901}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5158846582000924294}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1652323724
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1652323720}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!111 &1652323723
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1652323720}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 09858a5514f42e746abe8c0e2907994f, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 09858a5514f42e746abe8c0e2907994f, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &1652323722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,6 +54,20 @@ MonoBehaviour:
     m_Bits: 0
   doesKnockback: 1
   knockbackForce: 5
+--- !u!136 &663204489
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652323720}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1790564011238546649
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +208,7 @@ GameObject:
   - component: {fileID: 5875726540151770743}
   - component: {fileID: 9140873152783671190}
   - component: {fileID: 1667672134508206663}
+  - component: {fileID: 1497110810}
   m_Layer: 11
   m_Name: MeleeEnemy_ProtoType
   m_TagString: Enemy
@@ -350,10 +335,12 @@ MonoBehaviour:
   patrolTime: 8
   attackRate: 2
   projectileSpeed: 100
-  waypoints: []
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
   attackPoint: {fileID: 5603912794378721232}
   projectile: {fileID: 0}
-  meleeAttackAnim: {fileID: 1652323723}
+  meleeAttackAnim: {fileID: 1497110810}
 --- !u!114 &1667672134508206663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,3 +354,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   max: 5
+--- !u!111 &1497110810
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7604547032151658980}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 09858a5514f42e746abe8c0e2907994f, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 09858a5514f42e746abe8c0e2907994f, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
