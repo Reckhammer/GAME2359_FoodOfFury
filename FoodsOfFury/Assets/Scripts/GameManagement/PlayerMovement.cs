@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         if (!inputStopped)
         {
             //rb.AddForce(movement); // apply movement
-            rb.AddForce(movement - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1)));
+            rb.AddForce(movement - rb.velocity);
 
             if (isGliding)
             {
