@@ -17,12 +17,14 @@ public class PlayerMovement : MonoBehaviour
     public float dashForce              = 1.0f;         // force of dash
     public float dashDelay              = 0.5f;         // time before dash can be used again
     public float groundDistance         = 0.2f;         // distance to check for ground
-    //public float fallForce              = 1.0f;         // downwards force when falling
     public float rotationSpeed          = 1.0f;         // speed of rotation
     public LayerMask ground;                            // layers to check if grounded
 
     [Range(0.0f, 1.0f)]
     public float airControll            = 0.5f;         // amount of controll while in air
+
+    [Range(0.0f, 1.0f)]
+    public float extraFallGravity       = 1.0f;         // extra gravity multiplier
 
     [Range(1.0f, 0.0f)]
     public float glideFallRate          = 0.9f;         // falling rate for gliding (how much gravity)
@@ -67,6 +69,16 @@ public class PlayerMovement : MonoBehaviour
                 rb.AddForce(-Physics.gravity * glideFallRate);
             }
 
+            // falling & not gliding, add downward force
+            if (!isGrounded && !isGliding && rb.velocity.y < 1.0)
+            {
+                Vector3 extraGrav = Physics.gravity * extraFallGravity;
+                rb.AddForce(extraGrav);
+            }
+
+            // velocity magnitude without y
+            float magnitude = Vector3.Scale(rb.velocity, new Vector3(1, 0, 1)).magnitude;
+
             // slow player down when on ground, no input and not in extra force
             if (isGrounded && movement == Vector3.zero && extraForceTime == 0.0)
             {
@@ -80,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
                     rb.velocity = Vector3.zero; // stop player
                 }
             }
-            else if (extraForceTime == 0.0 && rb.velocity.magnitude > speed)  // slow down if grounded, not in extra force and going faster than speed
+            else if (extraForceTime == 0.0 && magnitude > speed)  // slow down if grounded, not in extra force and going faster than speed
             {
                 Vector3 velocityChange = Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));  // get velocity without y (leave gravity alone)
                 velocityChange -= velocityChange.normalized * speed;                        // calculate difference between velocity and max velocity
@@ -175,12 +187,6 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
             currentJump++;
         }
-
-        // falling & not gliding, add downward force
-        //if (!isGrounded && !isGliding && rb.velocity.y < 0)
-        //{
-        //    //rb.AddForce(fallForce * Vector3.down, ForceMode.Force);
-        //}
 
         // do dash
         if (isGrounded && canDash && Input.GetKeyDown(KeyCode.LeftShift))
