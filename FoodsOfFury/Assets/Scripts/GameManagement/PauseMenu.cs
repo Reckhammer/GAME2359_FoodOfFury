@@ -15,6 +15,7 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pauseMenuUI;
 
+
     // Update is called once per frame
     void Update()
     {
@@ -26,8 +27,9 @@ public class PauseMenu : MonoBehaviour
             }
             else
             {
+
                 Pause();
-                AudioManager.Instance.playRandom(transform.position, "UI_Pause_1", "UI_Pause_2").transform.SetParent(transform);
+           
             }
         }
     }
@@ -46,6 +48,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPaused = true;
+        //AudioManager.Instance.play(pauseMenuUI.transform.position, "UI_Pause_01").transform.SetParent(transform);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
