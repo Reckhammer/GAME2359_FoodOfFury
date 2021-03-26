@@ -354,6 +354,24 @@ public class PlayerMovement : MonoBehaviour
     // do animations based on movement
     private void doAnimations()
     {
+        if (isGliding)
+        {
+            animator.SetBool("isGliding", true);
+        }
+        else
+        {
+            animator.SetBool("isGliding", false);
+
+            if (rb.velocity.y < 0 && !isGrounded)
+            {
+                animator.SetBool("isFalling", true);
+            }
+            else
+            {
+                animator.SetBool("isFalling", false);
+            }
+        }
+
         if (movement.magnitude > 0) // running
         {
             if (idleAnim != null)
