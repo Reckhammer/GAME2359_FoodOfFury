@@ -62,7 +62,17 @@ public class PlayerMovement : MonoBehaviour
         if (!inputStopped)
         {
             //rb.AddForce(movement); // apply movement
-            rb.AddForce(movement - rb.velocity);
+            //rb.AddForce(movement - rb.velocity);
+            Vector3 velocity = Vector3.zero;
+            if (isGrounded)
+            {
+                velocity = movement - rb.velocity; // plane movement (keep plane normal)
+            }
+            else
+            {
+                velocity = movement - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1)); // air movement (keep gravity)
+            }
+            rb.AddForce(velocity);
 
             if (isGliding)
             {
