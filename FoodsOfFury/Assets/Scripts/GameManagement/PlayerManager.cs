@@ -106,23 +106,31 @@ public class PlayerManager : MonoBehaviour
         switch (type)
         {
             case ItemType.Weapon:
+                Sprite oldImage = null;
                 if (currWeapon != null)
                 {
+                    oldImage = currWeapon.GetComponent<WeaponReferences>().sprite;
                     currWeapon.SetActive(false);       // set old item inactive
                     currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = false; // turn off weapon script
                 }
 
-                currWeapon = inventory.get(type);   // get item
+                GameObject old = currWeapon;
+                currWeapon = inventory.get(type);   // get next item
+
+                if (old == currWeapon)
+                {
+                    oldImage = null;
+                }
 
                 if (currWeapon != null) // update UI & turn on weapon script
                 {
                     currWeapon.SetActive(true);        // set new item active
-                    UIManager.instance.updateWeaponUI(currWeapon.GetComponent<WeaponReferences>().sprite);
+                    UIManager.instance.updateWeaponUI(currWeapon.GetComponent<WeaponReferences>().sprite, oldImage);
                     currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = true;
                 }
                 else
                 {
-                    UIManager.instance.updateWeaponUI(null);
+                    UIManager.instance.updateWeaponUI(null, null);
                 }
                 break;
             case ItemType.Consumable:
@@ -132,11 +140,11 @@ public class PlayerManager : MonoBehaviour
 
                 if (currConsumable != null) // update UI
                 {
-                    UIManager.instance.updateConsumablesUI(currConsumable.GetComponent<Consumable>().sprite);
+                    UIManager.instance.updateConsumablesUI(currConsumable.GetComponent<Consumable>().sprite, inventory.amount(ItemType.Consumable));
                 }
                 else
                 {
-                    UIManager.instance.updateConsumablesUI(null);
+                    UIManager.instance.updateConsumablesUI(null, 0);
                 }
                 break;
             default:
@@ -150,23 +158,31 @@ public class PlayerManager : MonoBehaviour
         switch (type)
         {
             case ItemType.Weapon:
+                Sprite oldImage = null;
                 if (currWeapon != null)
                 {
+                    oldImage = currWeapon.GetComponent<WeaponReferences>().sprite;
                     currWeapon.SetActive(false);       // set old item inactive
                     currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = false; // turn off weapon script
                 }
 
+                GameObject old = currWeapon;
                 currWeapon = inventory.next(type);   // get next item
+
+                if (old == currWeapon)
+                {
+                    oldImage = null;
+                }
 
                 if (currWeapon != null) // update UI & turn on weapon script
                 {
                     currWeapon.SetActive(true);        // set new item active
-                    UIManager.instance.updateWeaponUI(currWeapon.GetComponent<WeaponReferences>().sprite);
+                    UIManager.instance.updateWeaponUI(currWeapon.GetComponent<WeaponReferences>().sprite, oldImage);
                     currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = true;
                 }
                 else
                 {
-                    UIManager.instance.updateWeaponUI(null);
+                    UIManager.instance.updateWeaponUI(null, null);
                 }
                 break;
             case ItemType.Consumable:
@@ -176,11 +192,11 @@ public class PlayerManager : MonoBehaviour
 
                 if (currConsumable != null) // update UI
                 {
-                    UIManager.instance.updateConsumablesUI(currConsumable.GetComponent<Consumable>().sprite);
+                    UIManager.instance.updateConsumablesUI(currConsumable.GetComponent<Consumable>().sprite, inventory.amount(ItemType.Consumable));
                 }
                 else
                 {
-                    UIManager.instance.updateConsumablesUI(null);
+                    UIManager.instance.updateConsumablesUI(null, 0);
                 }
                 break;
             default:

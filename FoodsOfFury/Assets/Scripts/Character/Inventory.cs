@@ -86,6 +86,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    // add item to correct list
     public bool add(GameObject item, ItemType type)
     {
         switch (type)
@@ -99,6 +100,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    // adds item to list
     private bool addToList(ref InventoryList list, GameObject item, ItemType type)
     {
         if (list.max != 0)
@@ -178,6 +180,20 @@ public class Inventory : MonoBehaviour
 
         copy.SetActive(true);                                                   // make item active
         rb.AddForce(transform.forward * 5.0f, ForceMode.VelocityChange);        // throw item
+    }
+
+    // returns amount of items in type of list
+    public int amount(ItemType type)
+    {
+        switch (type)
+        {
+            case ItemType.Weapon:
+                return weapons.amount();
+            case ItemType.Consumable:
+                return consumables.amount();
+            default:
+                return 0;
+        }
     }
 
     // prints inventory items

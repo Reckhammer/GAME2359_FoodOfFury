@@ -108,6 +108,12 @@ public class InventoryList
         return false;
     }
 
+    // return amount of items in list
+    public int amount()
+    {
+        return list.Count;
+    }
+
     // prints list in debugger
     public void printList()
     {

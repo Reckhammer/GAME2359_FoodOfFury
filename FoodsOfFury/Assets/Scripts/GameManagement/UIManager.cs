@@ -13,9 +13,12 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance { get; private set; } // GameController instance
 
-    public HealthBar healthBar;     // reference to player health bar
-    public Image weaponImageUI;     // reference to weapon image
-    public Image consumableImageUI; // reference to consumable image
+    public HealthBar healthBar;             // reference to player health bar
+    public Image weaponImageUI;             // reference to weapon image
+    public Image[] weaponSelectedOverlays;  // references to weapon overlays
+    public Image oldWeaponImageUI;          // reference to previous image
+    public Image consumableImageUI;         // reference to consumable image
+    public Text consumableAmountUI;         // reference to consumable amount text
 
     // do singleton stuff
     private void Awake()
@@ -47,18 +50,34 @@ public class UIManager : MonoBehaviour
     }
 
     // updates the weapoons UI
-    public void updateWeaponUI(Sprite image)
+    public void updateWeaponUI(Sprite current, Sprite old)
     {
         if (weaponImageUI == null)
         {
             return;
         }
 
-        weaponImageUI.sprite = image;
+        weaponImageUI.sprite = current;
+        oldWeaponImageUI.sprite = old;
+
+        if (weaponImageUI.sprite != null)
+        {
+            foreach (Image image in weaponSelectedOverlays)
+            {
+                image.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach (Image image in weaponSelectedOverlays)
+            {
+                image.gameObject.SetActive(false);
+            }
+        }
     }
 
     // updates the consumables UI
-    public void updateConsumablesUI(Sprite image)
+    public void updateConsumablesUI(Sprite image, float amount)
     {
         if (consumableImageUI == null)
         {
@@ -66,5 +85,6 @@ public class UIManager : MonoBehaviour
         }
 
         consumableImageUI.sprite = image;
+        consumableAmountUI.text = "x" + amount;
     }
 }
