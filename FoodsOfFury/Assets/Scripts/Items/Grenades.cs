@@ -39,6 +39,7 @@ public class Grenades : MonoBehaviour
         //Explodion particle effect
         Instantiate(explosionEffect, transform.position, transform.rotation);
 
+        //Plays audio source
         AudioManager.Instance.playRandom(transform.position, "Bomb_Explode_01").transform.SetParent(transform);
 
         //Detect Character
