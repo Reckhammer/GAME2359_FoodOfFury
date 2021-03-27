@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*-------------------------------------------------------
+ * Author: Abdon J. Puente IV
+ * 
+ *  Description: This class handles the player's grenade weapon
+ *  
+ *  */
+
 public class GrenadeWeapon : MonoBehaviour
 {
 
