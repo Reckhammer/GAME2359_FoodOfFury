@@ -39,6 +39,8 @@ public class Grenades : MonoBehaviour
         //Explodion particle effect
         Instantiate(explosionEffect, transform.position, transform.rotation);
 
+        AudioManager.Instance.playRandom(transform.position, "Bomb_Explode_01").transform.SetParent(transform);
+
         //Detect Character
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, radius, enemyLayers);
 
