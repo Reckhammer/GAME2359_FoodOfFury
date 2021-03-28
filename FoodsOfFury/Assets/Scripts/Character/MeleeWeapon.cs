@@ -16,7 +16,7 @@ public class MeleeWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
             //print("doing attack");
             Attack();
@@ -26,8 +26,11 @@ public class MeleeWeapon : MonoBehaviour
 
     void Attack()
     {
+
         if (!attackAnim.isPlaying && GetComponentInParent<PlayerMovement>().onGround())
         {
+            AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01"); // play audio clip 
+
             GetComponentInParent<PlayerMovement>().stopInput(0.5f);     // stop play for a bit
             GetComponentInParent<Animator>().SetTrigger("OnionAttack"); // play visual attack animation
             attackAnim.Play();                                          // collider animation
