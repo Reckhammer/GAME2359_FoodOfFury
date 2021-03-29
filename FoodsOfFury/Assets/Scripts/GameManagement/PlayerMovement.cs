@@ -82,6 +82,9 @@ public class PlayerMovement : MonoBehaviour
             // falling & not gliding, add downward force
             if (!isGrounded && !isGliding && rb.velocity.y < 1.0)
             {
+
+                //AudioManager.Instance.playRandom(transform.position, "Rollo_Fall_01");
+
                 Vector3 extraGrav = Physics.gravity * extraFallGravity;
                 rb.AddForce(extraGrav);
             }
@@ -375,9 +378,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isGliding", false);
 
             if (rb.velocity.y < 0 && !isGrounded)
-            {
-                //AudioManager.Instance.playRandom(transform.position, "Rollo_Fall_01").transform.SetParent(transform);
-
+            {    
                 animator.SetBool("isFalling", true);
             }
             else
