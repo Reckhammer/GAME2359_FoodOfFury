@@ -215,6 +215,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         doAnimations();
+
+       
     }
 
     // calculate movement based on camera rotation and player inputs
@@ -374,7 +376,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (rb.velocity.y < 0 && !isGrounded)
             {
-                AudioManager.Instance.playRandom(transform.position, "Rollo_Fall_01").transform.SetParent(transform);
+                //AudioManager.Instance.playRandom(transform.position, "Rollo_Fall_01").transform.SetParent(transform);
 
                 animator.SetBool("isFalling", true);
             }
