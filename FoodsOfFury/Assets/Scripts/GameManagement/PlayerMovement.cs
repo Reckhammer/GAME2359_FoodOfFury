@@ -374,6 +374,8 @@ public class PlayerMovement : MonoBehaviour
 
             if (rb.velocity.y < 0 && !isGrounded)
             {
+                AudioManager.Instance.playRandom(transform.position, "Rollo_Fall_01").transform.SetParent(transform);
+
                 animator.SetBool("isFalling", true);
             }
             else
