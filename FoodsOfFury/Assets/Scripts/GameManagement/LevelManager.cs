@@ -16,7 +16,7 @@ public class LevelManager : MonoBehaviour
 
     private Health  playerHealth;       //the player's heath
 
-
+    public Text     objective;          //The text for the objective UI
     public Image    endGameMenu;        //UI elements for the level completion
     public Text     endGameText;        //The text for the UI
     public Button   nextLvlBtn;         //Reference to the next level button ui
@@ -50,6 +50,7 @@ public class LevelManager : MonoBehaviour
             restartBtn.gameObject.SetActive( true );
         }
 
+        objective.text = objectiveList[0].message;
     }
 
     //-----------------------------------------------------------------------------------

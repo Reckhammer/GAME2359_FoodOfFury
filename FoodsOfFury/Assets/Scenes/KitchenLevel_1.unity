@@ -2816,6 +2816,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &303704689 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 415661040, guid: b04fb38cca20ddd46b830a14d89cd187, type: 3}
+  m_PrefabInstance: {fileID: 514932291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &308507650 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8396190934776865712, guid: 96c841483b0b7de4ab2e10c94405059f, type: 3}
@@ -4601,6 +4612,14 @@ PrefabInstance:
     - target: {fileID: 7803308940797018822, guid: b04fb38cca20ddd46b830a14d89cd187, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012051764684968364, guid: b04fb38cca20ddd46b830a14d89cd187, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 113.3999
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012051764684968364, guid: b04fb38cca20ddd46b830a14d89cd187, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -29.800049
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b04fb38cca20ddd46b830a14d89cd187, type: 3}
@@ -10395,10 +10414,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectiveList:
   - {fileID: 1792173773}
+  objective: {fileID: 1655735993}
   endGameMenu: {fileID: 1399642665}
   endGameText: {fileID: 1327005830}
-  nextLvlBtn: {fileID: 0}
-  restartBtn: {fileID: 0}
+  nextLvlBtn: {fileID: 303704689}
+  restartBtn: {fileID: 2014446127}
   waitTime: 0.75
 --- !u!4 &1159460133
 Transform:
@@ -15576,6 +15596,17 @@ Transform:
   m_Father: {fileID: 1183284095}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1655735993 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5490870425709986451, guid: b04fb38cca20ddd46b830a14d89cd187, type: 3}
+  m_PrefabInstance: {fileID: 514932291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1661564194
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19743,6 +19774,17 @@ MonoBehaviour:
   collideWith:
     serializedVersion: 2
     m_Bits: 311
+--- !u!114 &2014446127 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 64900827, guid: b04fb38cca20ddd46b830a14d89cd187, type: 3}
+  m_PrefabInstance: {fileID: 514932291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2019983520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21459,6 +21501,10 @@ PrefabInstance:
       propertyPath: health
       value: 
       objectReference: {fileID: 2106420008}
+    - target: {fileID: 3743750929786980634, guid: 40ca8cfd2c8b6004cb236e038a77c07b, type: 3}
+      propertyPath: message
+      value: Save Mr. Carrot
+      objectReference: {fileID: 0}
     - target: {fileID: 3782672804026032677, guid: 40ca8cfd2c8b6004cb236e038a77c07b, type: 3}
       propertyPath: m_RootOrder
       value: 12

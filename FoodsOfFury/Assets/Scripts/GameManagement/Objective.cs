@@ -14,8 +14,8 @@ public enum ObjectiveType { Waypoint, Rescue }; //Enemy Wave???
 //----------------------------------------------------------------------------------------
 public class Objective : MonoBehaviour
 {
-    
 
+    public string           message;            //Text message telling the player what to do
     public ObjectiveType    objectiveType;      //The type of objective of THIS obj
     public Health           health;             //Health component for the rescue cage obj
 
@@ -26,6 +26,13 @@ public class Objective : MonoBehaviour
    void Awake()
     {
         lvlManager = GameObject.Find( "LevelManager" ).GetComponent<LevelManager>();    //Get the reference to the lvlManager in the scene
+
+        //if message is not initialized
+        //      Set it to a default value
+        if ( message == null )
+        {
+            message = "Objective message not initialized";
+        }
 
         //if this is a rescue objective type
         //      Get a reference to the health component/script
@@ -42,6 +49,7 @@ public class Objective : MonoBehaviour
         {
             lvlManager.setCompleted( this );
             GetComponent<MeshRenderer>().enabled = false;
+            isDone = true;
         }
     }
 
@@ -53,6 +61,7 @@ public class Objective : MonoBehaviour
         {
             lvlManager.setCompleted( this );
             gameObject.SetActive( false );
+            isDone = true;
         }
     }
 }
