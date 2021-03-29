@@ -208,13 +208,15 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        // DEBUG: RESET LEVEL (delete later)
+        // DEBUG: RESET LEVEL (Make it a retry button & delete)
         if (Input.GetKeyDown(KeyCode.F1))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         doAnimations();
+
+       
     }
 
     // calculate movement based on camera rotation and player inputs
@@ -374,7 +376,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (rb.velocity.y < 0 && !isGrounded)
             {
-                AudioManager.Instance.playRandom(transform.position, "Rollo_Fall_01").transform.SetParent(transform);
+                //AudioManager.Instance.playRandom(transform.position, "Rollo_Fall_01").transform.SetParent(transform);
 
                 animator.SetBool("isFalling", true);
             }
