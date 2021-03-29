@@ -208,7 +208,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        // DEBUG: RESET LEVEL (Make it a retry button & delete)
+        // DEBUG: RESET LEVEL (delete later)
         if (Input.GetKeyDown(KeyCode.F1))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
