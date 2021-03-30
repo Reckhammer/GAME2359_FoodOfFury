@@ -43,7 +43,7 @@ public class PlayerMovementTwo : MonoBehaviour
     private int currentJump             = 0;            // current jump index
     private bool isGrounded             = true;         // for ground check
     private bool isGliding              = false;        // for gliding check
-    private bool canJump                = true;         // for jump delay
+    private bool inJump                 = false;        // for jump delay
     private bool canDash                = true;         // for dash delay check
     private Vector3 groundNormal        = Vector3.up;   // normal of the ground
     private Coroutine inputStoppedCr    = null;         // reference to input stop timer coroutine
@@ -73,7 +73,7 @@ public class PlayerMovementTwo : MonoBehaviour
             {
                 Vector3 wantVel = Vector3.zero;
 
-                if (groundNormal != Vector3.up) // grounded movement (we mess with y values (slopes))
+                if (groundNormal != Vector3.up && !inJump) // grounded movement (we mess with y values (slopes))
                 {
                     //print("velocity: " + (movement - rb.velocity));
                     //rb.AddForce(movement - rb.velocity, ForceMode.VelocityChange);
@@ -147,7 +147,7 @@ public class PlayerMovementTwo : MonoBehaviour
                 {
                     Vector3 lVel = Vector3.Lerp(movement - rb.velocity, extraVel - rb.velocity, extraForceTime);
                     lVel.y = 0; // cut out y (y force was added in function. Allow gravity in extray force)
-                    rb.AddForce(lVel, ForceMode.VelocityChange); // NOTE: bounce pads need to call PlayerMovementTwo (for now)
+                    rb.AddForce(lVel, ForceMode.VelocityChange); // NOTE: bounce pads/damaging needs to call PlayerMovementTwo (for now)
                 }
             }
 
@@ -278,7 +278,7 @@ public class PlayerMovementTwo : MonoBehaviour
         // when grounded reset current jump and turn off gravity
         if (isGrounded)
         {
-            if (canJump == true) // check if in timer (to allow player to get off ground before reseting jumps)
+            if (inJump == false) // check if in timer (to allow player to get off ground before reseting jumps)
             {
                 currentJump = 0;
             }
@@ -290,13 +290,12 @@ public class PlayerMovementTwo : MonoBehaviour
         }
 
         // space bar makes the character jump
-        if (Input.GetButtonDown("Jump") && (maxJump > currentJump) && canJump)
+        if (Input.GetButtonDown("Jump") && (maxJump > currentJump) && !inJump)
         {
             StartCoroutine(JumpDelayTimer(0.1f)); // delay jump
             AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_1", "Rollo_Jump_2").transform.SetParent(transform);
-            rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+            rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y) + Vector3.up * -rb.velocity.y, ForceMode.VelocityChange); // regular jump (+ y velocity cancel)
             currentJump++;
-            isGrounded = false;
         }
 
         // do dash
@@ -427,7 +426,7 @@ public class PlayerMovementTwo : MonoBehaviour
     private IEnumerator JumpDelayTimer(float duration)
     {
         float passed = 0.0f;
-        canJump = false;
+        inJump = true;
 
         while (passed < duration)
         {
@@ -435,7 +434,7 @@ public class PlayerMovementTwo : MonoBehaviour
             yield return null;
         }
 
-        canJump = true;
+        inJump = false;
     }
 
     // returns isGrounded
