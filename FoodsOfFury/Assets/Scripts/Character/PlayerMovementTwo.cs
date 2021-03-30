@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement; // get rid of this later
 // Author: Abdon J. Puente IV, Jose Villanueva
 //
 // Description: This class handles the players movement
+//
+// TODO: Get rid of old stuff(commented out) when stable
 //----------------------------------------------------------------------------------------
 
 public class PlayerMovementTwo : MonoBehaviour
@@ -49,6 +51,9 @@ public class PlayerMovementTwo : MonoBehaviour
     private Animator animator           = null;         // reference to animator
     private string idleAnim             = null;         // name of idle animation
     private string runAnim              = null;         // name of run animation
+    //private bool outOfExtra             = false;        // bool to check if just got out of extra velocity
+    //private float lerpTime              = 0.0f;         // time for lerp from extra force to wanted force (movement/input)
+    private Vector3 extraVel            = Vector3.zero; // extra force velocity (recorded to lerp from extra to movement)
 
     private void Awake()
     {
@@ -63,23 +68,87 @@ public class PlayerMovementTwo : MonoBehaviour
         {
             //rb.AddForce(movement); // apply movement
             //rb.AddForce(movement - rb.velocity);
-            if (extraForceTime == 0.0f)
+
+            if (extraForceTime <= 0.0f)
             {
-                if (groundNormal != Vector3.up)
+                Vector3 wantVel = Vector3.zero;
+
+                if (groundNormal != Vector3.up) // grounded movement (we mess with y values (slopes))
                 {
-                    print("velocity: " + (movement - rb.velocity));
-                    rb.AddForce(movement - rb.velocity, ForceMode.VelocityChange);
+                    //print("velocity: " + (movement - rb.velocity));
+                    //rb.AddForce(movement - rb.velocity, ForceMode.VelocityChange);
+                    wantVel = movement - rb.velocity;
                 }
-                else
+                else // air movement/flat ground movement (leave gravity alone (when on))
                 {
-                    print("movement: " + (movement - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1))));
-                    rb.AddForce(movement - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1)), ForceMode.VelocityChange); // air movement (keep gravity)
+                    //print("movement: " + (movement - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1))));
+                    //rb.AddForce(movement - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1)), ForceMode.VelocityChange); // air movement (keep gravity)
+                    wantVel = movement - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));
                 }
                 //rb.velocity = movement;
+
+                //if (outOfExtra) // slep velocity with wanted velocity
+                //{
+                //    if (extraVel == Vector3.zero)
+                //    {
+                //        extraVel = rb.velocity;
+                //    }
+
+                //    //wantVel = movement - rb.velocity;
+                //    Vector3 lVel = Vector3.Lerp(extraVel - rb.velocity, wantVel, lerpTime);
+                //    //print("curr velocity: " + rb.velocity);
+                //    print("want velocity: " + wantVel);
+                //    print("lerp velocity: " + lVel);
+                //    print("------------------------------------------------------------------");
+
+                //    //lVel = lVel - rb.velocity;
+                //    //lVel = lVel - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));
+
+                //    //if (groundNormal != Vector3.up)
+                //    //{
+                //    //    lVel = lVel - rb.velocity;
+                //    //}
+                //    //else
+                //    //{
+                //    //    lVel = lVel - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));
+                //    //}
+
+                //    rb.AddForce(lVel, ForceMode.VelocityChange);
+                //    //print("lerp by: " + lerpTime);
+                //    lerpTime += Time.fixedDeltaTime;
+
+                //    if (lerpTime >= 0.1) // time to lerp
+                //    {
+                //        lerpTime = 0.0f;
+                //        outOfExtra = false;
+                //        extraVel = Vector3.zero;
+                //    }
+                //}
+                //else
+                {
+                    rb.AddForce(wantVel, ForceMode.VelocityChange);
+                }
             }
             else
             {
-                rb.AddForce(movement);
+                //print("in extra force");
+                //rb.AddForce(movement);
+                //print("extraforcetime: " + extraForceTime);
+
+                //Vector3 lVel = Vector3.Lerp(movement - rb.velocity, extraVel - rb.velocity, extraForceTime);
+                //rb.AddForce(lVel, ForceMode.VelocityChange); // NOTE: bounce pads need to call PlayerMovementTwo (for now)
+
+                if (groundNormal != Vector3.up) // grounded movement
+                {
+                    Vector3 lVel = Vector3.Lerp(movement - rb.velocity, extraVel - rb.velocity, extraForceTime);
+                    rb.AddForce(lVel, ForceMode.VelocityChange); // NOTE: bounce pads need to call PlayerMovementTwo (for now)
+                }
+                else // air/ flat ground movement
+                {
+                    Vector3 lVel = Vector3.Lerp(movement - rb.velocity, extraVel - rb.velocity, extraForceTime);
+                    lVel.y = 0; // cut out y (y force was added in function. Allow gravity in extray force)
+                    rb.AddForce(lVel, ForceMode.VelocityChange); // NOTE: bounce pads need to call PlayerMovementTwo (for now)
+                }
             }
 
             //Vector3 velocity = Vector3.zero;
@@ -155,7 +224,17 @@ public class PlayerMovementTwo : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.fixedDeltaTime * rotationSpeed); // slerp rotation with rotation speed
         }
 
+        //if (extraForceTime > 0.0f && (extraForceTime - Time.fixedDeltaTime) <= 0.0f)
+        //{
+        //    outOfExtra = true;
+        //}
+
         extraForceTime = (extraForceTime > 0.0f) ? extraForceTime - Time.fixedDeltaTime : 0.0f; // decrease timer
+
+        if (extraForceTime <= 0.0)
+        {
+            extraVel = Vector3.zero;
+        }
     }
 
     private void Update()
@@ -217,6 +296,7 @@ public class PlayerMovementTwo : MonoBehaviour
             AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_1", "Rollo_Jump_2").transform.SetParent(transform);
             rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
             currentJump++;
+            isGrounded = false;
         }
 
         // do dash
@@ -284,6 +364,7 @@ public class PlayerMovementTwo : MonoBehaviour
         //rb.AddForce(-rb.velocity, ForceMode.VelocityChange);    // cancel current velocity
         stopInput(inputStopDuration);
         rb.AddForce(force, ForceMode.VelocityChange);           // applyforce
+        extraVel = force;
 
         if (resetJump)
         {
