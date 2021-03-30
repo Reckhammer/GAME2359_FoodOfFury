@@ -7,32 +7,22 @@ using UnityEngine.SceneManagement; // get rid of this later
 // Author: Abdon J. Puente IV, Jose Villanueva
 //
 // Description: This class handles the players movement
-//
-// TODO: Get rid of old stuff(commented out) when stable
 //----------------------------------------------------------------------------------------
 
 public class PlayerMovementTwo : MonoBehaviour
 {
-    public float speed                  = 5f;           // speed if player
-    public float glideSpeed             = 1.0f;         // movement speed while gliding
-    public float jumpHeight             = 2f;           // jump force of player
-    public float dashForce              = 1.0f;         // force of dash
+    public float speed                  = 10f;          // speed if player
+    public float glideSpeed             = 5.0f;         // movement speed while gliding
+    public float jumpHeight             = 5.0f;         // jump force of player
+    public float dashForce              = 20.0f;        // force of dash
     public float dashDelay              = 0.5f;         // time before dash can be used again
-    public float groundDistance         = 0.2f;         // distance to check for ground
-    public float rotationSpeed          = 1.0f;         // speed of rotation
+    public float groundDetectRadius     = 0.3f;         // radius of sphere to check for ground
+    public float rotationSpeed          = 10.0f;        // speed of rotation
     public LayerMask ground;                            // layers to check if grounded
-
-    [Range(0.0f, 1.0f)]
-    public float airControll            = 0.5f;         // amount of controll while in air
-
-    [Range(0.0f, 1.0f)]
-    public float extraFallGravity       = 1.0f;         // extra gravity multiplier
+    public float extraGravityMultiplier = 1.0f;         // extra gravity multiplier
 
     [Range(1.0f, 0.0f)]
     public float glideFallRate          = 0.9f;         // falling rate for gliding (how much gravity)
-
-    [Range(0.0f, 1.0f)]
-    public float slowDownRate           = 0.1f;         // rate to slow down player when not moving
 
     private Rigidbody rb                = null;         // rigidbody of player
     private bool inputStopped           = false;        // for stopping input
@@ -51,8 +41,6 @@ public class PlayerMovementTwo : MonoBehaviour
     private Animator animator           = null;         // reference to animator
     private string idleAnim             = null;         // name of idle animation
     private string runAnim              = null;         // name of run animation
-    //private bool outOfExtra             = false;        // bool to check if just got out of extra velocity
-    //private float lerpTime              = 0.0f;         // time for lerp from extra force to wanted force (movement/input)
     private Vector3 extraVel            = Vector3.zero; // extra force velocity (recorded to lerp from extra to movement)
 
     private void Awake()
@@ -66,144 +54,47 @@ public class PlayerMovementTwo : MonoBehaviour
     {
         if (!inputStopped)
         {
-            //rb.AddForce(movement); // apply movement
-            //rb.AddForce(movement - rb.velocity);
-
             if (extraForceTime <= 0.0f)
             {
                 Vector3 wantVel = Vector3.zero;
 
                 if (groundNormal != Vector3.up && !inJump) // grounded movement (we mess with y values (slopes))
                 {
-                    //print("velocity: " + (movement - rb.velocity));
-                    //rb.AddForce(movement - rb.velocity, ForceMode.VelocityChange);
                     wantVel = movement - rb.velocity;
                 }
                 else // air movement/flat ground movement (leave gravity alone (when on))
                 {
-                    //print("movement: " + (movement - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1))));
-                    //rb.AddForce(movement - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1)), ForceMode.VelocityChange); // air movement (keep gravity)
                     wantVel = movement - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));
                 }
-                //rb.velocity = movement;
 
-                //if (outOfExtra) // slep velocity with wanted velocity
-                //{
-                //    if (extraVel == Vector3.zero)
-                //    {
-                //        extraVel = rb.velocity;
-                //    }
-
-                //    //wantVel = movement - rb.velocity;
-                //    Vector3 lVel = Vector3.Lerp(extraVel - rb.velocity, wantVel, lerpTime);
-                //    //print("curr velocity: " + rb.velocity);
-                //    print("want velocity: " + wantVel);
-                //    print("lerp velocity: " + lVel);
-                //    print("------------------------------------------------------------------");
-
-                //    //lVel = lVel - rb.velocity;
-                //    //lVel = lVel - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));
-
-                //    //if (groundNormal != Vector3.up)
-                //    //{
-                //    //    lVel = lVel - rb.velocity;
-                //    //}
-                //    //else
-                //    //{
-                //    //    lVel = lVel - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));
-                //    //}
-
-                //    rb.AddForce(lVel, ForceMode.VelocityChange);
-                //    //print("lerp by: " + lerpTime);
-                //    lerpTime += Time.fixedDeltaTime;
-
-                //    if (lerpTime >= 0.1) // time to lerp
-                //    {
-                //        lerpTime = 0.0f;
-                //        outOfExtra = false;
-                //        extraVel = Vector3.zero;
-                //    }
-                //}
-                //else
-                {
-                    rb.AddForce(wantVel, ForceMode.VelocityChange);
-                }
+                rb.AddForce(wantVel, ForceMode.VelocityChange);
             }
-            else
+            else // extra force calculations. NOTE: bounce pads/damaging needs to call PlayerMovementTwo (for now)
             {
-                //print("in extra force");
-                //rb.AddForce(movement);
-                //print("extraforcetime: " + extraForceTime);
-
-                //Vector3 lVel = Vector3.Lerp(movement - rb.velocity, extraVel - rb.velocity, extraForceTime);
-                //rb.AddForce(lVel, ForceMode.VelocityChange); // NOTE: bounce pads need to call PlayerMovementTwo (for now)
-
                 if (groundNormal != Vector3.up) // grounded movement
                 {
                     Vector3 lVel = Vector3.Lerp(movement - rb.velocity, extraVel - rb.velocity, extraForceTime);
-                    rb.AddForce(lVel, ForceMode.VelocityChange); // NOTE: bounce pads need to call PlayerMovementTwo (for now)
+                    rb.AddForce(lVel, ForceMode.VelocityChange);
                 }
                 else // air/ flat ground movement
                 {
                     Vector3 lVel = Vector3.Lerp(movement - rb.velocity, extraVel - rb.velocity, extraForceTime);
                     lVel.y = 0; // cut out y (y force was added in function. Allow gravity in extray force)
-                    rb.AddForce(lVel, ForceMode.VelocityChange); // NOTE: bounce pads/damaging needs to call PlayerMovementTwo (for now)
+                    rb.AddForce(lVel, ForceMode.VelocityChange);
                 }
             }
-
-            //Vector3 velocity = Vector3.zero;
-            //if (isGrounded)
-            //{
-            //    //rb.AddForce(movement, ForceMode.VelocityChange);
-            //    //velocity = movement - rb.velocity; // plane movement (keep plane normal)
-            //}
-            //else
-            //{
-            //    rb.AddForce(movement);
-            //    //velocity = movement - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1)); // air movement (keep gravity)
-            //}
-            //rb.AddForce(velocity);
 
             if (isGliding)
             {
                 rb.AddForce(-Physics.gravity * glideFallRate);
             }
+        }
 
-            // falling & not gliding, add downward force
-            if (!isGrounded && !isGliding && rb.velocity.y < 1.0)
-            {
-                Vector3 extraGrav = Physics.gravity * extraFallGravity;
-                rb.AddForce(extraGrav);
-            }
-
-            // velocity magnitude without y
-            //float magnitude = Vector3.Scale(rb.velocity, new Vector3(1, 0, 1)).magnitude;
-
-            // slow player down when on ground, no input and not in extra force
-            //if (isGrounded && movement == Vector3.zero && extraForceTime == 0.0)
-            //{
-                //if (rb.velocity.magnitude > 0.1f) // stop calculating when not needed (already slowed down)
-                //{
-                //    Vector3 velocityChange = Vector3.Scale(rb.velocity, new Vector3(1, 1, 1) * -slowDownRate); // velocityChange = opposite velocity * rate
-                //    rb.AddForce(velocityChange, ForceMode.VelocityChange);
-                //}
-                //else
-                //{
-                //    rb.velocity = Vector3.zero; // stop player
-                //}
-            //}
-            //else if (extraForceTime == 0.0 && magnitude > speed)  // slow down if grounded, not in extra force and going faster than speed
-            //{
-                //Vector3 velocityChange = Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));  // get velocity without y (leave gravity alone)
-                //velocityChange -= velocityChange.normalized * speed;                        // calculate difference between velocity and max velocity
-                //rb.AddForce(-velocityChange, ForceMode.VelocityChange);                     // apply difference to return to normal (unless it was gravity)
-            //}
-            //else if (isGrounded && extraForceTime == 0.0f && rb.velocity.magnitude < speed) // help player reach max speed
-            //{
-            //    Vector3 velocityChange = rb.velocity;                                       // get velocity
-            //    velocityChange -= movement.normalized * speed;                              // calculate difference between velocity and max velocity (using movement direction for quick turn speeds)
-            //    rb.AddForce(-velocityChange);                                               // apply difference to try to reach max speed
-            //}
+        // falling & not gliding, add downward force
+        if (!isGrounded && !isGliding && !inJump && rb.velocity.y < 1.0)
+        {
+            Vector3 extraGrav = Physics.gravity * extraGravityMultiplier;
+            rb.AddForce(extraGrav);
         }
 
         Vector3 dir = Vector3.zero;
@@ -218,16 +109,11 @@ public class PlayerMovementTwo : MonoBehaviour
             dir = Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));     // regular velocity normalized (no y value)
         }
 
-        if (dir != Vector3.zero) // direction is zero, don't set
+        if (dir != Vector3.zero) // if direction is zero, don't set
         {
             Quaternion toRotation = Quaternion.LookRotation(dir); // target rotation
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.fixedDeltaTime * rotationSpeed); // slerp rotation with rotation speed
         }
-
-        //if (extraForceTime > 0.0f && (extraForceTime - Time.fixedDeltaTime) <= 0.0f)
-        //{
-        //    outOfExtra = true;
-        //}
 
         extraForceTime = (extraForceTime > 0.0f) ? extraForceTime - Time.fixedDeltaTime : 0.0f; // decrease timer
 
@@ -240,7 +126,7 @@ public class PlayerMovementTwo : MonoBehaviour
     private void Update()
     {
         // check ground
-        isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, ground, QueryTriggerInteraction.Ignore);
+        isGrounded = Physics.CheckSphere(groundChecker.position, groundDetectRadius, ground, QueryTriggerInteraction.Ignore);
         inputs = Vector3.zero; // reset inputs
 
         // start glide if 'shift' is pressed (when not grounded)
@@ -255,21 +141,16 @@ public class PlayerMovementTwo : MonoBehaviour
             isGliding = false;
         }
 
-        // get player horzontal and vertical inputs
-        if (isGrounded) // grounded movement
-        {
-            inputs.x = Input.GetAxis("Vertical") * speed;
-            inputs.z = Input.GetAxis("Horizontal") * speed;
-        }
-        else if (isGliding) // gliding movement
+
+        if (isGliding) // gliding movement
         {
             inputs.x = Input.GetAxis("Vertical") * glideSpeed;
             inputs.z = Input.GetAxis("Horizontal") * glideSpeed;
         }
-        else // air movement (not gliding)
+        else // regular movement
         {
-            inputs.x = Input.GetAxis("Vertical") * speed * airControll;
-            inputs.z = Input.GetAxis("Horizontal") * speed * airControll;
+            inputs.x = Input.GetAxis("Vertical") * speed;
+            inputs.z = Input.GetAxis("Horizontal") * speed;
         }
 
         checkSlope();           // get slope normal
@@ -294,7 +175,7 @@ public class PlayerMovementTwo : MonoBehaviour
         {
             StartCoroutine(JumpDelayTimer(0.1f)); // delay jump
             AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_1", "Rollo_Jump_2").transform.SetParent(transform);
-            rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y) + Vector3.up * -rb.velocity.y, ForceMode.VelocityChange); // regular jump (+ y velocity cancel)
+            rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y) + Vector3.up * -rb.velocity.y, ForceMode.VelocityChange); // regular jump (+ y velocity canceled)
             currentJump++;
         }
 
@@ -341,15 +222,6 @@ public class PlayerMovementTwo : MonoBehaviour
         {
             Debug.DrawLine(start, start + (hit.normal * 5.0f), Color.red); // draw normal of ground
             groundNormal = hit.normal;
-
-            //float angle = Vector3.Angle(hit.normal, Vector3.up);
-            //print("angle: " + angle);
-
-            // flat = 0
-            // steep angle = bigger
-
-            //float angle = Vector3.Angle(hit.normal, transform.forward);
-            //print("angle: " + angle);
         }
         else
         {
@@ -360,7 +232,6 @@ public class PlayerMovementTwo : MonoBehaviour
     // applies extra force to gameobject with an option of stopping player input for a duration
     public void applyExtraForce(Vector3 force, float inputStopDuration = 0.0f, bool resetJump = false)
     {
-        //rb.AddForce(-rb.velocity, ForceMode.VelocityChange);    // cancel current velocity
         stopInput(inputStopDuration);
         rb.AddForce(force, ForceMode.VelocityChange);           // applyforce
         extraVel = force;
@@ -460,7 +331,7 @@ public class PlayerMovementTwo : MonoBehaviour
             Gizmos.color = Color.yellow;
         }
 
-        Gizmos.DrawSphere(groundChecker.position, groundDistance);
+        Gizmos.DrawSphere(groundChecker.position, groundDetectRadius);
     }
 
     // do animations based on movement
