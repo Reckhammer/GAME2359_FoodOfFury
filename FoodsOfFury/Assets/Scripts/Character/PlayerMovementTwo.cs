@@ -91,7 +91,7 @@ public class PlayerMovementTwo : MonoBehaviour
         }
 
         // falling & not gliding, add downward force
-        if (!isGrounded && !isGliding && !inJump && rb.velocity.y < 1.0)
+        if (!isGrounded && !isGliding && !inJump)
         {
             Vector3 extraGrav = Physics.gravity * extraGravityMultiplier;
             rb.AddForce(extraGrav);
