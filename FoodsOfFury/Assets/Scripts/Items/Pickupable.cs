@@ -33,7 +33,6 @@ public class Pickupable : MonoBehaviour
             //    render.material.SetColor("Color_23038745b9c94e5f899a6bcb26c1f301", orignal);    // return to orignal color (before pickup)
             //}
 
-            print(player);
             if (player.GetComponentInParent<Inventory>().add(gameObject, type))
             {
                 if (type == ItemType.Consumable)

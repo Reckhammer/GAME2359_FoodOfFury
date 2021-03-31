@@ -46,6 +46,6 @@ public class MeleeWeapon : MonoBehaviour
 
     private void OnDisable()
     {
-        GetComponentInParent<PlayerMovement>().setBasicAnim(true); // revert to basic animations
+        GetComponentInParent<PlayerMovement>()?.setBasicAnim(true); // revert to basic animations
     }
 }
