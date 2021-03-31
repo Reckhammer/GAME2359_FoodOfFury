@@ -22,7 +22,7 @@ public class PauseMenu : MonoBehaviour
         if (Input.GetKeyDown("escape"))
         {
 
-            AudioManager.Instance.playRandom(transform.position, "Puase_UI_01");
+          
 
             if (gameIsPaused)
             {
@@ -39,6 +39,9 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+
+        AudioManager.Instance.playRandom(transform.position, "UI_Back_01");
+
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
@@ -48,6 +51,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
+        AudioManager.Instance.playRandom(transform.position, "Puase_UI_01");
+
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPaused = true;
