@@ -21,6 +21,9 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown("escape"))
         {
+
+            AudioManager.Instance.playRandom(transform.position, "Puase_UI_01");
+
             if (gameIsPaused)
             {
                 Resume();
@@ -48,7 +51,6 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPaused = true;
-        //AudioManager.Instance.play(pauseMenuUI.transform.position, "UI_Pause_01").transform.SetParent(transform);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
