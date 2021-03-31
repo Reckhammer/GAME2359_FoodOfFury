@@ -47,6 +47,8 @@ public class LevelManager : MonoBehaviour
         //  restart level
         if ( playerHealth.amount <= 0 )
         {
+            AudioManager.Instance.playRandom(transform.position, "Rollo_Lose_01");
+
             Debug.Log( "Player has died" );
             setEndMessage( "You have Expired" ); //Activate the UI
             restartBtn.gameObject.SetActive( true );

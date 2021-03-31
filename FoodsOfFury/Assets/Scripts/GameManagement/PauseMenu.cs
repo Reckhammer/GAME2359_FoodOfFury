@@ -62,6 +62,8 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+
         gameIsPaused = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene("MenuScene");
