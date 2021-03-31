@@ -14,8 +14,8 @@ public class PlayerMovementTwo : MonoBehaviour
     public float speed                  = 10f;          // speed if player
     public float glideSpeed             = 5.0f;         // movement speed while gliding
     public float jumpHeight             = 5.0f;         // jump force of player
-    public float dashForce              = 20.0f;        // force of dash
-    public float dashDelay              = 0.5f;         // time before dash can be used again
+    //public float dashForce              = 20.0f;        // force of dash
+    //public float dashDelay              = 0.5f;         // time before dash can be used again
     public float groundDetectRadius     = 0.3f;         // radius of sphere to check for ground
     public float rotationSpeed          = 10.0f;        // speed of rotation
     public LayerMask ground;                            // layers to check if grounded
@@ -34,7 +34,7 @@ public class PlayerMovementTwo : MonoBehaviour
     private bool isGrounded             = true;         // for ground check
     private bool isGliding              = false;        // for gliding check
     private bool inJump                 = false;        // for jump delay
-    private bool canDash                = true;         // for dash delay check
+    //private bool canDash                = true;         // for dash delay check
     private Vector3 groundNormal        = Vector3.up;   // normal of the ground
     private Coroutine inputStoppedCr    = null;         // reference to input stop timer coroutine
     private float extraForceTime        = 0.0f;         // time to allow extra force to be applied
@@ -180,14 +180,14 @@ public class PlayerMovementTwo : MonoBehaviour
         }
 
         // do dash
-        if (isGrounded && canDash && Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            if (movement.normalized != Vector3.zero) // don't dash if no movement
-            {
-                applyExtraForce(movement.normalized * dashForce, 0.1f); // apply dash
-                StartCoroutine(DashDelayTimer());                       // start dash delay timer
-            }
-        }
+        //if (isGrounded && canDash && Input.GetKeyDown(KeyCode.LeftShift))
+        //{
+        //    if (movement.normalized != Vector3.zero) // don't dash if no movement
+        //    {
+        //        applyExtraForce(movement.normalized * dashForce, 0.1f); // apply dash
+        //        StartCoroutine(DashDelayTimer());                       // start dash delay timer
+        //    }
+        //}
 
         // DEBUG: RESET LEVEL (delete later)
         if (Input.GetKeyDown(KeyCode.F1))
@@ -279,19 +279,19 @@ public class PlayerMovementTwo : MonoBehaviour
     }
 
     // timer for dash delay
-    private IEnumerator DashDelayTimer()
-    {
-        float passed = 0.0f;
-        canDash = false;
+    //private IEnumerator DashDelayTimer()
+    //{
+    //    float passed = 0.0f;
+    //    canDash = false;
 
-        while (passed < dashDelay)
-        {
-            passed += Time.deltaTime;
-            yield return null;
-        }
+    //    while (passed < dashDelay)
+    //    {
+    //        passed += Time.deltaTime;
+    //        yield return null;
+    //    }
 
-        canDash = true;
-    }
+    //    canDash = true;
+    //}
 
     // jump delay timer
     private IEnumerator JumpDelayTimer(float duration)
