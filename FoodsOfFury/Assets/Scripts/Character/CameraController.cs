@@ -17,8 +17,8 @@ public class CameraController : MonoBehaviour
     //public float cameraSmooth = 0.0f;                 // camera smooth modifier (not used)
     public float topLimit     = -20.0f;                 // top limit of camera
     public float bottomLimit  = 80.0f;                  // bottom limit of camera
-    public float minDistance  = 3.0f;                   // min distance of camera
-    public float maxDistance  = 10.0f;                  // max distance of camera
+    //public float minDistance  = 3.0f;                   // min distance of camera
+    //public float maxDistance  = 10.0f;                  // max distance of camera
     public float minCollidingDistance = 0.1f;           // min distance of camera when colliding
     public float collisionDetectionDistance = 1.0f;     // distance to detect collision behind camera
     public float cameraDistance = 4.0f;                 // current camera distance
@@ -57,8 +57,8 @@ public class CameraController : MonoBehaviour
         mouseY = Mathf.Clamp(mouseY, -bottomLimit, -topLimit);
 
         // get and clamp wanted camera distance
-        wantedDistance += -Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
-        wantedDistance = Mathf.Clamp(wantedDistance, minDistance, maxDistance);
+        //wantedDistance += -Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
+        //wantedDistance = Mathf.Clamp(wantedDistance, minDistance, maxDistance);
 
         // if not colliding set camera distance to wanted distance
         if (!checkViewCollision())
