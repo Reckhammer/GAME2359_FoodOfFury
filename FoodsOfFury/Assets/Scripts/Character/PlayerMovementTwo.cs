@@ -130,13 +130,13 @@ public class PlayerMovementTwo : MonoBehaviour
         inputs = Vector3.zero; // reset inputs
 
         // start glide if 'shift' is pressed (when not grounded)
-        if (Input.GetKey(KeyCode.LeftShift) && !isGrounded && rb.velocity.y < 0)
+        if (Input.GetButton("Jump") && !isGrounded && rb.velocity.y < 0)
         {
             isGliding = true;
         }
 
         // stop glide if 'shift' is released or grounded
-        if (Input.GetKeyUp(KeyCode.LeftShift) || isGrounded || rb.velocity.y > 0)
+        if (Input.GetButtonUp("Jump") || isGrounded || rb.velocity.y > 0)
         {
             isGliding = false;
         }

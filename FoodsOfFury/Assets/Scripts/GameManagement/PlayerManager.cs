@@ -12,10 +12,13 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    private Inventory inventory;        // inventory reference
-    private GameObject currWeapon;      // current reference to weapon object
-    private GameObject currConsumable;  // current reference to consumable object
-    private float oldHealth = 0.0f;     // old amount of health
+    [HideInInspector]
+    public GameObject itemSelection = null;    // to check if player is over a pickable object
+
+    private Inventory inventory;                // inventory reference
+    private GameObject currWeapon;              // current reference to weapon object
+    private GameObject currConsumable;          // current reference to consumable object
+    private float oldHealth = 0.0f;             // old amount of health
 
     private void Start()
     {
@@ -86,9 +89,9 @@ public class PlayerManager : MonoBehaviour
         }
 
         // use consumable
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (currConsumable != null) // if currConsumable exists
+            if (currConsumable != null && itemSelection == null) // if currConsumable exists
             {
                 if (currConsumable.GetComponent<Consumable>().use(gameObject)) // if health was added
                 {
