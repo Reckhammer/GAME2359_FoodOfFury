@@ -86,6 +86,20 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    // returns the previous item reference in list
+    public GameObject previous(ItemType type)
+    {
+        switch (type)
+        {
+            case ItemType.Weapon:
+                return weapons.previous();
+            case ItemType.Consumable:
+                return consumables.previous();
+            default:
+                return null;
+        }
+    }
+
     // add item to correct list
     public bool add(GameObject item, ItemType type)
     {

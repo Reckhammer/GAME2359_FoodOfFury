@@ -12,10 +12,13 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    private Inventory inventory;        // inventory reference
-    private GameObject currWeapon;      // current reference to weapon object
-    private GameObject currConsumable;  // current reference to consumable object
-    private float oldHealth = 0.0f;     // old amount of health
+    [HideInInspector]
+    public GameObject itemSelection = null;    // to check if player is over a pickable object
+
+    private Inventory inventory;                // inventory reference
+    private GameObject currWeapon;              // current reference to weapon object
+    private GameObject currConsumable;          // current reference to consumable object
+    private float oldHealth = 0.0f;             // old amount of health
 
     private void Start()
     {
@@ -51,16 +54,16 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        // switch weapon
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        // equip next weapon
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             equipNextItem(ItemType.Weapon);
         }
 
-        // switch consumable
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        // equip previous weapon
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            equipNextItem(ItemType.Consumable);
+            equipPreviousItem(ItemType.Weapon);
         }
 
         // DEBUG: print inventory
@@ -86,9 +89,9 @@ public class PlayerManager : MonoBehaviour
         }
 
         // use consumable
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (currConsumable != null) // if currConsumable exists
+            if (currConsumable != null && itemSelection == null) // if currConsumable exists
             {
                 if (currConsumable.GetComponent<Consumable>().use(gameObject)) // if health was added
                 {
@@ -188,6 +191,57 @@ public class PlayerManager : MonoBehaviour
             case ItemType.Consumable:
                 currConsumable?.SetActive(false);
                 currConsumable = inventory.next(type);
+                currConsumable?.SetActive(true);
+
+                if (currConsumable != null) // update UI
+                {
+                    UIManager.instance.updateConsumablesUI(currConsumable.GetComponent<Consumable>().sprite, inventory.amount(ItemType.Consumable));
+                }
+                else
+                {
+                    UIManager.instance.updateConsumablesUI(null, 0);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void equipPreviousItem(ItemType type)
+    {
+        switch (type)
+        {
+            case ItemType.Weapon:
+                Sprite oldImage = null;
+                if (currWeapon != null)
+                {
+                    oldImage = currWeapon.GetComponent<WeaponReferences>().sprite;
+                    currWeapon.SetActive(false);       // set old item inactive
+                    currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = false; // turn off weapon script
+                }
+
+                GameObject old = currWeapon;
+                currWeapon = inventory.previous(type);   // get previous item
+
+                if (old == currWeapon)
+                {
+                    oldImage = null;
+                }
+
+                if (currWeapon != null) // update UI & turn on weapon script
+                {
+                    currWeapon.SetActive(true);        // set new item active
+                    UIManager.instance.updateWeaponUI(currWeapon.GetComponent<WeaponReferences>().sprite, oldImage);
+                    currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = true;
+                }
+                else
+                {
+                    UIManager.instance.updateWeaponUI(null, null);
+                }
+                break;
+            case ItemType.Consumable:
+                currConsumable?.SetActive(false);
+                currConsumable = inventory.previous(type);
                 currConsumable?.SetActive(true);
 
                 if (currConsumable != null) // update UI
