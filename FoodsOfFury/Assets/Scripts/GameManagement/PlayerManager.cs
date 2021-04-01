@@ -54,16 +54,16 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        // switch weapon
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        // equip next weapon
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             equipNextItem(ItemType.Weapon);
         }
 
-        // switch consumable
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        // equip previous weapon
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            equipNextItem(ItemType.Consumable);
+            equipPreviousItem(ItemType.Weapon);
         }
 
         // DEBUG: print inventory
@@ -191,6 +191,57 @@ public class PlayerManager : MonoBehaviour
             case ItemType.Consumable:
                 currConsumable?.SetActive(false);
                 currConsumable = inventory.next(type);
+                currConsumable?.SetActive(true);
+
+                if (currConsumable != null) // update UI
+                {
+                    UIManager.instance.updateConsumablesUI(currConsumable.GetComponent<Consumable>().sprite, inventory.amount(ItemType.Consumable));
+                }
+                else
+                {
+                    UIManager.instance.updateConsumablesUI(null, 0);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void equipPreviousItem(ItemType type)
+    {
+        switch (type)
+        {
+            case ItemType.Weapon:
+                Sprite oldImage = null;
+                if (currWeapon != null)
+                {
+                    oldImage = currWeapon.GetComponent<WeaponReferences>().sprite;
+                    currWeapon.SetActive(false);       // set old item inactive
+                    currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = false; // turn off weapon script
+                }
+
+                GameObject old = currWeapon;
+                currWeapon = inventory.previous(type);   // get previous item
+
+                if (old == currWeapon)
+                {
+                    oldImage = null;
+                }
+
+                if (currWeapon != null) // update UI & turn on weapon script
+                {
+                    currWeapon.SetActive(true);        // set new item active
+                    UIManager.instance.updateWeaponUI(currWeapon.GetComponent<WeaponReferences>().sprite, oldImage);
+                    currWeapon.GetComponent<WeaponReferences>().weaponScript.enabled = true;
+                }
+                else
+                {
+                    UIManager.instance.updateWeaponUI(null, null);
+                }
+                break;
+            case ItemType.Consumable:
+                currConsumable?.SetActive(false);
+                currConsumable = inventory.previous(type);
                 currConsumable?.SetActive(true);
 
                 if (currConsumable != null) // update UI

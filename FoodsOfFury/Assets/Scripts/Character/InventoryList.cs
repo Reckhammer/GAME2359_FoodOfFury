@@ -56,11 +56,16 @@ public class InventoryList
     }
 
     // return previous 'Item' in list and update 'current'
-    //public Item previous()
-    //{
-    //    current = (current-- != 0) ? current-- : max; // update 'current' to previous index (loops back to 'max')
-    //    return list[current];
-    //}
+    public GameObject previous()
+    {
+        if (list.Count == 0) // if empty return
+        {
+            return null;
+        }
+
+        current = (current - 1 >= 0) ? current - 1 : list.Count - 1; // update current to previous index (loops forward to last available index)
+        return list[current];
+    }
 
     // deletes from list at index (current if none specified)
     public void delete(int index = -1)
