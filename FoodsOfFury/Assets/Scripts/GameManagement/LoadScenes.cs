@@ -26,6 +26,17 @@ public class LoadScenes : MonoBehaviour
         SceneManager.LoadScene("SettingsScene");
     }
 
+    public void HowToPlay()
+    {
+        SceneManager.LoadScene("HowToPlay");
+    }
+
+    public void Credits()
+    {
+        print("credits");
+        //SceneManager.LoadScene("Credits");
+    }
+
     public void RestartScene()
     {
         SceneManager.LoadScene( SceneManager.GetActiveScene().name ); //load the current scene
