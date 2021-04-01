@@ -106,6 +106,8 @@ public class SettingsMenu : MonoBehaviour
 
     public void SaveSettings()
     {
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+
         PlayerPrefs.SetInt("QualitySettingPreference", qualityDropdown.value);
 
         PlayerPrefs.SetInt("ResolutionPreference", resolutionDropdown.value);
