@@ -24,6 +24,11 @@ public class PlayerMovementTwo : MonoBehaviour
     [Range(1.0f, 0.0f)]
     public float glideFallRate          = 0.9f;         // falling rate for gliding (how much gravity)
 
+    [Range(0.0f, 1.0f)]
+    public float maxSlope               = 0.7f;         // max slope player can move on
+
+    public Transform[] normalCheckers   = null;         // posisitions to check for ground normal
+
     private Rigidbody rb                = null;         // rigidbody of player
     private bool inputStopped           = false;        // for stopping input
     private Transform groundChecker     = null;         // position of groundchecker
@@ -58,26 +63,34 @@ public class PlayerMovementTwo : MonoBehaviour
             {
                 Vector3 wantVel = Vector3.zero;
 
-                if (groundNormal != Vector3.up && !inJump) // grounded movement (we mess with y values (slopes))
+                if (isGrounded && !inJump) // grounded movement (we mess with y values (slopes))
                 {
                     wantVel = movement - rb.velocity;
                 }
                 else // air movement/flat ground movement (leave gravity alone (when on))
                 {
+                    movement.y = 0.0f; // remove y
                     wantVel = movement - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));
+                }
+
+                // if on steep slope, stop inputs
+                if (Vector3.Dot(Vector3.up, groundNormal) < maxSlope)
+                {
+                    wantVel = Vector3.zero;
                 }
 
                 rb.AddForce(wantVel, ForceMode.VelocityChange);
             }
             else // extra force calculations. NOTE: bounce pads/damaging needs to call PlayerMovementTwo (for now)
             {
-                if (groundNormal != Vector3.up) // grounded movement
+                if (isGrounded) // grounded movement
                 {
                     Vector3 lVel = Vector3.Lerp(movement - rb.velocity, extraVel - rb.velocity, extraForceTime);
                     rb.AddForce(lVel, ForceMode.VelocityChange);
                 }
                 else // air/ flat ground movement
                 {
+                    movement.y = 0.0f; // remove y
                     Vector3 lVel = Vector3.Lerp(movement - rb.velocity, extraVel - rb.velocity, extraForceTime);
                     lVel.y = 0; // cut out y (y force was added in function. Allow gravity in extray force)
                     rb.AddForce(lVel, ForceMode.VelocityChange);
@@ -206,26 +219,29 @@ public class PlayerMovementTwo : MonoBehaviour
         movement = inputs.x * camForward + inputs.z * camRight;                                             // calculate movement (velocity)
         movement = Vector3.ProjectOnPlane(movement, groundNormal);                                          // project movement to ground normal
         movement = Vector3.ClampMagnitude(movement, speed); // clamp magnitiude of vector by speed (stops diagonal movement being faster than hor/ver movement)
-        Debug.DrawRay(transform.position, movement.normalized, Color.red);
+        //Debug.DrawRay(transform.position, movement.normalized, Color.red);
     }
 
-    // sets groundNormal to the normal of the ground
+    // checks for steepest slope in normal checker positions
     private void checkSlope(float distance = 1.0f)
     {
-        Vector3 start = groundChecker.position + (Vector3.up * 0.1f); // ground position, but a little up (to get ground that is close)
-        Vector3 end = groundChecker.position + (Vector3.down * distance);
-        Debug.DrawLine(start, end, Color.green);
+        groundNormal = Vector3.up;
 
-        RaycastHit hit;
+        foreach (Transform start in normalCheckers)
+        {
+            Vector3 end = start.position + (Vector3.down * distance);
+            Debug.DrawLine(start.position, end, Color.green);
 
-        if (Physics.Raycast(start, Vector3.down, out hit, distance, ground, QueryTriggerInteraction.Ignore) && isGrounded)
-        {
-            Debug.DrawLine(start, start + (hit.normal * 5.0f), Color.red); // draw normal of ground
-            groundNormal = hit.normal;
-        }
-        else
-        {
-            groundNormal = Vector3.up; // no normal detected, set to world up
+            RaycastHit hit;
+
+            if (Physics.Raycast(start.position, Vector3.down, out hit, distance, ground, QueryTriggerInteraction.Ignore))
+            {
+                //Debug.DrawLine(start, start + (hit.normal * 5.0f), Color.red); // draw normal of ground
+                if (Vector3.Dot(Vector3.up, groundNormal) > Vector3.Dot(Vector3.up, hit.normal))
+                {
+                    groundNormal = hit.normal;
+                }
+            }
         }
     }
 
@@ -233,7 +249,7 @@ public class PlayerMovementTwo : MonoBehaviour
     public void applyExtraForce(Vector3 force, float inputStopDuration = 0.0f, bool resetJump = false)
     {
         stopInput(inputStopDuration);
-        rb.AddForce(force, ForceMode.VelocityChange);           // applyforce
+        rb.AddForce(force, ForceMode.VelocityChange); // applyforce
         extraVel = force;
 
         if (resetJump)
