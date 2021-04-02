@@ -13,5 +13,4 @@ public class WeaponReferences : MonoBehaviour
 {
     public MonoBehaviour weaponScript;  // reference to weapon script
     public Sprite sprite;               // reference to sprite
-    public Renderer weaponVisuals;      // reference to weapon visuals
 }

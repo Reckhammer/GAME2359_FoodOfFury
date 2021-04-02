@@ -120,16 +120,12 @@ public class Inventory : MonoBehaviour
         if (list.max != 0)
         {
             GameObject copy = Instantiate(item, transform.position, transform.rotation, transform); // make copy and parent to gameobject
-            copy.GetComponent<Pickupable>().enabled = false;    // turn off 'Pickupable'
-            Destroy(copy.GetComponent<Rigidbody>());            // remove rigibody
-            copy.GetComponent<Collider>().enabled = false;      // turn off collider (non trigger)
-            copy.name = type.ToString();                        // set name
-            copy.SetActive(false);                              // make copy inactive
-
-            if (type == ItemType.Weapon)
-            {
-                copy.GetComponent<WeaponReferences>().weaponVisuals.enabled = false; // turn off weapon visuals
-            }
+            copy.GetComponent<Pickupable>().render.enabled = false; // turn off renderer
+            copy.GetComponent<Pickupable>().enabled = false;        // turn off 'Pickupable'
+            Destroy(copy.GetComponent<Rigidbody>());                // remove rigibody
+            copy.GetComponent<Collider>().enabled = false;          // turn off collider (non trigger)
+            copy.name = type.ToString();                            // set name
+            copy.SetActive(false);                                  // make copy inactive
 
             if (!list.add(copy)) // try to add item to list
             {
@@ -171,8 +167,9 @@ public class Inventory : MonoBehaviour
             if (type == ItemType.Weapon)
             {
                 reference.GetComponent<WeaponReferences>().weaponScript.enabled = false; // turn off weapon script
-                reference.GetComponent<WeaponReferences>().weaponVisuals.enabled = true; // turn on weapon visuals
             }
+
+            reference.GetComponent<Pickupable>().render.enabled = true; // turn on renderer
 
             drop(reference, type);  // drop new copy
         }
