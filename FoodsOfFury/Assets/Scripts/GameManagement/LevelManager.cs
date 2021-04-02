@@ -36,7 +36,7 @@ public class LevelManager : MonoBehaviour
         //      the level is complete. go to next lvl
         if ( objectiveList.Count == 0 )
         {
-            AudioManager.Instance.playRandom(transform.position, "Rollo_Win_01");
+            //AudioManager.Instance.playRandom(transform.position, "Rollo_Win_01");
 
             Debug.Log( "All objectives done. Level is completed" );
             setEndMessage( "Level Complete" ); //Activate the UI
@@ -47,7 +47,7 @@ public class LevelManager : MonoBehaviour
         //  restart level
         if ( playerHealth.amount <= 0 )
         {
-            AudioManager.Instance.playRandom(transform.position, "Rollo_Lose_01");
+            //AudioManager.Instance.playRandom(transform.position, "Rollo_Lose_01");
 
             Debug.Log( "Player has died" );
             setEndMessage( "You have Expired" ); //Activate the UI
