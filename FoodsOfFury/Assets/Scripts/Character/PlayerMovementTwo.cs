@@ -184,7 +184,7 @@ public class PlayerMovementTwo : MonoBehaviour
         }
 
         // space bar makes the character jump
-        if (Input.GetButtonDown("Jump") && (maxJump > currentJump) && !inJump)
+        if (Input.GetButtonDown("Jump") && !inputStopped && (maxJump > currentJump) && !inJump)
         {
             StartCoroutine(JumpDelayTimer(0.1f)); // delay jump
             AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_1", "Rollo_Jump_2").transform.SetParent(transform);
