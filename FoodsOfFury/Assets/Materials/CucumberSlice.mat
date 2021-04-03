@@ -22,7 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: CucumberSlice
   m_Shader: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5, type: 3}
-  m_ShaderKeywords: _ _EMISSIVE_SIMPLE _OUTLINE_NML
+  m_ShaderKeywords: _ _EMISSIVE_SIMPLE _OUTLINE_POS
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -89,7 +89,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 0ee2f3a212fd013489c262320ccc5ed7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap_Sampler:
@@ -235,12 +235,12 @@ Material:
     - _MatCap: 0
     - _Metallic: 0
     - _Nearest_Distance: 0.5
-    - _OUTLINE: 0
+    - _OUTLINE: 1
     - _OcclusionStrength: 1
     - _Offset_X_Axis_BLD: -0.05
     - _Offset_Y_Axis_BLD: 0.09
     - _Offset_Z: 0
-    - _Outline_Width: 9
+    - _Outline_Width: 28.05
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -271,7 +271,7 @@ Material:
     - _Tweak_SystemShadowsLevel: 0
     - _Unlit_Intensity: 1
     - _Use_1stAs2nd: 0
-    - _Use_BaseAs1st: 0
+    - _Use_BaseAs1st: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
     - _simpleUI: 0
