@@ -6,9 +6,9 @@ public class KetchupWeapon : MonoBehaviour
 {
     public GameObject projectile;           // shot projectile
     public Transform spawnPoint;            // projectile spawn point
+    public float attackDelay   = 0.5f;      // attack delay time
 
     private Coroutine cTimer;               // coroutine reference
-    private float attackDelay   = 0.5f;     // attack delay time
     private bool canAttack      = true;     // for attack check
 
     void Update()
