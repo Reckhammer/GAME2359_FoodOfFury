@@ -132,13 +132,14 @@ public class Enemy : MonoBehaviour
                     if (!meleeAttackAnim.isPlaying)
                     {
                         meleeAttackAnim.Play();
+                        AudioManager.Instance.playRandom(transform.position, "IceCream_Cone_Attack01"); 
                     }
                     break;
                 case EnemyType.Range:
                     GameObject projectileInst = Instantiate( projectile, attackPoint.position, transform.rotation ); //Create the projectile
                     Rigidbody projectileRB = projectileInst.GetComponent<Rigidbody>(); //Get a reference to its rigidbody
 
-                    
+                    AudioManager.Instance.playRandom(transform.position, "Fry_Attack_01");
 
                     break;
             }
