@@ -47,6 +47,7 @@ public class PlayerMovementTwo : MonoBehaviour
     private string idleAnim             = null;         // name of idle animation
     private string runAnim              = null;         // name of run animation
     private Vector3 extraVel            = Vector3.zero; // extra force velocity (recorded to lerp from extra to movement)
+    private bool isAiming               = false;        // to change camera rotation style
 
     private void Awake()
     {
@@ -122,7 +123,11 @@ public class PlayerMovementTwo : MonoBehaviour
             dir = Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));     // regular velocity normalized (no y value)
         }
 
-        if (dir != Vector3.zero) // if direction is zero, don't set
+        if (isAiming)
+        {
+            transform.rotation = Quaternion.LookRotation(Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized); // camera rotation
+        }
+        else if (dir != Vector3.zero) // if direction is zero, don't set
         {
             Quaternion toRotation = Quaternion.LookRotation(dir); // target rotation
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.fixedDeltaTime * rotationSpeed); // slerp rotation with rotation speed
@@ -407,6 +412,18 @@ public class PlayerMovementTwo : MonoBehaviour
     public void setRunAnim(string anim)
     {
         runAnim = anim;
+    }
+
+    // set aiming
+    public void setAiming(bool aim)
+    {
+        isAiming = aim;
+    }
+
+    // returns if inputs stopped
+    public bool isInputStopped()
+    {
+        return inputStopped;
     }
 
     // reverts to basic animation (set old animations to false)

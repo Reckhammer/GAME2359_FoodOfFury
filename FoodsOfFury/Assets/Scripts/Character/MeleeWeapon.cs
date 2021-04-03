@@ -27,11 +27,11 @@ public class MeleeWeapon : MonoBehaviour
     void Attack()
     {
 
-        if (!attackAnim.isPlaying && GetComponentInParent<PlayerMovement>().onGround())
+        if (!attackAnim.isPlaying && GetComponentInParent<PlayerMovementTwo>().onGround())
         {
             AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01"); // play audio clip 
 
-            GetComponentInParent<PlayerMovement>().stopInput(0.5f);     // stop play for a bit
+            GetComponentInParent<PlayerMovementTwo>().stopInput(0.7f);     // stop play for a bit
             GetComponentInParent<Animator>().SetTrigger("OnionAttack"); // play visual attack animation
             attackAnim.Play();                                          // collider animation
         }
@@ -39,13 +39,13 @@ public class MeleeWeapon : MonoBehaviour
 
     private void OnEnable()
     {
-        GetComponentInParent<PlayerMovement>().setBasicAnim(false);         // turn off basic animations
-        GetComponentInParent<PlayerMovement>().setIdleAnim("OnionIdle");    // set idle animation
-        GetComponentInParent<PlayerMovement>().setRunAnim("OnionRun");      // set run animation
+        GetComponentInParent<PlayerMovementTwo>().setBasicAnim(false);         // turn off basic animations
+        GetComponentInParent<PlayerMovementTwo>().setIdleAnim("OnionIdle");    // set idle animation
+        GetComponentInParent<PlayerMovementTwo>().setRunAnim("OnionRun");      // set run animation
     }
 
     private void OnDisable()
     {
-        GetComponentInParent<PlayerMovement>()?.setBasicAnim(true); // revert to basic animations
+        GetComponentInParent<PlayerMovementTwo>()?.setBasicAnim(true); // revert to basic animations
     }
 }

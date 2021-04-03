@@ -61,7 +61,7 @@ public class DamagingStay : MonoBehaviour
         switch (obj.tag)
         {
             case "Player":
-                obj.GetComponentInParent<PlayerMovement>().applyExtraForce(dir * knockbackForce, 0.1f);
+                obj.GetComponentInParent<PlayerMovementTwo>().applyExtraForce(dir * knockbackForce, 0.1f);
                 break;
             default:
                 Rigidbody rb = obj.GetComponentInParent<Rigidbody>();

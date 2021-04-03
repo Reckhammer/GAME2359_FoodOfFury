@@ -55,13 +55,13 @@ public class PlayerManager : MonoBehaviour
     private void Update()
     {
         // equip next weapon
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && !GetComponent<PlayerMovementTwo>().isInputStopped())
         {
             equipNextItem(ItemType.Weapon);
         }
 
         // equip previous weapon
-        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && !GetComponent<PlayerMovementTwo>().isInputStopped())
         {
             equipPreviousItem(ItemType.Weapon);
         }
