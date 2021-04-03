@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//----------------------------------------------------------------------------------------
+// Author: Jose Villanueva
+//
+// Description: functions as a ketchup gun, spawning in projectiles
+//----------------------------------------------------------------------------------------
 public class KetchupWeapon : MonoBehaviour
 {
     public GameObject projectile;           // shot projectile
@@ -19,14 +24,14 @@ public class KetchupWeapon : MonoBehaviour
         }
 
     }
-
+    
+    // does attack
     void Attack()
     {
-        if (canAttack && GetComponentInParent<PlayerMovementTwo>().onGround())
+        if (canAttack)
         {
             //AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01"); // play audio clip 
             Instantiate(projectile, spawnPoint.position, transform.rotation);
-            //GetComponentInParent<PlayerMovementTwo>().stopInput(attackDelay + 0.1f); // stop player input for a bit
             //GetComponentInParent<Animator>().SetTrigger("KetchupAttack"); // play visual attack animation
 
             if (cTimer != null)
@@ -41,12 +46,11 @@ public class KetchupWeapon : MonoBehaviour
         }
     }
 
-    // basic timer
+    // times attack
     private IEnumerator attackTimer(float duration)
     {
         float passed = 0.0f;
         canAttack = false;
-        GetComponentInParent<PlayerMovementTwo>().setAiming(true);
 
         while (passed < duration)
         {
@@ -55,17 +59,12 @@ public class KetchupWeapon : MonoBehaviour
         }
 
         canAttack = true;
-
-        while (passed < duration + 0.1f)
-        {
-            passed += Time.deltaTime;
-            yield return null;
-        }
-        GetComponentInParent<PlayerMovementTwo>().setAiming(false);
     }
 
     private void OnEnable()
     {
+        GetComponentInParent<PlayerMovementTwo>().setAiming(true);              // set player to aiming
+        CameraTarget.instance.offsetTo(new Vector3(5, 5, 0), 1.0f);             // offset camera target
         //GetComponentInParent<PlayerMovementTwo>().setBasicAnim(false);         // turn off basic animations
         //GetComponentInParent<PlayerMovementTwo>().setIdleAnim("KetchupIdle");    // set idle animation
         //GetComponentInParent<PlayerMovementTwo>().setRunAnim("KetchupRun");      // set run animation
@@ -79,8 +78,8 @@ public class KetchupWeapon : MonoBehaviour
         {
             StopCoroutine(cTimer);
         }
-        GetComponentInParent<PlayerMovementTwo>()?.stopInput(0.0f, false);
-        GetComponentInParent<PlayerMovementTwo>()?.setAiming(false);
+        CameraTarget.instance.returnDefault(1.0f);                      // return camera target to default
+        GetComponentInParent<PlayerMovementTwo>()?.setAiming(false);    // turn off aiming for player
         //GetComponentInParent<PlayerMovementTwo>()?.setBasicAnim(true); // revert to basic animations
     }
 }
