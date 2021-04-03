@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ExteriorFreezer
+  m_Name: Freezer
   m_Shader: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5, type: 3}
-  m_ShaderKeywords: _ _EMISSIVE_SIMPLE _METALLICSPECGLOSSMAP _NORMALMAP _OUTLINE_NML
+  m_ShaderKeywords: _EMISSIVE_SIMPLE _METALLICSPECGLOSSMAP _NORMALMAP _OUTLINE_POS
     _PARALLAXMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -77,7 +77,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 5972692392a526249a1f141ae13dd9a3, type: 3}
+        m_Texture: {fileID: 2800000, guid: eed15797ffe09fc46becd8ca2ae6270a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap_Sampler:
@@ -155,17 +155,17 @@ Material:
     - Vector1_97191d8824f74ba6801bb781e5462986: 0.569
     - Vector1_a49fe8798fc1492e9b7c29f173744d71: 0.258
     - Vector1_dd10ddb878b74a6089bbf199cfdd27f4: 0.146
-    - _1st2nd_Shades_Feather: 0.0001
-    - _1st_ShadeColor_Feather: 0.0001
+    - _1st2nd_Shades_Feather: 0.096
+    - _1st_ShadeColor_Feather: 0.521
     - _1st_ShadeColor_Step: 0.5
-    - _2nd_ShadeColor_Feather: 0.0001
-    - _2nd_ShadeColor_Step: 0
+    - _2nd_ShadeColor_Feather: 0.096
+    - _2nd_ShadeColor_Step: 0.08
     - _Add_Antipodean_RimLight: 0
     - _AlphaClip: 0
     - _Ap_RimLight_FeatherOff: 0
     - _Ap_RimLight_Power: 0.1
     - _BaseColor_Step: 0.5
-    - _BaseShade_Feather: 0.0001
+    - _BaseShade_Feather: 0.521
     - _Base_Speed: 0
     - _Blend: 0
     - _BlurLevelMatcap: 0
@@ -183,7 +183,7 @@ Material:
     - _DstBlend: 0
     - _EMISSIVE: 0
     - _EnvironmentReflections: 1
-    - _Farthest_Distance: 76.7
+    - _Farthest_Distance: 171.5
     - _GI_Intensity: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -202,7 +202,7 @@ Material:
     - _Is_LightColor_1st_Shade: 1
     - _Is_LightColor_2nd_Shade: 1
     - _Is_LightColor_Ap_RimLight: 1
-    - _Is_LightColor_Base: 1
+    - _Is_LightColor_Base: 0
     - _Is_LightColor_HighColor: 1
     - _Is_LightColor_MatCap: 1
     - _Is_LightColor_Outline: 1
@@ -223,12 +223,12 @@ Material:
     - _MatCap: 0
     - _Metallic: 0
     - _Nearest_Distance: 0.5
-    - _OUTLINE: 0
+    - _OUTLINE: 1
     - _OcclusionStrength: 1
     - _Offset_X_Axis_BLD: -0.05
     - _Offset_Y_Axis_BLD: 0.09
     - _Offset_Z: 0
-    - _Outline_Width: 9
+    - _Outline_Width: 21.8
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -242,7 +242,7 @@ Material:
     - _Scroll_EmissiveU: 0
     - _Scroll_EmissiveV: 0
     - _Set_SystemShadowsToBase: 1
-    - _ShadeColor_Step: 0
+    - _ShadeColor_Step: 0.08
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -258,11 +258,11 @@ Material:
     - _Tweak_RimLightMaskLevel: 0
     - _Tweak_SystemShadowsLevel: 0
     - _Unlit_Intensity: 1
-    - _Use_1stAs2nd: 0
+    - _Use_1stAs2nd: 1
     - _Use_BaseAs1st: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _simpleUI: 0
+    - _simpleUI: 2
     - _utsTechnique: 0
     - _utsVersion: 2.075
     m_Colors:
@@ -270,11 +270,11 @@ Material:
     - Color_4f50e3a3d3eb423cbfdc58d15dcdeeb0: {r: 1, g: 1, b: 1, a: 0}
     - Color_6c2521fd00ad484f872fa6e21fab4611: {r: 1, g: 1, b: 1, a: 0}
     - Color_f2ed12941bef4e0abcf9babe084bb7fb: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 0}
-    - _1st_ShadeColor: {r: 1, g: 1, b: 1, a: 1}
-    - _2nd_ShadeColor: {r: 1, g: 1, b: 1, a: 1}
+    - _1st_ShadeColor: {r: 0.31222597, g: 0.28644538, b: 0.38679248, a: 1}
+    - _2nd_ShadeColor: {r: 0.9528302, g: 0.9317043, b: 0.9303578, a: 1}
     - _Ap_RimLightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
+    - _Color: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
     - _ColorShift: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Emissive_Color: {r: 0, g: 0, b: 0, a: 1}
