@@ -75,7 +75,7 @@ public class PlayerMovementTwo : MonoBehaviour
                 }
 
                 // if on steep slope, stop inputs
-                if (Vector3.Dot(Vector3.up, groundNormal) < maxSlope)
+                if (maxSlope > Vector3.Dot(Vector3.up, groundNormal))
                 {
                     wantVel = Vector3.zero;
                 }
@@ -105,7 +105,7 @@ public class PlayerMovementTwo : MonoBehaviour
         }
 
         // falling & not gliding, add downward force
-        if (!isGrounded && !isGliding && !inJump)
+        if ((!isGrounded && !isGliding && !inJump) || maxSlope > Vector3.Dot(Vector3.up, groundNormal))
         {
             Vector3 extraGrav = Physics.gravity * extraGravityMultiplier;
             rb.AddForce(extraGrav);
