@@ -58,7 +58,7 @@ public class SettingsMenu : MonoBehaviour
     {
         print("setting overall quality: " + qualityIndex);
 
-        QualitySettings.SetQualityLevel(textureDropdown.value);
+        QualitySettings.SetQualityLevel(qualityIndex, true);
     }
 
     public void SetTextureQuality(int textureIndex)
