@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
 {
-
     public AudioMixer audioMixer;
 
     public Dropdown resolutionDropdown;
@@ -33,9 +32,9 @@ public class SettingsMenu : MonoBehaviour
 
         for (int i = 0; i < resolutions.Length; i++)
         {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
+            string option = resolutions[i].width + " x " + resolutions[i].height + " : " + resolutions[i].refreshRate + " hz";
             options.Add(option);
-            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height && Screen.currentResolution.refreshRate == resolutions[i].refreshRate)
             {
                 currentResolutionIndex = i;
             }
@@ -44,12 +43,12 @@ public class SettingsMenu : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.RefreshShownValue();
         LoadSettings(currentResolutionIndex);
-
     }
 
     //Controls the audio for MainMixer
     public void SetVolume(float volume)
     {
+        print("setting volume: " + volume);
         audioMixer.SetFloat("Volume", volume);
         currentVolume = volume;
     }
@@ -57,50 +56,29 @@ public class SettingsMenu : MonoBehaviour
     
     public void SetQuatity(int qualityIndex)
     {
-        if(qualityIndex != 6) // if the user is not using any of the presets
-        //{
-            QualitySettings.SetQualityLevel(qualityIndex);
-        //}
-        switch(qualityIndex)
-        {
-            case 0: // quality level - very low
-                textureDropdown.value = 3;
-                break;
-            case 1: // quality level - low
-                textureDropdown.value = 2;
-                break;
-            case 2: // quality level - medium
-                textureDropdown.value = 1;
-                break;
-            case 3: // quality level - high
-                textureDropdown.value = 0;
-                break;
-            case 4: // quality level - very high
-                textureDropdown.value = 0;
-                break;
-            case 5: // quality level - ultra
-                textureDropdown.value = 0;
-                break;
-        }
+        print("setting overall quality: " + qualityIndex);
 
-        qualityDropdown.value = qualityIndex;
+        QualitySettings.SetQualityLevel(textureDropdown.value);
     }
 
     public void SetTextureQuality(int textureIndex)
     {
+        print("setting texture quality: " + textureIndex);
         QualitySettings.masterTextureLimit = textureIndex;
-        qualityDropdown.value = 6;
     }
 
     public void SetResolution(int resolutionIndex)
     {
+        print("setting resolution: " + resolutionIndex);
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        Application.targetFrameRate = resolution.refreshRate;
     }
 
     //Needs to be tested in a build
     public void SetFullscreen(bool isFullscreen)
     {
+        print("setting fullscreen: " + isFullscreen);
         Screen.fullScreen = isFullscreen;
     }
 
@@ -121,10 +99,12 @@ public class SettingsMenu : MonoBehaviour
 
     public void LoadSettings(int currentResolutionIndex)
     {
+        print("loading settings: " + currentResolutionIndex);
+
         if (PlayerPrefs.HasKey("QualitySettingPreference"))
             qualityDropdown.value = PlayerPrefs.GetInt("QualitySettingPreference");
         else
-            qualityDropdown.value = 3;
+            qualityDropdown.value = QualitySettings.masterTextureLimit;
 
         if (PlayerPrefs.HasKey("ResolutionPreference"))
             resolutionDropdown.value = PlayerPrefs.GetInt("ResolutionPreference");
@@ -134,18 +114,20 @@ public class SettingsMenu : MonoBehaviour
         if (PlayerPrefs.HasKey("TextureQualityPreference"))
             textureDropdown.value = PlayerPrefs.GetInt("TextureQualityPreference");
         else
-            textureDropdown.value = 0;
+            textureDropdown.value = QualitySettings.GetQualityLevel();
 
         if (PlayerPrefs.HasKey("FullscreenPreference"))
             Screen.fullScreen = Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenPreference"));
-        else
-            Screen.fullScreen = true;
 
         if (PlayerPrefs.HasKey("VolumePreference"))
+        {
             volumeSlider.value = PlayerPrefs.GetFloat("VolumePreference");
+        }
         else
-            volumeSlider.value =PlayerPrefs.GetFloat("VolumePreference");
+        {
+            float vol = 0.0f;
+            audioMixer.GetFloat("Volume", out vol);
+            volumeSlider.value = vol;
+        }
     }
-
-
 }
