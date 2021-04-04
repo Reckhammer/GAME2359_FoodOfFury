@@ -88,7 +88,7 @@ public class LevelManager : MonoBehaviour
         Cursor.visible = true;
         PauseMenu.gameIsPaused = true;
 
-        GameObject.Find("Game_Canvas").GetComponent<PauseMenu>().Pause();
+        GameObject.Find("Game_Canvas").GetComponent<PauseMenu>().Pause(false);
         GameObject pauseMenu = GameObject.Find( "PauseGroup" );
         pauseMenu.gameObject.SetActive( false );
 
