@@ -37,9 +37,9 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-
+        
         AudioManager.Instance.playRandom(transform.position, "UI_Back_01");
-
+        
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
