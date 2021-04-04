@@ -22,8 +22,6 @@ public class PauseMenu : MonoBehaviour
         if (Input.GetKeyDown("escape"))
         {
 
-          
-
             if (gameIsPaused)
             {
                 Resume();
@@ -68,13 +66,6 @@ public class PauseMenu : MonoBehaviour
         gameIsPaused = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene("MenuScene");
-    }
-
-    public void QuitGame()
-    {
-        Debug.Log("Quit Game");
-        Application.OpenURL("https://docs.google.com/forms/d/e/1FAIpQLSfrqRxvlSFzdXtY8vt_uPi_zdYZaOyhqvI2GoTRFSkB1bFvaw/viewform");
-        Application.Quit();
     }
 
 }
