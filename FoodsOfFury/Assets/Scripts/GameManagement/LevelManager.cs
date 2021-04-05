@@ -22,7 +22,7 @@ public class LevelManager : MonoBehaviour
     public Button   nextLvlBtn;         //Reference to the next level button ui
     public Button   restartBtn;         //Reference to the restart button ui
     public float    waitTime = .75f;    //Wait time for the popup to come up in seconds
-    private bool    winSound = true
+    private bool    winSound = true;
     private bool    loseSound = true;
 
     void Awake()
