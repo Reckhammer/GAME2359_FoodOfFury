@@ -18,10 +18,9 @@ public class LevelManager : MonoBehaviour
 
     public Text     objective;          //The text for the objective UI
     public Image    endGameMenu;        //UI elements for the level completion
-    public Text     endGameText;        //The text for the UI
-    public Button   nextLvlBtn;         //Reference to the next level button ui
-    public Button   restartBtn;         //Reference to the restart button ui
-    public float    waitTime = .75f;    //Wait time for the popup to come up in seconds
+    public Image    winMenu;            //Reference to the Win Menu UI
+    public Image    loseMenu;           //Reference to the Lose Menu UI
+    public float    waitTime = 2f;      //Wait time for the popup to come up in seconds
     private bool    winSound = true;
     private bool    loseSound = true;
 
@@ -41,8 +40,8 @@ public class LevelManager : MonoBehaviour
             winningSound();
 
             Debug.Log( "All objectives done. Level is completed" );
-            setEndMessage( "Level Complete" ); //Activate the UI
-            nextLvlBtn.gameObject.SetActive( true );
+            setEndMessage(); //Activate the UI
+            winMenu.gameObject.SetActive( true );
         }
 
         //If the player died
@@ -52,8 +51,8 @@ public class LevelManager : MonoBehaviour
             losingSound();
 
             Debug.Log( "Player has died" );
-            setEndMessage( "You have Expired" ); //Activate the UI
-            restartBtn.gameObject.SetActive( true );
+            setEndMessage(); //Activate the UI
+            loseMenu.gameObject.SetActive( true );
         }
 
         objective.text = objectiveList[0].message;
@@ -80,11 +79,10 @@ public class LevelManager : MonoBehaviour
 
     //-----------------------------------------------------------------------------------
     // setEndMessage() - this 
-    public void setEndMessage( string endGameMessage )
+    public void setEndMessage()
     {
         StartCoroutine( ClickerEnd( waitTime ));
         endGameMenu.gameObject.SetActive( true );
-        endGameText.text = endGameMessage;
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
