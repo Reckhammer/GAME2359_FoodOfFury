@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3005119487648897717}
   - component: {fileID: 184251641}
   m_Layer: 10
-  m_Name: ConsumablePickup_Prototype
+  m_Name: Health_Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,6 +100,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3005119487648897708}
     m_Modifications:
+    - target: {fileID: 4617257673409641863, guid: 25d79bae4bd45b54d91b7bebb017c630, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 48ab73604c6e8aa429265e705fff6b07, type: 2}
     - target: {fileID: 5789632101264967400, guid: 25d79bae4bd45b54d91b7bebb017c630, type: 3}
       propertyPath: m_RootOrder
       value: 0
