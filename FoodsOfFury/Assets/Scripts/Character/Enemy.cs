@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
     void Awake()
     {
         //Initilize the script's variables
-        //animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag( "Player" ).transform;
 
@@ -67,7 +67,23 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        //put animator code here
+        if ( animator != null )
+        {
+            //If the current agent speed is zero,
+            //      then it is idle, so play idle animation
+            //Else
+            //      it is moving, so play run animation
+            if ( agent.speed == 0 )
+            {
+                animator.SetBool( "IsIdle", true );
+                animator.SetBool( "IsMoving", false );
+            }
+            else
+            {
+                animator.SetBool( "IsIdle", false );
+                animator.SetBool( "IsMoving", true );
+            }
+        }
     }
 
     // subscribe to Health.OnUpdate() event
@@ -87,11 +103,11 @@ public class Enemy : MonoBehaviour
     // Does health reactions
     private void HealthUpdated( float amount )
     {
-        if (amount == 0) // // player died
+        if ( amount == 0 ) // // player died
         {
             onDeath();
         }
-        else if (amount < oldHealth) // player damaged
+        else if ( amount < oldHealth ) // player damaged
         {
             print("Enemy was damaged!");
             //play hurt sounds
@@ -129,7 +145,7 @@ public class Enemy : MonoBehaviour
                     //Debug.Log( "Enemy Hit player" );
                     //Insert damaging code here
                     print("attacking");
-                    if (!meleeAttackAnim.isPlaying)
+                    if ( !meleeAttackAnim.isPlaying )
                     {
                         meleeAttackAnim.Play();
                         AudioManager.Instance.playRandom(transform.position, "IceCream_Cone_Attack01"); 
@@ -144,7 +160,8 @@ public class Enemy : MonoBehaviour
                     break;
             }
 
-            nextFire = Time.time + attackRate;
+            nextFire = Time.time + attackRate; //set nextfire to the next available time to attack
+            animator.SetTrigger( "Attack" ); //play the attack animation
         }
     }
 
@@ -178,6 +195,7 @@ public class Enemy : MonoBehaviour
 
     private void onDeath()
     {
+        animator.SetBool( "IsDead", true );
         Destroy( gameObject );
     }
 }
