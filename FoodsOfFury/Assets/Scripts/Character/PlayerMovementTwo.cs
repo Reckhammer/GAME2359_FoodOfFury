@@ -148,13 +148,13 @@ public class PlayerMovementTwo : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDetectRadius, ground, QueryTriggerInteraction.Ignore);
         inputs = Vector3.zero; // reset inputs
 
-        // start glide if 'shift' is pressed (when not grounded)
+        // start glide if 'space' is pressed (when not grounded)
         if (Input.GetButton("Jump") && !isGrounded && rb.velocity.y < 0)
         {
             isGliding = true;
         }
 
-        // stop glide if 'shift' is released or grounded
+        // stop glide if 'space' is released or grounded
         if (Input.GetButtonUp("Jump") || isGrounded || rb.velocity.y > 0)
         {
             isGliding = false;
