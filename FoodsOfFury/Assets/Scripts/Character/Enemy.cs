@@ -67,6 +67,11 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        if ( GetComponent<Health>().amount == 0 )
+        {
+            onDeath();
+        }
+
         if ( animator != null )
         {
             //If the current agent speed is zero,
@@ -148,20 +153,24 @@ public class Enemy : MonoBehaviour
                     if ( !meleeAttackAnim.isPlaying )
                     {
                         meleeAttackAnim.Play();
-                        AudioManager.Instance.playRandom(transform.position, "IceCream_Cone_Attack01"); 
+                        //AudioManager.Instance.playRandom(transform.position, "IceCream_Cone_Attack01"); 
                     }
                     break;
                 case EnemyType.Range:
                     GameObject projectileInst = Instantiate( projectile, attackPoint.position, transform.rotation ); //Create the projectile
                     Rigidbody projectileRB = projectileInst.GetComponent<Rigidbody>(); //Get a reference to its rigidbody
 
-                    AudioManager.Instance.playRandom(transform.position, "Fry_Attack_01");
+                    //AudioManager.Instance.playRandom(transform.position, "Fry_Attack_01");
 
                     break;
             }
 
             nextFire = Time.time + attackRate; //set nextfire to the next available time to attack
-            animator.SetTrigger( "Attack" ); //play the attack animation
+
+            if ( animator != null )
+            {
+                animator.SetTrigger( "Attack" ); //play the attack animation
+            }
         }
     }
 
@@ -195,7 +204,11 @@ public class Enemy : MonoBehaviour
 
     private void onDeath()
     {
-        animator.SetBool( "IsDead", true );
+        if ( animator != null )
+        {
+            animator.SetBool( "IsDead", true );
+        }
+
         Destroy( gameObject );
     }
 }
