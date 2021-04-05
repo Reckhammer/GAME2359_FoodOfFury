@@ -14,7 +14,15 @@ public class PauseMenu : MonoBehaviour
     public static bool gameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    public GameObject objectiveTxt;     //Reference to the objective text UI
 
+    private void Start()
+    {
+        if ( Time.timeScale == 1.0f )
+        {
+            gameIsPaused = false;
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -41,6 +49,7 @@ public class PauseMenu : MonoBehaviour
         AudioManager.Instance.playRandom(transform.position, "UI_Back_01");
         
         pauseMenuUI.SetActive(false);
+        objectiveTxt.SetActive(true);
         Time.timeScale = 1f;
         gameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -56,6 +65,7 @@ public class PauseMenu : MonoBehaviour
         }
 
         pauseMenuUI.SetActive(true);
+        objectiveTxt.SetActive(false);
         Time.timeScale = 0f;
         gameIsPaused = true;
         Cursor.lockState = CursorLockMode.None;

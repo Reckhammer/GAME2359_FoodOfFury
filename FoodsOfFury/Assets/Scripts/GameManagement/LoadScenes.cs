@@ -58,7 +58,8 @@ public class LoadScenes : MonoBehaviour
 
     public void NextScene()
     {
-        SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex + 1 ); //Load the next scene in the build order
+        int index = (SceneManager.GetActiveScene().buildIndex + 1 != SceneManager.sceneCountInBuildSettings) ? SceneManager.GetActiveScene().buildIndex + 1 : 0;
+        SceneManager.LoadScene(index); //Load the next scene in the build order
     }
 
     public void ExitGame()
