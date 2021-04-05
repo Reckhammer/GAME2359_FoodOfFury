@@ -22,6 +22,8 @@ public class LevelManager : MonoBehaviour
     public Button   nextLvlBtn;         //Reference to the next level button ui
     public Button   restartBtn;         //Reference to the restart button ui
     public float    waitTime = .75f;    //Wait time for the popup to come up in seconds
+    private bool    winSound = true;
+    private bool    loseSound = true;
 
     void Awake()
     {
@@ -36,7 +38,7 @@ public class LevelManager : MonoBehaviour
         //      the level is complete. go to next lvl
         if ( objectiveList.Count == 0 )
         {
-            //AudioManager.Instance.playRandom(transform.position, "Rollo_Win_01");
+            winningSound();
 
             Debug.Log( "All objectives done. Level is completed" );
             setEndMessage( "Level Complete" ); //Activate the UI
@@ -47,7 +49,7 @@ public class LevelManager : MonoBehaviour
         //  restart level
         if ( playerHealth.amount <= 0 )
         {
-            //AudioManager.Instance.playRandom(transform.position, "Rollo_Lose_01");
+            losingSound();
 
             Debug.Log( "Player has died" );
             setEndMessage( "You have Expired" ); //Activate the UI
@@ -94,6 +96,27 @@ public class LevelManager : MonoBehaviour
 
         Time.timeScale = 0; //this makes everything stop. Need to do this when switching scenes
     }
+
+    public void winningSound()
+    {
+        if (winSound)
+        {
+            AudioManager.Instance.playRandom(transform.position, "Rollo_Win_01");
+            winSound = false;
+        }
+    }
+
+    public void losingSound()
+    {
+        if (loseSound == true)
+        {
+           AudioManager.Instance.playRandom(transform.position, "Rollo_Lose_01");
+           loseSound = false;
+        }
+        
+    }
+
+
 
     private IEnumerator ClickerEnd( float waiter )
     {
