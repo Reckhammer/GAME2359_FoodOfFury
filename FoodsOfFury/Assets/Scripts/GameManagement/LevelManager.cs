@@ -29,7 +29,7 @@ public class LevelManager : MonoBehaviour
     {
         Time.timeScale = 1;     //this resets the timescale after switching scenes
 
-        playerHealth = GameObject.FindGameObjectWithTag( "Player" ).GetComponent<Health>(); //get the reference to the player's health componet
+        playerHealth = GameObject.FindGameObjectWithTag( "Player" ).GetComponentInParent<Health>(); //get the reference to the player's health componet
     }
 
     void Update()

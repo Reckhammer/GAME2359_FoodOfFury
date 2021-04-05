@@ -16,6 +16,11 @@ public class MeleeWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseMenu.gameIsPaused)
+        {
+            return;
+        }
+
         if (Input.GetKey(KeyCode.Mouse0))
         {
             //print("doing attack");

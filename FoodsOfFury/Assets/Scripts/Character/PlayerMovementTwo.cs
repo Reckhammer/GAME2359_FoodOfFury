@@ -144,6 +144,11 @@ public class PlayerMovementTwo : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenu.gameIsPaused)
+        {
+            return;
+        }
+
         // check ground
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDetectRadius, ground, QueryTriggerInteraction.Ignore);
         inputs = Vector3.zero; // reset inputs
