@@ -8,37 +8,51 @@ public class LoadScenes : MonoBehaviour
 
     public void FreezerScene()
     {
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+
         SceneManager.LoadScene("FreezerLevel");
     }
 
     public void KitchenScene()
     {
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+
         SceneManager.LoadScene("KitchenLevel_1");
     }
 
     public void MainMenu()
     {
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+
         SceneManager.LoadScene("MenuScene");
     }
 
     public void SettingsMenu()
     {
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+
         SceneManager.LoadScene("SettingsScene");
     }
 
     public void HowToPlay()
     {
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+
         SceneManager.LoadScene("HowToPlay");
     }
 
     public void Credits()
     {
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+
         print("credits");
         //SceneManager.LoadScene("Credits");
     }
 
     public void RestartScene()
     {
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+
         SceneManager.LoadScene( SceneManager.GetActiveScene().name ); //load the current scene
     }
 
