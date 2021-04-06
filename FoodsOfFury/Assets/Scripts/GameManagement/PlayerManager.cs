@@ -32,9 +32,6 @@ public class PlayerManager : MonoBehaviour
         equipItem(ItemType.Consumable);
         oldHealth = GetComponent<Health>().amount;
 
-        PPV.profile.TryGetSettings(out healthVignette);
-        healthVignette.intensity.value = 0.0f;
-
         if (UIManager.instance != null)
         {
             UIManager.instance.setHealthBarMax(GetComponent<Health>().max);
@@ -44,6 +41,9 @@ public class PlayerManager : MonoBehaviour
         {
             print("GameController missing!!!");
         }
+
+        PPV.profile.TryGetSettings(out healthVignette);
+        healthVignette.intensity.value = 0.0f;
     }
 
     // subscribe to Health.OnUpdate() event
@@ -274,13 +274,6 @@ public class PlayerManager : MonoBehaviour
     // Does health reactions
     private void HealthUpdated(float amount)
     {
-
-        if (amount <= 2f)
-        {
-            healthVignette.intensity.value = 0.65f;
-        }
-
-
         if (amount == 0) // // player died
         {
             UIManager.instance?.updateHealthBar(amount);
@@ -301,6 +294,11 @@ public class PlayerManager : MonoBehaviour
         }
 
         oldHealth = amount;
+
+        if (amount <= 2f)
+        {
+            healthVignette.intensity.value = 0.65f;
+        }
     }
 
     // hangles death operations
