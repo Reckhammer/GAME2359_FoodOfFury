@@ -219,6 +219,15 @@ public class PlayerMovementTwo : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
+        // DEBUG: GODMODE kinda (delete later)
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            GetComponent<Health>().max = 1000;
+            GetComponent<Health>().add(1000);
+            UIManager.instance.setHealthBarMax(1000);
+            UIManager.instance.updateHealthBar(1000);
+        }
+
         doAnimations();
     }
 
