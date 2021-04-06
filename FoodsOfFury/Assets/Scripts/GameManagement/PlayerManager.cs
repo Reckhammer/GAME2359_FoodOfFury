@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 //----------------------------------------------------------------------------------------
 // Author: Jose Villanueva
@@ -20,12 +22,17 @@ public class PlayerManager : MonoBehaviour
     private GameObject currConsumable;          // current reference to consumable object
     private float oldHealth = 0.0f;             // old amount of health
 
+    public Volume PPV;
+    private Vignette healthVignette;
+
     private void Start()
     {
         inventory = GetComponent<Inventory>();
         equipItem(ItemType.Weapon);
         equipItem(ItemType.Consumable);
         oldHealth = GetComponent<Health>().amount;
+
+        PPV.profile.TryGet(out healthVignette);
 
         if (UIManager.instance != null)
         {
@@ -266,6 +273,13 @@ public class PlayerManager : MonoBehaviour
     // Does health reactions
     private void HealthUpdated(float amount)
     {
+
+        if (amount <= 2f)
+        {
+            healthVignette.intensity.value = 0.65f;
+        }
+
+
         if (amount == 0) // // player died
         {
             UIManager.instance?.updateHealthBar(amount);
