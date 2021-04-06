@@ -129,13 +129,13 @@ public class Inventory : MonoBehaviour
 
             if (!list.add(copy)) // try to add item to list
             {
-                removeFromList(ref list, type);             // add failed (list at max), remove current item from list
-                list.add(copy);                             // add item (swap)
+                removeFromList(ref list, type);                     // add failed (list at max), remove current item from list
+                list.add(copy);                                     // add item (swap)
             }
 
             return true;
         }
-        return false; // return false if at max
+        return false; // return false max is 0
     }
 
     // remove item from inventory
@@ -188,6 +188,7 @@ public class Inventory : MonoBehaviour
         copy.transform.position = transform.position;                           // set item position to this object
         copy.transform.rotation = transform.rotation;                           // set rotation to this rotation
         copy.name = type.ToString();                                            // set name to type
+        copy.GetComponent<Pickupable>().doTimeout();                            // set timeout for pickable
 
         copy.SetActive(true);                                                   // make item active
         rb.AddForce(transform.forward * 5.0f, ForceMode.VelocityChange);        // throw item
