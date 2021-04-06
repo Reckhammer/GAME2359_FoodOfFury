@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering.PostProcessing;
 
 //----------------------------------------------------------------------------------------
 // Author: Jose Villanueva
@@ -22,7 +22,7 @@ public class PlayerManager : MonoBehaviour
     private GameObject currConsumable;          // current reference to consumable object
     private float oldHealth = 0.0f;             // old amount of health
 
-    public Volume PPV;
+    public PostProcessVolume PPV;
     private Vignette healthVignette;
 
     private void Start()
@@ -32,7 +32,8 @@ public class PlayerManager : MonoBehaviour
         equipItem(ItemType.Consumable);
         oldHealth = GetComponent<Health>().amount;
 
-        PPV.profile.TryGet(out healthVignette);
+        PPV.profile.TryGetSettings(out healthVignette);
+        healthVignette.intensity.value = 0.0f;
 
         if (UIManager.instance != null)
         {
