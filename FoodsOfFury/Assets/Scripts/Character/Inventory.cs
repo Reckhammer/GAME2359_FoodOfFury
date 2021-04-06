@@ -121,6 +121,14 @@ public class Inventory : MonoBehaviour
         {
             GameObject copy = Instantiate(item, transform.position, transform.rotation, transform); // make copy and parent to gameobject
             copy.GetComponent<Pickupable>().render.enabled = false; // turn off renderer
+
+            if (copy.GetComponent<Pickupable>().particles != null) // turn off current particles and set play on awake off
+            {
+                copy.GetComponent<Pickupable>().particles.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+                ParticleSystem.MainModule m = copy.GetComponent<Pickupable>().particles.main;
+                m.playOnAwake = false;
+            }
+
             copy.GetComponent<Pickupable>().enabled = false;        // turn off 'Pickupable'
             Destroy(copy.GetComponent<Rigidbody>());                // remove rigibody
             copy.GetComponent<Collider>().enabled = false;          // turn off collider (non trigger)
@@ -129,13 +137,13 @@ public class Inventory : MonoBehaviour
 
             if (!list.add(copy)) // try to add item to list
             {
-                removeFromList(ref list, type);             // add failed (list at max), remove current item from list
-                list.add(copy);                             // add item (swap)
+                removeFromList(ref list, type);                     // add failed (list at max), remove current item from list
+                list.add(copy);                                     // add item (swap)
             }
 
             return true;
         }
-        return false; // return false if at max
+        return false; // return false max is 0
     }
 
     // remove item from inventory
@@ -169,7 +177,13 @@ public class Inventory : MonoBehaviour
                 reference.GetComponent<WeaponReferences>().weaponScript.enabled = false; // turn off weapon script
             }
 
-            reference.GetComponent<Pickupable>().render.enabled = true; // turn on renderer
+            reference.GetComponent<Pickupable>().render.enabled = true;     // turn on renderer
+
+            if (reference.GetComponent<Pickupable>().particles != null) // turn on particle play on awake (particles will turn on when dropped)
+            {
+                ParticleSystem.MainModule m = reference.GetComponent<Pickupable>().particles.main;
+                m.playOnAwake = true;
+            }
 
             drop(reference, type);  // drop new copy
         }
@@ -188,6 +202,7 @@ public class Inventory : MonoBehaviour
         copy.transform.position = transform.position;                           // set item position to this object
         copy.transform.rotation = transform.rotation;                           // set rotation to this rotation
         copy.name = type.ToString();                                            // set name to type
+        copy.GetComponent<Pickupable>().doTimeout();                            // set timeout for pickable
 
         copy.SetActive(true);                                                   // make item active
         rb.AddForce(transform.forward * 5.0f, ForceMode.VelocityChange);        // throw item

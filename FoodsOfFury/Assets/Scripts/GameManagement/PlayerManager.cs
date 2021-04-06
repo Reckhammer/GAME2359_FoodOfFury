@@ -110,6 +110,7 @@ public class PlayerManager : MonoBehaviour
         {
             case ItemType.Weapon:
                 Sprite oldImage = null;
+
                 if (currWeapon != null)
                 {
                     oldImage = currWeapon.GetComponent<WeaponReferences>().sprite;
@@ -118,7 +119,7 @@ public class PlayerManager : MonoBehaviour
                 }
 
                 GameObject old = currWeapon;
-                currWeapon = inventory.get(type);   // get next item
+                currWeapon = inventory.get(type); // get item
 
                 if (old == currWeapon)
                 {
@@ -162,6 +163,8 @@ public class PlayerManager : MonoBehaviour
         {
             case ItemType.Weapon:
                 Sprite oldImage = null;
+                currWeapon = inventory.get(type); // get current (in case it was swapped)
+
                 if (currWeapon != null)
                 {
                     oldImage = currWeapon.GetComponent<WeaponReferences>().sprite;
@@ -213,6 +216,8 @@ public class PlayerManager : MonoBehaviour
         {
             case ItemType.Weapon:
                 Sprite oldImage = null;
+                currWeapon = inventory.get(type); // get current (in case it was swapped)
+
                 if (currWeapon != null)
                 {
                     oldImage = currWeapon.GetComponent<WeaponReferences>().sprite;

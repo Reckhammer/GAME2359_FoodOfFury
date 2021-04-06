@@ -78,10 +78,7 @@ public class InventoryList
         if (index == -1)
         {
             list.RemoveAt(current); // remove current item
-            if (current == max)
-            {
-                current--;
-            }
+            current = (current - 1 >= 0) ? current - 1 : list.Count - 1; // update current to previous index (loops forward to last available index)
         }
         else
         {
