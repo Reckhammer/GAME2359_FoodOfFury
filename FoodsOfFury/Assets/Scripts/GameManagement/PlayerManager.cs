@@ -24,6 +24,7 @@ public class PlayerManager : MonoBehaviour
 
     public PostProcessVolume PPV;
     private Vignette healthVignette;
+    private Coroutine cTimer = null;
 
     private void Start()
     {
@@ -295,9 +296,45 @@ public class PlayerManager : MonoBehaviour
 
         oldHealth = amount;
 
-        if (amount <= 2f)
+        if (amount <= 2f && healthVignette.intensity.value != 0.65f)
         {
-            healthVignette.intensity.value = 0.65f;
+
+            if (cTimer == null)
+            {
+                cTimer = StartCoroutine(timer(2.0f, 0.65f));
+            }
+            else
+            {
+                StopCoroutine(cTimer);
+                cTimer = StartCoroutine(timer(2.0f, 0.65f));
+            }
+        }
+
+        if (amount > 2f && healthVignette.intensity.value != 0.0f)
+        {
+            if (cTimer == null)
+            {
+                cTimer = StartCoroutine(timer(2.0f, 0.0f));
+            }
+            else
+            {
+                StopCoroutine(cTimer);
+                cTimer = StartCoroutine(timer(2.0f, 0.0f));
+            }
+        }
+    }
+
+    private IEnumerator timer(float duration, float value)
+    {
+        float passed = 0.0f;
+
+        float original = healthVignette.intensity.value;
+
+        while (passed < duration)
+        {
+            passed += Time.deltaTime;
+            healthVignette.intensity.value = Mathf.Lerp(original, value, passed / duration);
+            yield return null;
         }
     }
 
