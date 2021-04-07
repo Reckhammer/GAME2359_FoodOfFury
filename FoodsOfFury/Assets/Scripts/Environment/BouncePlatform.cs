@@ -47,6 +47,10 @@ public class BouncePlatform : MonoBehaviour
         {
             case "Player":
                 obj.GetComponentInParent<PlayerMovementTwo>().applyExtraForce(direction * bounceForce, 0.1f, true);
+                if (direction.y > 0)
+                {
+                    obj.GetComponentInParent<Animator>().SetTrigger("Jump");
+                }
                 break;
             default:
                 Rigidbody rb = obj.GetComponent<Rigidbody>();
