@@ -291,6 +291,7 @@ public class PlayerManager : MonoBehaviour
         {
             print("Player was healed!");
             // healed animations?
+            AudioManager.Instance.playRandom(transform.position, "Rollo_Health_01", "Rollo_Health_02").transform.SetParent(transform);
             UIManager.instance?.updateHealthBar(amount);
         }
 
