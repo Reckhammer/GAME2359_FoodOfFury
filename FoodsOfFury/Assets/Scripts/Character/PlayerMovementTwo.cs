@@ -207,6 +207,7 @@ public class PlayerMovementTwo : MonoBehaviour
             {
                 AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_Double_01", "Rollo_Jump_Double_02").transform.SetParent(transform);
             }
+            animator.SetTrigger("Jump");
             rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y) + Vector3.up * -rb.velocity.y, ForceMode.VelocityChange); // regular jump (+ y velocity canceled)
             currentJump++;
         }
@@ -423,7 +424,7 @@ public class PlayerMovementTwo : MonoBehaviour
             }
         }
 
-        if (movement.magnitude > 0) // running
+        if (movement.magnitude > 0 && isGrounded) // running
         {
             if (idleAnim != null)
             {
@@ -435,7 +436,7 @@ public class PlayerMovementTwo : MonoBehaviour
                 animator.SetBool(runAnim, true);
             }
         }
-        else // idle
+        else if (isGrounded) // idle
         {
             if (runAnim != null)
             {
@@ -445,6 +446,18 @@ public class PlayerMovementTwo : MonoBehaviour
             if (idleAnim != null)
             {
                 animator.SetBool(idleAnim, true);
+            }
+        }
+        else // non-grounded
+        {
+            if (idleAnim != null)
+            {
+                animator.SetBool(idleAnim, false);
+            }
+
+            if (runAnim != null)
+            {
+                animator.SetBool(runAnim, false);
             }
         }
     }
