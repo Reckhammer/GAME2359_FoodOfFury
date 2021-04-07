@@ -49,6 +49,8 @@ public class Objective : MonoBehaviour
         {
             lvlManager.setCompleted( this );
             GetComponent<MeshRenderer>().enabled = false;
+
+            GetComponentInChildren<Animator>().SetBool( "IsRescued", true );
             isDone = true;
         }
     }

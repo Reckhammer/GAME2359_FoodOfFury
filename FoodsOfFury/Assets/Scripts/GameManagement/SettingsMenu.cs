@@ -49,7 +49,7 @@ public class SettingsMenu : MonoBehaviour
     public void SetVolume(float volume)
     {
         print("setting volume: " + volume);
-        audioMixer.SetFloat("Volume", volume);
+        audioMixer.SetFloat("Volume", Mathf.Log10(volume) * 20);
         currentVolume = volume;
     }
 

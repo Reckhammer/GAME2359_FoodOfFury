@@ -8,42 +8,42 @@ public class LoadScenes : MonoBehaviour
 
     public void FreezerScene()
     {
-        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
 
         SceneManager.LoadScene("FreezerLevel");
     }
 
     public void KitchenScene()
     {
-        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
 
         SceneManager.LoadScene("KitchenLevel_1");
     }
 
     public void MainMenu()
     {
-        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
 
         SceneManager.LoadScene("MenuScene");
     }
 
     public void SettingsMenu()
     {
-        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
 
         SceneManager.LoadScene("SettingsScene");
     }
 
     public void HowToPlay()
     {
-        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
 
         SceneManager.LoadScene("HowToPlay");
     }
 
     public void Credits()
     {
-        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
 
         print("credits");
         //SceneManager.LoadScene("Credits");
@@ -51,13 +51,14 @@ public class LoadScenes : MonoBehaviour
 
     public void RestartScene()
     {
-        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
 
         SceneManager.LoadScene( SceneManager.GetActiveScene().name ); //load the current scene
     }
 
     public void NextScene()
     {
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
         int index = (SceneManager.GetActiveScene().buildIndex + 1 != SceneManager.sceneCountInBuildSettings) ? SceneManager.GetActiveScene().buildIndex + 1 : 0;
         SceneManager.LoadScene(index); //Load the next scene in the build order
     }

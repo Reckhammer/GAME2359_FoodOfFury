@@ -108,7 +108,7 @@ public class LevelManager : MonoBehaviour
     {
         if (loseSound == true)
         {
-           AudioManager.Instance.playRandom(transform.position, "Rollo_Lose_01");
+           AudioManager.Instance.playRandom(transform.position, "Rollo_Lose_01", "Rollo_Lose_02");
            loseSound = false;
         }
         

@@ -31,6 +31,7 @@ public class PlayerMovementTwo : MonoBehaviour
 
     private Rigidbody rb                = null;         // rigidbody of player
     private bool inputStopped           = false;        // for stopping input
+    private bool rotationStopped        = false;        // for stopping rotation
     private Transform groundChecker     = null;         // position of groundchecker
     private Vector3 inputs              = Vector3.zero; // inputs from player
     private Vector3 movement            = Vector3.zero; // calculated velocity to move the character
@@ -128,7 +129,7 @@ public class PlayerMovementTwo : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized); // camera rotation
         }
-        else if (dir != Vector3.zero) // if direction is zero, don't set
+        else if (dir != Vector3.zero && !rotationStopped) // if direction is zero, don't set
         {
             Quaternion toRotation = Quaternion.LookRotation(dir); // target rotation
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.fixedDeltaTime * rotationSpeed); // slerp rotation with rotation speed
@@ -198,7 +199,14 @@ public class PlayerMovementTwo : MonoBehaviour
         if (Input.GetButtonDown("Jump") && !inputStopped && (maxJump > currentJump) && !inJump)
         {
             StartCoroutine(JumpDelayTimer(0.1f)); // delay jump
-            //AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_1", "Rollo_Jump_2").transform.SetParent(transform);
+            if (currentJump == 0)
+            {
+                AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_01", "Rollo_Jump_02").transform.SetParent(transform);
+            }
+            else
+            {
+                AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_Double_01", "Rollo_Jump_Double_02").transform.SetParent(transform);
+            }
             rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y) + Vector3.up * -rb.velocity.y, ForceMode.VelocityChange); // regular jump (+ y velocity canceled)
             currentJump++;
         }
@@ -280,7 +288,7 @@ public class PlayerMovementTwo : MonoBehaviour
         extraForceTime = 1.0f; // since we do a velocity change, time to complete extra force is roughly 1 second
     }
 
-    public void stopInput(float inputStopDuration = 0.0f, bool stopPlayer = true)
+    public void stopInput(float inputStopDuration = 0.0f, bool stopPlayer = true, bool stopRotation = false)
     {
         if (stopPlayer)
         {
@@ -291,19 +299,25 @@ public class PlayerMovementTwo : MonoBehaviour
         {
             StopCoroutine(inputStoppedCr);
             inputStopped = false;
+            rotationStopped = false;
         }
 
         if (inputStopDuration != 0.0f) // start input stop timer (if duration is not 0)
         {
-            inputStoppedCr = StartCoroutine(InputStopTimer(inputStopDuration));
+            inputStoppedCr = StartCoroutine(InputStopTimer(inputStopDuration, stopRotation));
         }
     }
 
     // timer for stopping input
-    private IEnumerator InputStopTimer(float duration)
+    private IEnumerator InputStopTimer(float duration, bool stopRotation)
     {
         float passed = 0.0f;
         inputStopped = true;
+
+        if (stopRotation)
+        {
+            rotationStopped = true;
+        }
 
         while (passed < duration)
         {
@@ -312,6 +326,7 @@ public class PlayerMovementTwo : MonoBehaviour
         }
 
         inputStopped = false;
+        rotationStopped = false;
     }
 
     // timer for dash delay
@@ -389,9 +404,9 @@ public class PlayerMovementTwo : MonoBehaviour
 
             if (rb.velocity.y < 0 && !isGrounded)
             {
-                if (fallSound == null)
+                if (fallSound == null && rb.velocity.y < -20.0f)
                 {
-                    //fallSound = AudioManager.Instance.playRandom(transform.position, false, "Rollo_Fall_01", "Rollo_Fall_02");
+                    fallSound = AudioManager.Instance.playRandom(transform.position, false, "Rollo_Fall_01", "Rollo_Fall_02");
                 }
 
                 animator.SetBool("isFalling", true);

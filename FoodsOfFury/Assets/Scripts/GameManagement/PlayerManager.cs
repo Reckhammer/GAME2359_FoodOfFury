@@ -283,14 +283,15 @@ public class PlayerManager : MonoBehaviour
         else if (amount < oldHealth) // player damaged
         {
             print("Player was damaged!");
-            //AudioManager.Instance.playRandom(transform.position, "Rollo_Hurt_1", "Rollo_Hurt_2", "Rollo_Hurt_3").transform.SetParent(transform);
             // hurt animations?
+            AudioManager.Instance.playRandom(transform.position, "Rollo_Hurt_1", "Rollo_Hurt_2", "Rollo_Hurt_3").transform.SetParent(transform);
             UIManager.instance?.updateHealthBar(amount);
         }
         else if (amount > oldHealth) // player healed
         {
             print("Player was healed!");
             // healed animations?
+            AudioManager.Instance.playRandom(transform.position, "Rollo_Health_01", "Rollo_Health_02").transform.SetParent(transform);
             UIManager.instance?.updateHealthBar(amount);
         }
 
