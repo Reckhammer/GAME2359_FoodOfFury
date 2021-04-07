@@ -22,7 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Fryer
   m_Shader: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5, type: 3}
-  m_ShaderKeywords: _EMISSIVE_SIMPLE _METALLICSPECGLOSSMAP _NORMALMAP _OUTLINE_POS
+  m_ShaderKeywords: _ _EMISSIVE_SIMPLE _METALLICSPECGLOSSMAP _NORMALMAP _OUTLINE_POS
     _SPECULAR_SETUP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -134,7 +134,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Set_HighColorMask:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 66894afe8114ae9448dd66a199b6ab82, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Set_MatcapMask:
@@ -182,7 +182,7 @@ Material:
     - _Base_Speed: 0
     - _Blend: 0
     - _BlurLevelMatcap: 0
-    - _BumpScale: 0.181
+    - _BumpScale: 0.157
     - _BumpScaleMatcap: 1
     - _CameraRolling_Stabilizer: 0
     - _ClearCoatMask: 0
@@ -247,8 +247,8 @@ Material:
     - _ReceiveShadows: 1
     - _RimLight: 1
     - _RimLight_FeatherOff: 0
-    - _RimLight_InsideMask: 0.0001
-    - _RimLight_Power: 0.206
+    - _RimLight_InsideMask: 0.543
+    - _RimLight_Power: 0.553
     - _Rotate_EmissiveUV: 0
     - _Rotate_MatCapUV: 0
     - _Rotate_NormalMapForMatCapUV: 0
@@ -264,7 +264,7 @@ Material:
     - _Surface: 0
     - _TweakHighColorOnShadow: 0
     - _TweakMatCapOnShadow: 0
-    - _Tweak_HighColorMaskLevel: 0
+    - _Tweak_HighColorMaskLevel: 0.25
     - _Tweak_LightDirection_MaskLevel: 0
     - _Tweak_MatCapUV: 0
     - _Tweak_MatcapMaskLevel: 0
@@ -294,7 +294,7 @@ Material:
     - _HighColor: {r: 0.5377358, g: 0.5076092, b: 0.40837485, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _Outline_Color: {r: 0.1792453, g: 0.1547259, b: 0.1547259, a: 1}
-    - _RimLightColor: {r: 0.27351364, g: 0.2735849, b: 0.20260769, a: 1}
+    - _RimLightColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _ViewShift: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
