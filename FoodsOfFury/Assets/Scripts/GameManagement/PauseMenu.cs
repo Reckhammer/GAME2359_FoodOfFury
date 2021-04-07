@@ -14,6 +14,7 @@ public class PauseMenu : MonoBehaviour
     public static bool gameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    public GameObject settingMenuUI;
     public GameObject objectiveTxt;     //Reference to the objective text UI
 
     private void Start()
@@ -49,6 +50,7 @@ public class PauseMenu : MonoBehaviour
         AudioManager.Instance.playRandom(transform.position, "UI_Back_01");
         
         pauseMenuUI.SetActive(false);
+        settingMenuUI.SetActive(false);
         objectiveTxt.SetActive(true);
         Time.timeScale = 1f;
         gameIsPaused = false;
@@ -65,11 +67,17 @@ public class PauseMenu : MonoBehaviour
         }
 
         pauseMenuUI.SetActive(true);
+        settingMenuUI.SetActive(false);
         objectiveTxt.SetActive(false);
         Time.timeScale = 0f;
         gameIsPaused = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    public void Settings()
+    {
+
     }
 
     public void LoadMenu()
