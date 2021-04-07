@@ -266,7 +266,7 @@ public class PlayerMovementTwo : MonoBehaviour
 
             RaycastHit hit;
 
-            if (Physics.Raycast(start.position, Vector3.down, out hit, distance, ground, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(start.position, Vector3.down, out hit, distance))
             {
                 //Debug.DrawLine(start, start + (hit.normal * 5.0f), Color.red); // draw normal of ground
                 if (Vector3.Dot(Vector3.up, groundNormal) > Vector3.Dot(Vector3.up, hit.normal))
