@@ -77,7 +77,14 @@ public class PauseMenu : MonoBehaviour
 
     public void Settings()
     {
+        pauseMenuUI.SetActive(false);
+        settingMenuUI.SetActive(true);
+    }
 
+    public void BackToPause()
+    {
+        pauseMenuUI.SetActive(true);
+        settingMenuUI.SetActive(false);
     }
 
     public void LoadMenu()
