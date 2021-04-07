@@ -474,7 +474,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3870434361684276772}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1343,7 +1343,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6110665545925281277}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1358,7 +1358,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6110665545925281278}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.708, y: 3.39, z: 1.25}
+  m_LocalPosition: {x: 0.708, y: 0.78, z: 2.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6000985537954760478}
@@ -1409,9 +1409,9 @@ GameObject:
   - component: {fileID: 6110665546102443413}
   - component: {fileID: 6110665546102443412}
   - component: {fileID: 6110665546102443411}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy_Fry
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1936,7 +1936,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2489045942088502069}
   - component: {fileID: 701595917106123451}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FryEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1976,7 +1976,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7786283903298493995, guid: bbeaab9b700b35040a5a4c4ecd3113d2, type: 3}
+  - {fileID: 2100000, guid: 32a64d52dcb384a4ba153162663108a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2245,9 +2245,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b44a62af1e014534996be34009f5914a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 325fbf8117e473745b1974b7557ded36, type: 2}
     - target: {fileID: 919132149155446097, guid: b44a62af1e014534996be34009f5914a, type: 3}
       propertyPath: m_Name
       value: KetchupLauncher
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b44a62af1e014534996be34009f5914a, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b44a62af1e014534996be34009f5914a, type: 3}

@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
     public  GameObject      projectile;                     //GameObj. that will be shot out from attackPoint if it's a ranged enemy
     public  Animation       meleeAttackAnim;                //Melee attack animation for enemy
 
+    private bool    isDead = false;             //Boolean to indicate if the enemy is alive and active
     private int     index = 0;                  //Index of current waypoint
     private float   agentSpeed;                 //NavMesh movement speed. Maximum movement speed of enemy
     private float   nextFire;                   //The next point in time where the enemy can attack again
@@ -116,7 +117,7 @@ public class Enemy : MonoBehaviour
         {
             print("Enemy was damaged!");
             //play hurt sounds
-            // hurt animations?
+            animator.SetTrigger( "Hit" );
         }
 
         oldHealth = amount;
@@ -131,6 +132,9 @@ public class Enemy : MonoBehaviour
         //if the index is at the last index of the array, set it to 0
         //else add 1 to the current index
         index = index == ( waypoints.Length - 1 ) ? 0 : index + 1;
+        //Patrol behavior
+        agent.destination = waypoints[index].position;  //Tell the navmesh to move the enemy to the waypoint
+        agent.speed = agentSpeed / 2;   //Set the movement to a walking pace
     }
 
     //----------------------------------------------------------------------------------------
@@ -146,7 +150,6 @@ public class Enemy : MonoBehaviour
             switch( attackType )
             {
                 case EnemyType.Melee:
-                    //Collider[] hitEnemies = Physics.OverlapSphere( attackPoint.position, attackRange, LayerMask.NameToLayer( "Player" ) );   //See if the attackPoint is colliding with the player
                     //Debug.Log( "Enemy Hit player" );
                     //Insert damaging code here
                     print("attacking");
@@ -157,7 +160,7 @@ public class Enemy : MonoBehaviour
                     }
                     break;
                 case EnemyType.Range:
-                    GameObject projectileInst = Instantiate( projectile, attackPoint.position, transform.rotation ); //Create the projectile
+                    GameObject projectileInst = Instantiate( projectile, attackPoint.position, attackPoint.rotation ); //Create the projectile
                     Rigidbody projectileRB = projectileInst.GetComponent<Rigidbody>(); //Get a reference to its rigidbody
 
                     //AudioManager.Instance.playRandom(transform.position, "Fry_Attack_01");
@@ -180,35 +183,56 @@ public class Enemy : MonoBehaviour
     //----------------------------------------------------------------------------------------
     private void checkStatus()
     {
-        //Patrol behavior
-        agent.destination = waypoints[index].position;  //Tell the navmesh to move the enemy to the waypoint
-        agent.speed = agentSpeed / 2;   //Set the movement to a walking pace
+        //if the enemy is alive
+        //      Do their behaviors
+        if ( !isDead )
+        {
+            //For all of the Transform points in the waypoints array
+            //      Check if current position equals the point's position
+            //      If it does set the agent speed to 0
+            foreach ( Transform point in waypoints )
+            {
+                if ( this.transform.position == point.position )
+                {
+                    agent.speed = 0;
+                }
+            }
 
-        //print("distance: " + Vector3.Distance(transform.position, player.position));
-        //Attack behavior
-        //Check if the player is w/in attackRange
-        if ( player != null && Vector3.Distance( transform.position, player.position ) < attackRange )
-        {
-            agent.speed = 0;
-            transform.LookAt( player ); //Rotate the enemy to face the player
-            attack();
-        }
-        //Aggro behavior
-        //Check if the player is w/in aggroRange
-        else if ( player != null && Vector3.Distance( transform.position, player.position ) < aggroRange )
-        {
-            agent.destination = player.position;    //Tell the navmesh to move to the player
-            agent.speed = agentSpeed;   //Set speed to their maximum speed
+            //print( "distance: " + Vector3.Distance( transform.position, player.position ) );
+            //Attack behavior
+            //Check if the player is w/in attackRange
+            if ( player != null && Vector3.Distance( transform.position, player.position ) < attackRange )
+            {
+                agent.speed = 0;
+                transform.LookAt( player ); //Rotate the enemy to face the player
+                attack(  );
+            }
+            //Aggro behavior
+            //Check if the player is w/in aggroRange
+            else if ( player != null && Vector3.Distance( transform.position, player.position ) < aggroRange )
+            {
+                agent.destination = player.position;    //Tell the navmesh to move to the player
+                agent.speed = agentSpeed;   //Set speed to their maximum speed
+            }
         }
     }
 
     private void onDeath()
     {
+        isDead = true;
+        GetComponent<Collider>().enabled = false; //Turn off their collider
+
         if ( animator != null )
         {
-            animator.SetBool( "IsDead", true );
+            animator.SetBool( "IsDead", true ); //Play the animation
         }
 
-        Destroy( gameObject );
+
+        DelayedDestruction( 5 ); //Wait 5 secs to destroy the enemy
+    }
+
+    private IEnumerator DelayedDestruction( float waiter )
+    {
+        yield return new WaitForSeconds( waiter );
     }
 }
