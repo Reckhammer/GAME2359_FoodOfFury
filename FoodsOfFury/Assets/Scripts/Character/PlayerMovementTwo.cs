@@ -49,7 +49,6 @@ public class PlayerMovementTwo : MonoBehaviour
     private string runAnim              = null;         // name of run animation
     private Vector3 extraVel            = Vector3.zero; // extra force velocity (recorded to lerp from extra to movement)
     private bool isAiming               = false;        // to change camera rotation style
-    private AudioSource fallSound       = null;         // fall sound reference
 
     private void Awake()
     {
@@ -186,6 +185,10 @@ public class PlayerMovementTwo : MonoBehaviour
         {
             if (inJump == false) // check if in timer (to allow player to get off ground before reseting jumps)
             {
+                if (currentJump >= 1 && rb.velocity.y < -20)
+                {
+                    AudioManager.Instance.playRandom(transform.position, "Rollo_Fall_01", "Rollo_Fall_02").transform.SetParent(transform);
+                }
                 currentJump = 0;
             }
             rb.useGravity = false;
@@ -392,12 +395,6 @@ public class PlayerMovementTwo : MonoBehaviour
         if (isGliding)
         {
             animator.SetBool("isGliding", true);
-
-            if (fallSound != null && fallSound.isPlaying == false)
-            {
-                Destroy(fallSound.gameObject);
-                fallSound = null;
-            }
         }
         else
         {
@@ -405,21 +402,10 @@ public class PlayerMovementTwo : MonoBehaviour
 
             if (rb.velocity.y < 0 && !isGrounded)
             {
-                if (fallSound == null && rb.velocity.y < -20.0f)
-                {
-                    fallSound = AudioManager.Instance.playRandom(transform.position, false, "Rollo_Fall_01", "Rollo_Fall_02");
-                }
-
                 animator.SetBool("isFalling", true);
             }
             else
             {
-                if (fallSound != null && fallSound.isPlaying == false)
-                {
-                    Destroy(fallSound.gameObject);
-                    fallSound = null;
-                }
-
                 animator.SetBool("isFalling", false);
             }
         }
