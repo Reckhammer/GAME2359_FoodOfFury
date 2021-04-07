@@ -50,7 +50,7 @@ public class OnionWeapon : MonoBehaviour
         {
             AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01"); // play audio clip 
 
-            GetComponentInParent<PlayerMovementTwo>().stopInput(1.11f);     // stop player for a bit
+            GetComponentInParent<PlayerMovementTwo>().stopInput(1.11f, true, true);     // stop player for a bit
             GetComponentInParent<Animator>().SetTrigger("OnionAttack_02");  // play visual attack animation
             attackAnim.Play("GreenOnion_Attack_02");                        // collider animation
         }
