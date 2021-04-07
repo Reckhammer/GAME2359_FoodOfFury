@@ -198,7 +198,14 @@ public class PlayerMovementTwo : MonoBehaviour
         if (Input.GetButtonDown("Jump") && !inputStopped && (maxJump > currentJump) && !inJump)
         {
             StartCoroutine(JumpDelayTimer(0.1f)); // delay jump
-            AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_1", "Rollo_Jump_2").transform.SetParent(transform);
+            if (currentJump == 0)
+            {
+                AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_01", "Rollo_Jump_02").transform.SetParent(transform);
+            }
+            else
+            {
+                AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_Double_01", "Rollo_Jump_Double_02").transform.SetParent(transform);
+            }
             rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y) + Vector3.up * -rb.velocity.y, ForceMode.VelocityChange); // regular jump (+ y velocity canceled)
             currentJump++;
         }
@@ -389,9 +396,9 @@ public class PlayerMovementTwo : MonoBehaviour
 
             if (rb.velocity.y < 0 && !isGrounded)
             {
-                if (fallSound == null)
+                if (fallSound == null && rb.velocity.y < -20.0f)
                 {
-                    //fallSound = AudioManager.Instance.playRandom(transform.position, false, "Rollo_Fall_01", "Rollo_Fall_02");
+                    fallSound = AudioManager.Instance.playRandom(transform.position, false, "Rollo_Fall_01", "Rollo_Fall_02");
                 }
 
                 animator.SetBool("isFalling", true);
