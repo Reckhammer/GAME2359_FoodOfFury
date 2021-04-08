@@ -228,11 +228,12 @@ public class Enemy : MonoBehaviour
         }
 
 
-        DelayedDestruction( 5 ); //Wait 5 secs to destroy the enemy
+       StartCoroutine( DelayedDestruction( 5 ) ); //Wait 5 secs to destroy the enemy
     }
 
     private IEnumerator DelayedDestruction( float waiter )
     {
         yield return new WaitForSeconds( waiter );
+        Destroy( gameObject );
     }
 }
