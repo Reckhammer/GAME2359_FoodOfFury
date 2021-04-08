@@ -51,20 +51,22 @@ public class SettingsMenu : MonoBehaviour
         print("setting volume: " + volume);
         audioMixer.SetFloat("Volume", Mathf.Log10(volume) * 20);
         currentVolume = volume;
+        PlayerPrefs.SetFloat("VolumePreference", currentVolume);
     }
 
     
     public void SetQuatity(int qualityIndex)
     {
         print("setting overall quality: " + qualityIndex);
-
         QualitySettings.SetQualityLevel(qualityIndex, true);
+        PlayerPrefs.SetInt("QualitySettingPreference", qualityDropdown.value);
     }
 
     public void SetTextureQuality(int textureIndex)
     {
         print("setting texture quality: " + textureIndex);
         QualitySettings.masterTextureLimit = textureIndex;
+        PlayerPrefs.SetInt("TextureQualityPreference", textureDropdown.value);
     }
 
     public void SetResolution(int resolutionIndex)
@@ -73,6 +75,7 @@ public class SettingsMenu : MonoBehaviour
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
         Application.targetFrameRate = resolution.refreshRate;
+        PlayerPrefs.SetInt("ResolutionPreference", resolutionDropdown.value);
     }
 
     //Needs to be tested in a build
@@ -80,6 +83,7 @@ public class SettingsMenu : MonoBehaviour
     {
         print("setting fullscreen: " + isFullscreen);
         Screen.fullScreen = isFullscreen;
+        PlayerPrefs.SetInt("FullscreenPreference", Convert.ToInt32(Screen.fullScreen));
     }
 
     public void SaveSettings()
@@ -104,7 +108,7 @@ public class SettingsMenu : MonoBehaviour
         if (PlayerPrefs.HasKey("QualitySettingPreference"))
             qualityDropdown.value = PlayerPrefs.GetInt("QualitySettingPreference");
         else
-            qualityDropdown.value = QualitySettings.masterTextureLimit;
+            qualityDropdown.value = 0;
 
         if (PlayerPrefs.HasKey("ResolutionPreference"))
             resolutionDropdown.value = PlayerPrefs.GetInt("ResolutionPreference");
@@ -114,7 +118,7 @@ public class SettingsMenu : MonoBehaviour
         if (PlayerPrefs.HasKey("TextureQualityPreference"))
             textureDropdown.value = PlayerPrefs.GetInt("TextureQualityPreference");
         else
-            textureDropdown.value = QualitySettings.GetQualityLevel();
+            textureDropdown.value = 5;
 
         if (PlayerPrefs.HasKey("FullscreenPreference"))
             Screen.fullScreen = Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenPreference"));
@@ -125,9 +129,8 @@ public class SettingsMenu : MonoBehaviour
         }
         else
         {
-            float vol = 0.0f;
-            audioMixer.GetFloat("Volume", out vol);
-            volumeSlider.value = vol;
+            volumeSlider.value = 1.0f;
+            audioMixer.SetFloat("Volume", volumeSlider.value);
         }
     }
 }

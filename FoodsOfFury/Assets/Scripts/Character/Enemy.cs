@@ -24,6 +24,9 @@ public class Enemy : MonoBehaviour
     public  Transform       attackPoint;                    //Child gameObj that the projectiles will come from or that is the hitbox of melee
     public  GameObject      projectile;                     //GameObj. that will be shot out from attackPoint if it's a ranged enemy
     public  Animation       meleeAttackAnim;                //Melee attack animation for enemy
+    public  GameObject[]    loot;                           //Items that the enemy can drop when killed
+    public  int[]           dropChance;                     //Array of integers that describe the chance of the item in the same index of the loot array
+                                                            //      Chance is 1/dropChance[ind]
 
     private bool    isDead = false;             //Boolean to indicate if the enemy is alive and active
     private int     index = 0;                  //Index of current waypoint
@@ -50,7 +53,7 @@ public class Enemy : MonoBehaviour
         }
 
         //if there is now waypoints given, initialize a waypoint to be on the enemy's position
-        if ( waypoints == null )
+        if ( waypoints == null || waypoints[0] == null )
         {
             waypoints = new Transform[1];
             waypoints[0] = this.transform;
@@ -205,7 +208,7 @@ public class Enemy : MonoBehaviour
             {
                 agent.speed = 0;
                 transform.LookAt( player ); //Rotate the enemy to face the player
-                attack(  );
+                attack();
             }
             //Aggro behavior
             //Check if the player is w/in aggroRange
@@ -217,18 +220,38 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private void dropLoot()
+    {
+        if ( loot != null || loot[0] != null )
+        {
+            for ( int ind = 0; ind < loot.Length; ind++ )
+            {
+                int chance = ( int ) Random.Range( 1, dropChance[ind] ); //Get a random number
+
+                if ( chance == 1 )
+                {
+                    Instantiate( loot[ind], transform.position, transform.rotation ); //Create the obj at the enemy's location
+                }
+            }
+        }
+    }
+
     private void onDeath()
     {
-        isDead = true;
-        GetComponent<Collider>().enabled = false; //Turn off their collider
-
-        if ( animator != null )
+        if ( !isDead )
         {
-            animator.SetBool( "IsDead", true ); //Play the animation
+            isDead = true;
+            GetComponent<Collider>().enabled = false; //Turn off their collider
+            dropLoot();
+
+            if (animator != null)
+            {
+                animator.SetBool("IsDead", true); //Play the animation
+            }
+
+
+            StartCoroutine(DelayedDestruction(5)); //Wait 5 secs to destroy the enemy
         }
-
-
-       StartCoroutine( DelayedDestruction( 5 ) ); //Wait 5 secs to destroy the enemy
     }
 
     private IEnumerator DelayedDestruction( float waiter )

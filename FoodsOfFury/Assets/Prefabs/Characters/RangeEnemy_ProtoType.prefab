@@ -98,9 +98,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5000001
-  m_Height: 2
+  m_Height: 2.4075584
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0.00000005960463, y: 0.012018204, z: -0.00000005960465}
 --- !u!195 &5920510345091613133
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -147,6 +147,9 @@ MonoBehaviour:
   attackPoint: {fileID: 2664397582251026805}
   projectile: {fileID: 6527403849914598587, guid: 9c3b6262773976a4eafa0ba8cddc5504, type: 3}
   meleeAttackAnim: {fileID: 0}
+  loot:
+  - {fileID: 3005119487648897704, guid: dbb3765d188425740945a9f4e87e7d73, type: 3}
+  dropChance: 03000000
 --- !u!114 &9046282833786149459
 MonoBehaviour:
   m_ObjectHideFlags: 0

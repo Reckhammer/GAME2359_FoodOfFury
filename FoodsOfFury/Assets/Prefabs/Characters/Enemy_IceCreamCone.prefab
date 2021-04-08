@@ -1175,7 +1175,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5994919511779731021}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 100.88049, y: 13.623177, z: -6.5961}
+  m_LocalPosition: {x: 0, y: 2.29, z: 0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6104773286445786393}
@@ -1195,14 +1195,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targets:
   - Player
-  damageAmount: 1
+  damageAmount: 2
   delayAmount: 1
   destroyOnImpact: 0
   destroyOnImpactIgnore:
     serializedVersion: 2
     m_Bits: 0
-  doesKnockback: 1
-  knockbackForce: 5
+  doesKnockback: 0
+  knockbackForce: 10
 --- !u!136 &5994919511779731023
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1213,10 +1213,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 0
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 2.1362247
+  m_Height: 4.2724495
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0.07094383, y: 0, z: 1.5652809}
 --- !u!1 &5994919512384535311
 GameObject:
   m_ObjectHideFlags: 0
@@ -1439,7 +1439,7 @@ GameObject:
   - component: {fileID: 5994919512682221983}
   m_Layer: 0
   m_Name: Enemy_IceCreamCone
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1534,6 +1534,9 @@ MonoBehaviour:
   attackPoint: {fileID: 0}
   projectile: {fileID: 0}
   meleeAttackAnim: {fileID: 5994919512682221980}
+  loot:
+  - {fileID: 3005119487648897704, guid: dbb3765d188425740945a9f4e87e7d73, type: 3}
+  dropChance: 02000000
 --- !u!114 &5994919512682221982
 MonoBehaviour:
   m_ObjectHideFlags: 0
