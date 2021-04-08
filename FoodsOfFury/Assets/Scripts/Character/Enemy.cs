@@ -219,8 +219,6 @@ public class Enemy : MonoBehaviour
 
     private void onDeath()
     {
-        Destroy( gameObject ); // delete this when the other stuff is more fleshed out
-
         isDead = true;
         GetComponent<Collider>().enabled = false; //Turn off their collider
 
@@ -230,11 +228,12 @@ public class Enemy : MonoBehaviour
         }
 
 
-        DelayedDestruction( 5 ); //Wait 5 secs to destroy the enemy
+       StartCoroutine( DelayedDestruction( 5 ) ); //Wait 5 secs to destroy the enemy
     }
 
     private IEnumerator DelayedDestruction( float waiter )
     {
         yield return new WaitForSeconds( waiter );
+        Destroy( gameObject );
     }
 }

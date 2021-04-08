@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 988955243943132275}
   - component: {fileID: 8039636223460080093}
-  - component: {fileID: 739328863189189796}
   - component: {fileID: 1718747641736157274}
   m_Layer: 0
   m_Name: Enemy Ketchup Shot
@@ -48,28 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   delay: 3
---- !u!114 &739328863189189796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3219141175014800803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b03136f49d1df6f4a95fc57c551452a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targets:
-  - Player
-  damageAmount: 0
-  delayAmount: 0
-  destroyOnImpact: 0
-  destroyOnImpactIgnore:
-    serializedVersion: 2
-    m_Bits: 0
-  doesKnockback: 0
-  knockbackForce: 0
 --- !u!54 &1718747641736157274
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -98,6 +75,7 @@ GameObject:
   - component: {fileID: 1586247743786721650}
   - component: {fileID: 5444369175833246448}
   - component: {fileID: 8246525002495103553}
+  - component: {fileID: 4140709872874158534}
   m_Layer: 0
   m_Name: Ketchup Bullet
   m_TagString: Untagged
@@ -113,7 +91,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3811916706292432662}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -2.1216125, y: 6.65, z: 0.04}
+  m_LocalPosition: {x: 0, y: 0, z: 0.04}
   m_LocalScale: {x: 0.3, y: 0.40000004, z: 0.3}
   m_Children: []
   m_Father: {fileID: 988955243943132275}
@@ -182,3 +160,25 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4140709872874158534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3811916706292432662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03136f49d1df6f4a95fc57c551452a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets:
+  - Player
+  damageAmount: 1
+  delayAmount: 1
+  destroyOnImpact: 0
+  destroyOnImpactIgnore:
+    serializedVersion: 2
+    m_Bits: 0
+  doesKnockback: 0
+  knockbackForce: 0
