@@ -344,6 +344,8 @@ public class PlayerManager : MonoBehaviour
     {
         print("Player died");
 
+        GetComponent<PlayerMovementTwo>().stopInput(10.0f, true, true);
+        GetComponent<Animator>().SetTrigger("Death");
         // do death animation?
         // send message to GameController
         //Destroy(gameObject);
