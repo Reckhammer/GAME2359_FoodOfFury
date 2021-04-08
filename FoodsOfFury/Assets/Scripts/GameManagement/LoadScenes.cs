@@ -45,8 +45,7 @@ public class LoadScenes : MonoBehaviour
     {
         AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
 
-        print("credits");
-        //SceneManager.LoadScene("Credits");
+        SceneManager.LoadScene("CreditsScene");
     }
 
     public void RestartScene()
