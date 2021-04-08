@@ -40,8 +40,8 @@ public class LevelManager : MonoBehaviour
             winningSound();
 
             Debug.Log( "All objectives done. Level is completed" );
-            setEndMessage(); //Activate the UI
             winMenu.gameObject.SetActive( true );
+            setEndMessage(); //Activate the UI
         }
 
         //If the player died
@@ -51,8 +51,8 @@ public class LevelManager : MonoBehaviour
             losingSound();
 
             Debug.Log( "Player has died" );
-            setEndMessage(); //Activate the UI
             loseMenu.gameObject.SetActive( true );
+            setEndMessage(); //Activate the UI
         }
 
         objective.text = objectiveList[0].message;
@@ -81,18 +81,11 @@ public class LevelManager : MonoBehaviour
     // setEndMessage() - this 
     public void setEndMessage()
     {
-        StartCoroutine( ClickerEnd( waitTime ));
-        endGameMenu.gameObject.SetActive( true );
 
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        PauseMenu.gameIsPaused = true;
 
-        GameObject.Find("Game_Canvas").GetComponent<PauseMenu>().Pause(false);
-        GameObject pauseMenu = GameObject.Find( "PauseGroup" );
-        pauseMenu.gameObject.SetActive( false );
+        StartCoroutine( DelayedMenu( waitTime ));
+        
 
-        Time.timeScale = 0; //this makes everything stop. Need to do this when switching scenes
     }
 
     public void winningSound()
@@ -116,8 +109,21 @@ public class LevelManager : MonoBehaviour
 
 
 
-    private IEnumerator ClickerEnd( float waiter )
+    private IEnumerator DelayedMenu( float waiter )
     {
         yield return new WaitForSeconds( waiter );
+
+        endGameMenu.gameObject.SetActive(true);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        PauseMenu.gameIsPaused = true;
+
+        GameObject.Find("Game_Canvas").GetComponent<PauseMenu>().Pause(false);
+        GameObject pauseMenu = GameObject.Find("PauseGroup");
+        pauseMenu.gameObject.SetActive(false);
+
+        Time.timeScale = 0; //this makes everything stop. Need to do this when switching scenes
+
     }
 }
