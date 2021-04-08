@@ -70,6 +70,6 @@ public class LoadScenes : MonoBehaviour
 
     public void SurveyLink()
     {
-        Application.OpenURL("https://docs.google.com/forms/d/e/1FAIpQLSfrqRxvlSFzdXtY8vt_uPi_zdYZaOyhqvI2GoTRFSkB1bFvaw/viewform");
+        Application.OpenURL("https://docs.google.com/forms/d/e/1FAIpQLScCxpZfb3biGQN74ZbQQoxYeUpvrhDm9DYNWUAnRekP8nnLcA/viewform");
     }
 }
