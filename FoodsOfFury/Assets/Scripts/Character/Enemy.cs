@@ -219,6 +219,8 @@ public class Enemy : MonoBehaviour
 
     private void onDeath()
     {
+        Destroy( gameObject ); // delete this when the other stuff is more fleshed out
+
         isDead = true;
         GetComponent<Collider>().enabled = false; //Turn off their collider
 
