@@ -285,6 +285,7 @@ public class PlayerManager : MonoBehaviour
             print("Player was damaged!");
             // hurt animations?
             AudioManager.Instance.playRandom(transform.position, "Rollo_Hurt_1", "Rollo_Hurt_2", "Rollo_Hurt_3").transform.SetParent(transform);
+            healthVignette.intensity.value = 0.7f;
             UIManager.instance?.updateHealthBar(amount);
         }
         else if (amount > oldHealth) // player healed
