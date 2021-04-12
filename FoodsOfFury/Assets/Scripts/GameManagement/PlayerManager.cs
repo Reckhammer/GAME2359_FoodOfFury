@@ -22,9 +22,9 @@ public class PlayerManager : MonoBehaviour
     private GameObject currConsumable;          // current reference to consumable object
     private float oldHealth = 0.0f;             // old amount of health
 
-    public PostProcessVolume PPV;
-    private Vignette healthVignette;
-    private Coroutine cTimer = null;
+    public PostProcessVolume PPV;               // Post Process Volumw reference
+    private Vignette healthVignette;            // Vignette reference
+    private Coroutine cTimer = null;            // Vignette fade timer
 
     private void Start()
     {
