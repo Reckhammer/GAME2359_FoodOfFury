@@ -23,6 +23,7 @@ public class SettingsMenu : MonoBehaviour
 
     float currentVolume;
     float currentMusic;
+    float currentEffects;
 
     Resolution[] resolutions;
 
@@ -67,6 +68,13 @@ public class SettingsMenu : MonoBehaviour
         PlayerPrefs.SetFloat("MusicPreference", currentMusic);
     }
 
+    public void SetEffects(float effectsV)
+    {
+        print("setting volume: " + effectsV);
+        audioMixer.SetFloat("eVolume", Mathf.Log10(effectsV) * 20);
+        currentEffects = effectsV;
+        PlayerPrefs.SetFloat("EffectsPreference", currentEffects);
+    }
 
     public void SetQuatity(int qualityIndex)
     {
@@ -114,6 +122,8 @@ public class SettingsMenu : MonoBehaviour
         PlayerPrefs.SetFloat("VolumePreference", currentVolume);
 
         PlayerPrefs.SetFloat("MusicPreference", currentMusic);
+
+        PlayerPrefs.SetFloat("EffectsPreference", currentEffects);
     }
 
     public void LoadSettings(int currentResolutionIndex)
@@ -158,6 +168,15 @@ public class SettingsMenu : MonoBehaviour
             audioMixer.SetFloat("mVolume", musicSlider.value);
         }
 
+        if (PlayerPrefs.HasKey("EffectsPreference"))
+        {
+            effectsSlider.value = PlayerPrefs.GetFloat("EffectsPreference");
+        }
+        else
+        {
+            effectsSlider.value = 1.0f;
+            audioMixer.SetFloat("eVolume", effectsSlider.value);
+        }
 
     }
 }
