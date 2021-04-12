@@ -17,7 +17,12 @@ public class SettingsMenu : MonoBehaviour
 
     public Slider volumeSlider;
 
+    public Slider musicSlider;
+
+    public Slider effectsSlider;
+
     float currentVolume;
+    float currentMusic;
 
     Resolution[] resolutions;
 
@@ -45,7 +50,7 @@ public class SettingsMenu : MonoBehaviour
         LoadSettings(currentResolutionIndex);
     }
 
-    //Controls the audio for MainMixer
+    //Controls the audio for Master volume
     public void SetVolume(float volume)
     {
         print("setting volume: " + volume);
@@ -54,7 +59,15 @@ public class SettingsMenu : MonoBehaviour
         PlayerPrefs.SetFloat("VolumePreference", currentVolume);
     }
 
-    
+    public void SetMusic(float musicV)
+    {
+        print("setting volume: " + musicV);
+        audioMixer.SetFloat("mVolume", Mathf.Log10(musicV) * 20);
+        currentMusic = musicV;
+        PlayerPrefs.SetFloat("MusicPreference", currentMusic);
+    }
+
+
     public void SetQuatity(int qualityIndex)
     {
         print("setting overall quality: " + qualityIndex);
@@ -99,6 +112,8 @@ public class SettingsMenu : MonoBehaviour
         PlayerPrefs.SetInt("FullscreenPreference", Convert.ToInt32(Screen.fullScreen));
 
         PlayerPrefs.SetFloat("VolumePreference", currentVolume);
+
+        PlayerPrefs.SetFloat("MusicPreference", currentMusic);
     }
 
     public void LoadSettings(int currentResolutionIndex)
@@ -132,5 +147,17 @@ public class SettingsMenu : MonoBehaviour
             volumeSlider.value = 1.0f;
             audioMixer.SetFloat("Volume", volumeSlider.value);
         }
+
+        if (PlayerPrefs.HasKey("MusicPreference"))
+        {
+            musicSlider.value = PlayerPrefs.GetFloat("MusicPreference");
+        }
+        else
+        {
+            musicSlider.value = 1.0f;
+            audioMixer.SetFloat("mVolume", musicSlider.value);
+        }
+
+
     }
 }
