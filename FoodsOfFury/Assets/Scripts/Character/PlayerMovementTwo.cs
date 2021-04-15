@@ -216,7 +216,7 @@ public class PlayerMovementTwo : MonoBehaviour
         }
 
         // do dash (change to side step)
-        /*if (isGrounded && canDash && Input.GetKeyDown(KeyCode.LeftShift))
+        if (isGrounded && canDash && Input.GetKeyDown(KeyCode.LeftShift))
         {
             if (movement.normalized != Vector3.zero) // don't dash if no movement
             {
@@ -224,7 +224,7 @@ public class PlayerMovementTwo : MonoBehaviour
                 StartCoroutine(DashDelayTimer());                       // start dash delay timer
             }
         }
-        */
+        
 
         // DEBUG: RESET LEVEL (delete later)
         if (Input.GetKeyDown(KeyCode.F1))
@@ -335,7 +335,7 @@ public class PlayerMovementTwo : MonoBehaviour
     }
 
     // timer for dash delay (needs to change into dodge timer)
-    /*private IEnumerator DashDelayTimer()
+    private IEnumerator DashDelayTimer()
     {
         float passed = 0.0f;
         canDash = false;
@@ -348,7 +348,7 @@ public class PlayerMovementTwo : MonoBehaviour
 
         canDash = true;
     }
-    */
+    
     // jump delay timer
     private IEnumerator JumpDelayTimer(float duration)
     {
