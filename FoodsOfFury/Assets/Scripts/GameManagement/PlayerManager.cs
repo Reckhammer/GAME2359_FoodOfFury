@@ -84,17 +84,19 @@ public class PlayerManager : MonoBehaviour
         // remove weapon
         if (Input.GetKeyDown(KeyCode.K))
         {
-            currWeapon = null;
-            inventory.remove(ItemType.Weapon);
-            equipNextItem(ItemType.Weapon);
+            remove(ItemType.Weapon);
+            //currWeapon = null;
+            //inventory.remove(ItemType.Weapon);
+            //equipNextItem(ItemType.Weapon);
         }
 
         // remove consumable
         if (Input.GetKeyDown(KeyCode.L))
         {
-            currConsumable = null;
-            inventory.remove(ItemType.Consumable);
-            equipNextItem(ItemType.Consumable);
+            remove(ItemType.Consumable);
+            //currConsumable = null;
+            //inventory.remove(ItemType.Consumable);
+            //equipNextItem(ItemType.Consumable);
         }
 
         // use consumable
@@ -109,6 +111,24 @@ public class PlayerManager : MonoBehaviour
                     equipNextItem(ItemType.Consumable);             // equip next consumable
                 }
             }
+        }
+    }
+
+    // removes item and equips next
+    public void remove(ItemType type, bool dropInWorld = true)
+    {
+        switch (type)
+        {
+            case ItemType.Weapon:
+                currWeapon = null;
+                inventory.remove(ItemType.Weapon, dropInWorld);
+                equipNextItem(ItemType.Weapon);
+                break;
+            case ItemType.Consumable:
+                currConsumable = null;
+                inventory.remove(ItemType.Consumable, dropInWorld);
+                equipNextItem(ItemType.Consumable);
+                break;
         }
     }
 

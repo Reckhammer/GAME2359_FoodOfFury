@@ -64,6 +64,7 @@ public class InventoryList
         }
 
         current = (current - 1 >= 0) ? current - 1 : list.Count - 1; // update current to previous index (loops forward to last available index)
+
         return list[current];
     }
 
@@ -78,7 +79,15 @@ public class InventoryList
         if (index == -1)
         {
             list.RemoveAt(current); // remove current item
-            current = (current - 1 >= 0) ? current - 1 : list.Count - 1; // update current to previous index (loops forward to last available index)
+
+            if (list.Count != 0) // if not empty
+            {
+                current = (current - 1 >= 0) ? current - 1 : list.Count - 1; // update current to previous index (loops forward to last available index)
+            }
+            else // empty
+            {
+                current = 0;
+            }
         }
         else
         {
@@ -88,6 +97,7 @@ public class InventoryList
                 current--;
             }
         }
+
     }
 
     // returns true if empty

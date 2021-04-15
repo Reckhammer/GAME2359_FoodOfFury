@@ -72,6 +72,8 @@ public class Pickupable : MonoBehaviour
 
         if (other.tag == "Player")
         {
+            player = other.gameObject;
+
             // player has item selected, return
             if (player.GetComponentInParent<PlayerManager>().itemSelection != null)
             {
