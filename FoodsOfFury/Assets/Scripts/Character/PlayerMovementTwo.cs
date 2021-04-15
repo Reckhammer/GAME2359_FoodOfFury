@@ -49,10 +49,12 @@ public class PlayerMovementTwo : MonoBehaviour
     private string runAnim              = null;         // name of run animation
     private Vector3 extraVel            = Vector3.zero; // extra force velocity (recorded to lerp from extra to movement)
     private bool isAiming               = false;        // to change camera rotation style
+    private Health health               = null;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        health = GetComponent<Health>();
         groundChecker = transform.GetChild(1);
         animator = GetComponent<Animator>();
     }
