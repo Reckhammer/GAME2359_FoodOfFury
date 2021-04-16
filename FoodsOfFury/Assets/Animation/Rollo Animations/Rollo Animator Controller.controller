@@ -270,16 +270,16 @@ AnimatorStateMachine:
     m_Position: {x: 600, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6027062727388134548}
-    m_Position: {x: 400, y: 210, z: 0}
+    m_Position: {x: 420, y: 440, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5538320228589468531}
-    m_Position: {x: 390, y: 330, z: 0}
+    m_Position: {x: 410, y: 560, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4899608027005526414}
-    m_Position: {x: 120, y: 260, z: 0}
+    m_Position: {x: 140, y: 490, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 607445077374130750}
-    m_Position: {x: 600, y: 260, z: 0}
+    m_Position: {x: 620, y: 490, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5076962151937723372}
     m_Position: {x: 430, y: -310, z: 0}
@@ -985,7 +985,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Jump Start and Mid
+  m_Name: Onion Jump Start and Mid
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1103,7 +1103,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Jump
+  - m_Name: OnionJump
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -1116,6 +1116,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: Restart
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: KetchupJump
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -1620,7 +1626,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Jump
+    m_ConditionEvent: OnionJump
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -930628316626874619}

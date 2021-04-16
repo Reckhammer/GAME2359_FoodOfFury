@@ -47,6 +47,7 @@ public class PlayerMovementTwo : MonoBehaviour
     private Animator animator           = null;         // reference to animator
     private string idleAnim             = null;         // name of idle animation
     private string runAnim              = null;         // name of run animation
+    private string jumpAnim             = null;         // name of jump animation
     private Vector3 extraVel            = Vector3.zero; // extra force velocity (recorded to lerp from extra to movement)
     private bool isAiming               = false;        // to change camera rotation style
     private Health health               = null;
@@ -212,7 +213,7 @@ public class PlayerMovementTwo : MonoBehaviour
             {
                 AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_Double_01", "Rollo_Jump_Double_02").transform.SetParent(transform);
             }
-            animator.SetTrigger("Jump");
+            animator.SetTrigger(jumpAnim);
             rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y) + Vector3.up * -rb.velocity.y, ForceMode.VelocityChange); // regular jump (+ y velocity canceled)
             currentJump++;
         }
@@ -461,6 +462,12 @@ public class PlayerMovementTwo : MonoBehaviour
     public void setRunAnim(string anim)
     {
         runAnim = anim;
+    }
+
+    // set jump animation to be used
+    public void setJumpAnim(string anim)
+    {
+        jumpAnim = anim;
     }
 
     // set aiming

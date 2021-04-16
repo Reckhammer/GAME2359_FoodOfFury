@@ -61,6 +61,7 @@ public class OnionWeapon : MonoBehaviour
         GetComponentInParent<PlayerMovementTwo>().setBasicAnim(false);         // turn off basic animations
         GetComponentInParent<PlayerMovementTwo>().setIdleAnim("OnionIdle");    // set idle animation
         GetComponentInParent<PlayerMovementTwo>().setRunAnim("OnionRun");      // set run animation
+        GetComponentInParent<PlayerMovementTwo>().setJumpAnim("OnionJump");    // set jump animation
     }
 
     private void OnDisable()

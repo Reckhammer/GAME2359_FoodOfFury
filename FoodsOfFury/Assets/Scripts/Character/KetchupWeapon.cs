@@ -73,9 +73,10 @@ public class KetchupWeapon : MonoBehaviour
     {
         //GetComponentInParent<PlayerMovementTwo>().setAiming(true);              // set player to aiming
         //CameraTarget.instance.offsetTo(new Vector3(5, 5, 0), 1.0f);             // offset camera target
-        GetComponentInParent<PlayerMovementTwo>().setBasicAnim(false);         // turn off basic animations
-        GetComponentInParent<PlayerMovementTwo>().setIdleAnim("KetchupIdle");    // set idle animation
-        GetComponentInParent<PlayerMovementTwo>().setRunAnim("KetchupRun");      // set run animation
+        GetComponentInParent<PlayerMovementTwo>().setBasicAnim(false);          // turn off basic animations
+        GetComponentInParent<PlayerMovementTwo>().setIdleAnim("KetchupIdle");   // set idle animation
+        GetComponentInParent<PlayerMovementTwo>().setRunAnim("KetchupRun");     // set run animation
+        //GetComponentInParent<PlayerMovementTwo>().setJumpAnim("KetchupJump");    // set jump animation
     }
 
     private void OnDisable()
