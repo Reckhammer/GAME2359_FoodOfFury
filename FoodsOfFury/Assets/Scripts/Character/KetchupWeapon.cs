@@ -73,10 +73,10 @@ public class KetchupWeapon : MonoBehaviour
     {
         //GetComponentInParent<PlayerMovementTwo>().setAiming(true);              // set player to aiming
         //CameraTarget.instance.offsetTo(new Vector3(5, 5, 0), 1.0f);             // offset camera target
-        GetComponentInParent<PlayerMovementTwo>().setBasicAnim(false);          // turn off basic animations
-        GetComponentInParent<PlayerMovementTwo>().setIdleAnim("KetchupIdle");   // set idle animation
-        GetComponentInParent<PlayerMovementTwo>().setRunAnim("KetchupRun");     // set run animation
-        //GetComponentInParent<PlayerMovementTwo>().setJumpAnim("KetchupJump");    // set jump animation
+        GetComponentInParent<PlayerMovementTwo>().setOverallAnim("KetchupAnim");    // turn off basic animations
+        GetComponentInParent<PlayerMovementTwo>().setIdleAnim("KetchupIdle");       // set idle animation
+        GetComponentInParent<PlayerMovementTwo>().setRunAnim("KetchupRun");         // set run animation
+        GetComponentInParent<PlayerMovementTwo>().setJumpAnim("KetchupJump");       // set jump animation
     }
 
     private void OnDisable()
@@ -90,6 +90,6 @@ public class KetchupWeapon : MonoBehaviour
         //CameraTarget.instance.returnDefault(1.0f);                      // return camera target to default
         //GetComponentInParent<PlayerMovementTwo>()?.setAiming(false);    // turn off aiming for player
         GetComponentInParent<Animator>().SetTrigger("Restart");
-        GetComponentInParent<PlayerMovementTwo>()?.setBasicAnim(true); // revert to basic animations
+        GetComponentInParent<PlayerMovementTwo>()?.setBasicAnim();  // revert to basic animations
     }
 }

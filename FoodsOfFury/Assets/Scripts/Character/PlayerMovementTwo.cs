@@ -45,6 +45,7 @@ public class PlayerMovementTwo : MonoBehaviour
     private Coroutine inputStoppedCr    = null;         // reference to input stop timer coroutine
     private float extraForceTime        = 0.0f;         // time to allow extra force to be applied
     private Animator animator           = null;         // reference to animator
+    private string overalAnim           = null;         // name of overall animation
     private string idleAnim             = null;         // name of idle animation
     private string runAnim              = null;         // name of run animation
     private string jumpAnim             = null;         // name of jump animation
@@ -483,10 +484,8 @@ public class PlayerMovementTwo : MonoBehaviour
     }
 
     // reverts to basic animation (set old animations to false)
-    public void setBasicAnim(bool isBasic)
+    public void setBasicAnim()
     {
-        animator.SetBool("BasicAnim", isBasic);
-
         if (idleAnim != null)
         {
             animator.SetBool(idleAnim, false);
@@ -499,5 +498,13 @@ public class PlayerMovementTwo : MonoBehaviour
 
         idleAnim = null;
         runAnim = null;
+    }
+
+    // changes overall animation set
+    public void setOverallAnim(string anim)
+    {
+        animator.SetBool(overalAnim, false);    // turn off prevous animation set
+        overalAnim = anim;                      // set new animation set
+        animator.SetBool(overalAnim, true);     // turn on new animation set
     }
 }
