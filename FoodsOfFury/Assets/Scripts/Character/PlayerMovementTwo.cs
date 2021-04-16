@@ -503,7 +503,11 @@ public class PlayerMovementTwo : MonoBehaviour
     // changes overall animation set
     public void setOverallAnim(string anim)
     {
-        animator.SetBool(overalAnim, false);    // turn off prevous animation set
+        if (overalAnim != null)
+        {
+            animator.SetBool(overalAnim, false);    // turn off prevous animation set
+        }
+
         overalAnim = anim;                      // set new animation set
         animator.SetBool(overalAnim, true);     // turn on new animation set
     }

@@ -66,7 +66,7 @@ public class OnionWeapon : MonoBehaviour
 
     private void OnDisable()
     {
-        GetComponentInParent<Animator>().SetTrigger("Restart");
+        GetComponentInParent<Animator>()?.SetTrigger("Restart");
         GetComponentInParent<PlayerMovementTwo>()?.setBasicAnim(); // revert to basic animations
     }
 }

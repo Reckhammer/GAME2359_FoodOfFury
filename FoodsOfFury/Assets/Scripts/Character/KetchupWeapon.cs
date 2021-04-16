@@ -13,6 +13,7 @@ public class KetchupWeapon : MonoBehaviour
     public Transform spawnPoint;            // projectile spawn point
     public float attackDelay        = 0.5f; // attack delay time
     public int bulletAmount         = 10;   // amount of bullets
+    public float bulletSpawnOffset  = 0.0f; // time offset to spawn in a bullet
 
     private Coroutine cTimer;               // coroutine reference
     private bool canAttack      = true;     // for attack check
@@ -29,10 +30,13 @@ public class KetchupWeapon : MonoBehaviour
     // does attack
     void Attack()
     {
-        if (canAttack && bulletAmount != 0)
+        if (canAttack && bulletAmount != 0 && GetComponentInParent<PlayerMovementTwo>().onGround())
         {
-            //AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01"); // play audio clip 
-            Instantiate(projectile, spawnPoint.position, transform.rotation);
+            //AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01");  // play audio clip 
+            GetComponentInParent<Animator>().SetTrigger("KetchupAttack_01");            // play visual attack animation
+            GetComponentInParent<PlayerMovementTwo>().stopInput(attackDelay + 0.1f);    // stop player for a bit
+            //Instantiate(projectile, spawnPoint.position, transform.rotation);
+
             bulletAmount--;
 
             if (bulletAmount == 0)
@@ -60,8 +64,15 @@ public class KetchupWeapon : MonoBehaviour
         float passed = 0.0f;
         canAttack = false;
 
+        bool shot = false;
         while (passed < duration)
         {
+            if (passed > bulletSpawnOffset && !shot)
+            {
+                Instantiate(projectile, spawnPoint.position, transform.rotation);
+                shot = true;
+            }
+
             passed += Time.deltaTime;
             yield return null;
         }
@@ -89,7 +100,7 @@ public class KetchupWeapon : MonoBehaviour
         }
         //CameraTarget.instance.returnDefault(1.0f);                      // return camera target to default
         //GetComponentInParent<PlayerMovementTwo>()?.setAiming(false);    // turn off aiming for player
-        GetComponentInParent<Animator>().SetTrigger("Restart");
+        GetComponentInParent<Animator>()?.SetTrigger("Restart");
         GetComponentInParent<PlayerMovementTwo>()?.setBasicAnim();  // revert to basic animations
     }
 }
