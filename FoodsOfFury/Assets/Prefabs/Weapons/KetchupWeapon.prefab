@@ -148,6 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   render: {fileID: 2563857140142629920}
+  particles: {fileID: 0}
 --- !u!114 &5567571878545039709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,9 +175,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4dc8e2786e2d9c47a69c52cf610c454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 6527403849914598587, guid: 9c3b6262773976a4eafa0ba8cddc5504, type: 3}
+  projectile: {fileID: 3219141175014800803, guid: 2871b34d6b304b4428c0643f71e4a58f, type: 3}
   spawnPoint: {fileID: 9037508214367402777}
-  attackDelay: 0.1
+  attackDelay: 0.3
+  bulletAmount: 10
 --- !u!136 &8892973958571932513
 CapsuleCollider:
   m_ObjectHideFlags: 0
