@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
     public Image oldWeaponImageUI;          // reference to previous image
     public Image consumableImageUI;         // reference to consumable image
     public Text consumableAmountUI;         // reference to consumable amount text
+    public Text collectibleAmoutUI;         // reference to collectible amount text
+    public Text keyAmountUI;                // reference to key amount text
 
     // do singleton stuff
     private void Awake()
@@ -86,5 +88,21 @@ public class UIManager : MonoBehaviour
 
         consumableImageUI.sprite = image;
         consumableAmountUI.text = "x" + amount;
+    }
+
+    //update the collectible UI
+    public void updateCollectibleUI()
+    {
+        Inventory playerInventory = GameObject.FindWithTag( "Player" ).GetComponent<Inventory>();
+
+        collectibleAmoutUI.text = ""+ playerInventory.collectibleCount;
+    }
+
+    //update the key UI
+    public void updateKeyUI()
+    {
+        Inventory playerInventory = GameObject.FindWithTag( "Player" ).GetComponent<Inventory>();
+
+        keyAmountUI.text = ""+ playerInventory.keyCount;
     }
 }

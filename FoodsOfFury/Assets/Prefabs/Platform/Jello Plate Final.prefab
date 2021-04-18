@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 4557103154914900319}
   - component: {fileID: 6114179936062599389}
   - component: {fileID: 5184482516581477945}
+  - component: {fileID: 5261163849801388723}
   m_Layer: 8
   m_Name: Jello Plate Final
   m_TagString: Untagged
@@ -40,9 +41,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4702259304155976090}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.8, y: 1.7584206, z: 7.2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0.9452632}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,7 +75,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8616999104981551419, guid: 7de3ab25db09965429c4fd30730115d3, type: 3}
+  - {fileID: 2100000, guid: 528ef970892cd1e42a74516955f35b96, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -104,7 +105,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4702259304155976090}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 5.6341724, y: 1.7699459, z: 5.3284388}
@@ -291,3 +292,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7119818, y: 0.19959474, z: 0.6235752}
   m_Center: {x: 3.3043895, y: -0.6244757, z: -3.2983503}
+--- !u!114 &5261163849801388723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4702259304155976090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0099f7685dc63a742b1b874fb576367f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowBounce:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  bounceForce: 40
+  direction: {x: 0, y: 1, z: 0}
+  useRotationAsDirection: 0
+  calculateDirectionToPosition: {fileID: 0}

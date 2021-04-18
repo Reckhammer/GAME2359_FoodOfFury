@@ -14,7 +14,7 @@ public class PlayerMovementTwo : MonoBehaviour
     public float speed                  = 10f;          // speed if player
     public float glideSpeed             = 5.0f;         // movement speed while gliding
     public float jumpHeight             = 5.0f;         // jump force of player
-    public float dashForce              = 200.0f;       // force of dash
+    public float dashForce              = 0.0f;       // force of dash
     public float dashDelay              = 1.0f;         // time before dash can be used again
     public float groundDetectRadius     = 0.3f;         // radius of sphere to check for ground
     public float rotationSpeed          = 10.0f;        // speed of rotation
@@ -45,8 +45,10 @@ public class PlayerMovementTwo : MonoBehaviour
     private Coroutine inputStoppedCr    = null;         // reference to input stop timer coroutine
     private float extraForceTime        = 0.0f;         // time to allow extra force to be applied
     private Animator animator           = null;         // reference to animator
+    private string overalAnim           = null;         // name of overall animation
     private string idleAnim             = null;         // name of idle animation
     private string runAnim              = null;         // name of run animation
+    private string jumpAnim             = null;         // name of jump animation
     private Vector3 extraVel            = Vector3.zero; // extra force velocity (recorded to lerp from extra to movement)
     private bool isAiming               = false;        // to change camera rotation style
     private Health health               = null;
@@ -212,7 +214,7 @@ public class PlayerMovementTwo : MonoBehaviour
             {
                 AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_Double_01", "Rollo_Jump_Double_02").transform.SetParent(transform);
             }
-            animator.SetTrigger("Jump");
+            animator.SetTrigger(jumpAnim);
             rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y) + Vector3.up * -rb.velocity.y, ForceMode.VelocityChange); // regular jump (+ y velocity canceled)
             currentJump++;
         }
@@ -463,6 +465,12 @@ public class PlayerMovementTwo : MonoBehaviour
         runAnim = anim;
     }
 
+    // set jump animation to be used
+    public void setJumpAnim(string anim)
+    {
+        jumpAnim = anim;
+    }
+
     // set aiming
     public void setAiming(bool aim)
     {
@@ -476,10 +484,8 @@ public class PlayerMovementTwo : MonoBehaviour
     }
 
     // reverts to basic animation (set old animations to false)
-    public void setBasicAnim(bool isBasic)
+    public void setBasicAnim()
     {
-        animator.SetBool("BasicAnim", isBasic);
-
         if (idleAnim != null)
         {
             animator.SetBool(idleAnim, false);
@@ -492,5 +498,17 @@ public class PlayerMovementTwo : MonoBehaviour
 
         idleAnim = null;
         runAnim = null;
+    }
+
+    // changes overall animation set
+    public void setOverallAnim(string anim)
+    {
+        if (overalAnim != null)
+        {
+            animator.SetBool(overalAnim, false);    // turn off prevous animation set
+        }
+
+        overalAnim = anim;                      // set new animation set
+        animator.SetBool(overalAnim, true);     // turn on new animation set
     }
 }
