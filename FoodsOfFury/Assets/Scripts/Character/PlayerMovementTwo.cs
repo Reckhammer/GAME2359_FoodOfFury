@@ -14,7 +14,7 @@ public class PlayerMovementTwo : MonoBehaviour
     public float speed                  = 10f;          // speed if player
     public float glideSpeed             = 5.0f;         // movement speed while gliding
     public float jumpHeight             = 5.0f;         // jump force of player
-    public float dashForce              = 0.2f;       // force of dash
+    public float dashForce              = 0.0f;       // force of dash
     public float dashDelay              = 1.0f;         // time before dash can be used again
     public float groundDetectRadius     = 0.3f;         // radius of sphere to check for ground
     public float rotationSpeed          = 10.0f;        // speed of rotation
