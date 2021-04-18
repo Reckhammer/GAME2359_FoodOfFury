@@ -14,6 +14,8 @@ public class Inventory : MonoBehaviour
     public GameObject[] startingConsumables;    // consumables to start with
     public int maxWeapons       = 0;            // max amount of weapons
     public int maxConsumables   = 0;            // max amount of consumables
+    public int collectibleCount = 0;            //current number of collectibles that the player has
+    public int keyCount         = 0;            //current number of keys that the player has
 
     private InventoryList weapons;              // list for 'Weapon' objects
     private InventoryList consumables;          // list for 'Consumable' objects

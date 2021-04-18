@@ -17,7 +17,6 @@ public class Objective : MonoBehaviour
 
     public string           message;            //Text message telling the player what to do
     public ObjectiveType    objectiveType;      //The type of objective of THIS obj
-    public Health           health;             //Health component for the rescue cage obj
 
     private bool isDone = false;             //Boolean if the objective is done
 
@@ -33,26 +32,12 @@ public class Objective : MonoBehaviour
         {
             message = "Objective message not initialized";
         }
-
-        //if this is a rescue objective type
-        //      Get a reference to the health component/script
-        if ( objectiveType == ObjectiveType.Rescue )
-        {
-            health = GetComponent<Health>();
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ( !isDone && objectiveType == ObjectiveType.Rescue && health.amount <= 0f )
-        {
-            lvlManager.setCompleted( this );
-            GetComponent<MeshRenderer>().enabled = false;
-
-            GetComponentInChildren<Animator>().SetBool( "IsRescued", true );
-            isDone = true;
-        }
+        
     }
 
     void OnTriggerEnter( Collider other )
@@ -64,6 +49,27 @@ public class Objective : MonoBehaviour
             lvlManager.setCompleted( this );
             gameObject.SetActive( false );
             isDone = true;
+        }
+        
+    }
+
+    void OnTriggerStay( Collider other )
+    {
+        if (objectiveType == ObjectiveType.Rescue && other.gameObject.tag == "Player")
+        {
+            //if player hits the interact key AND has a key
+            //      Objective is complete
+            GameObject player = other.gameObject;
+
+            if (Input.GetKeyDown(KeyCode.F) && player.GetComponent<Inventory>().keyCount > 0)
+            {
+                lvlManager.setCompleted(this);
+                GetComponent<MeshRenderer>().enabled = false;
+
+                GetComponentInChildren<Animator>().SetBool("IsRescued", true);
+                isDone = true;
+            }
+
         }
     }
 }
