@@ -230,4 +230,11 @@ public class Inventory : MonoBehaviour
         weapons.printList();
         consumables.printList();
     }
+
+    //adds key to player's inventory and updates UI
+    public void addKey()
+    {
+        keyCount++;
+        UIManager.instance.updateKeyUI();
+    }
 }

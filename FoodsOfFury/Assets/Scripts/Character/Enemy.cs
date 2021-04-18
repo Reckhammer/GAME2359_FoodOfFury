@@ -25,14 +25,15 @@ public class Enemy : MonoBehaviour
     public  GameObject      projectile;                     //GameObj. that will be shot out from attackPoint if it's a ranged enemy
     public  Animation       meleeAttackAnim;                //Melee attack animation for enemy
     public  GameObject[]    loot;                           //Items that the enemy can drop when killed
-    public  int[]           dropChance;                     //Array of integers that describe the chance of the item in the same index of the loot array
-                                                            //      Chance is 1/dropChance[ind]
+    public  int[]           dropChance;                     //Array of integers that describe the chance of the item in the same index of the loot array. Chance is 1/dropChance[ind]
+    public  bool            hasKey      = false;            //Boolean indicating if the enemy has a key for ObjectiveType.Rescues
 
-    private bool    isDead = false;             //Boolean to indicate if the enemy is alive and active
-    private int     index = 0;                  //Index of current waypoint
-    private float   agentSpeed;                 //NavMesh movement speed. Maximum movement speed of enemy
-    private float   nextFire;                   //The next point in time where the enemy can attack again
-    private float   oldHealth = 0;
+    private bool        isDead = false;             //Boolean to indicate if the enemy is alive and active
+    private int         index = 0;                  //Index of current waypoint
+    private float       agentSpeed;                 //NavMesh movement speed. Maximum movement speed of enemy
+    private float       nextFire;                   //The next point in time where the enemy can attack again
+    private float       oldHealth = 0;
+    private GameObject  keyFx;                      //Particle fx to indicate that they have a key
 
     private Transform       player;             //Reference to the player's transform
     private Animator        animator;           //Reference to animator component
@@ -50,6 +51,16 @@ public class Enemy : MonoBehaviour
         if ( agent != null )
         {
             agentSpeed = agent.speed;
+        }
+
+        //if they have a key
+        //      activate a special particle effect
+        if ( hasKey )
+        {
+            //find the child transform with the name of the particle effect
+            //and make it active
+            keyFx = transform.Find( "Key Effect" ).gameObject;
+            keyFx.gameObject.SetActive( true );
         }
 
         //if there is now waypoints given, initialize a waypoint to be on the enemy's position
@@ -249,8 +260,14 @@ public class Enemy : MonoBehaviour
                 animator.SetBool("IsDead", true); //Play the animation
             }
 
+            //if it has a key
+            //      increment player's key count
+            if ( hasKey )
+            {
+                player.gameObject.GetComponent<Inventory>().addKey();
+            }
 
-            StartCoroutine(DelayedDestruction(5)); //Wait 5 secs to destroy the enemy
+            StartCoroutine( DelayedDestruction(5) ); //Wait 5 secs to destroy the enemy
         }
     }
 

@@ -63,7 +63,7 @@ public class Objective : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.F) && player.GetComponent<Inventory>().keyCount > 0)
             {
-                lvlManager.setCompleted(this);
+                lvlManager.setCompleted( this );
                 GetComponent<MeshRenderer>().enabled = false;
 
                 GetComponentInChildren<Animator>().SetBool("IsRescued", true);
