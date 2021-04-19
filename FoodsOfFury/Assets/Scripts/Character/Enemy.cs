@@ -32,12 +32,24 @@ public class Enemy : MonoBehaviour
     private int         index = 0;                  //Index of current waypoint
     private float       agentSpeed;                 //NavMesh movement speed. Maximum movement speed of enemy
     private float       nextFire;                   //The next point in time where the enemy can attack again
-    private float       oldHealth = 0;
+    private float       oldHealth;
     private GameObject  keyFx;                      //Particle fx to indicate that they have a key
 
     private Transform       player;             //Reference to the player's transform
     private Animator        animator;           //Reference to animator component
     private NavMeshAgent    agent;              //Reference to NavMeshAgent component
+    public Renderer render;
+    private Color ogColor;
+    private float colorDelay = 1.0f;
+
+    void Start()
+    {
+        oldHealth = GetComponent<Health>().amount;
+        print("oldHealth " + oldHealth);
+        ogColor = render.material.color;
+
+        //render = GetComponentInChildren<MeshRenderer>();
+    }
 
     void Awake()
     {
@@ -46,7 +58,6 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag( "Player" ).transform;
 
-        oldHealth = GetComponent<Health>().amount;
 
         if ( agent != null )
         {
@@ -123,6 +134,7 @@ public class Enemy : MonoBehaviour
     // Does health reactions
     private void HealthUpdated( float amount )
     {
+        print("Enemy health updated " + amount + " " + oldHealth);
         if ( amount == 0 ) // // player died
         {
             onDeath();
@@ -131,10 +143,25 @@ public class Enemy : MonoBehaviour
         {
             print("Enemy was damaged!");
             //play hurt sounds
-            animator.SetTrigger( "Hit" );
+            render.material.SetColor("_BaseColor", Color.red);
+            StartCoroutine(RendererTimer());
+            animator.SetTrigger( "Hit" ); 
         }
 
         oldHealth = amount;
+    }
+
+    private IEnumerator RendererTimer()
+    {
+        float passed = 0.0f;
+
+        while (passed < colorDelay)
+        {
+            passed += Time.deltaTime;
+            yield return null;
+        }
+
+        render.material.SetColor("_BaseColor", ogColor);
     }
 
     //----------------------------------------------------------------------------------------

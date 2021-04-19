@@ -128,7 +128,7 @@ public class PlayerMovementTwo : MonoBehaviour
             dir = Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));     // regular velocity normalized (no y value)
         }
 
-        if (isAiming)
+        if (isAiming || !canDash)
         {
             transform.rotation = Quaternion.LookRotation(Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized); // camera rotation
         }
@@ -222,10 +222,13 @@ public class PlayerMovementTwo : MonoBehaviour
         // do dash (change to side step)
         if (isGrounded && canDash && Input.GetKeyDown(KeyCode.LeftShift))
         {
-            if (movement.normalized != Vector3.zero) // don't dash if no movement
+            if (inputs.z != 0) // don't dash if no movement
             {
-                applyExtraForce(movement.normalized * dashForce, 0.1f); // apply dash
+                Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;
+                Vector3 dash = camRight * inputs.z;
+                applyExtraForce(dash.normalized * dashForce, 0.1f); // apply dash
                 StartCoroutine(DashDelayTimer());                       // start dash delay timer
+                health.subtract(0, 1);
             }
         }
         

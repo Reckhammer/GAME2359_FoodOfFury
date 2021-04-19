@@ -25,6 +25,7 @@ public class PlayerManager : MonoBehaviour
     public PostProcessVolume PPV;               // Post Process Volumw reference
     private Vignette healthVignette;            // Vignette reference
     private Coroutine cTimer = null;            // Vignette fade timer
+    public GameObject hitParticle;
 
     private void Start()
     {
@@ -305,6 +306,7 @@ public class PlayerManager : MonoBehaviour
             print("Player was damaged!");
             // hurt animations?
             AudioManager.Instance.playRandom(transform.position, "Rollo_Hurt_1", "Rollo_Hurt_2", "Rollo_Hurt_3").transform.SetParent(transform);
+            Instantiate(hitParticle, transform.position, transform.rotation);
             healthVignette.intensity.value = 0.7f;
             UIManager.instance?.updateHealthBar(amount);
         }

@@ -653,6 +653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSelection: {fileID: 0}
   PPV: {fileID: 0}
+  hitParticle: {fileID: 3634812190018391470, guid: d779dcbe229974a469a1e47c6d8d7e8d, type: 3}
 --- !u!114 &2169602214569648481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -705,6 +706,8 @@ MonoBehaviour:
   startingConsumables: []
   maxWeapons: 2
   maxConsumables: 5
+  collectibleCount: 0
+  keyCount: 0
 --- !u!114 &2169602214232885774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -718,7 +721,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   max: 5
-  hitParticle: {fileID: 3634812190018391470, guid: d779dcbe229974a469a1e47c6d8d7e8d, type: 3}
 --- !u!95 &2692829364187606887
 Animator:
   serializedVersion: 3
