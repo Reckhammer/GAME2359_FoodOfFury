@@ -22,7 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: SodaCup
   m_Shader: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5, type: 3}
-  m_ShaderKeywords: _ _EMISSIVE_SIMPLE _OUTLINE_NML
+  m_ShaderKeywords: _ _EMISSIVE_SIMPLE _OUTLINE_POS
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -168,10 +168,10 @@ Material:
     - Vector1_a49fe8798fc1492e9b7c29f173744d71: 0.404
     - Vector1_dd10ddb878b74a6089bbf199cfdd27f4: 0.325
     - _1st2nd_Shades_Feather: 0.235
-    - _1st_ShadeColor_Feather: 0.0001
+    - _1st_ShadeColor_Feather: 0.575
     - _1st_ShadeColor_Step: 0.5
-    - _2nd_ShadeColor_Feather: 0.0001
-    - _2nd_ShadeColor_Step: 0
+    - _2nd_ShadeColor_Feather: 0.235
+    - _2nd_ShadeColor_Step: 0.235
     - _Add_Antipodean_RimLight: 0
     - _AlphaClip: 0
     - _Ap_RimLight_FeatherOff: 0
@@ -235,12 +235,12 @@ Material:
     - _MatCap: 0
     - _Metallic: 0
     - _Nearest_Distance: 0.5
-    - _OUTLINE: 0
+    - _OUTLINE: 1
     - _OcclusionStrength: 1
     - _Offset_X_Axis_BLD: -0.05
     - _Offset_Y_Axis_BLD: 0.09
     - _Offset_Z: 0
-    - _Outline_Width: 9
+    - _Outline_Width: 9.56
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
