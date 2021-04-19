@@ -232,9 +232,9 @@ public class Inventory : MonoBehaviour
     }
 
     //adds key to player's inventory and updates UI
-    public void addKey()
+    public void addKey( int amt = 1 )
     {
-        keyCount++;
+        keyCount += amt;
         UIManager.instance.updateKeyUI();
     }
 }

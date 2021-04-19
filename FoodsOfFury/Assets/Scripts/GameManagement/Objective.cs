@@ -59,12 +59,15 @@ public class Objective : MonoBehaviour
         {
             //if player hits the interact key AND has a key
             //      Objective is complete
-            GameObject player = other.gameObject;
+            Inventory player = other.gameObject.GetComponent<Inventory>();
 
-            if (Input.GetKeyDown(KeyCode.F) && player.GetComponent<Inventory>().keyCount > 0)
+            if ( Input.GetKeyDown(KeyCode.F) && player.keyCount > 0 )
             {
                 lvlManager.setCompleted( this );
                 GetComponent<MeshRenderer>().enabled = false;
+
+                player.addKey( -1 );
+                UIManager.instance.updateKeyUI();
 
                 GetComponentInChildren<Animator>().SetBool("IsRescued", true);
                 isDone = true;
