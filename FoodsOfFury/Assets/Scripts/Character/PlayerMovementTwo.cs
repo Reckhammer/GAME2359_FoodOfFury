@@ -222,7 +222,7 @@ public class PlayerMovementTwo : MonoBehaviour
         // do dash (change to side step)
         if (isGrounded && canDash && Input.GetKeyDown(KeyCode.LeftShift))
         {
-            if (inputs.z != 0) // don't dash if no movement
+            if (inputs.z != 0) // don't dash if no movement(movement != Vector3.zero)
             {
                 Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;
                 Vector3 dash = camRight * inputs.z;
