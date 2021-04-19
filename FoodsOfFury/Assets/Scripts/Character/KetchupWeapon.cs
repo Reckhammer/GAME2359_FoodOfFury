@@ -34,6 +34,7 @@ public class KetchupWeapon : MonoBehaviour
         {
             //AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01");  // play audio clip 
             GetComponentInParent<Animator>().SetTrigger("KetchupAttack_01");            // play visual attack animation
+            GetComponentInParent<PlayerManager>().addSwitchDelay(attackDelay + 0.1f);
             GetComponentInParent<PlayerMovementTwo>().stopInput(attackDelay + 0.1f);    // stop player for a bit
             //Instantiate(projectile, spawnPoint.position, transform.rotation);
 

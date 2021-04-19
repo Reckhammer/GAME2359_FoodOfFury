@@ -38,7 +38,8 @@ public class OnionWeapon : MonoBehaviour
         {
             AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01"); // play audio clip 
 
-            GetComponentInParent<PlayerMovementTwo>().stopInput(0.7f);      // stop player for a bit
+            GetComponentInParent<PlayerManager>().addSwitchDelay(0.7f);
+            //GetComponentInParent<PlayerMovementTwo>().stopInput(0.7f);      // stop player for a bit
             GetComponentInParent<Animator>().SetTrigger("OnionAttack_01");  // play visual attack animation
             attackAnim.Play("GreenOnion_Attack_01");                        // collider animation
         }
@@ -50,6 +51,7 @@ public class OnionWeapon : MonoBehaviour
         {
             AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01"); // play audio clip 
 
+            GetComponentInParent<PlayerManager>().addSwitchDelay(1.11f);
             GetComponentInParent<PlayerMovementTwo>().stopInput(1.11f, true, true);     // stop player for a bit
             GetComponentInParent<Animator>().SetTrigger("OnionAttack_02");  // play visual attack animation
             attackAnim.Play("GreenOnion_Attack_02");                        // collider animation

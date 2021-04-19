@@ -15,17 +15,20 @@ using UnityEngine.Rendering.PostProcessing;
 public class PlayerManager : MonoBehaviour
 {
     [HideInInspector]
-    public GameObject itemSelection = null;    // to check if player is over a pickable object
+    public GameObject itemSelection = null;     // to check if player is over a pickable object
+
+    public PostProcessVolume PPV;               // Post Process Volumw reference
+    public GameObject hitParticle;
 
     private Inventory inventory;                // inventory reference
     private GameObject currWeapon;              // current reference to weapon object
     private GameObject currConsumable;          // current reference to consumable object
-    private float oldHealth = 0.0f;             // old amount of health
-
-    public PostProcessVolume PPV;               // Post Process Volumw reference
+    private float oldHealth             = 0.0f; // old amount of health
     private Vignette healthVignette;            // Vignette reference
-    private Coroutine cTimer = null;            // Vignette fade timer
-    public GameObject hitParticle;
+    private Coroutine vigTimer          = null; // Vignette fade coroutine timer reference
+    private Coroutine switchTimer       = null; // switchTimer coroutine reference
+    private bool canSwitch              = true; // if able to switch weapons
+
 
     private void Start()
     {
@@ -65,13 +68,13 @@ public class PlayerManager : MonoBehaviour
     private void Update()
     {
         // equip next weapon
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && !GetComponent<PlayerMovementTwo>().isInputStopped())
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && canSwitch)
         {
             equipNextItem(ItemType.Weapon);
         }
 
         // equip previous weapon
-        if (Input.GetAxis("Mouse ScrollWheel") < 0 && !GetComponent<PlayerMovementTwo>().isInputStopped())
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && canSwitch)
         {
             equipPreviousItem(ItemType.Weapon);
         }
@@ -323,32 +326,32 @@ public class PlayerManager : MonoBehaviour
         if (amount <= 2f && healthVignette.intensity.value != 0.65f)
         {
 
-            if (cTimer == null)
+            if (vigTimer == null)
             {
-                cTimer = StartCoroutine(timer(2.0f, 0.65f));
+                vigTimer = StartCoroutine(vigTime(2.0f, 0.65f));
             }
             else
             {
-                StopCoroutine(cTimer);
-                cTimer = StartCoroutine(timer(2.0f, 0.65f));
+                StopCoroutine(vigTimer);
+                vigTimer = StartCoroutine(vigTime(2.0f, 0.65f));
             }
         }
 
         if (amount > 2f && healthVignette.intensity.value != 0.0f)
         {
-            if (cTimer == null)
+            if (vigTimer == null)
             {
-                cTimer = StartCoroutine(timer(2.0f, 0.0f));
+                vigTimer = StartCoroutine(vigTime(2.0f, 0.0f));
             }
             else
             {
-                StopCoroutine(cTimer);
-                cTimer = StartCoroutine(timer(2.0f, 0.0f));
+                StopCoroutine(vigTimer);
+                vigTimer = StartCoroutine(vigTime(2.0f, 0.0f));
             }
         }
     }
 
-    private IEnumerator timer(float duration, float value)
+    private IEnumerator vigTime(float duration, float value)
     {
         float passed = 0.0f;
 
@@ -360,6 +363,31 @@ public class PlayerManager : MonoBehaviour
             healthVignette.intensity.value = Mathf.Lerp(original, value, passed / duration);
             yield return null;
         }
+    }
+
+    public void addSwitchDelay(float duration)
+    {
+        if (switchTimer != null)
+        {
+            StopCoroutine(switchTimer);
+        }
+
+        switchTimer = StartCoroutine(switchingDelay(duration));
+    }
+
+    // weapon switching timer
+    private IEnumerator switchingDelay(float duration)
+    {
+        float passed = 0.0f;
+        canSwitch = false;
+
+        while (passed < duration)
+        {
+            passed += Time.deltaTime;
+            yield return null;
+        }
+
+        canSwitch = true;
     }
 
     // hangles death operations
