@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 733740637809149973}
   - component: {fileID: 4431857239907436464}
   - component: {fileID: 1902183584538424186}
-  m_Layer: 0
+  - component: {fileID: 1457264893603637193}
+  m_Layer: 8
   m_Name: CleaningShaker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,3 +82,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1457264893603637193
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100510293751386799}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5076798556035486163, guid: f6879fe53ad20144daef703b9c9933a8, type: 3}
