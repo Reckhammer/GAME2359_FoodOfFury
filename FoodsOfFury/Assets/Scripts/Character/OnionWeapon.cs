@@ -12,6 +12,8 @@ using UnityEngine;
 public class OnionWeapon : MonoBehaviour
 {
     public Animation attackAnim;
+    private int attackIndex = 1;
+
 
     // Update is called once per frame
     void Update()
@@ -23,7 +25,23 @@ public class OnionWeapon : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            AttackOne();
+            //attackIndex++;
+
+            if (attackIndex > 2)
+            {
+                attackIndex = 0;
+                Debug.Log("Reset");
+            }
+
+            if (attackIndex == 1)
+            {
+                AttackOne();
+            }
+
+            if (attackIndex == 2)
+            {
+                FollowUpAttack();
+            }
         }
 
         if (Input.GetKey(KeyCode.Mouse1))
@@ -44,6 +62,20 @@ public class OnionWeapon : MonoBehaviour
             attackAnim.Play("GreenOnion_Attack_01");                        // collider animation
         }
     }
+
+    void FollowUpAttack()
+    {
+        if (!attackAnim.isPlaying && GetComponentInParent<PlayerMovementTwo>().onGround())
+        {
+            AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01"); // play audio clip 
+
+            GetComponentInParent<PlayerManager>().addSwitchDelay(0.7f);
+            //GetComponentInParent<PlayerMovementTwo>().stopInput(0.7f);      // stop player for a bit
+            GetComponentInParent<Animator>().SetTrigger("Attack_FollowUp");  // play visual attack animation
+            attackAnim.Play("GreenOnion_Attack_FollowUp");                        // collider animation
+        }
+    }
+
 
     void AttackTwo()
     {
