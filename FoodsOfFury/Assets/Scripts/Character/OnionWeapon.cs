@@ -12,7 +12,7 @@ using UnityEngine;
 public class OnionWeapon : MonoBehaviour
 {
     public Animation attackAnim;
-    private int attackIndex = 0;
+    private int attackIndex = 1;
 
 
     // Update is called once per frame
@@ -25,11 +25,12 @@ public class OnionWeapon : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            attackIndex++;
+            //attackIndex++;
 
             if (attackIndex > 2)
             {
                 attackIndex = 0;
+                Debug.Log("Reset");
             }
 
             if (attackIndex == 1)
