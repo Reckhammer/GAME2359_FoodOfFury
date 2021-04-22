@@ -18,13 +18,13 @@ public class WaveSpawner : MonoBehaviour
     {
         if (wave1.Length != 0)
         {
+            // spawn in enemies
             for (int x = 0; x <= wave1.Length - 1; x++)
             {
                 NavMeshHit closestHit; // grab the closest position on navmesh from spawn position to spawn enemy
                 if (NavMesh.SamplePosition(wave1[x].spawnPosition.position, out closestHit, 2.0f, NavMesh.AllAreas))
                 {
-                    GameObject e = Instantiate(wave1[x].enemyGameobject);
-                    e.transform.position = closestHit.position;
+                    GameObject e = Instantiate(wave1[x].enemyGameobject, closestHit.position, wave1[x].spawnPosition.rotation);
                 }
                 else
                 {
