@@ -230,6 +230,13 @@ public class PlayerMovementTwo : MonoBehaviour
                 StartCoroutine(DashDelayTimer());                       // start dash delay timer
                 health.subtract(0, 1);
             }
+            else
+            {
+                Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;
+                applyExtraForce(camRight * dashForce, 0.1f); // apply dash
+                StartCoroutine(DashDelayTimer());                       // start dash delay timer
+                health.subtract(0, 1);
+            }
         }
         
 
