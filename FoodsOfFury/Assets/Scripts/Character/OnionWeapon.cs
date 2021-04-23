@@ -13,7 +13,7 @@ public class OnionWeapon : MonoBehaviour
 {
     public Animation attackAnim;
     private bool attackOnePlayed = false;
-    //private bool attackFollowUpPlayed = false;
+    private bool followUp = false;
 
 
     // Update is called once per frame
@@ -24,21 +24,33 @@ public class OnionWeapon : MonoBehaviour
             return;
         }
 
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
           
-            if (attackOnePlayed == false)
+            if ((attackOnePlayed == false && !followUp) || !attackAnim.isPlaying)
             {
                 AttackOne();
+       
+                if(!attackAnim.isPlaying)
+                {
+                    followUp = false;
+                    GetComponentInParent<Animator>().SetBool("Attack01_Followup", false);
+                }
             }
             else
             {
-                FollowUpAttack();
+                followUp = true;
+                GetComponentInParent<Animator>().SetBool("Attack01_Followup", true);
             }
 
         }
 
-        if (Input.GetKey(KeyCode.Mouse1))
+        if(followUp && attackAnim.isPlaying)
+        {
+            FollowUpAttack();
+        }
+
+        if (Input.GetKey(KeyCode.Mouse1) && !followUp)
         {
             AttackTwo();
         }
@@ -55,22 +67,27 @@ public class OnionWeapon : MonoBehaviour
             GetComponentInParent<PlayerManager>().addSwitchDelay(0.7f);
             //GetComponentInParent<PlayerMovementTwo>().stopInput(0.7f);      // stop player for a bit
             GetComponentInParent<Animator>().SetTrigger("OnionAttack_01");  // play visual attack animation
+            GetComponentInParent<Animator>().SetBool("Attack01_Followup", false); // Set Attack01_Followup false
             attackAnim.Play("GreenOnion_Attack_01");                        // collider animation
         }
     }
 
     void FollowUpAttack()
     {
+
         if (!attackAnim.isPlaying && GetComponentInParent<PlayerMovementTwo>().onGround())
         {
+            print("Attack played");
+
             attackOnePlayed = false;
 
             AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01"); // play audio clip 
 
             GetComponentInParent<PlayerManager>().addSwitchDelay(0.7f);
+            //GetComponentInParent<Animator>().SetBool("Attack01_Followup", true);              // play visual attack animation
             //GetComponentInParent<PlayerMovementTwo>().stopInput(0.7f);      // stop player for a bit
-            GetComponentInParent<Animator>().SetTrigger("Attack_FollowUp");  // play visual attack animation
             attackAnim.Play("GreenOnion_Attack_FollowUp");                        // collider animation
+            followUp = false;
         }
     }
 
