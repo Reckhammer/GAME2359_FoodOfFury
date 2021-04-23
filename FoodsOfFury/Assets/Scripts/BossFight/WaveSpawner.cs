@@ -14,7 +14,7 @@ public class WaveSpawner : MonoBehaviour
 {
     public enemySpawn[] wave1;          // wave1 enemy spawn info
     public float spawnDelayTime = 0.5f; // time delay to spawn enemies
-    //public GameObject spawnParticle; // particles when enemy is spawned
+    public GameObject spawnParticle; // particles when enemy is spawned
 
     void Start()
     {
@@ -50,7 +50,7 @@ public class WaveSpawner : MonoBehaviour
         // while there is still more to spawn
         while (current <= amount)
         {
-            print("delay time: " + (current + 1) * delay);
+            //print("delay time: " + (current + 1) * delay);
             // if next one is ready to spawn
             if (passed >= (current + 1) * delay)
             {
@@ -70,6 +70,11 @@ public class WaveSpawner : MonoBehaviour
         if (NavMesh.SamplePosition(enemy.spawnPosition.position, out closestHit, 2.0f, NavMesh.AllAreas))
         {
             GameObject e = Instantiate(enemy.enemyGameobject, closestHit.position, enemy.spawnPosition.rotation);
+
+            if (spawnParticle != null) // create particle effect and destroy after a short time has passed
+            {
+                Destroy(Instantiate(spawnParticle, closestHit.position, enemy.spawnPosition.rotation), 1.0f);
+            }
         }
         else
         {
