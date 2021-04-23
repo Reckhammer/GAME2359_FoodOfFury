@@ -50,7 +50,7 @@ public class OnionWeapon : MonoBehaviour
             FollowUpAttack();
         }
 
-        if (Input.GetKey(KeyCode.Mouse1) && !followUp)
+        if (Input.GetKey(KeyCode.Mouse1))// && !followUp
         {
             AttackTwo();
         }
