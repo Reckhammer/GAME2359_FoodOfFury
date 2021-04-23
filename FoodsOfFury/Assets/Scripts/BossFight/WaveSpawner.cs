@@ -12,25 +12,15 @@ public struct enemySpawn
 
 public class WaveSpawner : MonoBehaviour
 {
-    public enemySpawn[] wave1;
+    public enemySpawn[] wave1;          // wave1 enemy spawn info
+    public float spawnDelayTime = 0.5f; // time delay to spawn enemies
+    //public GameObject spawnParticle; // particles when enemy is spawned
 
     void Start()
     {
         if (wave1.Length != 0)
         {
-            // spawn in enemies
-            for (int x = 0; x <= wave1.Length - 1; x++)
-            {
-                NavMeshHit closestHit; // grab the closest position on navmesh from spawn position to spawn enemy
-                if (NavMesh.SamplePosition(wave1[x].spawnPosition.position, out closestHit, 2.0f, NavMesh.AllAreas))
-                {
-                    GameObject e = Instantiate(wave1[x].enemyGameobject, closestHit.position, wave1[x].spawnPosition.rotation);
-                }
-                else
-                {
-                    print("[wave 1, index: " + x + "], " + wave1[x].enemyGameobject.name + "'s spawn position is not close enough to the navmesh!");
-                }
-            }
+            StartCoroutine(spawnDelay(wave1, 1, spawnDelayTime));
         }
         else
         {
@@ -41,5 +31,49 @@ public class WaveSpawner : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private IEnumerator spawnDelay(enemySpawn[] enemies, int wave, float delay = 0.0f, bool firstDelayed = false)
+    {
+        float passed = 0.0f;
+        int current = 0;
+        int amount = enemies.Length - 1;
+
+        // spawn first without delay
+        if (!firstDelayed)
+        {
+            spawnEnemy(enemies[current], current, wave);
+            passed = delay; // set time to next interval
+            current++;      // set current to next index
+        }
+
+        // while there is still more to spawn
+        while (current <= amount)
+        {
+            print("delay time: " + (current + 1) * delay);
+            // if next one is ready to spawn
+            if (passed >= (current + 1) * delay)
+            {
+                spawnEnemy(enemies[current], current, wave);
+                current++;
+            }
+            passed += Time.deltaTime;
+            yield return null;
+        }
+        //print("done spawning wave " + wave);
+    }
+
+    // spawns an enemy on the navmesh (current & wave are for debuging)
+    private void spawnEnemy(enemySpawn enemy, int current, int wave)
+    {
+        NavMeshHit closestHit; // grab the closest position on navmesh from spawn position to spawn enemy
+        if (NavMesh.SamplePosition(enemy.spawnPosition.position, out closestHit, 2.0f, NavMesh.AllAreas))
+        {
+            GameObject e = Instantiate(enemy.enemyGameobject, closestHit.position, enemy.spawnPosition.rotation);
+        }
+        else
+        {
+            print("[wave " + wave + ", index: " + current + "], " + enemy.enemyGameobject.name + "'s spawn position is not close enough to the navmesh!");
+        }
     }
 }
