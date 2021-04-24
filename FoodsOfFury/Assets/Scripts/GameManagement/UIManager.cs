@@ -93,7 +93,8 @@ public class UIManager : MonoBehaviour
     //update the collectible UI
     public void updateCollectibleUI()
     {
-        Inventory playerInventory = GameObject.FindWithTag( "Player" ).GetComponent<Inventory>();
+        // find with tag is evil
+        Inventory playerInventory = GameObject.FindWithTag( "Player" ).GetComponentInParent<Inventory>();
 
         collectibleAmoutUI.text = ""+ playerInventory.collectibleCount;
     }
@@ -101,7 +102,8 @@ public class UIManager : MonoBehaviour
     //update the key UI
     public void updateKeyUI()
     {
-        Inventory playerInventory = GameObject.FindWithTag( "Player" ).GetComponent<Inventory>();
+        // find with tag is evil
+        Inventory playerInventory = GameObject.FindWithTag( "Player" ).GetComponentInParent<Inventory>();
 
         keyAmountUI.text = ""+ playerInventory.keyCount;
     }

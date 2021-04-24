@@ -291,7 +291,7 @@ public class Enemy : MonoBehaviour
             //      increment player's key count
             if ( hasKey )
             {
-                player.gameObject.GetComponent<Inventory>().addKey();
+                player.gameObject.GetComponentInParent<Inventory>().addKey();
             }
 
             StartCoroutine( DelayedDestruction(5) ); //Wait 5 secs to destroy the enemy

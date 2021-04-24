@@ -9,11 +9,14 @@ public class Collectible : MonoBehaviour
         //Check if the player has collided with the collectible
         if ( other.tag == "Player" )
         {
-            GameObject player = other.gameObject;
+            Inventory inv = other.GetComponent<Inventory>();
 
-            player.GetComponent<Inventory>().collectibleCount++;
-            UIManager.instance.updateCollectibleUI();
-            Destroy( this.gameObject );
+            if (inv != null) // check if hit player object with the inventory script (player has multiple colliders)
+            {
+                inv.collectibleCount++;
+                UIManager.instance.updateCollectibleUI();
+                Destroy(gameObject);
+            }
         }
     }
 }
