@@ -14,7 +14,7 @@ public class PlayerMovementTwo : MonoBehaviour
     public float speed                  = 10f;          // speed if player
     public float glideSpeed             = 5.0f;         // movement speed while gliding
     public float jumpHeight             = 5.0f;         // jump force of player
-    public float dashForce              = 0.0f;       // force of dash
+    public float dashForce              = 0.0f;         // force of dash
     public float dashDelay              = 1.0f;         // time before dash can be used again
     public float groundDetectRadius     = 0.3f;         // radius of sphere to check for ground
     public float rotationSpeed          = 10.0f;        // speed of rotation
@@ -49,6 +49,7 @@ public class PlayerMovementTwo : MonoBehaviour
     private string idleAnim             = null;         // name of idle animation
     private string runAnim              = null;         // name of run animation
     private string jumpAnim             = null;         // name of jump animation
+    private string evadeRightAnim       = null;         // name of right evade animation
     private Vector3 extraVel            = Vector3.zero; // extra force velocity (recorded to lerp from extra to movement)
     private bool isAiming               = false;        // to change camera rotation style
     private Health health               = null;
@@ -235,6 +236,7 @@ public class PlayerMovementTwo : MonoBehaviour
                 Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;
                 applyExtraForce(camRight * dashForce, 0.1f); // apply dash
                 StartCoroutine(DashDelayTimer());                       // start dash delay timer
+                animator.SetTrigger(evadeRightAnim);
                 health.subtract(0, 1);
             }
         }
@@ -479,6 +481,11 @@ public class PlayerMovementTwo : MonoBehaviour
     public void setJumpAnim(string anim)
     {
         jumpAnim = anim;
+    }
+
+    public void setEvadeRightAnim(string anim)
+    {
+        evadeRightAnim = anim;
     }
 
     // set aiming
