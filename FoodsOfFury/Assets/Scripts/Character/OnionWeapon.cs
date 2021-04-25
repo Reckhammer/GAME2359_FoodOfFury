@@ -91,6 +91,20 @@ public class OnionWeapon : MonoBehaviour
         }
     }
 
+    void FallingAttack()
+    {
+        if (!attackAnim.isPlaying)// && GetComponentInParent<PlayerMovementTwo>().onGround()
+        {
+
+            AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01"); // play audio clip 
+
+            GetComponentInParent<PlayerManager>().addSwitchDelay(0.7f);
+            //GetComponentInParent<PlayerMovementTwo>().stopInput(0.7f);      // stop player for a bit
+            GetComponentInParent<Animator>().SetTrigger("MidairAttack");  // play visual attack animation
+            //GetComponentInParent<Animator>().SetBool("Attack01_Followup", false); // Set Attack01_Followup false
+            attackAnim.Play("GreenOnion_FallingAttack");                        // collider animation
+        }
+    }
 
     void AttackTwo()
     {
