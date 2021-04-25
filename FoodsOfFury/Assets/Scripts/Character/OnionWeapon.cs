@@ -24,7 +24,7 @@ public class OnionWeapon : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && GetComponentInParent<PlayerMovementTwo>().onGround())
         {
           
             if ((attackOnePlayed == false && !followUp) || !attackAnim.isPlaying)
@@ -43,6 +43,11 @@ public class OnionWeapon : MonoBehaviour
                 GetComponentInParent<Animator>().SetBool("Attack01_Followup", true);
             }
 
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && GetComponentInParent<PlayerMovementTwo>().onGround() == false)
+        {
+            FallingAttack();
         }
 
         if(followUp && attackAnim.isPlaying)
@@ -99,9 +104,8 @@ public class OnionWeapon : MonoBehaviour
             AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01"); // play audio clip 
 
             GetComponentInParent<PlayerManager>().addSwitchDelay(0.7f);
-            //GetComponentInParent<PlayerMovementTwo>().stopInput(0.7f);      // stop player for a bit
-            GetComponentInParent<Animator>().SetTrigger("MidairAttack");  // play visual attack animation
-            //GetComponentInParent<Animator>().SetBool("Attack01_Followup", false); // Set Attack01_Followup false
+            //GetComponentInParent<PlayerMovementTwo>().stopInput(0.7f);        // stop player for a bit
+            GetComponentInParent<Animator>().SetTrigger("MidairAttack");        // play visual attack animation
             attackAnim.Play("GreenOnion_FallingAttack");                        // collider animation
         }
     }
