@@ -13,6 +13,14 @@ public class PopupUI : MonoBehaviour
         popupUI.SetActive(false);
     }
 
+    void Update()
+    {
+        if (PauseMenu.gameIsPaused)
+        {
+            popupUI.SetActive(false);
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
