@@ -55,7 +55,7 @@ public class Objective : MonoBehaviour
 
     void OnTriggerStay( Collider other )
     {
-        if (objectiveType == ObjectiveType.Rescue && other.gameObject.tag == "Player")
+        if (objectiveType == ObjectiveType.Rescue && other.gameObject.tag == "Player"  && other.gameObject.GetComponent<Inventory>() != null && !isDone)
         {
             //if player hits the interact key AND has a key
             //      Objective is complete
@@ -66,10 +66,18 @@ public class Objective : MonoBehaviour
                 lvlManager.setCompleted( this );
                 GetComponent<MeshRenderer>().enabled = false;
 
+                print("saved!!!");
                 player.addKey( -1 );
                 UIManager.instance.updateKeyUI();
 
-                GetComponentInChildren<Animator>().SetBool("IsRescued", true);
+                if (GetComponentInChildren<Animator>() != null)
+                {
+                    GetComponentInChildren<Animator>().SetBool("IsRescued", true);
+                }
+                else // duct tape fix for tomato (tomato is no longer a child to fix stretching)
+                {
+                    transform.parent.GetComponentInChildren<Animator>().SetBool("IsRescued", true);
+                }
                 isDone = true;
             }
 
