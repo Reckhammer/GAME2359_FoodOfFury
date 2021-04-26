@@ -130,6 +130,8 @@ public class OnionWeapon : MonoBehaviour
         GetComponentInParent<PlayerMovementTwo>().setIdleAnim("OnionIdle");     // set idle animation
         GetComponentInParent<PlayerMovementTwo>().setRunAnim("OnionRun");       // set run animation
         GetComponentInParent<PlayerMovementTwo>().setJumpAnim("OnionJump");     // set jump animation
+        GetComponentInParent<PlayerMovementTwo>().setEvadeRightAnim("EvadeRight");
+        GetComponentInParent<PlayerMovementTwo>().setEvadeLeftAnim("EvadeLeft");
     }
 
     private void OnDisable()
