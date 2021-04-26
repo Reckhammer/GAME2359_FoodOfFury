@@ -27,6 +27,13 @@ public class LoadScenes : MonoBehaviour
         SceneManager.LoadScene("DiningRoomLevel");
     }
 
+    public void LevelSelect()
+    {
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
+
+        SceneManager.LoadScene("LevelSelect");
+    }
+
     public void MainMenu()
     {
         AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
