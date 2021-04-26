@@ -209,6 +209,7 @@ public class Enemy : MonoBehaviour
                     Rigidbody projectileRB = projectileInst.GetComponent<Rigidbody>(); //Get a reference to its rigidbody
 
                     //AudioManager.Instance.playRandom(transform.position, "Fry_Attack_01");
+                    AudioManager.Instance.playRandom(transform.position, "Ketchup_Fire_01"); //Added sound of ketchup firing -Brian
 
                     break;
             }

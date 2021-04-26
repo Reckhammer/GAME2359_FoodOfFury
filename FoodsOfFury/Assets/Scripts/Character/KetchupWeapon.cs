@@ -32,7 +32,7 @@ public class KetchupWeapon : MonoBehaviour
     {
         if (canAttack && bulletAmount != 0 && GetComponentInParent<PlayerMovementTwo>().onGround())
         {
-            //AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01");  // play audio clip 
+            AudioManager.Instance.playRandom(transform.position, "Ketchup_Fire_01");  // play audio clip, added sound -Brian 
             GetComponentInParent<Animator>().SetTrigger("KetchupAttack_01");            // play visual attack animation
             GetComponentInParent<PlayerManager>().addSwitchDelay(attackDelay + 0.1f);
             GetComponentInParent<PlayerMovementTwo>().stopInput(attackDelay + 0.1f);    // stop player for a bit
@@ -85,6 +85,7 @@ public class KetchupWeapon : MonoBehaviour
     {
         //GetComponentInParent<PlayerMovementTwo>().setAiming(true);              // set player to aiming
         //CameraTarget.instance.offsetTo(new Vector3(5, 5, 0), 1.0f);             // offset camera target
+        AudioManager.Instance.playRandom(transform.position, "Ketchup_Reload_01"); //Sound for switch to Ketchup Weapon -Brian
         GetComponentInParent<PlayerMovementTwo>().setOverallAnim("KetchupAnim");    // turn off basic animations
         GetComponentInParent<PlayerMovementTwo>().setIdleAnim("KetchupIdle");       // set idle animation
         GetComponentInParent<PlayerMovementTwo>().setRunAnim("KetchupRun");         // set run animation

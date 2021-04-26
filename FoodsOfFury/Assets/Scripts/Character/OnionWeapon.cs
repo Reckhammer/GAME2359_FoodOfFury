@@ -125,6 +125,7 @@ public class OnionWeapon : MonoBehaviour
 
     private void OnEnable()
     {
+        AudioManager.Instance.playRandom(transform.position, "Sword_Draw_01"); //Sound for when sword is drawn -Brian
         GetComponentInParent<PlayerMovementTwo>().setOverallAnim("OnionAnim");  // turn off basic animations
         GetComponentInParent<PlayerMovementTwo>().setIdleAnim("OnionIdle");     // set idle animation
         GetComponentInParent<PlayerMovementTwo>().setRunAnim("OnionRun");       // set run animation
