@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
     public  GameObject[]    loot;                           //Items that the enemy can drop when killed
     public  int[]           dropChance;                     //Array of integers that describe the chance of the item in the same index of the loot array. Chance is 1/dropChance[ind]
     public  bool            hasKey      = false;            //Boolean indicating if the enemy has a key for ObjectiveType.Rescues
+    public  GameObject      hitParticle;                    //Particle System effect to make appear when hit
 
     private bool        isDead = false;             //Boolean to indicate if the enemy is alive and active
     private int         index = 0;                  //Index of current waypoint
@@ -144,6 +145,9 @@ public class Enemy : MonoBehaviour
             print("Enemy was damaged!");
             //play hurt sounds
             render.material.SetColor("_BaseColor", Color.red);
+            Vector3 particlePos = transform.position;
+            particlePos.y = particlePos.y + 1f;
+            Instantiate(hitParticle, particlePos, transform.rotation);
             StartCoroutine(RendererTimer());
             animator.SetTrigger( "Hit" ); 
         }
