@@ -38,7 +38,7 @@ public class PlayerMovementTwo : MonoBehaviour
     private const int maxJump           = 2;            // max amount of jumps
     private int currentJump             = 0;            // current jump index
     private bool isGrounded             = true;         // for ground check
-    private bool isGliding              = false;        // for gliding check
+    public bool isGliding              = false;        // for gliding check
     private bool inJump                 = false;        // for jump delay
     private bool canDash                = true;         // for dash delay check
     private Vector3 groundNormal        = Vector3.up;   // normal of the ground

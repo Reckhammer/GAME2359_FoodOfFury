@@ -45,7 +45,7 @@ public class OnionWeapon : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && GetComponentInParent<PlayerMovementTwo>().onGround() == false)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && GetComponentInParent<PlayerMovementTwo>().onGround() == false && GetComponentInParent<PlayerMovementTwo>().isGliding == false)
         {
             FallingAttack();
         }

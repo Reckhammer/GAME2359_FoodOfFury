@@ -90,7 +90,7 @@ public class LevelManager : MonoBehaviour
 
     public void winningSound()
     {
-        if (winSound)
+        if (winSound == true)
         {
             AudioManager.Instance.playRandom(transform.position, "Rollo_Win_01", "Rollo_Win_02");
             winSound = false;
