@@ -50,6 +50,7 @@ public class PlayerMovementTwo : MonoBehaviour
     private string runAnim              = null;         // name of run animation
     private string jumpAnim             = null;         // name of jump animation
     private string evadeRightAnim       = null;         // name of right evade animation
+    private string evadeLeftAnim        = null;
     private Vector3 extraVel            = Vector3.zero; // extra force velocity (recorded to lerp from extra to movement)
     private bool isAiming               = false;        // to change camera rotation style
     private Health health               = null;
@@ -230,6 +231,14 @@ public class PlayerMovementTwo : MonoBehaviour
                 applyExtraForce(dash.normalized * dashForce, 0.1f); // apply dash
                 StartCoroutine(DashDelayTimer());                       // start dash delay timer
                 health.subtract(0, 1);
+                if(inputs.z > 0)
+                {
+                    animator.SetTrigger(evadeRightAnim);
+                }
+                else
+                {
+                    animator.SetTrigger(evadeLeftAnim);
+                }
             }
             else
             {
@@ -483,9 +492,16 @@ public class PlayerMovementTwo : MonoBehaviour
         jumpAnim = anim;
     }
 
+    // set right evade animation to be used
     public void setEvadeRightAnim(string anim)
     {
         evadeRightAnim = anim;
+    }
+
+    // set right evade animation to be used
+    public void setEvadeLeftAnim(string anim)
+    {
+        evadeLeftAnim = anim;
     }
 
     // set aiming
