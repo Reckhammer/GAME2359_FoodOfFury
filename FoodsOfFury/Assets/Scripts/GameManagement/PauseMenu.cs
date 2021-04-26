@@ -47,7 +47,7 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         
-        AudioManager.Instance.playRandom(transform.position, "UI_Back_01");
+        AudioManager.Instance.playRandom(transform.position, "UI_Pause_02");
         
         pauseMenuUI.SetActive(false);
         settingMenuUI.SetActive(false);
@@ -63,7 +63,7 @@ public class PauseMenu : MonoBehaviour
         if (playSound)
         {
             // the AudioManager object carries over scenes, you can use it to carry UI audio over scenes
-            AudioManager.Instance.playRandom(transform.position, "UI_Pause_01", "UI_Pause_02").transform.parent = AudioManager.Instance.transform;
+            AudioManager.Instance.playRandom(transform.position, "UI_Pause_01").transform.parent = AudioManager.Instance.transform;
         }
 
         pauseMenuUI.SetActive(true);
