@@ -50,10 +50,10 @@ public class PlayerMovementTwo : MonoBehaviour
     private string runAnim              = null;         // name of run animation
     private string jumpAnim             = null;         // name of jump animation
     private string evadeRightAnim       = null;         // name of right evade animation
-    private string evadeLeftAnim        = null;
+    private string evadeLeftAnim        = null;         // name of left evade animation
     private Vector3 extraVel            = Vector3.zero; // extra force velocity (recorded to lerp from extra to movement)
     private bool isAiming               = false;        // to change camera rotation style
-    private Health health               = null;
+    private Health health               = null;         // health reference
 
     private void Awake()
     {
@@ -145,6 +145,30 @@ public class PlayerMovementTwo : MonoBehaviour
         if (extraForceTime <= 0.0)
         {
             extraVel = Vector3.zero;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        // undo unwanted rotation (when paranted to a rotating object)
+        if (transform.up != Vector3.up)
+        {
+            //print("reverting unwanted rotation");
+            Quaternion rotation = transform.rotation;
+            rotation.x = 0;
+            rotation.z = 0;
+            transform.rotation = rotation;
+        }
+
+        //print("local scale x: " + transform.localScale.x);
+        //print("lossy scale: " + transform.lossyScale);
+        //print("parent: " + transform.parent);
+        
+        // fix broken scaling (when parented to an object that breaks the scale rules and gets away with it)
+        if (transform.parent == null && (transform.localScale.x != 1 || transform.localScale.y != 1 || transform.localScale.z != 1))
+        {
+            //print("fixing scale");
+            transform.localScale = Vector3.one;
         }
     }
 
