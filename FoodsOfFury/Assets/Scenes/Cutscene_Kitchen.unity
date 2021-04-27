@@ -1927,6 +1927,10 @@ PlayableDirector:
     value: {fileID: 1510978816}
   - key: {fileID: 8418729636683934996, guid: 172a1e3664bd7ca419c603330dc7854f, type: 2}
     value: {fileID: 496198235}
+  - key: {fileID: 7174304262530969936, guid: 172a1e3664bd7ca419c603330dc7854f, type: 2}
+    value: {fileID: 1729004632}
+  - key: {fileID: 6206732813517490591, guid: 172a1e3664bd7ca419c603330dc7854f, type: 2}
+    value: {fileID: 344941664}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &29894775
@@ -2342,6 +2346,10 @@ PrefabInstance:
     - target: {fileID: 7437271030950229367, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
       propertyPath: m_Name
       value: Cucumber Slice (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437271030950229367, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7437271030950229367, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -3402,7 +3410,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-449378
+  m_Name: pb_Mesh-506244
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9645,6 +9653,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jello Plate Final (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4702259304155976090, guid: bc9487b53df4c8b469197f3adaf838f4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5184482516581477945, guid: bc9487b53df4c8b469197f3adaf838f4, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -12874,7 +12886,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-453114
+  m_Name: pb_Mesh-526818
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13859,6 +13871,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cucumber Slice (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7437271030950229367, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7817596073805295565, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -14381,6 +14397,30 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &344941660 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 973919636783303929, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
+  m_PrefabInstance: {fileID: 1787471763}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &344941664
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344941660}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0196d4685deed2745916f4365e9785e9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &348440399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16444,7 +16484,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-462694
+  m_Name: pb_Mesh86494
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -22634,7 +22674,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-448880
+  m_Name: pb_Mesh-512218
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -25243,6 +25283,10 @@ PrefabInstance:
       value: Cucumber Slice (3)
       objectReference: {fileID: 0}
     - target: {fileID: 7437271030950229367, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437271030950229367, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 40
       objectReference: {fileID: 0}
@@ -26472,6 +26516,10 @@ PrefabInstance:
     - target: {fileID: 7437271030950229367, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
       propertyPath: m_Name
       value: Cucumber Slice (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437271030950229367, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7437271030950229367, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -31809,6 +31857,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Collectible_StarFruit (36)
       objectReference: {fileID: 0}
+    - target: {fileID: 4705839625261650518, guid: 4ba0ff0439ac223468aee9dd734533d6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ba0ff0439ac223468aee9dd734533d6, type: 3}
 --- !u!4 &849378267 stripped
@@ -32310,9 +32362,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 164177960}
     m_Modifications:
+    - target: {fileID: 1165272566583852088, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7437271030950229367, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
       propertyPath: m_Name
       value: Cucumber Slice (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437271030950229367, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7817596073805295565, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
       propertyPath: m_RootOrder
@@ -32892,7 +32952,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-462786
+  m_Name: pb_Mesh87442
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -33056,7 +33116,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-462730
+  m_Name: pb_Mesh85956
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -37056,7 +37116,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-462756
+  m_Name: pb_Mesh84432
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -46022,7 +46082,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-462818
+  m_Name: pb_Mesh86510
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -46285,7 +46345,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Is that Rollo the Radish?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -46295,7 +46355,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -54720,7 +54780,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-462580
+  m_Name: pb_Mesh84960
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -55896,6 +55956,10 @@ PrefabInstance:
     - target: {fileID: 7437271030950229367, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
       propertyPath: m_Name
       value: Cucumber Slice
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437271030950229367, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7817596073805295565, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
       propertyPath: m_RootOrder
@@ -58420,6 +58484,7 @@ Transform:
   - {fileID: 487454484}
   - {fileID: 2052209328}
   - {fileID: 1005755374}
+  - {fileID: 1729004633}
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -58897,6 +58962,10 @@ PrefabInstance:
     - target: {fileID: 6344472508405423524, guid: 55e13fd9e2168d5488395ad7bfdf8f56, type: 3}
       propertyPath: m_Name
       value: Enemy_Fry (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344472508405423524, guid: 55e13fd9e2168d5488395ad7bfdf8f56, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6386324992617416192, guid: 55e13fd9e2168d5488395ad7bfdf8f56, type: 3}
       propertyPath: m_LocalRotation.x
@@ -61430,6 +61499,10 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1830308065982381843, guid: 6b4ec4b01f9e9714b8791e2fcefb01f7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1830308065982381843, guid: 6b4ec4b01f9e9714b8791e2fcefb01f7, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 40
       objectReference: {fileID: 0}
@@ -61934,7 +62007,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-462754
+  m_Name: pb_Mesh87166
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -69039,6 +69112,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cucumber Slice (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7437271030950229367, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7817596073805295565, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -69096,7 +69173,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-448254
+  m_Name: pb_Mesh84118
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -69552,6 +69629,150 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5560303935806993513, guid: 401eee2a5995eb64c99072a6df858adc, type: 3}
   m_PrefabInstance: {fileID: 1725048480}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1729004632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1729004633}
+  - component: {fileID: 1729004635}
+  - component: {fileID: 1729004634}
+  - component: {fileID: 1729004636}
+  m_Layer: 0
+  m_Name: Camera10
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1729004633
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729004632}
+  m_LocalRotation: {x: -0.12521273, y: 0.49964115, z: -0.07955948, w: -0.8534347}
+  m_LocalPosition: {x: -43.358566, y: 47.143753, z: -89.706535}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1514610339}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &1729004634
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729004632}
+  m_Enabled: 1
+--- !u!20 &1729004635
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729004632}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!114 &1729004636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729004632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 1729004633}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 1
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &1733595674
 GameObject:
   m_ObjectHideFlags: 0
@@ -71063,12 +71284,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 973919636783303929, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 973919636783303929, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 1174535133281294562, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 3692674304819813335, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 3692674304819813335, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3692674304819813335, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4887057179502688481, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -74938,6 +75175,10 @@ PrefabInstance:
       value: Cucumber Slice (2)
       objectReference: {fileID: 0}
     - target: {fileID: 7437271030950229367, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437271030950229367, guid: 44044946aaaf19543acb940fe1b11b1d, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 40
       objectReference: {fileID: 0}
@@ -77216,6 +77457,10 @@ PrefabInstance:
       value: Cucumber
       objectReference: {fileID: 0}
     - target: {fileID: 5281336082840884397, guid: 66f20824ac6d2ce47b898f7b3cdca401, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5281336082840884397, guid: 66f20824ac6d2ce47b898f7b3cdca401, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 40
       objectReference: {fileID: 0}
@@ -78901,7 +79146,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-457160
+  m_Name: pb_Mesh-538604
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -85799,7 +86044,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-462766
+  m_Name: pb_Mesh85240
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
