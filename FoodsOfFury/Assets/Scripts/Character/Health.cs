@@ -79,7 +79,7 @@ public class Health : MonoBehaviour
 
         if (time > 0.0f) // don't start timer if not needed
         {
-            StartCoroutine(CountInvisibility(time));
+            StartCoroutine(CountInvincibility(time));
         }
 
         if (OnUpdate != null)
@@ -100,7 +100,7 @@ public class Health : MonoBehaviour
     }
 
     // this counts the invincibility timer
-    public IEnumerator CountInvisibility(float time)
+    public IEnumerator CountInvincibility(float time)
     {
         isInvincible = true;
         float passed = 0.0f;
@@ -113,5 +113,10 @@ public class Health : MonoBehaviour
         }
 
         isInvincible = false;
+    }
+
+    public bool isNowInvincible()
+    {
+        return isInvincible;
     }
 }

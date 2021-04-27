@@ -18,6 +18,7 @@ public class DamagingStay : MonoBehaviour
     public LayerMask destroyOnImpactIgnore;         // layers that destroy on impact will ignore
     public bool doesKnockback           = false;    // option for knockback
     public float knockbackForce         = 0.0f;     // force of knockback
+    public string[] audioOnHit          = null;     // audio to play on hit
 
     private void OnTriggerStay(Collider other)
     {
@@ -49,6 +50,11 @@ public class DamagingStay : MonoBehaviour
         {
             if (other.tag == target)
             {
+                if (audioOnHit.Length != 0 && !other.GetComponentInParent<Health>().isNowInvincible() && other.GetComponentInParent<Health>().amount != 0)
+                {
+                    AudioManager.Instance.playRandom(other.ClosestPointOnBounds(transform.position), audioOnHit);
+                }
+
                 other.GetComponentInParent<Health>().subtract(damageAmount, delayAmount); // subtract from other's 'health' and add delay
 
                 if (doesKnockback)
