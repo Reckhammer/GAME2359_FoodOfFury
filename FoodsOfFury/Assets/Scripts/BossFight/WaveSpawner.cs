@@ -18,11 +18,6 @@ public class WaveSpawner : MonoBehaviour
     public GameObject spawnParticle;    // particles when enemy is spawned
     public bool randomizeOrder = false; // randomize the spawn order
 
-    void Start()
-    {
-        spawnWave();
-    }
-
     // spawns the wave
     public void spawnWave()
     {

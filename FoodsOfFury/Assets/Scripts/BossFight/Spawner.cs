@@ -20,11 +20,6 @@ public class Spawner : MonoBehaviour
 
     private Coroutine routine;
 
-    void Start()
-    {
-        spawn();
-    }
-
     // spawns the objects
     public void spawn()
     {

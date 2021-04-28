@@ -13,8 +13,18 @@ public class WaveEnemyCheck : MonoBehaviour
 {
     public WaveNumber number;
 
+    private bool quiting = false;
+
+    private void OnApplicationQuit()
+    {
+        quiting = true;
+    }
+
     private void OnDestroy()
     {
-        BossBurger.Instance?.waveEnemyDeath(number);
+        if (!quiting)
+        {
+            BossBurger.Instance?.waveEnemyDeath(number);
+        }
     }
 }

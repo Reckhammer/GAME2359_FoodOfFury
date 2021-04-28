@@ -11,11 +11,6 @@ public class ObjectEnabler : MonoBehaviour
 
     private Coroutine routine;
 
-    void Start()
-    {
-        enableObjects();
-    }
-
     // spawns the objects
     public void enableObjects()
     {
@@ -86,6 +81,17 @@ public class ObjectEnabler : MonoBehaviour
 
             objects[x] = objects[rIndex];
             objects[rIndex] = temp;
+        }
+    }
+
+    public void destroyObjects()
+    {
+        foreach (GameObject obj in objects)
+        {
+            if (obj != null)
+            {
+                Destroy(obj);
+            }
         }
     }
 }
