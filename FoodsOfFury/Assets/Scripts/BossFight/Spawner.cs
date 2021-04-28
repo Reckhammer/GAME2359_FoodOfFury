@@ -5,15 +5,15 @@ using UnityEngine;
 [System.Serializable]
 public struct objectSpawn
 {
-    public GameObject spawnObject;  // enemy to be spawned
+    public GameObject spawnObject;  // object to be spawned
     public Transform spawnPosition; // position for enemy to be spawned
 }
 
 public class Spawner : MonoBehaviour
 {
     public objectSpawn[] objects;                   // object spawn info
-    public float spawnDelayTime         = 0.5f;     // time delay to spawn enemies
-    public GameObject spawnParticle;                // particles when enemy is spawned
+    public float spawnDelayTime         = 0.5f;     // time delay between spawining objects
+    public GameObject spawnParticle;                // particles when object is spawned
     public bool randomizeOrder          = false;    // randomize the spawn order
     public bool looping                 = false;    // option to loop spawning
     public float loopDelay              = 1.0f;     // delay for next spawn loop
@@ -60,7 +60,7 @@ public class Spawner : MonoBehaviour
         // spawn first without delay
         if (!firstDelayed)
         {
-            spawnObject(objects[current], current);
+            spawnObject(objects[current]);
             passed = spawnDelayTime;    // set time to next interval
             current++;                  // set current to next index
         }
@@ -72,7 +72,7 @@ public class Spawner : MonoBehaviour
             // if next one is ready to spawn
             if (passed >= (current + 1) * spawnDelayTime)
             {
-                spawnObject(objects[current], current);
+                spawnObject(objects[current]);
                 current++;
             }
             passed += Time.deltaTime;
@@ -93,8 +93,8 @@ public class Spawner : MonoBehaviour
         //print("done spawning objects " + wave);
     }
 
-    // spawns an enemy on the navmesh (current is for debuging)
-    private void spawnObject(objectSpawn obj, int current)
+    // spawns an enemy on the navmesh
+    private void spawnObject(objectSpawn obj)
     {
         GameObject e = Instantiate(obj.spawnObject, obj.spawnPosition.position, obj.spawnPosition.rotation);
 
