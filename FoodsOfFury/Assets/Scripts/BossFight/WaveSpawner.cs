@@ -16,6 +16,7 @@ public class WaveSpawner : MonoBehaviour
     public WaveNumber number;           // number of wave
     public float spawnDelayTime = 0.5f; // time delay to spawn enemies
     public GameObject spawnParticle;    // particles when enemy is spawned
+    public bool randomizeOrder = false; // randomize the spawn order
 
     void Start()
     {
@@ -40,6 +41,11 @@ public class WaveSpawner : MonoBehaviour
         float passed = 0.0f;
         int current = 0;
         int amount = waveEnemies.Length - 1;
+
+        if (randomizeOrder)
+        {
+            randomize();
+        }
 
         // spawn first without delay
         if (!firstDelayed)
@@ -82,6 +88,21 @@ public class WaveSpawner : MonoBehaviour
         else
         {
             print("[wave " + number + ", index: " + current + "], " + enemy.enemyGameobject.name + "'s spawn position is not close enough to the navmesh!");
+        }
+    }
+
+    private void randomize()
+    {
+        int length = waveEnemies.Length - 1;
+
+        // shuffle gameobjects
+        for (int x = 0; x < length; x++)
+        {
+            enemySpawn temp = waveEnemies[x];
+            int rIndex = Random.Range(x, length + 1);
+
+            waveEnemies[x] = waveEnemies[rIndex];
+            waveEnemies[rIndex] = temp;
         }
     }
 }
