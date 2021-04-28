@@ -136,11 +136,13 @@ public class Enemy : MonoBehaviour
     private void HealthUpdated( float amount )
     {
         print("Enemy health updated " + amount + " " + oldHealth);
-        if ( amount == 0 ) // // player died
+        if ( amount == 0 ) // enemy died
         {
             onDeath();
+            render.material.SetColor("_BaseColor", Color.red);
+            StartCoroutine(RendererTimer());
         }
-        else if ( amount < oldHealth ) // player damaged
+        else if ( amount < oldHealth ) // enemy damaged
         {
             print("Enemy was damaged!");
             //play hurt sounds
