@@ -16,6 +16,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject settingMenuUI;
     public GameObject objectiveTxt;     //Reference to the objective text UI
+    public AudioSource LevelMusic; //For Level Music pause and resume -Brian
 
     private void Start()
     {
@@ -48,7 +49,7 @@ public class PauseMenu : MonoBehaviour
     {
         
         AudioManager.Instance.playRandom(transform.position, "UI_Pause_02");
-        
+        LevelMusic.Play(); //Level Music resumes -Brian
         pauseMenuUI.SetActive(false);
         settingMenuUI.SetActive(false);
         objectiveTxt.SetActive(true);
@@ -65,7 +66,7 @@ public class PauseMenu : MonoBehaviour
             // the AudioManager object carries over scenes, you can use it to carry UI audio over scenes
             AudioManager.Instance.playRandom(transform.position, "UI_Pause_01").transform.parent = AudioManager.Instance.transform;
         }
-
+        LevelMusic.Pause(); //Level Music pauses -Brian
         pauseMenuUI.SetActive(true);
         settingMenuUI.SetActive(false);
         objectiveTxt.SetActive(false);
