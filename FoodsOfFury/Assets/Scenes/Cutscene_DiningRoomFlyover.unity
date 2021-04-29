@@ -12220,6 +12220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 655137693}
   - component: {fileID: 655137692}
+  - component: {fileID: 655137694}
   m_Layer: 0
   m_Name: Timeline
   m_TagString: Untagged
@@ -12262,6 +12263,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 83
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &655137694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655137691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c113cadfd70bfdf43ad190301b0c473b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &656252418
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45168,6 +45181,7 @@ GameObject:
   - component: {fileID: 2127308936}
   - component: {fileID: 2127308938}
   - component: {fileID: 2127308937}
+  - component: {fileID: 2127308939}
   m_Layer: 5
   m_Name: Skip text
   m_TagString: Untagged
@@ -45291,6 +45305,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2127308935}
   m_CullTransparentMesh: 1
+--- !u!95 &2127308939
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127308935}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e82f49dd2d583cd48b940db2970eb86e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2129135914
 PrefabInstance:
   m_ObjectHideFlags: 0
