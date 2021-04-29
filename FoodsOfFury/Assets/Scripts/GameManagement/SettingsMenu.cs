@@ -107,24 +107,24 @@ public class SettingsMenu : MonoBehaviour
         PlayerPrefs.SetInt("FullscreenPreference", Convert.ToInt32(Screen.fullScreen));
     }
 
-    public void SaveSettings()
-    {
-        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+    //public void SaveSettings()
+    //{
+    //    AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
 
-        PlayerPrefs.SetInt("QualitySettingPreference", qualityDropdown.value);
+    //    PlayerPrefs.SetInt("QualitySettingPreference", qualityDropdown.value);
 
-        PlayerPrefs.SetInt("ResolutionPreference", resolutionDropdown.value);
+    //    PlayerPrefs.SetInt("ResolutionPreference", resolutionDropdown.value);
 
-        PlayerPrefs.SetInt("TextureQualityPreference", textureDropdown.value);
+    //    PlayerPrefs.SetInt("TextureQualityPreference", textureDropdown.value);
 
-        PlayerPrefs.SetInt("FullscreenPreference", Convert.ToInt32(Screen.fullScreen));
+    //    PlayerPrefs.SetInt("FullscreenPreference", Convert.ToInt32(Screen.fullScreen));
 
-        PlayerPrefs.SetFloat("VolumePreference", currentVolume);
+    //    PlayerPrefs.SetFloat("VolumePreference", currentVolume);
 
-        PlayerPrefs.SetFloat("MusicPreference", currentMusic);
+    //    PlayerPrefs.SetFloat("MusicPreference", currentMusic);
 
-        PlayerPrefs.SetFloat("EffectsPreference", currentEffects);
-    }
+    //    PlayerPrefs.SetFloat("EffectsPreference", currentEffects);
+    //}
 
     public void LoadSettings(int currentResolutionIndex)
     {
@@ -146,7 +146,10 @@ public class SettingsMenu : MonoBehaviour
             textureDropdown.value = 5;
 
         if (PlayerPrefs.HasKey("FullscreenPreference"))
+        {
+            print("Fullscren preference: " + Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenPreference")));
             Screen.fullScreen = Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenPreference"));
+        }
 
         if (PlayerPrefs.HasKey("VolumePreference"))
         {
