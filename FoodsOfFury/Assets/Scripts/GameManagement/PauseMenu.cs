@@ -48,7 +48,7 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         
-        AudioManager.Instance.playRandom(transform.position, "UI_Pause_02");
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
         LevelMusic.Play(); //Level Music resumes -Brian
         pauseMenuUI.SetActive(false);
         settingMenuUI.SetActive(false);
@@ -78,12 +78,16 @@ public class PauseMenu : MonoBehaviour
 
     public void Settings()
     {
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+
         pauseMenuUI.SetActive(false);
         settingMenuUI.SetActive(true);
     }
 
     public void BackToPause()
     {
+        AudioManager.Instance.playRandom(transform.position, "UI_Back_01");
+
         pauseMenuUI.SetActive(true);
         settingMenuUI.SetActive(false);
     }
