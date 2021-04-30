@@ -60,8 +60,6 @@ public class CameraController : MonoBehaviour
         // get and clamp mouse pos
         mouseY += Input.GetAxis("Mouse Y");
         mouseX += Input.GetAxis("Mouse X");
-        print("Mouse X: " + mouseX);
-        print("Mouse Y: " + mouseY);
         mouseY = Mathf.Clamp(mouseY, -bottomLimit, -topLimit);
 
         // get and clamp wanted camera distance
