@@ -54,7 +54,7 @@ public class SettingsMenu : MonoBehaviour
     //Controls the audio for Master volume
     public void SetVolume(float volume)
     {
-        print("setting volume: " + volume);
+        //print("setting volume: " + volume);
         audioMixer.SetFloat("Volume", Mathf.Log10(volume) * 20);
         currentVolume = volume;
         PlayerPrefs.SetFloat("VolumePreference", currentVolume);
@@ -62,7 +62,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetMusic(float musicV)
     {
-        print("setting volume: " + musicV);
+        //print("setting volume: " + musicV);
         audioMixer.SetFloat("mVolume", Mathf.Log10(musicV) * 20);
         currentMusic = musicV;
         PlayerPrefs.SetFloat("MusicPreference", currentMusic);
@@ -70,7 +70,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetEffects(float effectsV)
     {
-        print("setting volume: " + effectsV);
+        //print("setting volume: " + effectsV);
         audioMixer.SetFloat("eVolume", Mathf.Log10(effectsV) * 20);
         currentEffects = effectsV;
         PlayerPrefs.SetFloat("EffectsPreference", currentEffects);
@@ -78,21 +78,21 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetQuatity(int qualityIndex)
     {
-        print("setting overall quality: " + qualityIndex);
+        //print("setting overall quality: " + qualityIndex);
         QualitySettings.SetQualityLevel(qualityIndex, true);
         PlayerPrefs.SetInt("QualitySettingPreference", qualityDropdown.value);
     }
 
     public void SetTextureQuality(int textureIndex)
     {
-        print("setting texture quality: " + textureIndex);
+        //print("setting texture quality: " + textureIndex);
         QualitySettings.masterTextureLimit = textureIndex;
         PlayerPrefs.SetInt("TextureQualityPreference", textureDropdown.value);
     }
 
     public void SetResolution(int resolutionIndex)
     {
-        print("setting resolution: " + resolutionIndex);
+        //print("setting resolution: " + resolutionIndex);
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
         Application.targetFrameRate = resolution.refreshRate;
@@ -102,7 +102,7 @@ public class SettingsMenu : MonoBehaviour
     //Needs to be tested in a build
     public void SetFullscreen(bool isFullscreen)
     {
-        print("setting fullscreen: " + isFullscreen);
+        //print("setting fullscreen: " + isFullscreen);
         Screen.fullScreen = isFullscreen;
         PlayerPrefs.SetInt("FullscreenPreference", Convert.ToInt32(Screen.fullScreen));
     }
@@ -128,7 +128,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void LoadSettings(int currentResolutionIndex)
     {
-        print("loading settings: " + currentResolutionIndex);
+        //print("loading settings: " + currentResolutionIndex);
 
         if (PlayerPrefs.HasKey("QualitySettingPreference"))
             qualityDropdown.value = PlayerPrefs.GetInt("QualitySettingPreference");
@@ -147,7 +147,7 @@ public class SettingsMenu : MonoBehaviour
 
         if (PlayerPrefs.HasKey("FullscreenPreference"))
         {
-            print("Fullscren preference: " + Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenPreference")));
+            //print("Fullscren preference: " + Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenPreference")));
             Screen.fullScreen = Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenPreference"));
         }
 
