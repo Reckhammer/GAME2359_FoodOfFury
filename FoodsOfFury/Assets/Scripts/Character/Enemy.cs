@@ -207,7 +207,7 @@ public class Enemy : MonoBehaviour
                     }
                     break;
                 case EnemyType.Range:
-                    GameObject projectileInst = Instantiate( projectile, attackPoint.position, attackPoint.rotation ); //Create the projectile
+                    GameObject projectileInst = Instantiate( projectile, attackPoint.position, Quaternion.LookRotation((player.position - transform.position).normalized, Vector3.up) ); //Create the projectile
                     Rigidbody projectileRB = projectileInst.GetComponent<Rigidbody>(); //Get a reference to its rigidbody
 
                     //AudioManager.Instance.playRandom(transform.position, "Fry_Attack_01");
@@ -252,7 +252,9 @@ public class Enemy : MonoBehaviour
             if ( player != null && Vector3.Distance( transform.position, player.position ) < attackRange )
             {
                 agent.speed = 0;
-                transform.LookAt( player ); //Rotate the enemy to face the player
+                Vector3 dir = player.position;
+                dir.y = transform.position.y;
+                transform.LookAt( dir ); //Rotate the enemy to face the player
                 attack();
             }
             //Aggro behavior
