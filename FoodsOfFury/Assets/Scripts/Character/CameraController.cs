@@ -42,6 +42,12 @@ public class CameraController : MonoBehaviour
         {
             gameObject.AddComponent<CapsuleCollider>().isTrigger = true;
         }
+
+        // get eular loacl angles from transform (reverse operation of rotation to get starting rotation)
+        mouseX = transform.localEulerAngles.y;
+        mouseY = (transform.localEulerAngles.x < 180) ? -transform.localEulerAngles.x : -(transform.localEulerAngles.x - 360); // get negative eular angles too
+        //print("transform.localEulerAngles.x: " + transform.localEulerAngles.x);
+        //print("eular fixed mouseY: " + mouseY);
     }
 
     void Update()
@@ -54,6 +60,8 @@ public class CameraController : MonoBehaviour
         // get and clamp mouse pos
         mouseY += Input.GetAxis("Mouse Y");
         mouseX += Input.GetAxis("Mouse X");
+        print("Mouse X: " + mouseX);
+        print("Mouse Y: " + mouseY);
         mouseY = Mathf.Clamp(mouseY, -bottomLimit, -topLimit);
 
         // get and clamp wanted camera distance
