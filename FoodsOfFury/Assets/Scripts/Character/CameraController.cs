@@ -42,6 +42,12 @@ public class CameraController : MonoBehaviour
         {
             gameObject.AddComponent<CapsuleCollider>().isTrigger = true;
         }
+
+        // get eular loacl angles from transform (reverse operation of rotation to get starting rotation)
+        mouseX = transform.localEulerAngles.y;
+        mouseY = (transform.localEulerAngles.x < 180) ? -transform.localEulerAngles.x : -(transform.localEulerAngles.x - 360); // get negative eular angles too
+        //print("transform.localEulerAngles.x: " + transform.localEulerAngles.x);
+        //print("eular fixed mouseY: " + mouseY);
     }
 
     void Update()
