@@ -10,21 +10,21 @@ public class LoadScenes : MonoBehaviour
     {
         AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
 
-        SceneManager.LoadScene("FreezerLevel");
+        SceneManager.LoadScene("Cutscene_Freezer");
     }
 
     public void KitchenScene()
     {
         AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
 
-        SceneManager.LoadScene("KitchenLevel_1");
+        SceneManager.LoadScene("Cutscene_Kitchen");
     }
 
     public void DiningScene()
     {
         AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
 
-        SceneManager.LoadScene("DiningRoomLevel");
+        SceneManager.LoadScene("Cutscene_DiningRoomFlyover");
     }
 
     public void LevelSelect()

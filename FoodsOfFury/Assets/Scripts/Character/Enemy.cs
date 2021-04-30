@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
     public  GameObject[]    loot;                           //Items that the enemy can drop when killed
     public  int[]           dropChance;                     //Array of integers that describe the chance of the item in the same index of the loot array. Chance is 1/dropChance[ind]
     public  bool            hasKey      = false;            //Boolean indicating if the enemy has a key for ObjectiveType.Rescues
+    public  GameObject      keyDrop;                        //Key Object that they would drop
     public  GameObject      hitParticle;                    //Particle System effect to make appear when hit
 
     private bool        isDead = false;             //Boolean to indicate if the enemy is alive and active
@@ -136,11 +137,13 @@ public class Enemy : MonoBehaviour
     private void HealthUpdated( float amount )
     {
         print("Enemy health updated " + amount + " " + oldHealth);
-        if ( amount == 0 ) // // player died
+        if ( amount == 0 ) // enemy died
         {
             onDeath();
+            render.material.SetColor("_BaseColor", Color.red);
+            StartCoroutine(RendererTimer());
         }
-        else if ( amount < oldHealth ) // player damaged
+        else if ( amount < oldHealth ) // enemy damaged
         {
             print("Enemy was damaged!");
             //play hurt sounds
@@ -205,7 +208,7 @@ public class Enemy : MonoBehaviour
                     }
                     break;
                 case EnemyType.Range:
-                    GameObject projectileInst = Instantiate( projectile, attackPoint.position, attackPoint.rotation ); //Create the projectile
+                    GameObject projectileInst = Instantiate( projectile, attackPoint.position, Quaternion.LookRotation((player.position - transform.position).normalized, Vector3.up) ); //Create the projectile
                     Rigidbody projectileRB = projectileInst.GetComponent<Rigidbody>(); //Get a reference to its rigidbody
 
                     //AudioManager.Instance.playRandom(transform.position, "Fry_Attack_01");
@@ -250,7 +253,9 @@ public class Enemy : MonoBehaviour
             if ( player != null && Vector3.Distance( transform.position, player.position ) < attackRange )
             {
                 agent.speed = 0;
-                transform.LookAt( player ); //Rotate the enemy to face the player
+                Vector3 dir = player.position;
+                dir.y = transform.position.y;
+                transform.LookAt( dir ); //Rotate the enemy to face the player
                 attack();
             }
             //Aggro behavior
@@ -273,7 +278,9 @@ public class Enemy : MonoBehaviour
 
                 if ( chance == 1 )
                 {
-                    Instantiate( loot[ind], transform.position, transform.rotation ); //Create the obj at the enemy's location
+                    Vector3 itemPos = transform.position;
+                    itemPos.y = itemPos.y + 1f;
+                    Instantiate( loot[ind], itemPos, transform.rotation ); //Create the obj at the enemy's location
                 }
             }
         }
@@ -287,16 +294,18 @@ public class Enemy : MonoBehaviour
             GetComponent<Collider>().enabled = false; //Turn off their collider
             dropLoot();
 
-            if (animator != null)
+            if ( animator != null )
             {
-                animator.SetBool("IsDead", true); //Play the animation
+                animator.SetBool( "IsDead", true ); //Play the animation
             }
 
             //if it has a key
             //      increment player's key count
             if ( hasKey )
             {
-                player.gameObject.GetComponentInParent<Inventory>().addKey();
+                Vector3 itemPos = transform.position;
+                itemPos.y = itemPos.y + 1f;
+                Instantiate( keyDrop, itemPos, transform.rotation );
             }
 
             StartCoroutine( DelayedDestruction(5) ); //Wait 5 secs to destroy the enemy

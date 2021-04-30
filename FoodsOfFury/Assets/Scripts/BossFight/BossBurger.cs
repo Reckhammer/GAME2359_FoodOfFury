@@ -6,13 +6,14 @@ public class BossBurger : MonoBehaviour
 {
     public static BossBurger Instance { get; private set; }
 
-    public WaveSpawner waveOneSpawner;      // reference to wave one spawner
-    public WaveSpawner waveTwoSpawner;      // reference to wave two spawner
-    public WaveSpawner waveThreeSpawner;    // reference to wave three spawner
+    public WaveSpawner waveOneSpawner;      // wave one enemy spawner
+    public WaveSpawner waveTwoSpawner;      // wave two enemy spawner
+    public WaveSpawner waveThreeSpawner;    // wave three enemy spawner
+    public Spawner acidRainSpawner;         // acid rain spawner
+    public ObjectEnabler hazardEnabler;     // hazard enabler
 
-    private int waveOneCount    = 0;    // amount of enemies in wave one spawner
-    private int waveTwoCount    = 0;    // amount of enemies in wave two spawner
-    private int waveThreeCount  = 0;    // amount of enemies in wave three spawner
+    private int[] waveCounts = { 0, 0, 0 }; // wave enemy amount array
+    private int currentWave = 0;            // curent wave index
 
     private void Awake()
     {
@@ -26,7 +27,7 @@ public class BossBurger : MonoBehaviour
     {
         if (waveOneSpawner != null)
         {
-            waveOneCount = waveOneSpawner.waveEnemies.Length;
+            waveCounts[0] = waveOneSpawner.waveEnemies.Length;
            // print("wave one count: " + waveOneCount);
         }
         else
@@ -36,7 +37,7 @@ public class BossBurger : MonoBehaviour
 
         if (waveTwoSpawner != null)
         {
-            waveTwoCount = waveTwoSpawner.waveEnemies.Length;
+            waveCounts[1] = waveTwoSpawner.waveEnemies.Length;
             //print("wave two count: " + waveTwoCount);
         }
         else
@@ -46,17 +47,73 @@ public class BossBurger : MonoBehaviour
 
         if (waveThreeSpawner != null)
         {
-            waveThreeCount = waveThreeSpawner.waveEnemies.Length;
+            waveCounts[2] = waveThreeSpawner.waveEnemies.Length;
             //print("wave three count: " + waveThreeCount);
         }
         else
         {
             print("wave three spawner is not linked!");
         }
+
+        if (acidRainSpawner == null)
+        {
+            print("acid rain spawner is not linked!");
+        }
+
+        if (hazardEnabler == null)
+        {
+            print("hazard enabler is not linked!");
+        }
+
+        doWaveOne();
+    }
+
+    private void doWaveOne()
+    {
+        waveOneSpawner.spawnWave();
+    }
+
+    private void doWaveTwo()
+    {
+        waveTwoSpawner.spawnWave();
+        acidRainSpawner.spawn();
+    }
+
+    private void doWaveThree()
+    {
+        waveThreeSpawner.spawnWave();
+        hazardEnabler.enableObjects();
     }
 
     public void waveEnemyDeath(WaveNumber num)
     {
-        print("wave " + num + " enemy died");
+        waveCounts[(int)num]--;
+
+        if (waveCounts[(int)num] == 0)
+        {
+            currentWave++;
+
+            switch (currentWave) // just in case we ever add more waves
+            {
+                case 1:
+                    print("wave two start");
+                    doWaveTwo();
+                    break;
+                case 2:
+                    print("wave three start");
+                    doWaveThree();
+                    break;
+                default:
+                    acidRainSpawner.stop();
+                    hazardEnabler.destroyObjects();
+                    doDeath();
+                    break;
+            }
+        }
+    }
+
+    private void doDeath()
+    {
+        print("king burger is defeated");
     }
 }
