@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
     public  GameObject[]    loot;                           //Items that the enemy can drop when killed
     public  int[]           dropChance;                     //Array of integers that describe the chance of the item in the same index of the loot array. Chance is 1/dropChance[ind]
     public  bool            hasKey      = false;            //Boolean indicating if the enemy has a key for ObjectiveType.Rescues
+    public  GameObject      keyDrop;                        //Key Object that they would drop
     public  GameObject      hitParticle;                    //Particle System effect to make appear when hit
 
     private bool        isDead = false;             //Boolean to indicate if the enemy is alive and active
@@ -277,7 +278,9 @@ public class Enemy : MonoBehaviour
 
                 if ( chance == 1 )
                 {
-                    Instantiate( loot[ind], transform.position, transform.rotation ); //Create the obj at the enemy's location
+                    Vector3 itemPos = transform.position;
+                    itemPos.y = itemPos.y + 1f;
+                    Instantiate( loot[ind], itemPos, transform.rotation ); //Create the obj at the enemy's location
                 }
             }
         }
@@ -291,16 +294,18 @@ public class Enemy : MonoBehaviour
             GetComponent<Collider>().enabled = false; //Turn off their collider
             dropLoot();
 
-            if (animator != null)
+            if ( animator != null )
             {
-                animator.SetBool("IsDead", true); //Play the animation
+                animator.SetBool( "IsDead", true ); //Play the animation
             }
 
             //if it has a key
             //      increment player's key count
             if ( hasKey )
             {
-                player.gameObject.GetComponentInParent<Inventory>().addKey();
+                Vector3 itemPos = transform.position;
+                itemPos.y = itemPos.y + 1f;
+                Instantiate( keyDrop, itemPos, transform.rotation );
             }
 
             StartCoroutine( DelayedDestruction(5) ); //Wait 5 secs to destroy the enemy
