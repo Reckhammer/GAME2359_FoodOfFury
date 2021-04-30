@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3005119487648897710}
   - component: {fileID: 3005119487648897717}
   - component: {fileID: 184251641}
+  - component: {fileID: 4944949714401236553}
   m_Layer: 10
   m_Name: Health_Pickup
   m_TagString: Untagged
@@ -95,6 +96,25 @@ CapsuleCollider:
   m_Height: 2.46106
   m_Direction: 1
   m_Center: {x: 0, y: -0.11526483, z: 0}
+--- !u!95 &4944949714401236553
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3005119487648897704}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 239c7f9ef411e3c40937d3c0fb8425e0, type: 3}
+  m_Controller: {fileID: 9100000, guid: ae9ac9db2dce1b442a421108ff51eb80, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1832266883
 PrefabInstance:
   m_ObjectHideFlags: 0
