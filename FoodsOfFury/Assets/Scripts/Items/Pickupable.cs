@@ -27,6 +27,13 @@ public class Pickupable : MonoBehaviour
                 if (type == ItemType.Consumable)
                 {
                     AudioManager.Instance.playRandom(transform.position, "Pickup_Health_1", "Pickup_Health_2", "Pickup_Health_3");
+
+                    if  ( player.GetComponentInParent<Health>().add( GetComponent<Consumable>().healthAmount ) )
+                    {
+                        ////Debug.Log("Auto heal");
+                        Destroy( gameObject );
+                        return;
+                    }
                 }
                 else
                 {

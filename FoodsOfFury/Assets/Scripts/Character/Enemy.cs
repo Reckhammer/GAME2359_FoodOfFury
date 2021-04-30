@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         oldHealth = GetComponent<Health>().amount;
-        print("oldHealth " + oldHealth);
+        ////print("oldHealth " + oldHealth);
         ogColor = render.material.color;
 
         //render = GetComponentInChildren<MeshRenderer>();
@@ -136,7 +136,7 @@ public class Enemy : MonoBehaviour
     // Does health reactions
     private void HealthUpdated( float amount )
     {
-        print("Enemy health updated " + amount + " " + oldHealth);
+        ////print("Enemy health updated " + amount + " " + oldHealth);
         if ( amount == 0 ) // enemy died
         {
             onDeath();
@@ -145,7 +145,7 @@ public class Enemy : MonoBehaviour
         }
         else if ( amount < oldHealth ) // enemy damaged
         {
-            print("Enemy was damaged!");
+            ////print("Enemy was damaged!");
             //play hurt sounds
             render.material.SetColor("_BaseColor", Color.red);
             Vector3 particlePos = transform.position;
@@ -198,9 +198,9 @@ public class Enemy : MonoBehaviour
             switch( attackType )
             {
                 case EnemyType.Melee:
-                    //Debug.Log( "Enemy Hit player" );
+                    ////Debug.Log( "Enemy Hit player" );
                     //Insert damaging code here
-                    print("attacking");
+                    ////print("attacking");
                     if ( !meleeAttackAnim.isPlaying )
                     {
                         meleeAttackAnim.Play();
@@ -247,7 +247,7 @@ public class Enemy : MonoBehaviour
                 }
             }
 
-            //print( "distance: " + Vector3.Distance( transform.position, player.position ) );
+            //////print( "distance: " + Vector3.Distance( transform.position, player.position ) );
             //Attack behavior
             //Check if the player is w/in attackRange
             if ( player != null && Vector3.Distance( transform.position, player.position ) < attackRange )

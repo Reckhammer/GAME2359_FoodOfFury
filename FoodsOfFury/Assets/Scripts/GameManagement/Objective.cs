@@ -18,7 +18,7 @@ public class Objective : MonoBehaviour
     public string           message;            //Text message telling the player what to do
     public ObjectiveType    objectiveType;      //The type of objective of THIS obj
 
-    private bool isDone = false;             //Boolean if the objective is done
+    private bool isDone = false;                //Boolean if the objective is done
 
     private LevelManager lvlManager;            //Reference to the levelManager obj. for the level
 
@@ -32,12 +32,6 @@ public class Objective : MonoBehaviour
         {
             message = "Objective message not initialized";
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void OnTriggerEnter( Collider other )
@@ -61,12 +55,13 @@ public class Objective : MonoBehaviour
             //      Objective is complete
             Inventory player = other.gameObject.GetComponent<Inventory>();
 
-            if ( Input.GetKeyDown(KeyCode.F) && player.keyCount > 0 )
+            if ( Input.GetKeyDown( KeyCode.Mouse0 ) && player.keyCount > 0 )
             {
                 lvlManager.setCompleted( this );
                 GetComponent<MeshRenderer>().enabled = false;
+                GetComponent<Collider>().enabled = false;
 
-                print("saved!!!");
+                ////print("saved!!!");
                 player.addKey( -1 );
                 UIManager.instance.updateKeyUI();
 
@@ -78,9 +73,17 @@ public class Objective : MonoBehaviour
                 {
                     transform.parent.GetComponentInChildren<Animator>().SetBool("IsRescued", true);
                 }
+
+                StartCoroutine( DelayedDestruction( 5 ) );
                 isDone = true;
             }
 
         }
+    }
+
+    private IEnumerator DelayedDestruction( float waiter )
+    {
+        yield return new WaitForSeconds(waiter);
+        gameObject.SetActive( false );
     }
 }
