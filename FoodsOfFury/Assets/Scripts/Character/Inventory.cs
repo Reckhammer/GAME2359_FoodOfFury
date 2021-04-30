@@ -131,6 +131,11 @@ public class Inventory : MonoBehaviour
                 m.playOnAwake = false;
             }
 
+            if ( copy.GetComponent<Animator>() != null )
+            {
+                copy.GetComponent<Animator>().enabled = false;
+            }
+
             copy.GetComponent<Pickupable>().enabled = false;        // turn off 'Pickupable'
             Destroy(copy.GetComponent<Rigidbody>());                // remove rigibody
             copy.GetComponent<Collider>().enabled = false;          // turn off collider (non trigger)
@@ -185,6 +190,10 @@ public class Inventory : MonoBehaviour
             {
                 ParticleSystem.MainModule m = reference.GetComponent<Pickupable>().particles.main;
                 m.playOnAwake = true;
+            }
+            if ( reference.GetComponent<Animator>() != null )
+            {
+                reference.GetComponent<Animator>().enabled = true;
             }
 
             drop(reference, type);  // drop new copy
