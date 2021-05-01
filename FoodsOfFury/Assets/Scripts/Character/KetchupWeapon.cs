@@ -66,16 +66,16 @@ public class KetchupWeapon : MonoBehaviour
     {
         float distance = reticleMaxDistance;
 
-        Debug.DrawLine(spawnPoint.position, spawnPoint.position + (transform.forward * reticleMaxDistance), Color.green);
+        Debug.DrawLine(spawnPoint.position, spawnPoint.position + (Camera.main.transform.forward * reticleMaxDistance), Color.green);
 
         RaycastHit hit;
-        if (Physics.Raycast(spawnPoint.position, transform.forward, out hit, reticleMaxDistance, reticleCollidesWith, QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(spawnPoint.position, Camera.main.transform.forward, out hit, reticleMaxDistance, reticleCollidesWith, QueryTriggerInteraction.Ignore))
         {
             distance = hit.distance;
         }
 
-        reticle.transform.position = spawnPoint.position + (transform.forward * distance);
-        reticle.transform.rotation = transform.rotation;
+        reticle.transform.position = spawnPoint.position + (Camera.main.transform.forward * distance);
+        reticle.transform.rotation = Camera.main.transform.rotation;
     }
     
     // does attack
@@ -125,7 +125,7 @@ public class KetchupWeapon : MonoBehaviour
         {
             case "bulletSpawn": // only one event for now
                 AudioManager.Instance.playRandom(transform.position, "Ketchup_Fire_01"); // play audio clip, added sound -Brian 
-                Instantiate(projectile, spawnPoint.position, transform.rotation);
+                Instantiate(projectile, spawnPoint.position, Camera.main.transform.rotation);
                 bulletAmount--;
                 break;
         }
