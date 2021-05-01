@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
     public List<Objective> objectiveList = new List<Objective>();    //list of all of the objectives for the level
 
     private Health  playerHealth;       //the player's heath
+    private GameObject player;          //Reference to the player
 
     public Text     objective;          //The text for the objective UI
     public Image    endGameMenu;        //UI elements for the level completion
@@ -30,6 +31,7 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 1;     //this resets the timescale after switching scenes
 
         playerHealth = GameObject.FindGameObjectWithTag( "Player" ).GetComponentInParent<Health>(); //get the reference to the player's health componet
+        player = GameObject.Find("Player_PM2");
 
         currentRespawnPoint = GameObject.Find("StartingPoint").GetComponent<Transform>();
     }
@@ -45,6 +47,12 @@ public class LevelManager : MonoBehaviour
             Debug.Log( "All objectives done. Level is completed" );
             winMenu.gameObject.SetActive( true );
             setEndMessage(); //Activate the UI
+        }
+
+        if(Input.GetKeyDown("o"))
+        {
+            player.transform.position = currentRespawnPoint.position;
+            //playerHealth.amount = 5f;
         }
 
         //If the player died
