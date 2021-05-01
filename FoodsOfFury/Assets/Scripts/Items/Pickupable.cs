@@ -22,18 +22,20 @@ public class Pickupable : MonoBehaviour
     {
         if (canPickUp)
         {
+            if (type == ItemType.Consumable)
+            {
+                if (player.GetComponentInParent<Health>().add(GetComponent<Consumable>().healthAmount))
+                {
+                    Destroy(gameObject);
+                    return;
+                }
+            }
+
             if (player.GetComponentInParent<Inventory>().add(gameObject, type))
             {
                 if (type == ItemType.Consumable)
                 {
                     AudioManager.Instance.playRandom(transform.position, "Pickup_Health_1", "Pickup_Health_2", "Pickup_Health_3");
-
-                    if  ( player.GetComponentInParent<Health>().add( GetComponent<Consumable>().healthAmount ) )
-                    {
-                        ////Debug.Log("Auto heal");
-                        Destroy( gameObject );
-                        return;
-                    }
                 }
                 else
                 {
