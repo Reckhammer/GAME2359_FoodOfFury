@@ -14,11 +14,24 @@ public class KetchupWeapon : MonoBehaviour
     public float attackDelay        = 0.5f; // attack delay time
     public int bulletAmount         = 10;   // amount of bullets
 
+    private GameObject player;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Attack();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            player.GetComponent<PlayerMovementTwo>().setAiming(true);
+            CameraTarget.instance.offsetTo(new Vector3(2, 2, 0), 0.25f); // offset camera target
+        }
+        else if(Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            player.GetComponent<PlayerMovementTwo>().setAiming(false);
+            CameraTarget.instance.returnDefault(0.25f); // return camera target to default
         }
     }
     
@@ -27,37 +40,38 @@ public class KetchupWeapon : MonoBehaviour
     {
         if (bulletAmount != 0)
         {
-            AudioManager.Instance.playRandom(transform.position, "Ketchup_Fire_01");            // play audio clip, added sound -Brian 
-            transform.parent.GetComponentInParent<Animator>().SetTrigger("KetchupAttack_01");   // play visual attack animation
-            GetComponentInParent<PlayerManager>().addSwitchDelay(attackDelay + 0.1f);
+            player.GetComponent<Animator>().SetTrigger("KetchupAttack_01");   // play visual attack animation
+            player.GetComponent<PlayerManager>().addSwitchDelay(attackDelay + 0.1f);
             //GetComponentInParent<PlayerMovementTwo>().stopInput(attackDelay + 0.1f);            // stop player for a bit
 
             if (bulletAmount == 0)
             {
-                GetComponentInParent<PlayerManager>().remove(ItemType.Weapon, false);
+                player.GetComponent<PlayerManager>().remove(ItemType.Weapon, false);
             }
         }
     }
 
     private void OnEnable()
     {
-        GetComponentInParent<PlayerManager>().KetchupGunEvent += eventHandle;
-        //GetComponentInParent<PlayerMovementTwo>().setAiming(true);              // set player to aiming
-        //CameraTarget.instance.offsetTo(new Vector3(5, 5, 0), 1.0f);             // offset camera target
+        player = transform.parent.gameObject;
+        player.GetComponent<PlayerManager>().KetchupGunEvent += eventHandle;
         AudioManager.Instance.playRandom(transform.position, "Ketchup_Reload_01"); //Sound for switch to Ketchup Weapon -Brian
-        GetComponentInParent<PlayerMovementTwo>().setOverallAnim("KetchupAnim");    // turn off basic animations
-        GetComponentInParent<PlayerMovementTwo>().setIdleAnim("KetchupIdle");       // set idle animation
-        GetComponentInParent<PlayerMovementTwo>().setRunAnim("KetchupRun");         // set run animation
-        GetComponentInParent<PlayerMovementTwo>().setJumpAnim("KetchupJump");       // set jump animation
+        player.GetComponent<PlayerMovementTwo>().setOverallAnim("KetchupAnim");    // turn off basic animations
+        player.GetComponent<PlayerMovementTwo>().setIdleAnim("KetchupIdle");       // set idle animation
+        player.GetComponent<PlayerMovementTwo>().setRunAnim("KetchupRun");         // set run animation
+        player.GetComponent<PlayerMovementTwo>().setJumpAnim("KetchupJump");       // set jump animation
     }
 
     private void OnDisable()
     {
-        GetComponentInParent<PlayerManager>().KetchupGunEvent -= eventHandle;
-        //CameraTarget.instance.returnDefault(1.0f);                      // return camera target to default
-        //GetComponentInParent<PlayerMovementTwo>()?.setAiming(false);    // turn off aiming for player
-        transform.parent.GetComponentInParent<Animator>()?.SetTrigger("Restart");
-        GetComponentInParent<PlayerMovementTwo>()?.setBasicAnim();  // revert to basic animations
+        if (player.GetComponent<PlayerManager>() != null)
+        {
+            player.GetComponent<PlayerManager>().KetchupGunEvent -= eventHandle;
+        }
+        CameraTarget.instance.returnDefault(0.25f);                 // return camera target to default
+        player.GetComponent<PlayerMovementTwo>()?.setAiming(false); // turn off aiming for player
+        player.GetComponent<Animator>()?.SetTrigger("Restart");     // restart animations
+        player.GetComponent<PlayerMovementTwo>()?.setBasicAnim();   // revert to basic animations
     }
 
     // respond to events
@@ -66,6 +80,7 @@ public class KetchupWeapon : MonoBehaviour
         switch (message)
         {
             case "bulletSpawn": // only one event for now
+                AudioManager.Instance.playRandom(transform.position, "Ketchup_Fire_01"); // play audio clip, added sound -Brian 
                 Instantiate(projectile, spawnPoint.position, transform.rotation);
                 bulletAmount--;
                 break;
