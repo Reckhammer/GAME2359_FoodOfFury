@@ -9,14 +9,32 @@ using UnityEngine;
 //----------------------------------------------------------------------------------------
 public class KetchupWeapon : MonoBehaviour
 {
-    public GameObject projectile;           // shot projectile
-    public Transform spawnPoint;            // projectile spawn point
-    public float attackDelay        = 0.5f; // attack delay time
-    public int bulletAmount         = 10;   // amount of bullets
+    public GameObject projectile;               // shot projectile
+    public Transform spawnPoint;                // projectile spawn point
+    public float attackDelay        = 0.5f;     // attack delay time
+    public int bulletAmount         = 10;       // amount of bullets
+    public GameObject reticle;                  // reticle to use
+    public float reticleMaxDistance = 10.0f;    // max distance for reticles
+    public LayerMask reticleCollidesWith;       // layers for reticles to collide with
 
     private GameObject player;
 
-    void Update()
+    private void Start()
+    {
+        if (reticle == null)
+        {
+            reticle = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            Destroy(reticle.GetComponent<Collider>());
+        }
+        else
+        {
+            reticle = Instantiate(reticle);
+        }
+
+        reticle.SetActive(false);
+    }
+
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -27,16 +45,41 @@ public class KetchupWeapon : MonoBehaviour
         {
             player.GetComponent<PlayerMovementTwo>().setAiming(true);
             CameraTarget.instance.offsetTo(new Vector3(2, 2, 0), 0.25f); // offset camera target
+            reticleCollision();
+            reticle.SetActive(true);
         }
         else if(Input.GetKeyUp(KeyCode.Mouse1))
         {
             player.GetComponent<PlayerMovementTwo>().setAiming(false);
             CameraTarget.instance.returnDefault(0.25f); // return camera target to default
+            reticle.SetActive(false);
         }
+
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
+            reticleCollision();
+        }
+    }
+
+    // checks for reticle collisions
+    private void reticleCollision()
+    {
+        float distance = reticleMaxDistance;
+
+        Debug.DrawLine(spawnPoint.position, spawnPoint.position + (transform.forward * reticleMaxDistance), Color.green);
+
+        RaycastHit hit;
+        if (Physics.Raycast(spawnPoint.position, transform.forward, out hit, reticleMaxDistance, reticleCollidesWith, QueryTriggerInteraction.Ignore))
+        {
+            distance = hit.distance;
+        }
+
+        reticle.transform.position = spawnPoint.position + (transform.forward * distance);
+        reticle.transform.rotation = transform.rotation;
     }
     
     // does attack
-    void Attack()
+    private void Attack()
     {
         if (bulletAmount != 0)
         {
@@ -68,6 +111,7 @@ public class KetchupWeapon : MonoBehaviour
         {
             player.GetComponent<PlayerManager>().KetchupGunEvent -= eventHandle;
         }
+        reticle.SetActive(false);
         CameraTarget.instance.returnDefault(0.25f);                 // return camera target to default
         player.GetComponent<PlayerMovementTwo>()?.setAiming(false); // turn off aiming for player
         player.GetComponent<Animator>()?.SetTrigger("Restart");     // restart animations
