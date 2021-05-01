@@ -29,6 +29,8 @@ public class PlayerManager : MonoBehaviour
     private Coroutine switchTimer       = null; // switchTimer coroutine reference
     private bool canSwitch              = true; // if able to switch weapons
 
+    public delegate void KetchupGun(string message);
+    public event KetchupGun KetchupGunEvent;
 
     private void Start()
     {
@@ -400,5 +402,10 @@ public class PlayerManager : MonoBehaviour
         // do death animation?
         // send message to GameController
         //Destroy(gameObject);
+    }
+
+    public void bulletSpawn()
+    {
+        KetchupGunEvent("bulletSpawn");
     }
 }

@@ -13,76 +13,35 @@ public class KetchupWeapon : MonoBehaviour
     public Transform spawnPoint;            // projectile spawn point
     public float attackDelay        = 0.5f; // attack delay time
     public int bulletAmount         = 10;   // amount of bullets
-    public float bulletSpawnOffset  = 0.0f; // time offset to spawn in a bullet
-
-    private Coroutine cTimer;               // coroutine reference
-    private bool canAttack      = true;     // for attack check
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Attack();
         }
-
     }
     
     // does attack
     void Attack()
     {
-        if (canAttack && bulletAmount != 0 && GetComponentInParent<PlayerMovementTwo>().onGround())
+        if (bulletAmount != 0)
         {
-            AudioManager.Instance.playRandom(transform.position, "Ketchup_Fire_01");  // play audio clip, added sound -Brian 
-            GetComponentInParent<Animator>().SetTrigger("KetchupAttack_01");            // play visual attack animation
+            AudioManager.Instance.playRandom(transform.position, "Ketchup_Fire_01");            // play audio clip, added sound -Brian 
+            transform.parent.GetComponentInParent<Animator>().SetTrigger("KetchupAttack_01");   // play visual attack animation
             GetComponentInParent<PlayerManager>().addSwitchDelay(attackDelay + 0.1f);
-            GetComponentInParent<PlayerMovementTwo>().stopInput(attackDelay + 0.1f);    // stop player for a bit
-            //Instantiate(projectile, spawnPoint.position, transform.rotation);
-
-            bulletAmount--;
+            //GetComponentInParent<PlayerMovementTwo>().stopInput(attackDelay + 0.1f);            // stop player for a bit
 
             if (bulletAmount == 0)
             {
                 GetComponentInParent<PlayerManager>().remove(ItemType.Weapon, false);
             }
-
-            //GetComponentInParent<Animator>().SetTrigger("KetchupAttack"); // play visual attack animation
-
-            if (cTimer != null)
-            {
-                StopCoroutine(cTimer);
-                cTimer = StartCoroutine(attackTimer(attackDelay));
-            }
-            else
-            {
-                cTimer = StartCoroutine(attackTimer(attackDelay));
-            }
         }
-    }
-
-    // times attack
-    private IEnumerator attackTimer(float duration)
-    {
-        float passed = 0.0f;
-        canAttack = false;
-
-        bool shot = false;
-        while (passed < duration)
-        {
-            if (passed > bulletSpawnOffset && !shot)
-            {
-                Instantiate(projectile, spawnPoint.position, transform.rotation);
-                shot = true;
-            }
-
-            passed += Time.deltaTime;
-            yield return null;
-        }
-
-        canAttack = true;
     }
 
     private void OnEnable()
     {
+        GetComponentInParent<PlayerManager>().KetchupGunEvent += eventHandle;
         //GetComponentInParent<PlayerMovementTwo>().setAiming(true);              // set player to aiming
         //CameraTarget.instance.offsetTo(new Vector3(5, 5, 0), 1.0f);             // offset camera target
         AudioManager.Instance.playRandom(transform.position, "Ketchup_Reload_01"); //Sound for switch to Ketchup Weapon -Brian
@@ -94,15 +53,22 @@ public class KetchupWeapon : MonoBehaviour
 
     private void OnDisable()
     {
-        canAttack = true;
-
-        if (cTimer != null)
-        {
-            StopCoroutine(cTimer);
-        }
+        GetComponentInParent<PlayerManager>().KetchupGunEvent -= eventHandle;
         //CameraTarget.instance.returnDefault(1.0f);                      // return camera target to default
         //GetComponentInParent<PlayerMovementTwo>()?.setAiming(false);    // turn off aiming for player
-        GetComponentInParent<Animator>()?.SetTrigger("Restart");
+        transform.parent.GetComponentInParent<Animator>()?.SetTrigger("Restart");
         GetComponentInParent<PlayerMovementTwo>()?.setBasicAnim();  // revert to basic animations
+    }
+
+    // respond to events
+    public void eventHandle(string message)
+    {
+        switch (message)
+        {
+            case "bulletSpawn": // only one event for now
+                Instantiate(projectile, spawnPoint.position, transform.rotation);
+                bulletAmount--;
+                break;
+        }
     }
 }
