@@ -21,6 +21,7 @@ public class LevelManager : MonoBehaviour
     public Image    winMenu;            //Reference to the Win Menu UI
     public Image    loseMenu;           //Reference to the Lose Menu UI
     public float    waitTime = 2f;      //Wait time for the popup to come up in seconds
+    private Transform currentRespawnPoint; //The current point that the player will respawn at
     private bool    winSound = true;
     private bool    loseSound = true;
 
@@ -29,6 +30,8 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 1;     //this resets the timescale after switching scenes
 
         playerHealth = GameObject.FindGameObjectWithTag( "Player" ).GetComponentInParent<Health>(); //get the reference to the player's health componet
+
+        currentRespawnPoint = GameObject.Find("StartingPoint").GetComponent<Transform>();
     }
 
     void Update()
@@ -107,7 +110,11 @@ public class LevelManager : MonoBehaviour
         
     }
 
-
+    public void setRespawnPoint(Transform newPoint)
+    {
+        if (newPoint != null) //if the newPoint is not empty
+            currentRespawnPoint = newPoint; //set currentRespawnPoint to newPoint
+    }
 
     private IEnumerator DelayedMenu( float waiter )
     {
