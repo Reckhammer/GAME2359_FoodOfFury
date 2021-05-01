@@ -11,45 +11,13 @@ using UnityEngine;
 
 public class Projectiles : MonoBehaviour
 {
-
     public float speed = 20f;
-    public float delay = 3f;
-
-    float countdown;
-
+    public float destroyTime = 10.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        countdown = delay;
-
         GetComponent<Rigidbody>().velocity = transform.forward * speed;
-
+        Destroy(gameObject, destroyTime);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        /*
-        countdown -= Time.deltaTime;
-        if (countdown <= 0f)
-        {
-            Debug.Log("range");
-        }
-        */
-
-
-    }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.tag == "Enemy")
-    //    {
-    //        Debug.Log("Hit");
-    //        Destroy(gameObject);
-    //    }
-
-    //}
-
-
 }
