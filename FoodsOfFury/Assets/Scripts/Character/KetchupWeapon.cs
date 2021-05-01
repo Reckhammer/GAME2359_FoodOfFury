@@ -41,14 +41,14 @@ public class KetchupWeapon : MonoBehaviour
             Attack();
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKey(KeyCode.Mouse1) && (!player.GetComponent<PlayerMovementTwo>().isGliding && !reticle.activeSelf))
         {
             player.GetComponent<PlayerMovementTwo>().setAiming(true);
             CameraTarget.instance.offsetTo(new Vector3(2, 2, 0), 0.25f); // offset camera target
             reticleCollision();
             reticle.SetActive(true);
         }
-        else if(Input.GetKeyUp(KeyCode.Mouse1))
+        else if(Input.GetKeyUp(KeyCode.Mouse1) || (player.GetComponent<PlayerMovementTwo>().isGliding && reticle.activeSelf))
         {
             player.GetComponent<PlayerMovementTwo>().setAiming(false);
             CameraTarget.instance.returnDefault(0.25f); // return camera target to default
@@ -125,7 +125,14 @@ public class KetchupWeapon : MonoBehaviour
         {
             case "bulletSpawn": // only one event for now
                 AudioManager.Instance.playRandom(transform.position, "Ketchup_Fire_01"); // play audio clip, added sound -Brian 
-                Instantiate(projectile, spawnPoint.position, Camera.main.transform.rotation);
+                if (reticle.activeSelf)
+                {
+                    Instantiate(projectile, spawnPoint.position, Camera.main.transform.rotation);
+                }
+                else
+                {
+                    Instantiate(projectile, spawnPoint.position, transform.rotation);
+                }
                 bulletAmount--;
                 break;
         }
