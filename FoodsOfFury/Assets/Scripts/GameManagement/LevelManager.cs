@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
 {
     public List<Objective> objectiveList = new List<Objective>();    //list of all of the objectives for the level
 
+    private PlayerMovementTwo pM2;
     private Health  playerHealth;       //the player's heath
     private GameObject player;          //Reference to the player
 
@@ -52,7 +53,6 @@ public class LevelManager : MonoBehaviour
         if(Input.GetKeyDown("o"))
         {
             player.transform.position = currentRespawnPoint.position;
-            //playerHealth.amount = 5f;
         }
 
         //If the player died
