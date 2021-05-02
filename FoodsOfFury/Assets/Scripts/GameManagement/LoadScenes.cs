@@ -27,6 +27,13 @@ public class LoadScenes : MonoBehaviour
         SceneManager.LoadScene("Cutscene_DiningRoomFlyover");
     }
 
+    public void ThroneRoom()
+    {
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
+
+        SceneManager.LoadScene("ThroneRoom");
+    }
+
     public void LevelSelect()
     {
         AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
