@@ -19,7 +19,6 @@ public class Health : MonoBehaviour
     public event Update OnUpdate;               // event that sends a message when amount updates
 
     private bool isInvincible = false;          // invincibility boolean
-    //public GameObject hitParticle;
 
     private void Start()
     {
@@ -74,7 +73,6 @@ public class Health : MonoBehaviour
         else // set amount to difference
         {
             amount = difference;
-            //Instantiate(hitParticle, transform.position, transform.rotation);
         }
 
         if (time > 0.0f) // don't start timer if not needed

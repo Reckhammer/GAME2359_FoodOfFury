@@ -53,12 +53,18 @@ public class LevelManager : MonoBehaviour
         if(Input.GetKeyDown("o"))
         {
             player.transform.position = currentRespawnPoint.position;
+
             playerHealth.add(2);
+            //UIManager.instance.updateHealthBar(2);
+
             loseMenu.gameObject.SetActive(false);
             endGameMenu.gameObject.SetActive(false);
+
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             PauseMenu.gameIsPaused = false;
+            GetComponent<PlayerMovementTwo>().stopInput(0.0f, false, false);
+            //GetComponentInParent<PlayerMovementTwo>().setIdleAnim("OnionIdle");
 
             Time.timeScale = 1;
         }
