@@ -53,6 +53,14 @@ public class LevelManager : MonoBehaviour
         if(Input.GetKeyDown("o"))
         {
             player.transform.position = currentRespawnPoint.position;
+            playerHealth.add(2);
+            loseMenu.gameObject.SetActive(false);
+            endGameMenu.gameObject.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            PauseMenu.gameIsPaused = false;
+
+            Time.timeScale = 1;
         }
 
         //If the player died
