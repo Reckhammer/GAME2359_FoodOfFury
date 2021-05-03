@@ -41,7 +41,7 @@ public class MultiObjective : MonoBehaviour
             else if ( getDoneCount() > oldCount )
             {
                 objComponent.message = getMessage();
-
+                lvlManager.updateObjectiveText();
             }
         }
     }

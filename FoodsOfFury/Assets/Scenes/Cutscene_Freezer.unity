@@ -13363,7 +13363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectiveList:
   - {fileID: 360117328}
-  objective: {fileID: 0}
+  objectiveTxt: {fileID: 0}
   endGameMenu: {fileID: 0}
   winMenu: {fileID: 0}
   loseMenu: {fileID: 0}
@@ -25267,6 +25267,7 @@ GameObject:
   - component: {fileID: 1525308606}
   - component: {fileID: 1525308609}
   - component: {fileID: 1525308608}
+  - component: {fileID: 1525308610}
   m_Layer: 0
   m_Name: Timeline Base
   m_TagString: Untagged
@@ -25483,6 +25484,18 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1525308610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525308605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c113cadfd70bfdf43ad190301b0c473b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1527750572
 PrefabInstance:
   m_ObjectHideFlags: 0

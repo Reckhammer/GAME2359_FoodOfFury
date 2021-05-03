@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour
         objectiveTxt = GameObject.Find("Objective_Text").GetComponent<Text>();
 
         currentObjInd = 0;
-        objectiveTxt.text = objectiveList[currentObjInd].message;
+        updateObjectiveText();
 
         if ( objectiveList.Length > 1 )
         {
@@ -128,7 +128,7 @@ public class LevelManager : MonoBehaviour
                 objectiveList[currentObjInd - 1].gameObject.SetActive( false ); //disable completed obj
                 objectiveList[currentObjInd].gameObject.SetActive( true );      //enable current obj
 
-                objectiveTxt.text = objectiveList[currentObjInd].message;       //update objective UI
+                updateObjectiveText();
             }
         }
         else
@@ -146,6 +146,11 @@ public class LevelManager : MonoBehaviour
         StartCoroutine( DelayedMenu( waitTime ));
         
 
+    }
+
+    public void updateObjectiveText()
+    {
+        objectiveTxt.text = objectiveList[currentObjInd].message;       //update objective UI
     }
 
     public void winningSound()
