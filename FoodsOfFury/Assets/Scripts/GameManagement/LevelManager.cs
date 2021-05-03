@@ -37,6 +37,8 @@ public class LevelManager : MonoBehaviour
         playerHealth = GameObject.FindGameObjectWithTag( "Player" ).GetComponentInParent<Health>(); //get the reference to the player's health componet
         player = GameObject.Find("Player_PM2");
 
+        objectiveTxt = GameObject.Find("Objective_Text").GetComponent<Text>();
+
         currentObjInd = 0;
         objectiveTxt.text = objectiveList[currentObjInd].message;
 
