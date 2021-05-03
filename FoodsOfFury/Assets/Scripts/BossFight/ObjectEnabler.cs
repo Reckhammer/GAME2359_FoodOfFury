@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ObjectEnabler : MonoBehaviour
 {
-    public GameObject[] objects;        // objects to be enabled
-    public float enableDelayTime = 0.5f; // time delay between enabling objects
-    public GameObject enableParticle;   // particles when object is enabled
-    public bool randomizeOrder = false; // randomize the spawn order
+    public GameObject[] objects;            // objects to be enabled
+    public float enableDelayTime = 0.5f;    // time delay between enabling objects
+    public GameObject enableParticle;       // particles when object is enabled
+    public bool randomizeOrder = false;     // randomize the enable order
 
     private Coroutine routine;
 
@@ -38,7 +38,7 @@ public class ObjectEnabler : MonoBehaviour
         // spawn first without delay
         if (!firstDelayed)
         {
-            spawnObject(objects[current]);
+            enableObject(objects[current]);
             passed = enableDelayTime;    // set time to next interval
             current++;                  // set current to next index
         }
@@ -50,7 +50,7 @@ public class ObjectEnabler : MonoBehaviour
             // if next one is ready to spawn
             if (passed >= (current + 1) * enableDelayTime)
             {
-                spawnObject(objects[current]);
+                enableObject(objects[current]);
                 current++;
             }
             passed += Time.deltaTime;
@@ -58,8 +58,8 @@ public class ObjectEnabler : MonoBehaviour
         }
     }
 
-    // spawns an enemy on the navmesh
-    private void spawnObject(GameObject obj)
+    // enables an object
+    private void enableObject(GameObject obj)
     {
         obj.SetActive(true);
 
