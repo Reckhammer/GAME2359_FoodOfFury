@@ -101,7 +101,11 @@ MonoBehaviour:
   spawnPoint: {fileID: 9037508214367402777}
   attackDelay: 1
   bulletAmount: 1000
-  bulletSpawnOffset: 0.5
+  reticle: {fileID: 3468643758150182236, guid: 70d72c7a8be61f24a89d9efd7716fa3e, type: 3}
+  reticleMaxDistance: 50
+  reticleCollidesWith:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!136 &8892973958571932513
 CapsuleCollider:
   m_ObjectHideFlags: 0

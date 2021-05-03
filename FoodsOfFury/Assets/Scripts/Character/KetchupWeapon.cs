@@ -9,100 +9,132 @@ using UnityEngine;
 //----------------------------------------------------------------------------------------
 public class KetchupWeapon : MonoBehaviour
 {
-    public GameObject projectile;           // shot projectile
-    public Transform spawnPoint;            // projectile spawn point
-    public float attackDelay        = 0.5f; // attack delay time
-    public int bulletAmount         = 10;   // amount of bullets
-    public float bulletSpawnOffset  = 0.0f; // time offset to spawn in a bullet
+    public GameObject projectile;               // shot projectile
+    public Transform spawnPoint;                // projectile spawn point
+    public float attackDelay        = 0.5f;     // attack delay time
+    public int bulletAmount         = 10;       // amount of bullets
+    public GameObject reticle;                  // reticle to use
+    public float reticleMaxDistance = 10.0f;    // max distance for reticles
+    public LayerMask reticleCollidesWith;       // layers for reticles to collide with
 
-    private Coroutine cTimer;               // coroutine reference
-    private bool canAttack      = true;     // for attack check
+    private GameObject player;
 
-    void Update()
+    private void Start()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (reticle == null)
+        {
+            reticle = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            Destroy(reticle.GetComponent<Collider>());
+        }
+        else
+        {
+            reticle = Instantiate(reticle);
+        }
+
+        reticle.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Attack();
         }
 
+        if (Input.GetKey(KeyCode.Mouse1) && (!player.GetComponent<PlayerMovementTwo>().isGliding && !reticle.activeSelf))
+        {
+            player.GetComponent<PlayerMovementTwo>().setAiming(true);
+            CameraTarget.instance.offsetTo(new Vector3(2, 2, 0), 0.25f); // offset camera target
+            reticleCollision();
+            reticle.SetActive(true);
+        }
+        else if(Input.GetKeyUp(KeyCode.Mouse1) || (player.GetComponent<PlayerMovementTwo>().isGliding && reticle.activeSelf))
+        {
+            player.GetComponent<PlayerMovementTwo>().setAiming(false);
+            CameraTarget.instance.returnDefault(0.25f); // return camera target to default
+            reticle.SetActive(false);
+        }
+
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
+            reticleCollision();
+        }
+    }
+
+    // checks for reticle collisions
+    private void reticleCollision()
+    {
+        float distance = reticleMaxDistance;
+
+        Debug.DrawLine(spawnPoint.position, spawnPoint.position + (Camera.main.transform.forward * reticleMaxDistance), Color.green);
+
+        RaycastHit hit;
+        if (Physics.Raycast(spawnPoint.position, Camera.main.transform.forward, out hit, reticleMaxDistance, reticleCollidesWith, QueryTriggerInteraction.Ignore))
+        {
+            distance = hit.distance;
+        }
+
+        reticle.transform.position = spawnPoint.position + (Camera.main.transform.forward * distance);
+        reticle.transform.rotation = Camera.main.transform.rotation;
     }
     
     // does attack
-    void Attack()
+    private void Attack()
     {
-        if (canAttack && bulletAmount != 0 && GetComponentInParent<PlayerMovementTwo>().onGround())
+        if (bulletAmount != 0)
         {
-            AudioManager.Instance.playRandom(transform.position, "Ketchup_Fire_01");  // play audio clip, added sound -Brian 
-            GetComponentInParent<Animator>().SetTrigger("KetchupAttack_01");            // play visual attack animation
-            GetComponentInParent<PlayerManager>().addSwitchDelay(attackDelay + 0.1f);
-            GetComponentInParent<PlayerMovementTwo>().stopInput(attackDelay + 0.1f);    // stop player for a bit
-            //Instantiate(projectile, spawnPoint.position, transform.rotation);
-
-            bulletAmount--;
+            player.GetComponent<Animator>().SetTrigger("KetchupAttack_01");   // play visual attack animation
+            player.GetComponent<PlayerManager>().addSwitchDelay(attackDelay + 0.1f);
+            //GetComponentInParent<PlayerMovementTwo>().stopInput(attackDelay + 0.1f);            // stop player for a bit
 
             if (bulletAmount == 0)
             {
-                GetComponentInParent<PlayerManager>().remove(ItemType.Weapon, false);
-            }
-
-            //GetComponentInParent<Animator>().SetTrigger("KetchupAttack"); // play visual attack animation
-
-            if (cTimer != null)
-            {
-                StopCoroutine(cTimer);
-                cTimer = StartCoroutine(attackTimer(attackDelay));
-            }
-            else
-            {
-                cTimer = StartCoroutine(attackTimer(attackDelay));
+                player.GetComponent<PlayerManager>().remove(ItemType.Weapon, false);
             }
         }
-    }
-
-    // times attack
-    private IEnumerator attackTimer(float duration)
-    {
-        float passed = 0.0f;
-        canAttack = false;
-
-        bool shot = false;
-        while (passed < duration)
-        {
-            if (passed > bulletSpawnOffset && !shot)
-            {
-                Instantiate(projectile, spawnPoint.position, transform.rotation);
-                shot = true;
-            }
-
-            passed += Time.deltaTime;
-            yield return null;
-        }
-
-        canAttack = true;
     }
 
     private void OnEnable()
     {
-        //GetComponentInParent<PlayerMovementTwo>().setAiming(true);              // set player to aiming
-        //CameraTarget.instance.offsetTo(new Vector3(5, 5, 0), 1.0f);             // offset camera target
+        player = transform.parent.gameObject;
+        player.GetComponent<PlayerManager>().KetchupGunEvent += eventHandle;
         AudioManager.Instance.playRandom(transform.position, "Ketchup_Reload_01"); //Sound for switch to Ketchup Weapon -Brian
-        GetComponentInParent<PlayerMovementTwo>().setOverallAnim("KetchupAnim");    // turn off basic animations
-        GetComponentInParent<PlayerMovementTwo>().setIdleAnim("KetchupIdle");       // set idle animation
-        GetComponentInParent<PlayerMovementTwo>().setRunAnim("KetchupRun");         // set run animation
-        GetComponentInParent<PlayerMovementTwo>().setJumpAnim("KetchupJump");       // set jump animation
+        player.GetComponent<PlayerMovementTwo>().setOverallAnim("KetchupAnim");    // turn off basic animations
+        player.GetComponent<PlayerMovementTwo>().setIdleAnim("KetchupIdle");       // set idle animation
+        player.GetComponent<PlayerMovementTwo>().setRunAnim("KetchupRun");         // set run animation
+        player.GetComponent<PlayerMovementTwo>().setJumpAnim("KetchupJump");       // set jump animation
     }
 
     private void OnDisable()
     {
-        canAttack = true;
-
-        if (cTimer != null)
+        if (player.GetComponent<PlayerManager>() != null)
         {
-            StopCoroutine(cTimer);
+            player.GetComponent<PlayerManager>().KetchupGunEvent -= eventHandle;
         }
-        //CameraTarget.instance.returnDefault(1.0f);                      // return camera target to default
-        //GetComponentInParent<PlayerMovementTwo>()?.setAiming(false);    // turn off aiming for player
-        GetComponentInParent<Animator>()?.SetTrigger("Restart");
-        GetComponentInParent<PlayerMovementTwo>()?.setBasicAnim();  // revert to basic animations
+        reticle.SetActive(false);
+        CameraTarget.instance.returnDefault(0.25f);                 // return camera target to default
+        player.GetComponent<PlayerMovementTwo>()?.setAiming(false); // turn off aiming for player
+        player.GetComponent<Animator>()?.SetTrigger("Restart");     // restart animations
+        player.GetComponent<PlayerMovementTwo>()?.setBasicAnim();   // revert to basic animations
+    }
+
+    // respond to events
+    public void eventHandle(string message)
+    {
+        switch (message)
+        {
+            case "bulletSpawn": // only one event for now
+                AudioManager.Instance.playRandom(transform.position, "Ketchup_Fire_01"); // play audio clip, added sound -Brian 
+                if (reticle.activeSelf)
+                {
+                    Instantiate(projectile, spawnPoint.position, Camera.main.transform.rotation);
+                }
+                else
+                {
+                    Instantiate(projectile, spawnPoint.position, transform.rotation);
+                }
+                bulletAmount--;
+                break;
+        }
     }
 }

@@ -29,6 +29,7 @@ public class PlayerMovementTwo : MonoBehaviour
 
     public Transform[] normalCheckers   = null;         // posisitions to check for ground normal
 
+    private Health health               = null;         // health reference
     private Rigidbody rb                = null;         // rigidbody of player
     private bool inputStopped           = false;        // for stopping input
     private bool rotationStopped        = false;        // for stopping rotation
@@ -53,7 +54,6 @@ public class PlayerMovementTwo : MonoBehaviour
     private string evadeLeftAnim        = null;         // name of left evade animation
     private Vector3 extraVel            = Vector3.zero; // extra force velocity (recorded to lerp from extra to movement)
     private bool isAiming               = false;        // to change camera rotation style
-    private Health health               = null;         // health reference
 
     private void Awake()
     {
