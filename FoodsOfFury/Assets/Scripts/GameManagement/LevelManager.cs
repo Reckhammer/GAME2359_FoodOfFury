@@ -18,14 +18,14 @@ public class LevelManager : MonoBehaviour
     private Health  playerHealth;       //the player's heath
     private GameObject player;          //Reference to the player
 
-    public Text     objective;          //The text for the objective UI
-    public Image    endGameMenu;        //UI elements for the level completion
-    public Image    winMenu;            //Reference to the Win Menu UI
-    public Image    loseMenu;           //Reference to the Lose Menu UI
-    public float    waitTime = 2f;      //Wait time for the popup to come up in seconds
+    public Text       objective;          //The text for the objective UI
+    public GameObject endGameMenu;        //UI elements for the level completion
+    public GameObject winMenu;            //Reference to the Win Menu UI
+    public GameObject loseMenu;           //Reference to the Lose Menu UI
+    public float      waitTime = 2f;      //Wait time for the popup to come up in seconds
     private Transform currentRespawnPoint; //The current point that the player will respawn at
-    private bool    winSound = true;
-    private bool    loseSound = true;
+    private bool      winSound = true;
+    private bool      loseSound = true;
 
     void Awake()
     {
@@ -50,11 +50,11 @@ public class LevelManager : MonoBehaviour
             setEndMessage(); //Activate the UI
         }
 
-        if(Input.GetKeyDown("o"))
+        /*if(Input.GetKeyDown("o"))
         {
             player.transform.position = currentRespawnPoint.position;
 
-            playerHealth.add(2);
+            playerHealth.Revive();
             //UIManager.instance.updateHealthBar(2);
 
             loseMenu.gameObject.SetActive(false);
@@ -63,11 +63,11 @@ public class LevelManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             PauseMenu.gameIsPaused = false;
-            GetComponent<PlayerMovementTwo>().stopInput(0.0f, false, false);
+            player.GetComponent<PlayerMovementTwo>().stopInput(0.0f, false, false);
             //GetComponentInParent<PlayerMovementTwo>().setIdleAnim("OnionIdle");
 
             Time.timeScale = 1;
-        }
+        }*/
 
         //If the player died
         //  restart level

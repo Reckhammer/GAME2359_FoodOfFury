@@ -86,6 +86,16 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void Revive()
+    {
+        if (OnUpdate != null)
+        {
+            amount = max;
+
+            OnUpdate(amount);
+        }
+    }
+
     // function to act as a kill (to get around invincibility)
     public void deplete()
     {
