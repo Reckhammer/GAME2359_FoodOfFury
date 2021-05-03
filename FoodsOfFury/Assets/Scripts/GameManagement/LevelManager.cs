@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,13 +12,16 @@ using UnityEngine.UI;
 //----------------------------------------------------------------------------------------
 public class LevelManager : MonoBehaviour
 {
-    public List<Objective> objectiveList = new List<Objective>();    //list of all of the objectives for the level
+    public Objective[] objectiveList;    //list of all of the objectives for the level
 
     private PlayerMovementTwo pM2;
     private Health  playerHealth;       //the player's heath
     private GameObject player;          //Reference to the player
 
-    public Text       objective;          //The text for the objective UI
+    private int currentObjInd;          //index in objectiveList of current obj.
+    private int doneCount;              //Number of completed objectives
+
+    public Text       objectiveTxt;       //The text for the objective UI
     public GameObject endGameMenu;        //UI elements for the level completion
     public GameObject winMenu;            //Reference to the Win Menu UI
     public GameObject loseMenu;           //Reference to the Lose Menu UI
@@ -34,14 +37,25 @@ public class LevelManager : MonoBehaviour
         playerHealth = GameObject.FindGameObjectWithTag( "Player" ).GetComponentInParent<Health>(); //get the reference to the player's health componet
         player = GameObject.Find("Player_PM2");
 
+        currentObjInd = 0;
+        objectiveTxt.text = objectiveList[currentObjInd].message;
+
+        if ( objectiveList.Length > 1 )
+        {
+            for ( int ind = 1; ind < objectiveList.Length; ind++ )
+            {
+                objectiveList[ind].gameObject.SetActive( false );
+            }
+        }
+
         currentRespawnPoint = GameObject.Find("StartingPoint").GetComponent<Transform>();
     }
 
     void Update()
     {
-        //if there are no more objectives in the list
+        //if the number of done obj. is equal to total number of obj
         //      the level is complete. go to next lvl
-        if ( objectiveList.Count == 0 )
+        if ( doneCount == objectiveList.Length )
         {
             winningSound();
 
@@ -79,8 +93,6 @@ public class LevelManager : MonoBehaviour
             loseMenu.gameObject.SetActive( true );
             setEndMessage(); //Activate the UI
         }
-
-        objective.text = objectiveList[0].message;
     }
 
     //-----------------------------------------------------------------------------------
@@ -91,10 +103,20 @@ public class LevelManager : MonoBehaviour
     //
     public void setCompleted( Objective obj )
     {
-        if ( objectiveList.Contains( obj ) )
+        if ( Array.IndexOf( objectiveList, obj ) != -1 )
         {
             Debug.Log( "An Objective has been completed" );
-            objectiveList.Remove( obj );
+            doneCount++;
+            currentObjInd++;
+            
+            //check if out of bounds
+            if ( currentObjInd < objectiveList.Length )
+            {
+                objectiveList[currentObjInd - 1].gameObject.SetActive( false ); //disable completed obj
+                objectiveList[currentObjInd].gameObject.SetActive( true );      //enable current obj
+
+                objectiveTxt.text = objectiveList[currentObjInd].message;       //update objective UI
+            }
         }
         else
         {

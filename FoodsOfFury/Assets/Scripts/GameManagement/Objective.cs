@@ -4,7 +4,7 @@ using UnityEngine;
 
 //Enumeration that helps manage the behavior of the objective
     //Defines what is the task for the objective
-public enum ObjectiveType { Waypoint, Rescue }; //Enemy Wave???
+public enum ObjectiveType { Waypoint, Rescue, Multi }; //Enemy Wave???
 
 //----------------------------------------------------------------------------------------
 // Author: Joshua Rechkemmer
@@ -18,7 +18,7 @@ public class Objective : MonoBehaviour
     public string           message;            //Text message telling the player what to do
     public ObjectiveType    objectiveType;      //The type of objective of THIS obj
 
-    private bool isDone = false;                //Boolean if the objective is done
+    public bool isDone = false;                //Boolean if the objective is done
 
     private LevelManager lvlManager;            //Reference to the levelManager obj. for the level
 
