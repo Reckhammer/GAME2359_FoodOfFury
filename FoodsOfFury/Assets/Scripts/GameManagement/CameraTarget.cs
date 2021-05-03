@@ -11,8 +11,11 @@ public class CameraTarget : MonoBehaviour
 {
     public static CameraTarget instance { get; private set; } // CameraTarget instance
 
+
     private Vector3 defaultPos; // default camera target positon
+    private Vector3 targetPos;
     private Coroutine cMoving;  // reference to coroutine
+    private LayerMask collideWith;
 
     // do singleton stuff
     private void Awake()
@@ -26,6 +29,57 @@ public class CameraTarget : MonoBehaviour
     private void Start()
     {
         defaultPos = transform.localPosition;
+        targetPos = defaultPos;
+        collideWith = Camera.main.GetComponent<CameraController>().collideWith;
+    }
+
+    private void Update()
+    {
+        if (targetPos != defaultPos)
+        {
+            //print("checking collision");
+            checkCollision();
+        }
+        else if (targetPos == defaultPos && transform.localPosition != defaultPos)
+        {
+            //print("default position revert");
+            transform.localPosition = defaultPos;
+        }
+    }
+
+    // do complicated camera logic to stop camera clipping
+    private void checkCollision()
+    {
+        float collisionDetectDistance = 1.0f;
+        Vector3 start = transform.parent.transform.TransformPoint(defaultPos);
+        Vector3 end = transform.parent.transform.TransformPoint(targetPos);
+        float distance = Vector3.Distance(start, end);
+
+        Vector3 dir = -(start - end).normalized;
+        Debug.DrawLine(start, end + (dir * collisionDetectDistance), Color.magenta);
+
+        RaycastHit hit;
+        if (Physics.Raycast(start, dir, out hit, distance + collisionDetectDistance, collideWith, QueryTriggerInteraction.Ignore))
+        {
+            //print("hit: " + hit.transform.gameObject);
+            distance = hit.distance - collisionDetectDistance;
+
+            Vector3 endPosition = start + (dir * distance);
+            transform.localPosition = transform.parent.InverseTransformPoint(endPosition);
+        }
+        else
+        {
+            transform.localPosition = targetPos;
+        }
+
+        //print("start: " + start);
+        //print("end: " + end);
+        //print("defaultPos: " + defaultPos);
+        //print("targetPos: " + targetPos);
+        //print("distance: " + distance);
+        //print("dir: " + dir);
+        //print("localPos: " + transform.localPosition);
+        //print("------------------------------------------------");
     }
 
     // offsets camera target to postion
@@ -36,6 +90,8 @@ public class CameraTarget : MonoBehaviour
             transform.localPosition = position;
             return;
         }
+
+        targetPos = position;
 
         if (cMoving != null)
         {
@@ -53,12 +109,14 @@ public class CameraTarget : MonoBehaviour
 
         while (passed < duration)
         {
-            transform.localPosition = Vector3.Lerp(start, position, passed / duration);
+            //transform.localPosition = Vector3.Lerp(start, position, passed / duration);
+            targetPos = Vector3.Lerp(start, position, passed / duration);
             passed += Time.deltaTime;
             yield return null;
         }
 
-        transform.localPosition = position;
+        //transform.localPosition = position;
+        targetPos = position;
     }
 
     // returns camera target to default position
