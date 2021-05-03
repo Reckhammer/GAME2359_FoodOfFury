@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour
 {
     public Objective[] objectiveList;    //list of all of the objectives for the level
 
-    private PlayerMovementTwo pM2;
+    private PlayerManager lives;                 //Reference to the PlayerManager
     private Health  playerHealth;       //the player's heath
     private GameObject player;          //Reference to the player
 
@@ -37,6 +37,8 @@ public class LevelManager : MonoBehaviour
         playerHealth = GameObject.FindGameObjectWithTag( "Player" ).GetComponentInParent<Health>(); //get the reference to the player's health componet
         player = GameObject.Find("Player_PM2");
 
+        currentRespawnPoint = GameObject.Find("StartingPoint").GetComponent<Transform>();
+
         objectiveTxt = GameObject.Find("Objective_Text").GetComponent<Text>();
 
         currentObjInd = 0;
@@ -50,7 +52,11 @@ public class LevelManager : MonoBehaviour
             }
         }
 
-        currentRespawnPoint = GameObject.Find("StartingPoint").GetComponent<Transform>();
+    }
+
+    void Start()
+    {
+        lives = GameObject.FindGameObjectWithTag("Player").GetComponentInParent<PlayerManager>();
     }
 
     void Update()
@@ -87,13 +93,18 @@ public class LevelManager : MonoBehaviour
 
         //If the player died
         //  restart level
-        if ( playerHealth.amount <= 0 )
+        if (playerHealth.amount <= 0 && lives.currentLives == 0)
         {
             losingSound();
 
             Debug.Log( "Player has died" );
             loseMenu.gameObject.SetActive( true );
             setEndMessage(); //Activate the UI
+        }
+        else if (playerHealth.amount <= 0)
+        {
+            playerHealth.Revive();
+            player.transform.position = currentRespawnPoint.position;
         }
     }
 

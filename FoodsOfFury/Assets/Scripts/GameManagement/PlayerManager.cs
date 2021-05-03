@@ -18,8 +18,9 @@ public class PlayerManager : MonoBehaviour
     public GameObject itemSelection = null;     // to check if player is over a pickable object
 
     public PostProcessVolume PPV;               // Post Process Volumw reference
-    public GameObject hitParticle;
-
+    public GameObject hitParticle;              // Gets hit particle
+    private int maxLives = 3;                   // Sets max lives
+    public int currentLives;
     private Inventory inventory;                // inventory reference
     private GameObject currWeapon;              // current reference to weapon object
     private GameObject currConsumable;          // current reference to consumable object
@@ -38,6 +39,7 @@ public class PlayerManager : MonoBehaviour
         equipItem(ItemType.Weapon);
         equipItem(ItemType.Consumable);
         oldHealth = GetComponent<Health>().amount;
+        currentLives = maxLives;
 
         if (UIManager.instance != null)
         {
@@ -301,10 +303,15 @@ public class PlayerManager : MonoBehaviour
     // Does health reactions
     private void HealthUpdated(float amount)
     {
-        if (amount == 0) // // player died
+        if (amount == 0 && currentLives == 0) // // player died
         {
             UIManager.instance?.updateHealthBar(amount);
             doDie();
+        }
+        else if (amount == 0 && currentLives != 0)
+        {
+            currentLives--;
+            UIManager.instance?.updateHealthBar(amount);
         }
         else if (amount < oldHealth) // player damaged
         {

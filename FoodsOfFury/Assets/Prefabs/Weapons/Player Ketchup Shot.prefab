@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
-  delay: 3
+  destroyTime: 10
 --- !u!54 &1718747641736157274
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targets:
   - Enemy
-  damageAmount: 5
+  damageAmount: 1
   delayAmount: 0.1
   destroyOnImpact: 1
   destroyOnImpactIgnore:
@@ -182,3 +182,4 @@ MonoBehaviour:
     m_Bits: 8705
   doesKnockback: 0
   knockbackForce: 0
+  audioOnHit: []
