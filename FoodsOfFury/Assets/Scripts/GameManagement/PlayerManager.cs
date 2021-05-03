@@ -21,6 +21,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject hitParticle;              // Gets hit particle
     private int maxLives = 3;                   // Sets max lives
     public int currentLives;
+    public bool fullyDied = false;
     private Inventory inventory;                // inventory reference
     private GameObject currWeapon;              // current reference to weapon object
     private GameObject currConsumable;          // current reference to consumable object
@@ -303,10 +304,11 @@ public class PlayerManager : MonoBehaviour
     // Does health reactions
     private void HealthUpdated(float amount)
     {
-        if (amount == 0 && currentLives == 0) // // player died
+        if (amount == 0 && currentLives == 1) // // player died
         {
             UIManager.instance?.updateHealthBar(amount);
-            doDie();
+            fullyDied = true;
+            doDie();      
         }
         else if (amount == 0 && currentLives != 0)
         {

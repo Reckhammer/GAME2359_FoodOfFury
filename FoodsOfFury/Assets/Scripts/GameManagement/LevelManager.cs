@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour
 {
     public Objective[] objectiveList;    //list of all of the objectives for the level
 
-    private PlayerManager lives;                 //Reference to the PlayerManager
+    private PlayerManager lives;        //Reference to the PlayerManager
     private Health  playerHealth;       //the player's heath
     private GameObject player;          //Reference to the player
 
@@ -29,6 +29,7 @@ public class LevelManager : MonoBehaviour
     private Transform currentRespawnPoint; //The current point that the player will respawn at
     private bool      winSound = true;
     private bool      loseSound = true;
+    private bool hasDied = false;
 
     void Awake()
     {
@@ -93,15 +94,15 @@ public class LevelManager : MonoBehaviour
 
         //If the player died
         //  restart level
-        if (playerHealth.amount <= 0 && lives.currentLives == 0)
+        if (lives.fullyDied && !hasDied)
         {
             losingSound();
-
-            Debug.Log( "Player has died" );
+            hasDied = true;
+            Debug.Log("Player has died");
             loseMenu.gameObject.SetActive( true );
             setEndMessage(); //Activate the UI
         }
-        else if (playerHealth.amount <= 0)
+        else if (playerHealth.amount <= 0 && !lives.fullyDied)
         {
             playerHealth.Revive();
             player.transform.position = currentRespawnPoint.position;
