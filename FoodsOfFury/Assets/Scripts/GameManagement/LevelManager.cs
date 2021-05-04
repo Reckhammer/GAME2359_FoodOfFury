@@ -26,10 +26,10 @@ public class LevelManager : MonoBehaviour
     public GameObject winMenu;            //Reference to the Win Menu UI
     public GameObject loseMenu;           //Reference to the Lose Menu UI
     public float      waitTime = 2f;      //Wait time for the popup to come up in seconds
-    private Transform currentRespawnPoint; //The current point that the player will respawn at
+    public Transform currentRespawnPoint; //The current point that the player will respawn at
     private bool      winSound = true;
     private bool      loseSound = true;
-    private bool hasDied = false;
+    private bool      hasDied = false;
 
     void Awake()
     {
@@ -72,25 +72,6 @@ public class LevelManager : MonoBehaviour
             winMenu.gameObject.SetActive( true );
             setEndMessage(); //Activate the UI
         }
-
-        /*if(Input.GetKeyDown("o"))
-        {
-            player.transform.position = currentRespawnPoint.position;
-
-            playerHealth.Revive();
-            //UIManager.instance.updateHealthBar(2);
-
-            loseMenu.gameObject.SetActive(false);
-            endGameMenu.gameObject.SetActive(false);
-
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            PauseMenu.gameIsPaused = false;
-            player.GetComponent<PlayerMovementTwo>().stopInput(0.0f, false, false);
-            //GetComponentInParent<PlayerMovementTwo>().setIdleAnim("OnionIdle");
-
-            Time.timeScale = 1;
-        }*/
 
         //If the player died
         //  restart level
