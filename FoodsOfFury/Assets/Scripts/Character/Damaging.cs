@@ -20,6 +20,8 @@ public class Damaging : MonoBehaviour
     public float knockbackForce         = 0.0f;     // force of knockback
     public string[] audioOnHit          = null;     // audio to play on hit
 
+    private AudioSource audioSource;                // audio that was played
+
     private void OnTriggerEnter(Collider other)
     {
         if (targets.Length == 0)
@@ -52,7 +54,7 @@ public class Damaging : MonoBehaviour
             {
                 if (audioOnHit.Length != 0 && !other.GetComponentInParent<Health>().isNowInvincible() && other.GetComponentInParent<Health>().amount != 0)
                 {
-                    AudioManager.Instance.playRandom(other.ClosestPointOnBounds(transform.position), audioOnHit);
+                    audioSource = AudioManager.Instance.playRandom(other.ClosestPointOnBounds(transform.position), audioOnHit);
                 }
 
                 other.GetComponentInParent<Health>().subtract(damageAmount, delayAmount); // subtract from other's 'health' and add delay
@@ -68,7 +70,10 @@ public class Damaging : MonoBehaviour
         {
             if (destroyOnImpactIgnore != (destroyOnImpactIgnore | (1 << other.gameObject.layer))) // check if object is not in layermask
             {
-                AudioManager.Instance.playRandom(other.ClosestPointOnBounds(transform.position), audioOnHit);
+                if (audioOnHit.Length != 0 && audioSource == null) // stop double audio sources playing
+                {
+                    AudioManager.Instance.playRandom(other.ClosestPointOnBounds(transform.position), audioOnHit);
+                }
                 Destroy(gameObject);
             }
         }
