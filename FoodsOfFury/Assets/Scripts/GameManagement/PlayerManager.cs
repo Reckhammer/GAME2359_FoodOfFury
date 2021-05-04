@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
 
 //----------------------------------------------------------------------------------------
-// Author: Jose Villanueva
+// Author(s): Jose Villanueva, Abdon J. Puente IV
 //
 // Description: This class manages the player overall (health, inventory, UI)
 //
