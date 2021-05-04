@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 //----------------------------------------------------------------------------------------
-// Author: Joshua Rechkemmer
+// Author(s): Joshua Rechkemmer, Abdon J. Puente IV
 //
 // Description: This class handles completion of objectives and the end of the level
 //      when all objectives are done
