@@ -21,7 +21,8 @@ public class UIManager : MonoBehaviour
     public Text consumableAmountUI;         // reference to consumable amount text
     public Text collectibleAmoutUI;         // reference to collectible amount text
     public Text keyAmountUI;                // reference to key amount text
-    public Text objectivesText;             // referenct to objectives text
+    public Text objectivesText;             // reference to objectives text
+    public Text weaponUseAmountUI;          // reference to weapon use amount (ex. ketchup shots left)
 
     // do singleton stuff
     private void Awake()
@@ -112,5 +113,11 @@ public class UIManager : MonoBehaviour
     public void setObjectiveText(string text)
     {
         objectivesText.text = text;
+    }
+
+    public void setWeaponUseUI(float amount, bool active = true)
+    {
+        weaponUseAmountUI.text = "x" + amount;
+        weaponUseAmountUI.transform.parent.gameObject.SetActive(active);
     }
 }
