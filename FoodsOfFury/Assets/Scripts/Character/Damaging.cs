@@ -68,6 +68,7 @@ public class Damaging : MonoBehaviour
         {
             if (destroyOnImpactIgnore != (destroyOnImpactIgnore | (1 << other.gameObject.layer))) // check if object is not in layermask
             {
+                AudioManager.Instance.playRandom(other.ClosestPointOnBounds(transform.position), audioOnHit);
                 Destroy(gameObject);
             }
         }
