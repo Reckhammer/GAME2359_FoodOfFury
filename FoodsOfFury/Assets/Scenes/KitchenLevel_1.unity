@@ -73304,6 +73304,7 @@ MonoBehaviour:
   message: Rescue the Veggies
   objectiveType: 2
   isDone: 0
+  CageSounds: {fileID: 0}
 --- !u!4 &1884841544 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6000985537954760478, guid: 55e13fd9e2168d5488395ad7bfdf8f56, type: 3}
@@ -91874,6 +91875,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7089808428245602424, guid: 910f300191a10774dafeb4be618636b4, type: 3}
+      propertyPath: audioInfo.Array.size
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 7089808428245602424, guid: 910f300191a10774dafeb4be618636b4, type: 3}
+      propertyPath: audioInfo.Array.data[34]
+      value: 
+      objectReference: {fileID: 6477990410576090374, guid: acd1905334c85ec4e936871e4eb378fd, type: 3}
+    - target: {fileID: 7089808428245602424, guid: 910f300191a10774dafeb4be618636b4, type: 3}
+      propertyPath: audioInfo.Array.data[35]
+      value: 
+      objectReference: {fileID: 715545515875017162, guid: eb0e46c76fcb72e4e9e70893fa90fbb5, type: 3}
     - target: {fileID: 7089808428245602425, guid: 910f300191a10774dafeb4be618636b4, type: 3}
       propertyPath: m_Name
       value: AudioManager
