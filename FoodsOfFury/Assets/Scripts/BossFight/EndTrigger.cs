@@ -9,7 +9,7 @@ public class EndTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (transform != null)
+        if (transition == null)
         {
             transition = StartCoroutine(doTransition());
         }
