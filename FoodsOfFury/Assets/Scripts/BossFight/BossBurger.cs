@@ -15,6 +15,7 @@ public class BossBurger : MonoBehaviour
     public WaveSpawner waveThreeSpawner;    // wave three enemy spawner
     public Spawner acidRainSpawner;         // acid rain spawner
     public ObjectEnabler hazardEnabler;     // hazard enabler
+    public GameObject endObject;            // ending trigger object
 
     private int[] waveCounts = { 0, 0, 0 }; // wave enemy amount array
     private int currentWave = 0;            // curent wave index
@@ -138,5 +139,6 @@ public class BossBurger : MonoBehaviour
     {
         UIManager.instance.setObjectiveText(bossDefeatedText);
         print(bossDefeatedText);
+        endObject.SetActive(true);
     }
 }

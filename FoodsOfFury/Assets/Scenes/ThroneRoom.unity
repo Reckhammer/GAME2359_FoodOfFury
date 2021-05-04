@@ -8006,6 +8006,7 @@ MonoBehaviour:
   winMenu: {fileID: 1286668887}
   loseMenu: {fileID: 758013993}
   waitTime: 1
+  currentRespawnPoint: {fileID: 0}
 --- !u!4 &1159460133
 Transform:
   m_ObjectHideFlags: 0
@@ -14465,6 +14466,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63a1cab90d1f757488a01f6d810f706c, type: 3}
+--- !u!1 &1788873090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1788873092}
+  - component: {fileID: 1788873091}
+  - component: {fileID: 1788873093}
+  m_Layer: 0
+  m_Name: EndTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!65 &1788873091
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788873090}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 22.387802, y: 21.05143, z: 34.46747}
+  m_Center: {x: -3.6511002, y: 3.8994331, z: 0.82810974}
+--- !u!4 &1788873092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788873090}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -161.5, y: 33.6, z: 85.31}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 27
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1788873093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788873090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abf84c5890dc9464e8b98f0bcd9b14f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1793243394
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15591,12 +15649,13 @@ MonoBehaviour:
   waveOneText: Wave one - enemies left
   waveTwoText: Wave two - enemies left
   waveThreeText: Wave three - enemies left
-  bossDefeatedText: Boss is defeated
+  bossDefeatedText: Approach him...
   waveOneSpawner: {fileID: 1755985910}
   waveTwoSpawner: {fileID: 1135563598}
   waveThreeSpawner: {fileID: 476695971}
   acidRainSpawner: {fileID: 1608250298}
   hazardEnabler: {fileID: 1018159700}
+  endObject: {fileID: 1788873090}
 --- !u!4 &1932501326
 Transform:
   m_ObjectHideFlags: 0
