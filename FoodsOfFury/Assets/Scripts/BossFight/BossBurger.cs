@@ -6,6 +6,10 @@ public class BossBurger : MonoBehaviour
 {
     public static BossBurger Instance { get; private set; }
 
+    public string waveOneText;              // objective text when wave one starts
+    public string waveTwoText;              // objective text when wave two starts
+    public string waveThreeText;            // objective text when wave three starts
+    public string bossDefeatedText;         // objective text when boss is defeated
     public WaveSpawner waveOneSpawner;      // wave one enemy spawner
     public WaveSpawner waveTwoSpawner;      // wave two enemy spawner
     public WaveSpawner waveThreeSpawner;    // wave three enemy spawner
@@ -70,17 +74,20 @@ public class BossBurger : MonoBehaviour
 
     private void doWaveOne()
     {
+        UIManager.instance.setObjectiveText(waveOneText + " " + waveCounts[0]);
         waveOneSpawner.spawnWave();
     }
 
     private void doWaveTwo()
     {
+        UIManager.instance.setObjectiveText(waveTwoText + " " + waveCounts[1]);
         waveTwoSpawner.spawnWave();
         acidRainSpawner.spawn();
     }
 
     private void doWaveThree()
     {
+        UIManager.instance.setObjectiveText(waveThreeText + " " + waveCounts[2]);
         waveThreeSpawner.spawnWave();
         hazardEnabler.enableObjects();
     }
@@ -110,10 +117,26 @@ public class BossBurger : MonoBehaviour
                     break;
             }
         }
+        else
+        {
+            switch (currentWave) // just in case we ever add more waves
+            {
+                case 0:
+                    UIManager.instance.setObjectiveText(waveOneText + " " + waveCounts[0]);
+                    break;
+                case 1:
+                    UIManager.instance.setObjectiveText(waveTwoText + " " + waveCounts[1]);
+                    break;
+                case 2:
+                    UIManager.instance.setObjectiveText(waveThreeText + " " + waveCounts[2]);
+                    break;
+            }
+        }
     }
 
     private void doDeath()
     {
-        print("king burger is defeated");
+        UIManager.instance.setObjectiveText(bossDefeatedText);
+        print(bossDefeatedText);
     }
 }

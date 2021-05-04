@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     public Text consumableAmountUI;         // reference to consumable amount text
     public Text collectibleAmoutUI;         // reference to collectible amount text
     public Text keyAmountUI;                // reference to key amount text
+    public Text objectivesText;             // referenct to objectives text
 
     // do singleton stuff
     private void Awake()
@@ -106,5 +107,10 @@ public class UIManager : MonoBehaviour
         Inventory playerInventory = GameObject.FindWithTag( "Player" ).GetComponentInParent<Inventory>();
 
         keyAmountUI.text = ""+ playerInventory.keyCount;
+    }
+
+    public void setObjectiveText(string text)
+    {
+        objectivesText.text = text;
     }
 }
