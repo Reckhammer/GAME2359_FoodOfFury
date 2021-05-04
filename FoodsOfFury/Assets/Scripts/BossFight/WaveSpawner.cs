@@ -73,6 +73,7 @@ public class WaveSpawner : MonoBehaviour
         if (NavMesh.SamplePosition(enemy.spawnPosition.position, out closestHit, 2.0f, NavMesh.AllAreas))
         {
             GameObject e = Instantiate(enemy.enemyGameobject, closestHit.position, enemy.spawnPosition.rotation);
+            e.GetComponent<Enemy>().aggroRange = 100.0f;
             e.AddComponent<WaveEnemyCheck>().number = number;
 
             if (spawnParticle != null) // create particle effect and destroy after a short time has passed
