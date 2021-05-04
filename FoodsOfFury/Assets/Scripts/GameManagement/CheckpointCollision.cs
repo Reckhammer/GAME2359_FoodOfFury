@@ -24,7 +24,6 @@ public class CheckpointCollision : MonoBehaviour
         activeParticle.gameObject.SetActive(false);
         levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();  //Sets the reference to the eventManager obj
         respawnPoint = transform.GetChild(0);
-        //activeParticle = transform.GetChild(1); //Uncomment when own particle is made
     }
 
     void Update()
