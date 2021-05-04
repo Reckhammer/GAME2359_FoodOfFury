@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
+    public AudioSource CollectibleSounds; // -Brian
+
     void OnTriggerEnter( Collider other )
     {
         //Check if the player has collided with the collectible
@@ -15,6 +17,7 @@ public class Collectible : MonoBehaviour
             {
                 inv.collectibleCount++;
                 UIManager.instance.updateCollectibleUI();
+                AudioManager.Instance.playRandom(transform.position, "Pickup_Starfruit_01"); // -Brian
                 Destroy(gameObject);
             }
         }
