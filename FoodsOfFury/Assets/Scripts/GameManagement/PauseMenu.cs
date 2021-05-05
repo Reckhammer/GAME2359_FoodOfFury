@@ -102,9 +102,21 @@ public class PauseMenu : MonoBehaviour
     {
         AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
 
-        gameIsPaused = false;
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("MenuScene");
+        StartCoroutine(Loading("MenuScene"));
     }
 
+    private IEnumerator Loading(string level)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(level);
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+            print("progress: " + progress);
+            UIManager.instance?.setLoadingProgress(progress);
+            yield return null;
+        }
+        gameIsPaused = false;
+        Time.timeScale = 1f;
+    }
 }
