@@ -5,6 +5,13 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
+//----------------------------------------------------------------------------------------
+// Author(s): Abdon J. Puente IV
+//
+// Description: This class manages the games' setting
+//----------------------------------------------------------------------------------------
+
+
 public class SettingsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;

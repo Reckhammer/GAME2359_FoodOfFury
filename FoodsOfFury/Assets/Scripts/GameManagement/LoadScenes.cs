@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//----------------------------------------------------------------------------------------
+// Author(s): Abdon J. Puente IV
+//
+// Description: This class manages the games' scenes
+//----------------------------------------------------------------------------------------
+
 public class LoadScenes : MonoBehaviour
 {
 
