@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     public Text keyAmountUI;                // reference to key amount text
     public Text objectivesText;             // reference to objectives text
     public Text weaponUseAmountUI;          // reference to weapon use amount (ex. ketchup shots left)
+    public Slider loadingSlider;            // reference to loading slider for loading screen
 
     // do singleton stuff
     private void Awake()
@@ -31,14 +32,6 @@ public class UIManager : MonoBehaviour
             instance = this;
         else
             Destroy(this);
-    }
-
-    public void Start()
-    {
-        if (healthBar == null)
-        {
-            print("healthBar is not set up on GameController");
-        }
     }
 
     // update health bar
@@ -119,5 +112,19 @@ public class UIManager : MonoBehaviour
     {
         weaponUseAmountUI.text = "x" + amount;
         weaponUseAmountUI.transform.parent.gameObject.SetActive(active);
+    }
+
+    public void setLoadingProgress(float value)
+    {
+        if (loadingSlider != null)
+        {
+            loadingSlider.transform.parent.gameObject.SetActive(true);
+            print("setting value");
+            loadingSlider.value = value;
+        }
+        else
+        {
+            print("no loading slider is present");
+        }
     }
 }
