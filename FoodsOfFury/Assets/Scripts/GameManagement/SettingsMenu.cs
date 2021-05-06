@@ -28,6 +28,8 @@ public class SettingsMenu : MonoBehaviour
 
     public Slider effectsSlider;
 
+    public Toggle fullscreenToggle;
+
     float currentVolume;
     float currentMusic;
     float currentEffects;
@@ -111,7 +113,7 @@ public class SettingsMenu : MonoBehaviour
     {
         //print("setting fullscreen: " + isFullscreen);
         Screen.fullScreen = isFullscreen;
-        PlayerPrefs.SetInt("FullscreenPreference", Convert.ToInt32(Screen.fullScreen));
+        PlayerPrefs.SetInt("FullscreenPreference", Convert.ToInt32(isFullscreen));
     }
 
     //public void SaveSettings()
@@ -154,8 +156,8 @@ public class SettingsMenu : MonoBehaviour
 
         if (PlayerPrefs.HasKey("FullscreenPreference"))
         {
-            //print("Fullscren preference: " + Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenPreference")));
-            Screen.fullScreen = Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenPreference"));
+            //print("loading fullscreen: " + Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenPreference")));
+            fullscreenToggle.isOn = Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenPreference"));
         }
 
         if (PlayerPrefs.HasKey("VolumePreference"))
@@ -187,6 +189,5 @@ public class SettingsMenu : MonoBehaviour
             effectsSlider.value = 1.0f;
             audioMixer.SetFloat("eVolume", effectsSlider.value);
         }
-
     }
 }
