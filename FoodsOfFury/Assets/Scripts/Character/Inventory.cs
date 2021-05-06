@@ -201,6 +201,13 @@ public class Inventory : MonoBehaviour
 
         list.delete();          // delete reference from list
         Destroy(reference);     // destroy original item gameobject
+
+        // give player starting weapon when weapons list is empty
+        if (type == ItemType.Weapon && list.isEmpty() && startingWeapons.Length != 0)
+        {
+            addToList(ref weapons, startingWeapons[0], ItemType.Weapon); // add starting weapon as fallback
+            GetComponent<PlayerManager>().equipItem(ItemType.Weapon);    // call player manager to equip weapon
+        }
     }
 
     // drop item in world
