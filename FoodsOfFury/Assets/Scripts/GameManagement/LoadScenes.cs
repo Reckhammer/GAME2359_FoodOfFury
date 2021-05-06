@@ -136,5 +136,6 @@ public class LoadScenes : MonoBehaviour
             UIManager.instance?.setLoadingProgress(progress);
             yield return null;
         }
+        UIManager.instance?.setLoadingProgress(Mathf.Clamp01(operation.progress / 0.9f));
     }
 }

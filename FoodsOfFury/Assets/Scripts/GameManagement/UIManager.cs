@@ -118,8 +118,8 @@ public class UIManager : MonoBehaviour
     {
         if (loadingSlider != null)
         {
+            //print("setting loading slider value: " + value);
             loadingSlider.transform.parent.gameObject.SetActive(true);
-            print("setting value");
             loadingSlider.value = value;
         }
         else

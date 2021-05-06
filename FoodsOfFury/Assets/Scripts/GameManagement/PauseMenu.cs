@@ -116,6 +116,7 @@ public class PauseMenu : MonoBehaviour
             UIManager.instance?.setLoadingProgress(progress);
             yield return null;
         }
+        UIManager.instance?.setLoadingProgress(Mathf.Clamp01(operation.progress / 0.9f));
         gameIsPaused = false;
         Time.timeScale = 1f;
     }
