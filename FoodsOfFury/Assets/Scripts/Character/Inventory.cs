@@ -137,7 +137,7 @@ public class Inventory : MonoBehaviour
             }
 
             copy.GetComponent<Pickupable>().enabled = false;        // turn off 'Pickupable'
-            Destroy(copy.GetComponent<Rigidbody>());                // remove rigibody
+            //Destroy(copy.GetComponent<Rigidbody>());                // remove rigibody
             copy.GetComponent<Collider>().enabled = false;          // turn off collider (non trigger)
             copy.name = type.ToString();                            // set name
             copy.SetActive(false);                                  // make copy inactive
@@ -215,7 +215,7 @@ public class Inventory : MonoBehaviour
     {
         GameObject copy = Instantiate(item);
         copy.GetComponent<Pickupable>().enabled = true;                         // turn on 'Pickupable'
-        Rigidbody rb = copy.AddComponent<Rigidbody>();                          // add rigidbody
+        //Rigidbody rb = copy.AddComponent<Rigidbody>();                          // add rigidbody
         copy.GetComponent<Collider>().enabled = true;                           // turn on collider (non trigger)
         copy.transform.position = transform.position;                           // set item position to this object
         copy.transform.rotation = transform.rotation;                           // set rotation to this rotation
@@ -223,7 +223,7 @@ public class Inventory : MonoBehaviour
         copy.GetComponent<Pickupable>().doTimeout();                            // set timeout for pickable
 
         copy.SetActive(true);                                                   // make item active
-        rb.AddForce(transform.forward * 5.0f, ForceMode.VelocityChange);        // throw item
+        //rb.AddForce(transform.forward * 5.0f, ForceMode.VelocityChange);        // throw item
     }
 
     // returns amount of items in type of list
