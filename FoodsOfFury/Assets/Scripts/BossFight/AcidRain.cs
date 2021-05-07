@@ -11,7 +11,7 @@ public class AcidRain : MonoBehaviour
     public float stopOffset     = 3.0f; // time for particles to stop showing
     public float destroyDelay   = 5.0f; // time before object gets destroyed
 
-    public AudioSource RainDown;
+    public AudioSource rainDown;
 
     void Start()
     {
@@ -30,7 +30,7 @@ public class AcidRain : MonoBehaviour
             yield return null;
         }
         damagingTrigger.SetActive(true);
-        audioSource = AudioManager.Instance.playRandom(other.ClosestPointOnBounds(transform.position), "Grease_Rain_01");
+        rainDown = AudioManager.Instance.playRandom(transform.position, "Grease_Rain_01");
 
         passed = 0.0f; // reset time for next sequence
 
