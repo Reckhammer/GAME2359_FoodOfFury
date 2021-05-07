@@ -6,7 +6,7 @@ public class PopupUI : MonoBehaviour
 {
 
     public GameObject popupUI;
-    private float turnOffUI = 3.0f;
+    private float turnOffUI = 4.0f;
     //public GameObject nullObject;
 
 
