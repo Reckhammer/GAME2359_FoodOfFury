@@ -217,7 +217,7 @@ public class PlayerMovementTwo : MonoBehaviour
             {
                 if (currentJump >= 1 && rb.velocity.y < -20)
                 {
-                    AudioManager.Instance.playRandom(transform.position, "Rollo_Fall_01", "Rollo_Fall_02").transform.SetParent(transform);
+                    AudioManager.Instance.playRandom(transform.position, "Rollo_Impact_01", "Rollo_Impact_02").transform.SetParent(transform);
                 }
                 currentJump = 0;
             }
