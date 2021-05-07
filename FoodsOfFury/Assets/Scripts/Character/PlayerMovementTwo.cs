@@ -246,7 +246,7 @@ public class PlayerMovementTwo : MonoBehaviour
         }
 
         // do dash (change to side step)
-        if (isGrounded && canDash && Input.GetKeyDown(KeyCode.LeftShift))
+        if (isGrounded && canDash && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)))
         {
             if (inputs.z != 0) // don't dash if no movement(movement != Vector3.zero)
             {
