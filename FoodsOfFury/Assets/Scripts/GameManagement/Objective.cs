@@ -21,12 +21,17 @@ public class Objective : MonoBehaviour
     public bool isDone = false;                //Boolean if the objective is done
 
     private LevelManager lvlManager;            //Reference to the levelManager obj. for the level
-    public AudioSource CageSounds;              //Cage Sounds -Brian
+ //   public string[] audioCry = null;
+    private AudioSource cageSounds;              //Cage Sounds -Brian
 
     void Awake()
     {
         lvlManager = GameObject.Find( "LevelManager" ).GetComponent<LevelManager>();    //Get the reference to the lvlManager in the scene
-
+ /*       if (audioCry != null)
+        {
+            cageSounds = AudioManager.Instance.playRandom(transform.position, audioCry);
+            cageSounds.Play();
+        }*/
         //if message is not initialized
         //      Set it to a default value
         if ( message == null )
@@ -65,7 +70,9 @@ public class Objective : MonoBehaviour
                 ////print("saved!!!");
                 player.addKey( -1 );
                 UIManager.instance.updateKeyUI();
+ //               cageSounds.Stop();
                 AudioManager.Instance.playRandom(transform.position, "Cage_Unlock_01"); //Cage unlock sound -Brian
+                AudioManager.Instance.playRandom(transform.position, "Vegetable_Yeah_01" , "Vegetable_Yeah_02");
 
                 if (GetComponentInChildren<Animator>() != null)
                 {
@@ -86,6 +93,7 @@ public class Objective : MonoBehaviour
     private IEnumerator DelayedDestruction( float waiter )
     {
         yield return new WaitForSeconds(waiter);
+        AudioManager.Instance.playRandom(transform.position, "Vegetable_Char_Poof_01");
         gameObject.SetActive( false );
     }
 }

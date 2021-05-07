@@ -315,6 +315,7 @@ public class Enemy : MonoBehaviour
     private IEnumerator DelayedDestruction( float waiter )
     {
         yield return new WaitForSeconds( waiter );
+        AudioManager.Instance.playRandom(transform.position, "Vegetable_Char_Poof_01");
         Destroy( gameObject );
     }
 }
