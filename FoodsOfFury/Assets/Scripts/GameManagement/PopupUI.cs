@@ -6,8 +6,8 @@ public class PopupUI : MonoBehaviour
 {
 
     public GameObject popupUI;
-    //private float turnOffUI = 4.0f;
-    //public GameObject nullObject;
+    public GameObject activationObject;
+    private bool showUI = true;
 
 
     // Start is called before the first frame update
@@ -23,15 +23,21 @@ public class PopupUI : MonoBehaviour
             popupUI.SetActive(false);
         }
 
+        if (activationObject.activeSelf == false && showUI == true)
+        {
+            showUI = false;
+            popupUI.SetActive(false);
+        }
+
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && showUI == true)
         {
+
             popupUI.SetActive(true);
 
-            //StartCoroutine(UITimer());
         }
     }
 
@@ -42,20 +48,6 @@ public class PopupUI : MonoBehaviour
             popupUI.SetActive(false);
         }
     }
-
-   /* private IEnumerator UITimer()
-    {
-        float passed = 0.0f;
-
-        while (passed < turnOffUI)
-        {
-            passed += Time.deltaTime;
-            yield return null;
-        }
-
-        popupUI.SetActive(false);
-    }*/
-
 
 
 }
