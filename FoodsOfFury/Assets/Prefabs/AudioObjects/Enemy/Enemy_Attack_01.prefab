@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7015217698675819619
+--- !u!1 &7168272040006646144
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7015217698675819618}
-  - component: {fileID: 8546477868385888887}
+  - component: {fileID: 7168272040006646146}
+  - component: {fileID: 7168272040006646147}
   m_Layer: 0
-  m_Name: Enemy_Spawn_01
+  m_Name: Enemy_Attack_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7015217698675819618
+--- !u!4 &7168272040006646146
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7015217698675819619}
+  m_GameObject: {fileID: 7168272040006646144}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,20 +31,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &8546477868385888887
+--- !u!82 &7168272040006646147
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7015217698675819619}
+  m_GameObject: {fileID: 7168272040006646144}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -6599529684914684246, guid: 84fa5cdb8847b13409b08e24038fde0b, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 3b526046bb506e64a8944ffc1f4a6aa1, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 1bd5373fefa8eef419e8eb1a8b6383b6, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
+  m_Volume: 0.6
+  m_Pitch: 0.85
   Loop: 0
   Mute: 0
   Spatialize: 0
