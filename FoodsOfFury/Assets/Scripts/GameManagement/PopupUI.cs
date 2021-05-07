@@ -6,7 +6,7 @@ public class PopupUI : MonoBehaviour
 {
 
     public GameObject popupUI;
-    private float turnOffUI = 4.0f;
+    //private float turnOffUI = 4.0f;
     //public GameObject nullObject;
 
 
@@ -31,7 +31,7 @@ public class PopupUI : MonoBehaviour
         {
             popupUI.SetActive(true);
 
-            StartCoroutine(UITimer());
+            //StartCoroutine(UITimer());
         }
     }
 
@@ -43,7 +43,7 @@ public class PopupUI : MonoBehaviour
         }
     }
 
-    private IEnumerator UITimer()
+   /* private IEnumerator UITimer()
     {
         float passed = 0.0f;
 
@@ -54,7 +54,7 @@ public class PopupUI : MonoBehaviour
         }
 
         popupUI.SetActive(false);
-    }
+    }*/
 
 
 
