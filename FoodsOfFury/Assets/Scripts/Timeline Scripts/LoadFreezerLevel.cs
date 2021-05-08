@@ -6,8 +6,8 @@ public class LoadFreezerLevel : MonoBehaviour
 {
     void OnEnable()
     {
-        //SceneManager.LoadScene("FreezerLevel", LoadSceneMode.Single);
-        StartCoroutine(Loading("FreezerLevel"));
+        SceneManager.LoadScene("FreezerLevel", LoadSceneMode.Single);
+        //StartCoroutine(Loading("FreezerLevel"));
     }
 
     private IEnumerator Loading(string level)

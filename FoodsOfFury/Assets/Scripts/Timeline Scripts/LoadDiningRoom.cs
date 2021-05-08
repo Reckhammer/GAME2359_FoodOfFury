@@ -6,8 +6,8 @@ public class LoadDiningRoom : MonoBehaviour
 {
     void OnEnable()
     {
-        //SceneManager.LoadScene("DiningRoomLevel", LoadSceneMode.Single);
-        StartCoroutine(Loading("DiningRoomLevel"));
+        SceneManager.LoadScene("DiningRoomLevel", LoadSceneMode.Single);
+        //StartCoroutine(Loading("DiningRoomLevel"));
     }
 
     private IEnumerator Loading(string level)
