@@ -95,10 +95,10 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if ( GetComponent<Health>().amount == 0 )
-        {
-            onDeath();
-        }
+        //if ( GetComponent<Health>().amount == 0 )
+        //{
+        //    onDeath();
+        //}
 
         if ( animator != null )
         {

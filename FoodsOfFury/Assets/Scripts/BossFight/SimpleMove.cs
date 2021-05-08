@@ -7,6 +7,7 @@ public class SimpleMove : MonoBehaviour
     public Transform[] positions;           // target positions to move to
     public float speed              = 1.0f; // speed of movement
     public bool changeRotation      = true; // option to change object rotation towards target position
+    public bool loop                = true; // option to loop
 
     private int current             = 0;    // current positions index
     private float minDistance       = 0.2f; // min distance before going to next target position
@@ -39,7 +40,16 @@ public class SimpleMove : MonoBehaviour
         if (Vector3.Distance(transform.position, positions[current].position) <= minDistance)
         {
             passed = 0.0f; // reset timer
-            current = ((current + 1) != positions.Length) ? current + 1 : 0; // update current to next index
+
+            if (loop)
+            {
+                current = ((current + 1) != positions.Length) ? current + 1 : 0; // update current to next index
+            }
+            else if (current == positions.Length - 1)
+            {
+                this.enabled = false;
+            }
+
             oldPos = transform.position; // update old position
 
             // change rotation to direction of target position

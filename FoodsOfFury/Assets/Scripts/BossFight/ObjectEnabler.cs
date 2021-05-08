@@ -8,6 +8,7 @@ public class ObjectEnabler : MonoBehaviour
     public float enableDelayTime = 0.5f;    // time delay between enabling objects
     public GameObject enableParticle;       // particles when object is enabled
     public bool randomizeOrder = false;     // randomize the enable order
+    public bool startOnEnable = false;      // option to start on enable
 
     private Coroutine routine;
 
@@ -92,6 +93,14 @@ public class ObjectEnabler : MonoBehaviour
             {
                 Destroy(obj);
             }
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (startOnEnable)
+        {
+            enableObjects();
         }
     }
 }

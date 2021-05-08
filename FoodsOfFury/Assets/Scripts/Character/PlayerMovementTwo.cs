@@ -215,10 +215,10 @@ public class PlayerMovementTwo : MonoBehaviour
         {
             if (inJump == false) // check if in timer (to allow player to get off ground before reseting jumps)
             {
-                if (currentJump >= 1 && rb.velocity.y < -20)
-                {
-                    AudioManager.Instance.playRandom(transform.position, "Rollo_Impact_01", "Rollo_Impact_02").transform.SetParent(transform);
-                }
+                //if (currentJump >= 1 && rb.velocity.y < -20)
+                //{
+                //    AudioManager.Instance.playRandom(transform.position, "Rollo_Impact_01", "Rollo_Impact_02").transform.SetParent(transform);
+                //}
                 currentJump = 0;
             }
             rb.useGravity = false;
