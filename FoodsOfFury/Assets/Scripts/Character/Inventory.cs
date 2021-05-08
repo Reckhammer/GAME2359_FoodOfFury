@@ -119,7 +119,7 @@ public class Inventory : MonoBehaviour
     // adds item to list
     private bool addToList(ref InventoryList list, GameObject item, ItemType type)
     {
-        if (list.max != 0)
+        if (list.max != 0 && list.amount() != list.max)
         {
             GameObject copy = Instantiate(item, transform.position, transform.rotation, transform); // make copy and parent to gameobject
             copy.GetComponent<Pickupable>().render.enabled = false; // turn off renderer
@@ -142,11 +142,12 @@ public class Inventory : MonoBehaviour
             copy.name = type.ToString();                            // set name
             copy.SetActive(false);                                  // make copy inactive
 
-            if (!list.add(copy)) // try to add item to list
-            {
-                removeFromList(ref list, type);                     // add failed (list at max), remove current item from list
-                list.add(copy);                                     // add item (swap)
-            }
+            list.add(copy);
+            //if (!list.add(copy)) // try to add item to list
+            //{
+            //    removeFromList(ref list, type);                     // add failed (list at max), remove current item from list
+            //    list.add(copy);                                     // add item (swap)
+            //}
 
             return true;
         }
@@ -237,6 +238,20 @@ public class Inventory : MonoBehaviour
                 return consumables.amount();
             default:
                 return 0;
+        }
+    }
+
+    // checks list if there is an gameobject that has component type and returns it
+    public GameObject findFromScript<T>(ItemType type)
+    {
+        switch (type)
+        {
+            case ItemType.Weapon:
+                return weapons.findFromScript<T>();
+            case ItemType.Consumable:
+                return consumables.findFromScript<T>();
+            default:
+                return null;
         }
     }
 

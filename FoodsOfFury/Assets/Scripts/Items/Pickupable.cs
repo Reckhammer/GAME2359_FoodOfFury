@@ -30,6 +30,33 @@ public class Pickupable : MonoBehaviour
                     return;
                 }
             }
+            else if (type == ItemType.Weapon)
+            {
+                if (GetComponent<KetchupWeapon>() != null) // check if this object has ketchup weapon script
+                {
+                    // get gameobject reference from player inventory if ketchup gun exists
+                    GameObject temp = player.GetComponentInParent<Inventory>().findFromScript<KetchupWeapon>(ItemType.Weapon);
+
+                    if (temp != null) // check if returned a reference
+                    {
+                        KetchupWeapon kWeapon = temp.GetComponent<KetchupWeapon>(); // get reference to weapon script
+                        //print("bullet amount: " + temp.GetComponent<KetchupWeapon>().bulletAmount);
+
+                        if (kWeapon.bulletAmount != kWeapon.maxBullets) // if weapon is not at max bullets, set to max and destroy this gameobject
+                        {
+                            kWeapon.bulletAmount = kWeapon.maxBullets;
+
+                            if (kWeapon.enabled) // if weapon is enabled, update UI
+                            {
+                                UIManager.instance.setWeaponUseUI(kWeapon.maxBullets);
+                            }
+
+                            Destroy(gameObject);
+                            return;
+                        }
+                    }
+                }
+            }
 
             if (player.GetComponentInParent<Inventory>().add(gameObject, type))
             {

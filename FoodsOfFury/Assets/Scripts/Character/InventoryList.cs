@@ -137,4 +137,18 @@ public class InventoryList
             amount++;
         }
     }
+
+    // checks list if there is an gameobject that has component type and returns it
+    public GameObject findFromScript<T>()
+    {
+        foreach (GameObject item in list)
+        {
+            if (item.GetComponent<T>() != null)
+            {
+                return item;
+            }
+        }
+
+        return null;
+    }
 }
