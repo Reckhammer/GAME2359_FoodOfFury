@@ -11,10 +11,11 @@ using UnityEngine;
 
 public class CheckpointCollision : MonoBehaviour
 {
-
+    public GameObject activeParticle;
     private LevelManager levelManager; //Reference to the level's level manager
     private Transform respawnPoint; //Reference to child obj. Respawn Point
-    public GameObject activeParticle;
+    private Animator animator = null; // reference to animator
+    private string flagAnim = null;
     private bool isActive = false;
 
     // Start is called before the first frame update
@@ -24,6 +25,7 @@ public class CheckpointCollision : MonoBehaviour
         activeParticle.gameObject.SetActive(false);
         levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();  //Sets the reference to the eventManager obj
         respawnPoint = transform.GetChild(0);
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -40,6 +42,8 @@ public class CheckpointCollision : MonoBehaviour
             activeParticle.gameObject.SetActive(false);
             isActive = false;
         }
+
+        FlagAnimations();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -50,4 +54,27 @@ public class CheckpointCollision : MonoBehaviour
             Debug.Log("Checkpoint set!");
         }
     }
+
+    private void FlagAnimations()
+    {
+        if (isActive == false)
+        {
+            animator.SetBool(flagAnim, false);
+        }
+        else
+        {
+            animator.SetBool(flagAnim, true);
+        }
+    }
+
+    public void setFlagAnim(string anim)
+    {
+        flagAnim = anim;
+    }
+
+    private void OnEnable()
+    {
+        setFlagAnim("flagActive");
+    }
+
 }
