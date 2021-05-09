@@ -6,8 +6,8 @@ public class LoadKitchenLevel : MonoBehaviour
 {
     void OnEnable()
     {
-        //SceneManager.LoadScene("KitchenLevel_1", LoadSceneMode.Single);
-        StartCoroutine(Loading("KitchenLevel_1"));
+        SceneManager.LoadScene("KitchenLevel_1", LoadSceneMode.Single);
+        //StartCoroutine(Loading("KitchenLevel_1"));
     }
 
     private IEnumerator Loading(string level)
