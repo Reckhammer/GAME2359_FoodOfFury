@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     public Text keyAmountUI;                // reference to key amount text
     public Text objectivesText;             // reference to objectives text
     public Text weaponUseAmountUI;          // reference to weapon use amount (ex. ketchup shots left)
+    public Text livesAmountUI;
     public Slider loadingSlider;            // reference to loading slider for loading screen
 
     // do singleton stuff
@@ -101,6 +102,14 @@ public class UIManager : MonoBehaviour
         Inventory playerInventory = GameObject.FindWithTag( "Player" ).GetComponentInParent<Inventory>();
 
         keyAmountUI.text = ""+ playerInventory.keyCount;
+    }
+
+    public void updateLivesUI()
+    {
+        // find with tag is evil
+        PlayerManager playerLives = GameObject.FindWithTag("Player").GetComponentInParent<PlayerManager>();
+
+        livesAmountUI.text = "" + playerLives.currentLives;
     }
 
     public void setObjectiveText(string text)
