@@ -142,7 +142,7 @@ public class SettingsMenu : MonoBehaviour
         if (PlayerPrefs.HasKey("QualitySettingPreference"))
             qualityDropdown.value = PlayerPrefs.GetInt("QualitySettingPreference");
         else
-            qualityDropdown.value = 0;
+            qualityDropdown.value = 5;
 
         if (PlayerPrefs.HasKey("ResolutionPreference"))
             resolutionDropdown.value = PlayerPrefs.GetInt("ResolutionPreference");
@@ -152,7 +152,7 @@ public class SettingsMenu : MonoBehaviour
         if (PlayerPrefs.HasKey("TextureQualityPreference"))
             textureDropdown.value = PlayerPrefs.GetInt("TextureQualityPreference");
         else
-            textureDropdown.value = 5;
+            textureDropdown.value = 0;
 
         if (PlayerPrefs.HasKey("FullscreenPreference"))
         {
