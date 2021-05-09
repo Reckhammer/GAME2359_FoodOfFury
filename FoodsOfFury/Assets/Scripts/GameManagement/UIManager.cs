@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     public Text weaponUseAmountUI;          // reference to weapon use amount (ex. ketchup shots left)
     public Text livesAmountUI;
     public Slider loadingSlider;            // reference to loading slider for loading screen
+    private PlayerManager lives;            //Reference to the PlayerManager
 
     // do singleton stuff
     private void Awake()
@@ -33,6 +34,16 @@ public class UIManager : MonoBehaviour
             instance = this;
         else
             Destroy(this);
+    }
+
+    void Start()
+    {
+        lives = GameObject.FindGameObjectWithTag("Player").GetComponentInParent<PlayerManager>();
+    }
+
+    void Update()
+    {
+         livesAmountUI.text = lives.currentLives.ToString();
     }
 
     // update health bar
@@ -102,14 +113,6 @@ public class UIManager : MonoBehaviour
         Inventory playerInventory = GameObject.FindWithTag( "Player" ).GetComponentInParent<Inventory>();
 
         keyAmountUI.text = ""+ playerInventory.keyCount;
-    }
-
-    public void updateLivesUI()
-    {
-        // find with tag is evil
-        PlayerManager playerLives = GameObject.FindWithTag("Player").GetComponentInParent<PlayerManager>();
-
-        livesAmountUI.text = "" + playerLives.currentLives;
     }
 
     public void setObjectiveText(string text)
