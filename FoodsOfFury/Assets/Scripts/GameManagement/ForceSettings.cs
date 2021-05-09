@@ -25,5 +25,9 @@ public class ForceSettings : MonoBehaviour
             audioMixer.SetFloat("mVolume", Mathf.Log10(PlayerPrefs.GetFloat("MusicPreference")) * 20);
             audioMixer.SetFloat("eVolume", Mathf.Log10(PlayerPrefs.GetFloat("EffectsPreference")) * 20);
         }
+
+        // unlock cursor
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
