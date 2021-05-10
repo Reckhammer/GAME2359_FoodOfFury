@@ -6139,6 +6139,7 @@ GameObject:
   - component: {fileID: 678306808}
   - component: {fileID: 678306807}
   - component: {fileID: 678306806}
+  - component: {fileID: 678306810}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -6175,10 +6176,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -6229,6 +6230,30 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &678306810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678306805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68dffbb593f45142a7d396d3cb5432e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
+  weaponImageUI: {fileID: 0}
+  weaponSelectedOverlays: []
+  oldWeaponImageUI: {fileID: 0}
+  consumableImageUI: {fileID: 0}
+  consumableAmountUI: {fileID: 0}
+  collectibleAmoutUI: {fileID: 0}
+  keyAmountUI: {fileID: 0}
+  objectivesText: {fileID: 0}
+  weaponUseAmountUI: {fileID: 0}
+  livesAmountUI: {fileID: 0}
+  loadingSlider: {fileID: 710309082}
 --- !u!1001 &690239771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6515,6 +6540,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6508793298599671332, guid: 348cb0fd1fe11f84b8ae6531041e38d5, type: 3}
   m_PrefabInstance: {fileID: 709797992}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &710309082 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 294578623574895803, guid: 52f93b89884ec744582cbd0917c0b212, type: 3}
+  m_PrefabInstance: {fileID: 857744758}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &731670051 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1852199101635003400, guid: 63a1cab90d1f757488a01f6d810f706c, type: 3}
