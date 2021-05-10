@@ -17,6 +17,7 @@ public class LevelManager : MonoBehaviour
     private PlayerManager lives;        //Reference to the PlayerManager
     private Health  playerHealth;       //the player's heath
     private GameObject player;          //Reference to the player
+    private ScreenFade fadeScreen;
 
     private int currentObjInd;          //index in objectiveList of current obj.
     private int doneCount;              //Number of completed objectives
@@ -37,6 +38,7 @@ public class LevelManager : MonoBehaviour
 
         playerHealth = GameObject.FindGameObjectWithTag( "Player" ).GetComponentInParent<Health>(); //get the reference to the player's health componet
         player = GameObject.Find("Player_PM2");
+        fadeScreen = GameObject.Find("FadeScreen").GetComponentInParent<ScreenFade>();
 
         currentRespawnPoint = GameObject.Find("StartingPoint").GetComponent<Transform>();
 
@@ -85,6 +87,8 @@ public class LevelManager : MonoBehaviour
         }
         else if (playerHealth.amount <= 0 && !lives.fullyDied)
         {
+            fadeScreen.DeathFade();
+
             playerHealth.Revive();
             player.transform.position = currentRespawnPoint.position;
         }
