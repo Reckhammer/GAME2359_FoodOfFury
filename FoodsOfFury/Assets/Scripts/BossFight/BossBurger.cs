@@ -16,6 +16,7 @@ public class BossBurger : MonoBehaviour
     public Spawner acidRainSpawner;         // acid rain spawner
     public ObjectEnabler hazardEnabler;     // hazard enabler
     public GameObject endObject;            // ending trigger object
+    public Animator animator;               // animator of boss
 
     private int[] waveCounts = { 0, 0, 0 }; // wave enemy amount array
     private int currentWave = 0;            // curent wave index
@@ -77,6 +78,7 @@ public class BossBurger : MonoBehaviour
     {
         UIManager.instance.setObjectiveText(waveOneText + " " + waveCounts[0]);
         waveOneSpawner.spawnWave();
+        animator.SetTrigger("WaveStart");
     }
 
     private void doWaveTwo()
@@ -84,6 +86,7 @@ public class BossBurger : MonoBehaviour
         UIManager.instance.setObjectiveText(waveTwoText + " " + waveCounts[1]);
         waveTwoSpawner.spawnWave();
         acidRainSpawner.spawn();
+        animator.SetTrigger("WaveStart");
     }
 
     private void doWaveThree()
@@ -91,6 +94,7 @@ public class BossBurger : MonoBehaviour
         UIManager.instance.setObjectiveText(waveThreeText + " " + waveCounts[2]);
         waveThreeSpawner.spawnWave();
         hazardEnabler.enableObjects();
+        animator.SetTrigger("WaveStart");
     }
 
     public void waveEnemyDeath(WaveNumber num)
@@ -104,11 +108,11 @@ public class BossBurger : MonoBehaviour
             switch (currentWave) // just in case we ever add more waves
             {
                 case 1:
-                    print("wave two start");
+                    //print("wave two start");
                     doWaveTwo();
                     break;
                 case 2:
-                    print("wave three start");
+                    //print("wave three start");
                     doWaveThree();
                     break;
                 default:
