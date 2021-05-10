@@ -1,24 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!95 &3892597007857943970
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7852534480489045039}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 14943f1179aa428438a36e3dd7bfbb40, type: 3}
-  m_Controller: {fileID: 9100000, guid: fc0c54c75af70894aa1ce075b964d3e8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8894326240344379135
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,8 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82b6aeed6c60a254782650aeacf681c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: 
+  message: Joshua put a new message here
   objectiveType: 1
+  isDone: 0
 --- !u!65 &3491768325730370962
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -205,7 +187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5888270107475510074, guid: 6c267dc68f4c04e44a158fe92631694c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3000011
+      value: -0.19
       objectReference: {fileID: 0}
     - target: {fileID: 5888270107475510074, guid: 6c267dc68f4c04e44a158fe92631694c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -243,13 +225,28 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tomato_Char
       objectReference: {fileID: 0}
+    - target: {fileID: 7356785994851290271, guid: 6c267dc68f4c04e44a158fe92631694c, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3092507697168323250, guid: 14943f1179aa428438a36e3dd7bfbb40, type: 3}
+    - target: {fileID: 8761137041211159715, guid: 6c267dc68f4c04e44a158fe92631694c, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3092507697168323250, guid: 14943f1179aa428438a36e3dd7bfbb40, type: 3}
+    - target: {fileID: 8761137041211159715, guid: 6c267dc68f4c04e44a158fe92631694c, type: 3}
+      propertyPath: m_AABB.m_Center.x
+      value: 0.012012482
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761137041211159715, guid: 6c267dc68f4c04e44a158fe92631694c, type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 1.2789154
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761137041211159715, guid: 6c267dc68f4c04e44a158fe92631694c, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c267dc68f4c04e44a158fe92631694c, type: 3}
---- !u!1 &7852534480489045039 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6556263435839035776, guid: 6c267dc68f4c04e44a158fe92631694c, type: 3}
-  m_PrefabInstance: {fileID: 3892597007857943983}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7472067914455975573 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5888270107475510074, guid: 6c267dc68f4c04e44a158fe92631694c, type: 3}
