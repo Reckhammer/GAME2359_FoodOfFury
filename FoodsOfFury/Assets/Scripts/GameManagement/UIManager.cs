@@ -43,7 +43,7 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-         livesAmountUI.text = lives.currentLives.ToString();
+         //livesAmountUI.text = lives.currentLives.ToString();
     }
 
     // update health bar
