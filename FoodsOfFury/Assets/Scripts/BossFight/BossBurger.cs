@@ -79,6 +79,7 @@ public class BossBurger : MonoBehaviour
         UIManager.instance.setObjectiveText(waveOneText + " " + waveCounts[0]);
         waveOneSpawner.spawnWave();
         animator.SetTrigger("WaveStart");
+        AudioManager.Instance.play("Burger_Voice_03", animator.transform.position);
     }
 
     private void doWaveTwo()
@@ -87,6 +88,7 @@ public class BossBurger : MonoBehaviour
         waveTwoSpawner.spawnWave();
         acidRainSpawner.spawn();
         animator.SetTrigger("WaveStart");
+        AudioManager.Instance.play("Burger_Voice_03", animator.transform.position);
     }
 
     private void doWaveThree()
@@ -95,6 +97,7 @@ public class BossBurger : MonoBehaviour
         waveThreeSpawner.spawnWave();
         hazardEnabler.enableObjects();
         animator.SetTrigger("WaveStart");
+        AudioManager.Instance.play("Burger_Voice_04", animator.transform.position);
     }
 
     public void waveEnemyDeath(WaveNumber num)
