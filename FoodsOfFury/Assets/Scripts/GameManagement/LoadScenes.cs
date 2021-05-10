@@ -40,7 +40,7 @@ public class LoadScenes : MonoBehaviour
     {
         AudioManager.Instance.playRandom(transform.position, "UI_Accept_01").transform.parent = AudioManager.Instance.transform;
 
-        StartCoroutine(Loading("ThroneRoom"));
+        StartCoroutine(Loading("Cutscene_ThroneRoom"));
         //SceneManager.LoadScene("ThroneRoom");
     }
 
