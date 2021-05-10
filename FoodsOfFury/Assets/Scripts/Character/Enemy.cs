@@ -146,13 +146,15 @@ public class Enemy : MonoBehaviour
         else if ( amount < oldHealth ) // enemy damaged
         {
             ////print("Enemy was damaged!");
-            //play hurt sounds
+            animator.SetTrigger( "Hit" ); //play hurt animation
+            AudioManager.Instance.playRandom( transform.position, "Enemy_Hurt_01" );    //play hurt sounds
+
+            //Do the red flash on their renderer
             render.material.SetColor("_BaseColor", Color.red);
             Vector3 particlePos = transform.position;
             particlePos.y = particlePos.y + 1f;
             Instantiate(hitParticle, particlePos, transform.rotation);
             StartCoroutine(RendererTimer());
-            animator.SetTrigger( "Hit" ); 
         }
 
         oldHealth = amount;
@@ -219,10 +221,12 @@ public class Enemy : MonoBehaviour
 
             nextFire = Time.time + attackRate; //set nextfire to the next available time to attack
 
-            if ( animator != null )
+            if ( animator != null ) //Check if animator exists
             {
                 animator.SetTrigger( "Attack" ); //play the attack animation
             }
+
+            AudioManager.Instance.playRandom( transform.position, "Enemy_Attack_01" ); //Play Sound
         }
     }
 
@@ -298,6 +302,8 @@ public class Enemy : MonoBehaviour
             {
                 animator.SetBool( "IsDead", true ); //Play the animation
             }
+
+            AudioManager.Instance.playRandom(transform.position, "Enemy_KO_01" ); //Play Sound
 
             //if it has a key
             //      increment player's key count
