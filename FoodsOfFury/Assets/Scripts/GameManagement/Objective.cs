@@ -17,9 +17,10 @@ public class Objective : MonoBehaviour
 
     public string           message;            //Text message telling the player what to do
     public ObjectiveType    objectiveType;      //The type of objective of THIS obj
+    public GameObject       keyUI;
 
     public bool isDone = false;                //Boolean if the objective is done
-    public bool needKey = false;               //Boolean if player need key
+    //public bool needKey = false;               //Boolean if player need key
 
     private LevelManager lvlManager;            //Reference to the levelManager obj. for the level
     private AudioSource cageSounds;              //Cage Sounds -Brian
@@ -78,7 +79,7 @@ public class Objective : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Mouse0) && player.keyCount < 0)
             {
-                needKey = true;
+                keyUI.SetActive(true);
                 StartCoroutine(KeyUITimer());
             }
 
@@ -88,7 +89,7 @@ public class Objective : MonoBehaviour
     private IEnumerator KeyUITimer()
     {
         yield return new WaitForSeconds(3);
-        needKey = false;
+        keyUI.SetActive(false);
     }
 
     private IEnumerator DelayedDestruction( float waiter )
