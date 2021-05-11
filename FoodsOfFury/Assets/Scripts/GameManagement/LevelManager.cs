@@ -31,6 +31,7 @@ public class LevelManager : MonoBehaviour
     public GameObject loseMenu;           //Reference to the Lose Menu UI
     public float      waitTime = 2f;      //Wait time for the popup to come up in seconds
     public Transform currentRespawnPoint; //The current point that the player will respawn at
+    private Coroutine cFade;
     private bool      winSound = true;
     private bool      loseSound = true;
     private bool      hasDied = false;
@@ -90,16 +91,14 @@ public class LevelManager : MonoBehaviour
             loseMenu.gameObject.SetActive( true );
             setEndMessage(); //Activate the UI
         }
-        else if (playerHealth.amount <= 0 && !lives.fullyDied)
+        else if (playerHealth.amount <= 0 && !lives.fullyDied && cFade == null)
         {
             
-            //faintAnim.SetTrigger("Death");
-            //movement.stopInput(10.0f, true, true);
-
-            //StartCoroutine(FaintTimer());
-            fadeScreen.DeathFade();
-            playerHealth.Revive();
-            player.transform.position = currentRespawnPoint.position;
+            faintAnim.SetTrigger("Death");
+            movement.stopInput(10.0f, true, true);
+            player.GetComponent<PlayerManager>().addSwitchDelay(10.0f);
+            print("Faint");
+            cFade = StartCoroutine(FaintTimer());
         }
     }
 
@@ -192,14 +191,16 @@ public class LevelManager : MonoBehaviour
     }
 
     private IEnumerator FaintTimer()
-    {
+    {   
         yield return new WaitForSeconds(2);
 
         fadeScreen.DeathFade();
         playerHealth.Revive();
         player.transform.position = currentRespawnPoint.position;
         movement.stopInput(0.0f, false, false);
+        player.GetComponent<PlayerManager>().addSwitchDelay(0.0f);
 
+        cFade = null;
     }
 
 
