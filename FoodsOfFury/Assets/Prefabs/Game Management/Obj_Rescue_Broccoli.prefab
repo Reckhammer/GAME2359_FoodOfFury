@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 4726510026485673974}
   - component: {fileID: 8518616174484725843}
   - component: {fileID: 5898804081545172121}
-  - component: {fileID: 5052289665189947171}
   - component: {fileID: 5052289665189947168}
   - component: {fileID: 8318860163480202100}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Obj_Rescue_Broccoli
   m_TagString: Objective
   m_Icon: {fileID: 0}
@@ -34,6 +33,7 @@ Transform:
   m_Children:
   - {fileID: 4726510027410931007}
   - {fileID: 5023869399107874097}
+  - {fileID: 2439074636635318529}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
@@ -86,19 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5052289665189947171
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5394256269159724364}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 6.57439, y: 5.4310956, z: 1.1559019}
-  m_Center: {x: 3.2101505, y: -2.596718, z: 0.5634172}
 --- !u!114 &5052289665189947168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   message: 
   objectiveType: 1
+  isDone: 0
 --- !u!65 &8318860163480202100
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -126,6 +114,64 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10.117896, y: 8.071255, z: 1.593416}
   m_Center: {x: 3.330295, y: -2.4968479, z: 0.7821757}
+--- !u!136 &7362048831963601360
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5394256270282073989}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.9211043
+  m_Height: 4.348774
+  m_Direction: 1
+  m_Center: {x: -0, y: 2.1756992, z: -0.00000029826805}
+--- !u!1 &8675658987311447989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2439074636635318529}
+  - component: {fileID: 1280139244641248859}
+  m_Layer: 8
+  m_Name: Cage Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2439074636635318529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8675658987311447989}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4726510026485673974}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1280139244641248859
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8675658987311447989}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.4155173, y: 4.781531, z: 1.1233578}
+  m_Center: {x: 3.2411857, y: -2.6157577, z: 0.5679126}
 --- !u!1001 &5052289664813832916
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -259,6 +305,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34e7cfdf5a4e3d547b6b362574dac815, type: 3}
+--- !u!1 &5394256270282073989 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 34e7cfdf5a4e3d547b6b362574dac815, type: 3}
+  m_PrefabInstance: {fileID: 5052289664813832916}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4726510027410931007 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 34e7cfdf5a4e3d547b6b362574dac815, type: 3}
