@@ -6128,6 +6128,26 @@ RectTransform:
   m_AnchoredPosition: {x: -0.1694336, y: -1.3999023}
   m_SizeDelta: {x: 2.269806, y: 1.4301147}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &486723972 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5182711568224548608, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
+  m_PrefabInstance: {fileID: 808190936257067354}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &486723976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486723972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1001 &490133144
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12968,6 +12988,26 @@ Transform:
   m_Father: {fileID: 1438976902}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &897310523 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2660134240625369343, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
+  m_PrefabInstance: {fileID: 808190936257067354}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &897310527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897310523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!4 &906083627 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4705839625261650505, guid: 4ba0ff0439ac223468aee9dd734533d6, type: 3}
@@ -23122,6 +23162,26 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5125553827425817408, guid: 14877bbb6f2003944a29b1f4c152ab1f, type: 3}
   m_PrefabInstance: {fileID: 1509694677}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1516482538 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7801589901473397440, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
+  m_PrefabInstance: {fileID: 808190936257067354}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1516482542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516482538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1001 &1516838264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33834,6 +33894,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: LoadScenes, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 2048918327496232183, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 5117277545330002114, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
       propertyPath: m_FontData.m_Alignment
       value: 4
@@ -33930,9 +33994,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5525835847738999225, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: abdd3f47648f67146ac6d510495713c5, type: 3}
     - target: {fileID: 5585915201843703766, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6252775427908256876, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6770373320275666560, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
