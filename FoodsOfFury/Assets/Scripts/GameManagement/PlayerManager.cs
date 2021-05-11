@@ -41,6 +41,7 @@ public class PlayerManager : MonoBehaviour
         equipItem(ItemType.Consumable);
         oldHealth = GetComponent<Health>().amount;
         currentLives = maxLives;
+        UIManager.instance.updateLivesUI();
 
         if (UIManager.instance != null)
         {
@@ -314,6 +315,7 @@ public class PlayerManager : MonoBehaviour
         {
             currentLives--;
             UIManager.instance?.updateHealthBar(amount);
+            UIManager.instance.updateLivesUI();
         }
         else if (amount < oldHealth) // player damaged
         {

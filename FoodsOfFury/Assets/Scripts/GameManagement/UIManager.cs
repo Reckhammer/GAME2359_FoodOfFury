@@ -95,6 +95,14 @@ public class UIManager : MonoBehaviour
         collectibleAmoutUI.text = ""+ playerInventory.collectibleCount;
     }
 
+    public void updateLivesUI()
+    {
+        // find with tag is evil
+        PlayerManager lifeAmount = GameObject.FindWithTag("Player").GetComponentInParent<PlayerManager>();
+
+        livesAmountUI.text = "" + lifeAmount.currentLives;
+    }
+
     //update the key UI
     public void updateKeyUI()
     {
