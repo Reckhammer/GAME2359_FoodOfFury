@@ -102,6 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7498662208813647495}
   - component: {fileID: 6672539271582797395}
+  - component: {fileID: 1131356050297863083}
   m_Layer: 0
   m_Name: ketchup_splat
   m_TagString: Untagged
@@ -135,14 +136,14 @@ SkinnedMeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
+  m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 6271573414225017425, guid: e5a01d82d734e424dab344775ef0e7de, type: 3}
+  - {fileID: 2100000, guid: 325fbf8117e473745b1974b7557ded36, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -173,12 +174,34 @@ SkinnedMeshRenderer:
   - {fileID: 4030546591805940660}
   - {fileID: 5372114463188885158}
   - {fileID: 6231639572721853881}
-  m_BlendShapeWeights: []
+  m_BlendShapeWeights:
+  - 0
+  - 0
+  - 0
   m_RootBone: {fileID: 8088050217073219370}
   m_AABB:
-    m_Center: {x: -0.79983985, y: -1.3000609, z: 0.000011868775}
-    m_Extent: {x: 0.85119975, y: 1.6491469, z: 0.21049652}
+    m_Center: {x: -0.41890746, y: 0.07317752, z: 0.000011861324}
+    m_Extent: {x: 0.47026742, y: 0.27590835, z: 0.21049652}
   m_DirtyAABB: 0
+--- !u!95 &1131356050297863083
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120634019660764777}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: e5a01d82d734e424dab344775ef0e7de, type: 3}
+  m_Controller: {fileID: 9100000, guid: fe0d94f272fb7ec49ad4f573c66598af, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2563100719764448384
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,6 +574,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8369717316147118055}
   - component: {fileID: 129850753678446280}
+  - component: {fileID: 9053673859006141388}
+  - component: {fileID: 8609396949513079273}
   m_Layer: 0
   m_Name: Ketchup_Bullet
   m_TagString: Untagged
@@ -599,35 +624,35 @@ MonoBehaviour:
   m_Root: {fileID: 8088050217073219370}
   m_UpdateRate: 60
   m_UpdateMode: 3
-  m_Damping: 0.1
+  m_Damping: 0.202
   m_DampingDistrib:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Elasticity: 0.1
+  m_Elasticity: 0.299
   m_ElasticityDistrib:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Stiffness: 0.1
+  m_Stiffness: 0.656
   m_StiffnessDistrib:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Inert: 0
+  m_Inert: 0.272
   m_InertDistrib:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Friction: 0
+  m_Friction: 1
   m_FrictionDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -642,7 +667,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   m_EndLength: 0
-  m_EndOffset: {x: 0, y: 0, z: 0}
+  m_EndOffset: {x: 0, y: 0.67, z: 0.54}
   m_Gravity: {x: 0, y: 0, z: 0}
   m_Force: {x: 0, y: 0, z: 0}
   m_Colliders: []
@@ -651,3 +676,41 @@ MonoBehaviour:
   m_DistantDisable: 0
   m_ReferenceObject: {fileID: 0}
   m_DistanceToObject: 20
+--- !u!114 &9053673859006141388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9181965672107877725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03136f49d1df6f4a95fc57c551452a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets:
+  - Player
+  damageAmount: 1
+  delayAmount: 1
+  destroyOnImpact: 1
+  destroyOnImpactIgnore:
+    serializedVersion: 2
+    m_Bits: 26624
+  doesKnockback: 0
+  knockbackForce: 0
+  audioOnHit:
+  - Ketchup_Hit_01
+--- !u!136 &8609396949513079273
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9181965672107877725}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.23
+  m_Height: 0.9
+  m_Direction: 2
+  m_Center: {x: 0, y: 2.92, z: -0.09}
