@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
+    public AudioSource KeySounds;
+
     void OnTriggerEnter( Collider other )
     {
         //Check if the player has collided with the collectible
@@ -16,6 +18,7 @@ public class Key : MonoBehaviour
             {
                 inv.addKey();
                 UIManager.instance.updateKeyUI();
+                AudioManager.Instance.playRandom(transform.position, "Pickup_Key_01");
                 Destroy( gameObject );
             }
         }

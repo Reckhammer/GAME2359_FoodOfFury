@@ -62,12 +62,13 @@ public class Pickupable : MonoBehaviour
             {
                 if (type == ItemType.Consumable)
                 {
-                    AudioManager.Instance.playRandom(transform.position, "Pickup_Health_1");
+                    AudioManager.Instance.playRandom(transform.position, "Pickup_Health_02");
                 }
                 else
                 {
-                    AudioManager.Instance.playRandom(transform.position, "Rollo_Pickup_01");
-                }
+  /*                  AudioManager.Instance.playRandom(transform.position, "Rollo_Pickup_01", "Rollo_Pickup_02");
+                    AudioManager.Instance.playRandom(transform.position, "Pickup_Health_01");
+ */               }
                 player.GetComponentInParent<PlayerManager>().equipNextItem(type);  // call player manager to equip next item
                 player.GetComponentInParent<PlayerManager>().itemSelection = null; // set player item selection to null
                 Destroy(gameObject); // item succesfully added, delete this object
