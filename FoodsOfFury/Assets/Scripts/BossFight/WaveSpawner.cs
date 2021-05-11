@@ -8,8 +8,6 @@ public struct enemySpawn
 {
     public GameObject enemyGameobject;  // enemy to be spawned
     public Transform spawnPosition;     // position for enemy to be spawned
-    public GameObject[] loot;           // reference to loot
-    public int[] dropChance;            // chance of loot drop
 }
 
 public class WaveSpawner : MonoBehaviour
@@ -90,9 +88,6 @@ public class WaveSpawner : MonoBehaviour
         if (NavMesh.SamplePosition(enemy.spawnPosition.position, out closestHit, 2.0f, NavMesh.AllAreas))
         {
             GameObject e = Instantiate(enemy.enemyGameobject, closestHit.position, enemy.spawnPosition.rotation);
-            e.GetComponent<Enemy>().aggroRange = 100.0f;
-            e.GetComponent<Enemy>().loot = enemy.loot;
-            e.GetComponent<Enemy>().dropChance = enemy.dropChance;
             e.AddComponent<WaveEnemyCheck>().number = number;
 
             if (spawnParticle != null) // create particle effect and destroy after a short time has passed
@@ -103,6 +98,7 @@ public class WaveSpawner : MonoBehaviour
         else
         {
             print("[wave " + number + ", index: " + current + "], " + enemy.enemyGameobject.name + "'s spawn position is not close enough to the navmesh!");
+            BossBurger.Instance.waveEnemyDeath(number);
         }
     }
 

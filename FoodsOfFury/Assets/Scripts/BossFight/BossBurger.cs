@@ -10,9 +10,9 @@ public class BossBurger : MonoBehaviour
     public string waveTwoText;              // objective text when wave two starts
     public string waveThreeText;            // objective text when wave three starts
     public string bossDefeatedText;         // objective text when boss is defeated
-    public WaveSpawner waveOneSpawner;      // wave one enemy spawner
-    public WaveSpawner waveTwoSpawner;      // wave two enemy spawner
-    public WaveSpawner waveThreeSpawner;    // wave three enemy spawner
+    public WaveSpawner[] waveOneSpawners;   // wave one enemy spawners
+    public WaveSpawner[] waveTwoSpawners;   // wave two enemy spawners
+    public WaveSpawner[] waveThreeSpawners; // wave three enemy spawners
     public Spawner acidRainSpawner;         // acid rain spawner
     public ObjectEnabler hazardEnabler;     // hazard enabler
     public GameObject endObject;            // ending trigger object
@@ -31,9 +31,12 @@ public class BossBurger : MonoBehaviour
 
     private void Start()
     {
-        if (waveOneSpawner != null)
+        if (waveOneSpawners != null)
         {
-            waveCounts[0] = waveOneSpawner.waveEnemies.Length * waveOneSpawner.loopAmount;
+            foreach (WaveSpawner spawner in waveOneSpawners)
+            {
+                waveCounts[0] += spawner.waveEnemies.Length * spawner.loopAmount;
+            }
            // print("wave one count: " + waveOneCount);
         }
         else
@@ -41,9 +44,12 @@ public class BossBurger : MonoBehaviour
             print("wave one spawner is not linked!");
         }
 
-        if (waveTwoSpawner != null)
+        if (waveTwoSpawners != null)
         {
-            waveCounts[1] = waveTwoSpawner.waveEnemies.Length * waveTwoSpawner.loopAmount;
+            foreach (WaveSpawner spawner in waveTwoSpawners)
+            {
+                waveCounts[1] += spawner.waveEnemies.Length * spawner.loopAmount;
+            }
             //print("wave two count: " + waveTwoCount);
         }
         else
@@ -51,9 +57,12 @@ public class BossBurger : MonoBehaviour
             print("wave two spawner is not linked!");
         }
 
-        if (waveThreeSpawner != null)
+        if (waveThreeSpawners != null)
         {
-            waveCounts[2] = waveThreeSpawner.waveEnemies.Length * waveThreeSpawner.loopAmount;
+            foreach (WaveSpawner spawner in waveThreeSpawners)
+            {
+                waveCounts[2] += spawner.waveEnemies.Length * spawner.loopAmount;
+            }
             //print("wave three count: " + waveThreeCount);
         }
         else
@@ -77,7 +86,11 @@ public class BossBurger : MonoBehaviour
     private void doWaveOne()
     {
         UIManager.instance.setObjectiveText(waveOneText + " " + waveCounts[0]);
-        waveOneSpawner.spawnWave();
+
+        foreach (WaveSpawner spawner in waveOneSpawners)
+        {
+            spawner.spawnWave();
+        }
         animator.SetTrigger("WaveStart");
         AudioManager.Instance.play("Burger_Voice_03", animator.transform.position);
     }
@@ -85,7 +98,10 @@ public class BossBurger : MonoBehaviour
     private void doWaveTwo()
     {
         UIManager.instance.setObjectiveText(waveTwoText + " " + waveCounts[1]);
-        waveTwoSpawner.spawnWave();
+        foreach (WaveSpawner spawner in waveTwoSpawners)
+        {
+            spawner.spawnWave();
+        }
         acidRainSpawner.spawn();
         animator.SetTrigger("WaveStart");
         AudioManager.Instance.play("Burger_Voice_03", animator.transform.position);
@@ -94,7 +110,10 @@ public class BossBurger : MonoBehaviour
     private void doWaveThree()
     {
         UIManager.instance.setObjectiveText(waveThreeText + " " + waveCounts[2]);
-        waveThreeSpawner.spawnWave();
+        foreach (WaveSpawner spawner in waveThreeSpawners)
+        {
+            spawner.spawnWave();
+        }
         hazardEnabler.enableObjects();
         animator.SetTrigger("WaveStart");
         AudioManager.Instance.play("Burger_Voice_04", animator.transform.position);
