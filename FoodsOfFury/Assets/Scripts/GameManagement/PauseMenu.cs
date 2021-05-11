@@ -73,6 +73,11 @@ public class PauseMenu : MonoBehaviour
         {
             LevelMusic.Pause(); //Level Music pauses -Brian
         }
+ /*       if (LevelAmbience !=null)
+        {
+            LevelAmbience.Pause();
+        }
+ */
         pauseMenuUI.SetActive(true);
         settingMenuUI.SetActive(false);
         objectiveTxt.SetActive(false);
