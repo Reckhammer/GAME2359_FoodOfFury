@@ -21,17 +21,11 @@ public class Objective : MonoBehaviour
     public bool isDone = false;                //Boolean if the objective is done
 
     private LevelManager lvlManager;            //Reference to the levelManager obj. for the level
- //   public string[] audioCry = null;
     private AudioSource cageSounds;              //Cage Sounds -Brian
 
     void Awake()
     {
         lvlManager = GameObject.Find( "LevelManager" ).GetComponent<LevelManager>();    //Get the reference to the lvlManager in the scene
- /*       if (audioCry != null)
-        {
-            cageSounds = AudioManager.Instance.playRandom(transform.position, audioCry);
-            cageSounds.Play();
-        }*/
         //if message is not initialized
         //      Set it to a default value
         if ( message == null )
@@ -64,26 +58,21 @@ public class Objective : MonoBehaviour
             if ( Input.GetKeyDown( KeyCode.Mouse0 ) && player.keyCount > 0 )
             {
                 lvlManager.setCompleted( this );
-                GetComponent<MeshRenderer>().enabled = false;
-                GetComponent<Collider>().enabled = false;
+                GetComponent<MeshRenderer>().enabled = false;   //Disable cage visual
+                transform.Find( "Cage Collider" ).GetComponent<Collider>().enabled = false; //Disable cage collider
 
                 ////print("saved!!!");
                 player.addKey( -1 );
                 UIManager.instance.updateKeyUI();
- //               cageSounds.Stop();
                 AudioManager.Instance.playRandom(transform.position, "Cage_Unlock_01"); //Cage unlock sound -Brian
-                AudioManager.Instance.playRandom(transform.position, "Vegetable_Yeah_01" , "Vegetable_Yeah_02");
+                AudioManager.Instance.playRandom(transform.position, "Vegetable_Yeah_01", "Vegetable_Yeah_02");
 
-                if (GetComponentInChildren<Animator>() != null)
+                if ( GetComponentInChildren<Animator>() != null )
                 {
-                    GetComponentInChildren<Animator>().SetBool("IsRescued", true);
-                }
-                else // duct tape fix for tomato (tomato is no longer a child to fix stretching)
-                {
-                    transform.parent.GetComponentInChildren<Animator>().SetBool("IsRescued", true);
+                    GetComponentInChildren<Animator>().SetBool( "IsRescued", true );
                 }
 
-                StartCoroutine( DelayedDestruction( 5 ) );
+                //StartCoroutine( DelayedDestruction( 5 ) );
                 isDone = true;
             }
 

@@ -303,7 +303,7 @@ public class Enemy : MonoBehaviour
                 animator.SetBool( "IsDead", true ); //Play the animation
             }
 
-            AudioManager.Instance.playRandom(transform.position, "Enemy_KO_01" ); //Play Sound
+            AudioManager.Instance.playRandom( transform.position, "Enemy_KO_01" ); //Play Sound
 
             //if it has a key
             //      increment player's key count
