@@ -19,10 +19,12 @@ public class LevelManager : MonoBehaviour
     private GameObject player;          //Reference to the player
     private ScreenFade fadeScreen;      //Reference to FadeScreen
     private Animator faintAnim;
+    private PlayerMovementTwo movement;
 
     private int currentObjInd;          //index in objectiveList of current obj.
     private int doneCount;              //Number of completed objectives
 
+    //public float faintDelay = 2.0f;
     public Text       objectiveTxt;       //The text for the objective UI
     public GameObject endGameMenu;        //UI elements for the level completion
     public GameObject winMenu;            //Reference to the Win Menu UI
@@ -62,6 +64,7 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         lives = GameObject.FindGameObjectWithTag("Player").GetComponentInParent<PlayerManager>();
+        movement = GameObject.FindGameObjectWithTag("Player").GetComponentInParent<PlayerMovementTwo>();
     }
 
     void Update()
@@ -89,8 +92,12 @@ public class LevelManager : MonoBehaviour
         }
         else if (playerHealth.amount <= 0 && !lives.fullyDied)
         {
-            fadeScreen.DeathFade();
+            
+            //faintAnim.SetTrigger("Death");
+            //movement.stopInput(10.0f, true, true);
 
+            //StartCoroutine(FaintTimer());
+            fadeScreen.DeathFade();
             playerHealth.Revive();
             player.transform.position = currentRespawnPoint.position;
         }
@@ -183,4 +190,17 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 0; //this makes everything stop. Need to do this when switching scenes
 
     }
+
+    private IEnumerator FaintTimer()
+    {
+        yield return new WaitForSeconds(2);
+
+        fadeScreen.DeathFade();
+        playerHealth.Revive();
+        player.transform.position = currentRespawnPoint.position;
+        movement.stopInput(0.0f, false, false);
+
+    }
+
+
 }
