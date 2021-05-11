@@ -30,6 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 134144228624460251}
+  - {fileID: 8545623112522029231}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -61,7 +62,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 48
   m_CollisionDetection: 0
 --- !u!1 &3811916706292432662
 GameObject:
@@ -82,7 +83,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &134144228624460251
 Transform:
   m_ObjectHideFlags: 0
@@ -184,3 +185,65 @@ MonoBehaviour:
   knockbackForce: 0
   audioOnHit:
   - Ketchup_Hit_01
+--- !u!1001 &197898333490784072
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 988955243943132275}
+    m_Modifications:
+    - target: {fileID: 8369717316147118055, guid: 0c003a2086b55354ca4f90d2900b93f2, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8369717316147118055, guid: 0c003a2086b55354ca4f90d2900b93f2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.012221231
+      objectReference: {fileID: 0}
+    - target: {fileID: 8369717316147118055, guid: 0c003a2086b55354ca4f90d2900b93f2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 8369717316147118055, guid: 0c003a2086b55354ca4f90d2900b93f2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.048
+      objectReference: {fileID: 0}
+    - target: {fileID: 8369717316147118055, guid: 0c003a2086b55354ca4f90d2900b93f2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8369717316147118055, guid: 0c003a2086b55354ca4f90d2900b93f2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8369717316147118055, guid: 0c003a2086b55354ca4f90d2900b93f2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8369717316147118055, guid: 0c003a2086b55354ca4f90d2900b93f2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8369717316147118055, guid: 0c003a2086b55354ca4f90d2900b93f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8369717316147118055, guid: 0c003a2086b55354ca4f90d2900b93f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -180
+      objectReference: {fileID: 0}
+    - target: {fileID: 8369717316147118055, guid: 0c003a2086b55354ca4f90d2900b93f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9181965672107877725, guid: 0c003a2086b55354ca4f90d2900b93f2, type: 3}
+      propertyPath: m_Name
+      value: Ketchup_Bullet
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0c003a2086b55354ca4f90d2900b93f2, type: 3}
+--- !u!4 &8545623112522029231 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8369717316147118055, guid: 0c003a2086b55354ca4f90d2900b93f2, type: 3}
+  m_PrefabInstance: {fileID: 197898333490784072}
+  m_PrefabAsset: {fileID: 0}
