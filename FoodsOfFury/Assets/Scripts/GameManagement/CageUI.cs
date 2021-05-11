@@ -5,8 +5,9 @@ using UnityEngine;
 public class CageUI : MonoBehaviour
 {
     public GameObject cageUI;
-    //public GameObject keyUI;
+    public GameObject keyUI;
     public GameObject activationObject;
+    private Inventory keys;
     private bool showUI = true;
     private Objective objComponent;     //Objective component of activation object
     private bool isObjective = false;   //boolean indicating if the activation object is an objective
@@ -15,10 +16,11 @@ public class CageUI : MonoBehaviour
     void Start()
     {
         cageUI.SetActive(false);
-        //keyUI.SetActive(false);
+        keyUI.SetActive(false);
 
         //Check if activationObject is an objective
         objComponent = activationObject.GetComponent<Objective>();
+        keys = GameObject.FindGameObjectWithTag("Player").GetComponentInParent<Inventory>();
 
         //If there is an objective component
         //      then it is an objective
@@ -37,34 +39,44 @@ public class CageUI : MonoBehaviour
             cageUI.SetActive(false);
         }
 
-        /*if (objComponent.needKey == true)
-        {
-            keyUI.SetActive(true);
-            cageUI.SetActive(false);
-        }
-        else
-        {
-            keyUI.SetActive(false);
-        }*/
-
-        //If it is an objective AND it is done AND showUI is true
-        //      Disable the popup
-        if (isObjective && objComponent.isDone && showUI)
+        if (isObjective && objComponent.isDone && showUI == true)
         {
             showUI = false;
-            //keyUI.SetActive(false);
+            keyUI.SetActive(false);
             cageUI.SetActive(false);
         }
         else if (activationObject.activeSelf == false && showUI == true)
         {
             showUI = false;
-            //keyUI.SetActive(false);
+            keyUI.SetActive(false);
             cageUI.SetActive(false);
         }
 
 
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player" && keys.keyCount > 0 && showUI == true)
+        {
+
+            cageUI.SetActive(true);
+
+        }
+        else if (other.gameObject.tag == "Player" && keys.keyCount == 0 && showUI == true)
+        {
+            keyUI.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            cageUI.SetActive(false);
+            keyUI.SetActive(false);
+        }
+    }
 
 
 
