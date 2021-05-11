@@ -51,6 +51,7 @@ public class CheckpointCollision : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             levelManager.setRespawnPoint(respawnPoint);
+            AudioManager.Instance.playRandom(transform.position, "Checkpoint_Flag_01");
             Debug.Log("Checkpoint set!");
         }
     }
