@@ -33,7 +33,7 @@ public class BossBurger : MonoBehaviour
     {
         if (waveOneSpawner != null)
         {
-            waveCounts[0] = waveOneSpawner.waveEnemies.Length;
+            waveCounts[0] = waveOneSpawner.waveEnemies.Length * waveOneSpawner.loopAmount;
            // print("wave one count: " + waveOneCount);
         }
         else
@@ -43,7 +43,7 @@ public class BossBurger : MonoBehaviour
 
         if (waveTwoSpawner != null)
         {
-            waveCounts[1] = waveTwoSpawner.waveEnemies.Length;
+            waveCounts[1] = waveTwoSpawner.waveEnemies.Length * waveTwoSpawner.loopAmount;
             //print("wave two count: " + waveTwoCount);
         }
         else
@@ -53,7 +53,7 @@ public class BossBurger : MonoBehaviour
 
         if (waveThreeSpawner != null)
         {
-            waveCounts[2] = waveThreeSpawner.waveEnemies.Length;
+            waveCounts[2] = waveThreeSpawner.waveEnemies.Length * waveThreeSpawner.loopAmount;
             //print("wave three count: " + waveThreeCount);
         }
         else
