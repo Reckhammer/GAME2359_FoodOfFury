@@ -17,7 +17,8 @@ public class LevelManager : MonoBehaviour
     private PlayerManager lives;        //Reference to the PlayerManager
     private Health  playerHealth;       //the player's heath
     private GameObject player;          //Reference to the player
-    private ScreenFade fadeScreen;
+    private ScreenFade fadeScreen;      //Reference to FadeScreen
+    private Animator faintAnim;
 
     private int currentObjInd;          //index in objectiveList of current obj.
     private int doneCount;              //Number of completed objectives
@@ -37,6 +38,7 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 1;     //this resets the timescale after switching scenes
 
         playerHealth = GameObject.FindGameObjectWithTag( "Player" ).GetComponentInParent<Health>(); //get the reference to the player's health componet
+        faintAnim = GameObject.FindGameObjectWithTag("Player").GetComponentInParent<Animator>();
         player = GameObject.Find("Player_PM2");
         fadeScreen = GameObject.Find("FadeScreen").GetComponentInParent<ScreenFade>();
 
