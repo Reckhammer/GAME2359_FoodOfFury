@@ -215,6 +215,7 @@ public class LevelManager : MonoBehaviour
         fadeScreen.DeathFade();
         player.transform.position = currentRespawnPoint.position;
         playerHealth.Revive();
+        faintAnim.SetTrigger("Restart");
         movement.stopInput(0.0f, false, false);
         fadeScreen.Restart();
         player.GetComponent<PlayerManager>().addSwitchDelay(0.0f);
