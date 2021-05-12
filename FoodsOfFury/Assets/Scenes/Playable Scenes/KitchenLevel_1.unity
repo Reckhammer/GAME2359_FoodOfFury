@@ -17059,6 +17059,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7d9ed307d86261141bfe51db6f5170ff, type: 3}
   m_PrefabInstance: {fileID: 341511760}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &342952233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 342952234}
+  m_Layer: 0
+  m_Name: CheckPoint Particle (Missing Prefab)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &342952234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342952233}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 902581084}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &345400486 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3005119487648897708, guid: dbb3765d188425740945a9f4e87e7d73, type: 3}
@@ -36082,6 +36112,7 @@ Transform:
   m_Children:
   - {fileID: 692002747}
   - {fileID: 1981646020}
+  - {fileID: 342952234}
   m_Father: {fileID: 1192907858}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -75463,6 +75494,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: faf333054150e4f46bfe1a339ded2878, type: 3}
+--- !u!1 &1819511202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1981646020}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1001 &1821938307
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76893,7 +76940,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   message: Rescue the Veggies
   objectiveType: 2
-  keyUI: {fileID: 0}
   isDone: 0
 --- !u!4 &1884841544 stripped
 Transform:
@@ -82221,11 +82267,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c2c0aec19c81bb4ab478c5324adff9f, type: 3}
---- !u!4 &1981646020 stripped
+--- !u!4 &1981646020
 Transform:
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 8508606306770283587, guid: b9a035f5d37a68c4a936cbf707d11a0a, type: 3}
   m_PrefabInstance: {fileID: 2345128585588542666}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819511202}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 902581084}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1982518969
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94306,6 +94361,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5117277545330002114, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5507909497780090439, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -94408,7 +94467,7 @@ PrefabInstance:
       objectReference: {fileID: 12800000, guid: abdd3f47648f67146ac6d510495713c5, type: 3}
     - target: {fileID: 5585915201843703766, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 157
+      value: -2.6113129
       objectReference: {fileID: 0}
     - target: {fileID: 5667885887592659971, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
       propertyPath: m_AnchorMax.y
