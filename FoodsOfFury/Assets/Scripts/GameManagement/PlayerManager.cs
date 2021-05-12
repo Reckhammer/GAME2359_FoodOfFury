@@ -408,11 +408,13 @@ public class PlayerManager : MonoBehaviour
     {
         print("Player died");
 
+        currentLives--;
+        UIManager.instance.updateLivesUI();
+
         GetComponent<PlayerMovementTwo>().stopInput(10.0f, true, true);
-        GetComponent<Animator>().SetTrigger("Death");
         // do death animation?
+        GetComponent<Animator>().SetTrigger("Death");
         // send message to GameController
-        //Destroy(gameObject);
     }
 
     public void bulletSpawn()

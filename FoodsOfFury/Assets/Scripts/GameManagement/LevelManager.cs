@@ -102,7 +102,6 @@ public class LevelManager : MonoBehaviour
             faintAnim.SetTrigger("Death");
             movement.stopInput(10.0f, true, true);
             player.GetComponent<PlayerManager>().addSwitchDelay(10.0f);
-            print("Faint");
             cFade = StartCoroutine(FaintTimer());
         }
     }
@@ -196,7 +195,9 @@ public class LevelManager : MonoBehaviour
     }
 
     private IEnumerator FaintTimer()
-    {   
+    {
+        AudioManager.Instance.playRandom(transform.position, "Rollo_Lose_01", "Rollo_Lose_02");
+
         yield return new WaitForSeconds(2);
 
         fadeScreen.DeathFade();
