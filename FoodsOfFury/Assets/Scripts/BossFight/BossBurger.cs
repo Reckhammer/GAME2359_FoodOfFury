@@ -19,6 +19,7 @@ public class BossBurger : MonoBehaviour
     public Animator animator;               // animator of boss
     public delegate void EndFight();
     public event EndFight OnEnd;
+    public GameObject[] waveStartAnimations;
 
     private int[] waveCounts = { 0, 0, 0 }; // wave enemy amount array
     private int currentWave = 0;            // curent wave index
@@ -88,6 +89,7 @@ public class BossBurger : MonoBehaviour
     private void doWaveOne()
     {
         UIManager.instance.setObjectiveText(waveOneText + " " + waveCounts[0]);
+        waveStartAnimations[0].SetActive(true);
 
         foreach (WaveSpawner spawner in waveOneSpawners)
         {
@@ -100,6 +102,7 @@ public class BossBurger : MonoBehaviour
     private void doWaveTwo()
     {
         UIManager.instance.setObjectiveText(waveTwoText + " " + waveCounts[1]);
+        waveStartAnimations[1].SetActive(true);
         foreach (WaveSpawner spawner in waveTwoSpawners)
         {
             spawner.spawnWave();
@@ -112,6 +115,7 @@ public class BossBurger : MonoBehaviour
     private void doWaveThree()
     {
         UIManager.instance.setObjectiveText(waveThreeText + " " + waveCounts[2]);
+        waveStartAnimations[2].SetActive(true);
         foreach (WaveSpawner spawner in waveThreeSpawners)
         {
             spawner.spawnWave();

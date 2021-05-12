@@ -25192,6 +25192,10 @@ MonoBehaviour:
   hazardEnabler: {fileID: 1018159700}
   endObject: {fileID: 1788873090}
   animator: {fileID: 794201830}
+  waveStartAnimations:
+  - {fileID: 2037755176026186928}
+  - {fileID: 2037755176026186926}
+  - {fileID: 2037755176026186925}
 --- !u!4 &1932501326
 Transform:
   m_ObjectHideFlags: 0
@@ -29109,6 +29113,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 467553707670975047, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 631402606318277694, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -29139,6 +29147,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2747011440697418506, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456159207450958529, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5115344047550384097, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
@@ -29273,12 +29285,20 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7119519189090238546, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7322901120290148184, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8560461141694381693, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8758986458768425424, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9082006933242650741, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
@@ -29290,6 +29310,16 @@ PrefabInstance:
 --- !u!1 &2037755176026186924 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7801589901473397440, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
+  m_PrefabInstance: {fileID: 2037755176026186923}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2037755176026186925 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7119519189090238546, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
+  m_PrefabInstance: {fileID: 2037755176026186923}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2037755176026186926 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4456159207450958529, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
   m_PrefabInstance: {fileID: 2037755176026186923}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &2037755176026186927
@@ -29307,6 +29337,11 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!1 &2037755176026186928 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8758986458768425424, guid: 71de1493359bbaa45b3adcc1758eab49, type: 3}
+  m_PrefabInstance: {fileID: 2037755176026186923}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2089012966713197368
 Transform:
   m_ObjectHideFlags: 0
