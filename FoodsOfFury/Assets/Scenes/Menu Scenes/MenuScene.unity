@@ -506,7 +506,7 @@ GameObject:
   - component: {fileID: 459722271}
   - component: {fileID: 459722270}
   m_Layer: 5
-  m_Name: Survey
+  m_Name: Level Select
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -589,7 +589,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 459722270}
         m_TargetAssemblyTypeName: LoadScenes, Assembly-CSharp
-        m_MethodName: SurveyLink
+        m_MethodName: LevelSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2174,7 +2174,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1762110492}
         m_TargetAssemblyTypeName: LoadScenes, Assembly-CSharp
-        m_MethodName: LevelSelect
+        m_MethodName: FreezerScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
