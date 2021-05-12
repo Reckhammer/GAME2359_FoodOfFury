@@ -201,8 +201,8 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(2);
 
         fadeScreen.DeathFade();
-        playerHealth.Revive();
         player.transform.position = currentRespawnPoint.position;
+        playerHealth.Revive();
         movement.stopInput(0.0f, false, false);
         player.GetComponent<PlayerManager>().addSwitchDelay(0.0f);
 
