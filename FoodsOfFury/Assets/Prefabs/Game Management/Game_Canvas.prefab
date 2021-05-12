@@ -2361,7 +2361,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 808190934965184879}
+      - m_Target: {fileID: 1853386682345218500}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: BackToPause
         m_Mode: 1
@@ -4571,9 +4571,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 808190934660881857}
-        m_TargetAssemblyTypeName: LoadScenes, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1853386682345218500}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: HowToPlay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4769,7 +4769,7 @@ RectTransform:
   - {fileID: 3553813714087394893}
   - {fileID: 5154717937819575747}
   m_Father: {fileID: 5507909498210821194}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.07325, y: 0.7721482}
   m_AnchorMax: {x: 0.07325, y: 0.7721482}
@@ -5240,9 +5240,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 808190934965184879}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: LoadMenu
+      - m_Target: {fileID: 808190934660881857}
+        m_TargetAssemblyTypeName: LoadScenes, Assembly-CSharp
+        m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5504,7 +5504,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 808190934965184879}
+      - m_Target: {fileID: 1853386682345218500}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
@@ -6768,7 +6768,6 @@ GameObject:
   - component: {fileID: 5154717937819575747}
   - component: {fileID: 3855265698561311153}
   - component: {fileID: 260268409751436016}
-  - component: {fileID: 7886009183650749636}
   - component: {fileID: 8090443943346133476}
   m_Layer: 5
   m_Name: Button_Back
@@ -6834,18 +6833,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7886009183650749636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1449610862514036365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbcfbe2a891c7c24ebcc4c15c2d6c58f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8090443943346133476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6890,9 +6877,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7886009183650749636}
-        m_TargetAssemblyTypeName: LoadScenes, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1853386682345218500}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: BackToPause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7365,7 +7352,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 808190934965184879}
+      - m_Target: {fileID: 1853386682345218500}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: Settings
         m_Mode: 1
@@ -10029,9 +10016,9 @@ GameObject:
   - component: {fileID: 5507909498210821189}
   - component: {fileID: 5507909498210821188}
   - component: {fileID: 5507909498210821191}
-  - component: {fileID: 808190934965184879}
   - component: {fileID: 808190934660881857}
   - component: {fileID: 4300438786421826518}
+  - component: {fileID: 1853386682345218500}
   m_Layer: 5
   m_Name: Game_Canvas
   m_TagString: Untagged
@@ -10057,8 +10044,8 @@ RectTransform:
   - {fileID: 6985721516550422399}
   - {fileID: 5507909497780090436}
   - {fileID: 248405870}
-  - {fileID: 3388487056433652249}
   - {fileID: 2565748126122850338}
+  - {fileID: 3388487056433652249}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10128,22 +10115,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &808190934965184879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5507909498210821190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c50c066ae1adbcc42adae28b51330842, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseMenuUI: {fileID: 5507909497780090439}
-  settingMenuUI: {fileID: 248405867}
-  objectiveTxt: {fileID: 1442024828884693570}
-  LevelMusic: {fileID: 0}
 --- !u!114 &808190934660881857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10176,6 +10147,23 @@ MonoBehaviour:
   musicSlider: {fileID: 2537423182682311965}
   effectsSlider: {fileID: 7118885545725798699}
   fullscreenToggle: {fileID: 125076285}
+--- !u!114 &1853386682345218500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5507909498210821190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c50c066ae1adbcc42adae28b51330842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenuUI: {fileID: 5507909497780090439}
+  settingMenuUI: {fileID: 248405867}
+  howToPlayUI: {fileID: 466801416172506023}
+  objectiveTxt: {fileID: 1442024828884693570}
+  LevelMusic: {fileID: 0}
 --- !u!1 &5507909498372806342
 GameObject:
   m_ObjectHideFlags: 0
@@ -14126,7 +14114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7412310485077498622, guid: 52f93b89884ec744582cbd0917c0b212, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7412310485077498622, guid: 52f93b89884ec744582cbd0917c0b212, type: 3}
       propertyPath: m_AnchorMax.x

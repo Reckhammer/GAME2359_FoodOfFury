@@ -15,6 +15,7 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pauseMenuUI;
     public GameObject settingMenuUI;
+    public GameObject howToPlayUI;
     public GameObject objectiveTxt;     //Reference to the objective text UI
     public AudioSource LevelMusic;      //For Level Music pause and resume -Brian
 
@@ -55,6 +56,7 @@ public class PauseMenu : MonoBehaviour
         }
         pauseMenuUI.SetActive(false);
         settingMenuUI.SetActive(false);
+        howToPlayUI.SetActive(false);
         objectiveTxt.SetActive(true);
         Time.timeScale = 1f;
         gameIsPaused = false;
@@ -81,6 +83,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         settingMenuUI.SetActive(false);
         objectiveTxt.SetActive(false);
+        howToPlayUI.SetActive(false);
         Time.timeScale = 0f;
         gameIsPaused = true;
         Cursor.lockState = CursorLockMode.None;
@@ -92,8 +95,19 @@ public class PauseMenu : MonoBehaviour
         AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
 
         pauseMenuUI.SetActive(false);
+        howToPlayUI.SetActive(false);
         settingMenuUI.SetActive(true);
     }
+
+    public void HowToPlay()
+    {
+        AudioManager.Instance.playRandom(transform.position, "UI_Accept_01");
+
+        pauseMenuUI.SetActive(false);
+        howToPlayUI.SetActive(true);
+        settingMenuUI.SetActive(false);
+    }
+
 
     public void BackToPause()
     {
@@ -101,6 +115,7 @@ public class PauseMenu : MonoBehaviour
 
         pauseMenuUI.SetActive(true);
         settingMenuUI.SetActive(false);
+        howToPlayUI.SetActive(false);
     }
 
     public void LoadMenu()
