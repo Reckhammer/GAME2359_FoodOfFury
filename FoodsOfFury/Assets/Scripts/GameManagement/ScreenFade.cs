@@ -24,5 +24,9 @@ public class ScreenFade : MonoBehaviour
         animator.SetTrigger("FadeIn");
     }
 
+    public void Restart()
+    {
+        animator.SetTrigger("Reset");
+    }
 
 }

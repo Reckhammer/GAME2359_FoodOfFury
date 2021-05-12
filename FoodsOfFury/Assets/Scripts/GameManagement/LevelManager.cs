@@ -212,6 +212,7 @@ public class LevelManager : MonoBehaviour
         playerHealth.Revive();
         movement.stopInput(0.0f, false, false);
         player.GetComponent<PlayerManager>().addSwitchDelay(0.0f);
+        fadeScreen.Restart();
 
         cFade = null;
     }
