@@ -6784,6 +6784,23 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_Events: []
+--- !u!114 &-8364286506965793567
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f10dd60657c6004587f237a7e90f8e4, type: 3}
+  m_Name: AudioPlayableAsset
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: 11db20b5a1ad1fd4ab69d5159685c32c, type: 3}
+  m_Loop: 0
+  m_bufferingTime: 0.1
+  m_ClipProperties:
+    volume: 1
 --- !u!114 &-8334827597894185335
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -18922,13 +18939,13 @@ MonoBehaviour:
     m_Start: 65.2
     m_ClipIn: 0
     m_Asset: {fileID: 5507324009775980752}
-    m_Duration: 55.133333333333326
+    m_Duration: 18.89999999999999
     m_TimeScale: 1
     m_ParentTrack: {fileID: -2187392244262536935}
     m_EaseInDuration: 0
-    m_EaseOutDuration: 8
+    m_EaseOutDuration: 11.81
     m_BlendInDuration: -1
-    m_BlendOutDuration: -1
+    m_BlendOutDuration: 1.1999999999999886
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -18987,6 +19004,75 @@ MonoBehaviour:
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
     m_DisplayName: move-forward-by-kevin-macleod-from-filmmusic-io
+  - m_Version: 1
+    m_Start: 82.9
+    m_ClipIn: 0
+    m_Asset: {fileID: -8364286506965793567}
+    m_Duration: 37.599999999999994
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -2187392244262536935}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 2.14
+    m_BlendInDuration: 1.1999999999999886
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: FOF_Theme_Credits_Settings
   m_Markers:
     m_Objects: []
   m_TrackProperties:
@@ -19112,6 +19198,18 @@ MonoBehaviour:
   m_Loop: 0
   m_Version: 1
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &-1927644753019554699
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fde0d25a170598d46a0b9dc16b4527a5, type: 3}
+  m_Name: ActivationPlayableAsset
+  m_EditorClassIdentifier: 
 --- !u!114 &-1889047438152348792
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19524,28 +19622,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde0d25a170598d46a0b9dc16b4527a5, type: 3}
   m_Name: ActivationPlayableAsset
   m_EditorClassIdentifier: 
---- !u!114 &-1775742381277171023
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
-  m_Name: AnimationPlayableAsset
-  m_EditorClassIdentifier: 
-  m_Clip: {fileID: 1827226128182048838, guid: 0b172a6f10fd4054f99a32f5ec922aca, type: 3}
-  m_Position: {x: 0, y: 0, z: 0}
-  m_EulerAngles: {x: 0, y: 0, z: 0}
-  m_UseTrackMatchFields: 1
-  m_MatchTargetFields: 63
-  m_RemoveStartOffset: 1
-  m_ApplyFootIK: 1
-  m_Loop: 0
-  m_Version: 1
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &-1751125078933907042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21257,6 +21333,99 @@ MonoBehaviour:
     m_Duration: 27.55
     m_TimeScale: 1
     m_ParentTrack: {fileID: -963419515813757955}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Active
+  m_Markers:
+    m_Objects: []
+  m_PostPlaybackState: 3
+--- !u!114 &-933837486205426988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21bf7f712d84d26478ebe6a299f21738, type: 3}
+  m_Name: Activation Track (1)
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children: []
+  m_Clips:
+  - m_Version: 1
+    m_Start: 94.7753061224485
+    m_ClipIn: 0
+    m_Asset: {fileID: -1927644753019554699}
+    m_Duration: 111.8877324263035
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -933837486205426988}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: 0
@@ -23716,6 +23885,7 @@ MonoBehaviour:
   - {fileID: -6031356359804981004}
   - {fileID: -4427923413597608143}
   - {fileID: 3554604220801380793}
+  - {fileID: -933837486205426988}
   m_FixedDuration: 0
   m_EditorSettings:
     m_Framerate: 60
@@ -42151,10 +42321,10 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 100.05
-        value: -3547
-        inSlope: 0
-        outSlope: 283.16437
+        time: 95.15
+        value: -4538
+        inSlope: -32.651005
+        outSlope: 265.81183
         tangentMode: 69
         weightedMode: 0
         inWeight: 0.33333334
@@ -42162,7 +42332,16 @@ AnimationClip:
       - serializedVersion: 3
         time: 118
         value: 1535.8
-        inSlope: 283.16437
+        inSlope: 265.81183
+        outSlope: 2651.4307
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 118.01667
+        value: 1580
+        inSlope: 2651.4307
         outSlope: 0
         tangentMode: 69
         weightedMode: 0
@@ -42196,7 +42375,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 118
+    m_StopTime: 118.01667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -42216,10 +42395,10 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 100.05
-        value: -3547
-        inSlope: 0
-        outSlope: 283.16437
+        time: 95.15
+        value: -4538
+        inSlope: -32.651005
+        outSlope: 265.81183
         tangentMode: 69
         weightedMode: 0
         inWeight: 0.33333334
@@ -42227,7 +42406,16 @@ AnimationClip:
       - serializedVersion: 3
         time: 118
         value: 1535.8
-        inSlope: 283.16437
+        inSlope: 265.81183
+        outSlope: 2651.4307
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 118.01667
+        value: 1580
+        inSlope: 2651.4307
         outSlope: 0
         tangentMode: 69
         weightedMode: 0
@@ -49475,6 +49663,7 @@ MonoBehaviour:
   m_Parent: {fileID: -1080742092141896157}
   m_Children:
   - {fileID: 5490221996731678166}
+  - {fileID: 8744588709155411153}
   m_Clips:
   - m_Version: 1
     m_Start: 76.78333333333333
@@ -49825,13 +50014,13 @@ MonoBehaviour:
     m_Start: 99.43333333333334
     m_ClipIn: 0
     m_Asset: {fileID: -6004164986555966191}
-    m_Duration: 1
+    m_Duration: 1.5999999999999943
     m_TimeScale: 1
     m_ParentTrack: {fileID: 6076232505712183925}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: 0.21666666666666856
-    m_BlendOutDuration: 0.18333333333333712
+    m_BlendOutDuration: 0.5499999999999972
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -49891,15 +50080,15 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: Take 001
   - m_Version: 1
-    m_Start: 100.25
+    m_Start: 100.48333333333333
     m_ClipIn: 0
-    m_Asset: {fileID: -1775742381277171023}
-    m_Duration: 20.08333333333333
+    m_Asset: {fileID: 8629000056924173749}
+    m_Duration: 21.08333333333333
     m_TimeScale: 1
     m_ParentTrack: {fileID: 6076232505712183925}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0.18333333333333712
+    m_BlendInDuration: 0.5499999999999972
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -49958,7 +50147,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 1
     m_PostExtrapolationTime: Infinity
     m_PreExtrapolationTime: 0
-    m_DisplayName: Rollo_Fall_GreenOnion
+    m_DisplayName: Take 001
   m_Markers:
     m_Objects: []
   m_InfiniteClipPreExtrapolation: 0
@@ -52098,6 +52287,1197 @@ AnimationClip:
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 1
+  m_HasMotionFloatCurves: 0
+  m_Events: []
+--- !u!74 &6974597535813842879
+AnimationClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Recorded (74)
+  serializedVersion: 6
+  m_Legacy: 0
+  m_Compressed: 0
+  m_UseHighQualityCurve: 1
+  m_RotationCurves: []
+  m_CompressedRotationCurves: []
+  m_EulerCurves:
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: {x: 1.084, y: -1.849, z: 16.536}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: {x: -1.801, y: -1.554, z: 8.016}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: {x: 1.778, y: -0.931, z: 1.776}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2/L_Leaf_Jnt3
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: {x: 0.868, y: 1.94, z: -11.957}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: {x: 0.395, y: 2.018, z: -10.345}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: {x: 2.042, y: 0.79, z: -2.512}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2/R_Leaf_Jnt3
+  m_PositionCurves:
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: {x: -0.068180576, y: 0.38249725, z: 0.023502909}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: {x: -0.04544942, y: 0.14012441, z: -0.000005898066}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: {x: -0.05345323, y: 0.15123123, z: 0.000118917786}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2/L_Leaf_Jnt3
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: {x: 0.05940464, y: 0.40916523, z: -0.01749815}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: {x: 0.04475392, y: 0.1180214, z: -0.018008547}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: {x: 0.04884094, y: 0.1261612, z: 0.073440775}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2/R_Leaf_Jnt3
+  m_ScaleCurves: []
+  m_FloatCurves: []
+  m_PPtrCurves: []
+  m_SampleRate: 60
+  m_WrapMode: 0
+  m_Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_ClipBindingConstant:
+    genericBindings:
+    - serializedVersion: 2
+      path: 2584584399
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 550728947
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1709396256
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1720536834
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 810691630
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1007326912
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2584584399
+      attribute: 4
+      script: {fileID: 0}
+      typeID: 4
+      customType: 4
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 550728947
+      attribute: 4
+      script: {fileID: 0}
+      typeID: 4
+      customType: 4
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1709396256
+      attribute: 4
+      script: {fileID: 0}
+      typeID: 4
+      customType: 4
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1720536834
+      attribute: 4
+      script: {fileID: 0}
+      typeID: 4
+      customType: 4
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 810691630
+      attribute: 4
+      script: {fileID: 0}
+      typeID: 4
+      customType: 4
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1007326912
+      attribute: 4
+      script: {fileID: 0}
+      typeID: 4
+      customType: 4
+      isPPtrCurve: 0
+    pptrCurveMapping: []
+  m_AnimationClipSettings:
+    serializedVersion: 2
+    m_AdditiveReferencePoseClip: {fileID: 0}
+    m_AdditiveReferencePoseTime: 0
+    m_StartTime: 0
+    m_StopTime: 100.88333
+    m_OrientationOffsetY: 0
+    m_Level: 0
+    m_CycleOffset: 0
+    m_HasAdditiveReferencePose: 0
+    m_LoopTime: 0
+    m_LoopBlend: 0
+    m_LoopBlendOrientation: 0
+    m_LoopBlendPositionY: 0
+    m_LoopBlendPositionXZ: 0
+    m_KeepOriginalOrientation: 0
+    m_KeepOriginalPositionY: 1
+    m_KeepOriginalPositionXZ: 0
+    m_HeightFromFeet: 0
+    m_Mirror: 0
+  m_EditorCurves:
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 1.084
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: -1.849
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 16.536
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: -0.068180576
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 0.38249725
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 0.023502909
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: -1.801
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: -1.554
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 8.016
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: -0.04544942
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 0.14012441
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: -0.000005898066
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 1.778
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2/L_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: -0.931
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2/L_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 1.776
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2/L_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: -0.05345323
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2/L_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 0.15123123
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2/L_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 0.000118917786
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2/L_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 0.868
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 1.94
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: -11.957
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 0.05940464
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 0.40916523
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: -0.01749815
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 0.395
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 2.018
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: -10.345
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 0.04475392
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 0.1180214
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: -0.018008547
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 2.042
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2/R_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 0.79
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2/R_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: -2.512
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2/R_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 0.04884094
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2/R_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 0.1261612
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2/R_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 100.88333
+        value: 0.073440775
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2/R_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  m_EulerEditorCurves:
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2/L_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2/L_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/L_Leaf_Jnt1/L_Leaf_Jnt2/L_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2/R_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2/R_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Rig_Grp/JointsGRP/Root_Jnt/LowerSpine_Jnt/Mid_Spine_Jnt/LowerChest_Jnt/UpperChest_Jnt/Head_Jnt/HeadTop/Leaf_Root/R_Leaf_Jnt1/R_Leaf_Jnt2/R_Leaf_Jnt3
+    classID: 4
+    script: {fileID: 0}
+  m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events: []
 --- !u!114 &7047779856730556757
@@ -57998,6 +59378,28 @@ MonoBehaviour:
   m_Clips: []
   m_Markers:
     m_Objects: []
+--- !u!114 &8629000056924173749
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
+  m_Name: AnimationPlayableAsset
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 1827226128182048838, guid: 3bdaf8df509d82c4aa50b46511209522, type: 3}
+  m_Position: {x: 0, y: 0, z: 0}
+  m_EulerAngles: {x: 0, y: 0, z: 0}
+  m_UseTrackMatchFields: 1
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 1
+  m_ApplyFootIK: 1
+  m_Loop: 0
+  m_Version: 1
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &8665492242528973744
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -58113,6 +59515,47 @@ MonoBehaviour:
   m_Loop: 0
   m_Version: 1
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &8744588709155411153
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21dcc2386d650c4597f3633c75a1f98, type: 3}
+  m_Name: Override 1
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 6076232505712183925}
+  m_Children: []
+  m_Clips: []
+  m_Markers:
+    m_Objects: []
+  m_InfiniteClipPreExtrapolation: 1
+  m_InfiniteClipPostExtrapolation: 1
+  m_InfiniteClipOffsetPosition: {x: 379.2966, y: 163.87021, z: 33.813442}
+  m_InfiniteClipOffsetEulerAngles: {x: -0, y: 187.60512, z: 0}
+  m_InfiniteClipTimeOffset: 0
+  m_InfiniteClipRemoveOffset: 0
+  m_InfiniteClipApplyFootIK: 1
+  mInfiniteClipLoop: 0
+  m_MatchTargetFields: 63
+  m_Position: {x: 0, y: 0, z: 0}
+  m_EulerAngles: {x: 0, y: 0, z: 0}
+  m_AvatarMask: {fileID: 0}
+  m_ApplyAvatarMask: 1
+  m_TrackOffset: 0
+  m_InfiniteClip: {fileID: 6974597535813842879}
+  m_OpenClipOffsetRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+  m_ApplyOffsets: 0
 --- !u!114 &8745372299214334791
 MonoBehaviour:
   m_ObjectHideFlags: 1
