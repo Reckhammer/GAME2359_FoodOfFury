@@ -39,10 +39,10 @@ public class PlayerManager : MonoBehaviour
         inventory = GetComponent<Inventory>();
         equipItem(ItemType.Weapon);
         equipItem(ItemType.Consumable);
-        oldHealth = GetComponent<Health>().amount;
+        oldHealth = GetComponent<Health>().max;
         currentLives = maxLives;
         UIManager.instance.updateLivesUI(currentLives);
-        UIManager.instance.setHealthBarMax(GetComponent<Health>().max);
+        UIManager.instance.setHealthBarMax(oldHealth);
         UIManager.instance.updateHealthBar(oldHealth);
         PPV.profile.TryGetSettings(out healthVignette);
         healthVignette.intensity.value = 0.0f;
