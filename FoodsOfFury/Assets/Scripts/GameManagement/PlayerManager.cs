@@ -41,7 +41,7 @@ public class PlayerManager : MonoBehaviour
         equipItem(ItemType.Consumable);
         oldHealth = GetComponent<Health>().amount;
         currentLives = maxLives;
-        UIManager.instance.updateLivesUI();
+        UIManager.instance.updateLivesUI(currentLives);
 
         if (UIManager.instance != null)
         {
@@ -315,7 +315,7 @@ public class PlayerManager : MonoBehaviour
         {
             currentLives--;
             UIManager.instance?.updateHealthBar(amount);
-            UIManager.instance.updateLivesUI();
+            UIManager.instance.updateLivesUI(currentLives);
         }
         else if (amount < oldHealth) // player damaged
         {
@@ -409,7 +409,7 @@ public class PlayerManager : MonoBehaviour
         print("Player died");
 
         currentLives--;
-        UIManager.instance.updateLivesUI();
+        UIManager.instance.updateLivesUI(currentLives);
 
         GetComponent<PlayerMovementTwo>().stopInput(10.0f, true, true);
         // do death animation?
