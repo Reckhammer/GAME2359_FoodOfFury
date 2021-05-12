@@ -47,12 +47,8 @@ public class BouncePlatform : MonoBehaviour
         {
             case "Player":
                 obj.GetComponentInParent<PlayerMovementTwo>().applyExtraForce(direction * bounceForce, 0.1f, true);
-                if (direction.y > 0)
-                {
-                    //obj.GetComponentInParent<Animator>().SetTrigger("Jump");
-                    AudioManager.Instance.playRandom(transform.position, "Gelatin_01", "Gelatin_02").transform.SetParent(transform);
-                    AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_01", "Rollo_Jump_02").transform.SetParent(transform);
-                }
+                AudioManager.Instance.playRandom(transform.position, "Gelatin_01", "Gelatin_02").transform.SetParent(transform);
+                AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_01", "Rollo_Jump_02").transform.SetParent(transform);
                 break;
             default:
                 Rigidbody rb = obj.GetComponent<Rigidbody>();
