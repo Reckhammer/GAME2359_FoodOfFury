@@ -42,17 +42,8 @@ public class PlayerManager : MonoBehaviour
         oldHealth = GetComponent<Health>().amount;
         currentLives = maxLives;
         UIManager.instance.updateLivesUI(currentLives);
-
-        if (UIManager.instance != null)
-        {
-            UIManager.instance.setHealthBarMax(GetComponent<Health>().max);
-            UIManager.instance.updateHealthBar(oldHealth);
-        }
-        else
-        {
-            print("GameController missing!!!");
-        }
-
+        UIManager.instance.setHealthBarMax(GetComponent<Health>().max);
+        UIManager.instance.updateHealthBar(oldHealth);
         PPV.profile.TryGetSettings(out healthVignette);
         healthVignette.intensity.value = 0.0f;
     }
