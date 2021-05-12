@@ -131,9 +131,10 @@ public class LevelManager : MonoBehaviour
             //check if out of bounds
             if ( currentObjInd < objectiveList.Length )
             {
+                currentObjInd++;
                 //objectiveList[currentObjInd - 1].gameObject.SetActive( false ); //disable completed obj
                 objectiveList[currentObjInd].gameObject.SetActive( true );      //enable current obj
-                currentObjInd++;
+                
                 updateObjectiveText();
             }
         }
