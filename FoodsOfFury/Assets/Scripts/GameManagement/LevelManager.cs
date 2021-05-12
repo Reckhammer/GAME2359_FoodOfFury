@@ -76,14 +76,14 @@ public class LevelManager : MonoBehaviour
     {
         //If the text currently displayed does not match the current obj.'s text
         //      update the objective text box
-        if ( !objectiveTxt.text.Equals(objectiveList[currentObjInd].message ))
+        if ( currentObjInd < objectiveList.Length-1 && !objectiveTxt.text.Equals(objectiveList[currentObjInd].message ))
         {
             updateObjectiveText();
         }
 
         //if the number of done obj. is equal to total number of obj
         //      the level is complete. go to next lvl
-        if ( doneCount == objectiveList.Length )
+        if ( doneCount >= objectiveList.Length )
         {
             winningSound();
 
@@ -125,14 +125,14 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log( "An Objective has been completed" );
             doneCount++;
-            currentObjInd++;
+            
             
             //check if out of bounds
             if ( currentObjInd < objectiveList.Length )
             {
                 //objectiveList[currentObjInd - 1].gameObject.SetActive( false ); //disable completed obj
                 objectiveList[currentObjInd].gameObject.SetActive( true );      //enable current obj
-
+                currentObjInd++;
                 updateObjectiveText();
             }
         }
