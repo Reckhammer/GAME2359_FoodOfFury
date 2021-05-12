@@ -31,6 +31,7 @@ public class AcidRain : MonoBehaviour
         }
         damagingTrigger.SetActive(true);
         rainDown = AudioManager.Instance.playRandom(transform.position, "Grease_Rain_01");
+        rainDown.transform.SetParent(gameObject.transform);
 
         passed = 0.0f; // reset time for next sequence
 
@@ -50,6 +51,7 @@ public class AcidRain : MonoBehaviour
         }
         damagingTrigger.SetActive(false);
 
+        rainDown.Stop();
         Destroy(gameObject, destroyDelay); // destroy object when done
     }
 
