@@ -17,6 +17,8 @@ public class BossBurger : MonoBehaviour
     public ObjectEnabler hazardEnabler;     // hazard enabler
     public GameObject endObject;            // ending trigger object
     public Animator animator;               // animator of boss
+    public delegate void EndFight();
+    public event EndFight OnEnd;
 
     private int[] waveCounts = { 0, 0, 0 }; // wave enemy amount array
     private int currentWave = 0;            // curent wave index
@@ -163,6 +165,7 @@ public class BossBurger : MonoBehaviour
 
     private void doDeath()
     {
+        OnEnd();
         UIManager.instance.setObjectiveText(bossDefeatedText);
         print(bossDefeatedText);
         endObject.SetActive(true);

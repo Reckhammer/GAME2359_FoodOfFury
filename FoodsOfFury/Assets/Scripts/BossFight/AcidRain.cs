@@ -52,4 +52,19 @@ public class AcidRain : MonoBehaviour
 
         Destroy(gameObject, destroyDelay); // destroy object when done
     }
+
+    private void OnEnable()
+    {
+        BossBurger.Instance.OnEnd += FightEnded;
+    }
+
+    private void OnDisable()
+    {
+        BossBurger.Instance.OnEnd -= FightEnded;
+    }
+
+    private void FightEnded()
+    {
+        Destroy(gameObject);
+    }
 }
