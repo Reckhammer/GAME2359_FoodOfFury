@@ -215,10 +215,11 @@ public class LevelManager : MonoBehaviour
         player.transform.position = currentRespawnPoint.position;
         playerHealth.Revive();
         movement.stopInput(0.0f, false, false);
-        player.GetComponent<PlayerManager>().addSwitchDelay(0.0f);
         fadeScreen.Restart();
+        player.GetComponent<PlayerManager>().addSwitchDelay(0.0f);
 
         cFade = null;
+
     }
 
 
