@@ -35,8 +35,6 @@ public class Health : MonoBehaviour
 
         // sum = amount + (value normalized to a positive)
         float sum = (value >= 0.0f) ? amount + value : amount + -value;
-        AudioManager.Instance.playRandom(transform.position, "Rollo_Pickup_01", "Rollo_Pickup_02");
-        AudioManager.Instance.playRandom(transform.position, "Pickup_Health_01");
 
         // sum is above max, set to max
         if (sum > max)

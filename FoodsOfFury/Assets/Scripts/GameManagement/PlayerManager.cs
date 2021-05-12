@@ -86,28 +86,28 @@ public class PlayerManager : MonoBehaviour
         }
 
         // DEBUG: print inventory
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            inventory.printInventory();
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    inventory.printInventory();
+        //}
 
         // remove weapon
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            remove(ItemType.Weapon);
-            //currWeapon = null;
-            //inventory.remove(ItemType.Weapon);
-            //equipNextItem(ItemType.Weapon);
-        }
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    remove(ItemType.Weapon);
+        //    //currWeapon = null;
+        //    //inventory.remove(ItemType.Weapon);
+        //    //equipNextItem(ItemType.Weapon);
+        //}
 
         // remove consumable
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            remove(ItemType.Consumable);
-            //currConsumable = null;
-            //inventory.remove(ItemType.Consumable);
-            //equipNextItem(ItemType.Consumable);
-        }
+        //if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    remove(ItemType.Consumable);
+        //    //currConsumable = null;
+        //    //inventory.remove(ItemType.Consumable);
+        //    //equipNextItem(ItemType.Consumable);
+        //}
 
         // use consumable
         if (Input.GetKeyDown(KeyCode.E))
