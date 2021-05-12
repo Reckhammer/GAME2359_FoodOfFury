@@ -60,6 +60,7 @@ public class Objective : MonoBehaviour
                 lvlManager.setCompleted( this );
                 GetComponent<MeshRenderer>().enabled = false;   //Disable cage visual
                 transform.Find( "Cage Collider" ).GetComponent<Collider>().enabled = false; //Disable cage collider
+                transform.Find( "Cage Particle" ).gameObject.SetActive( false ); //Disable particle effect
 
                 ////print("saved!!!");
                 player.addKey( -1 );

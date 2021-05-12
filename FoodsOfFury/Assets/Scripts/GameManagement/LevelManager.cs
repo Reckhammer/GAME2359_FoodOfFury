@@ -130,7 +130,7 @@ public class LevelManager : MonoBehaviour
             //check if out of bounds
             if ( currentObjInd < objectiveList.Length )
             {
-                objectiveList[currentObjInd - 1].gameObject.SetActive( false ); //disable completed obj
+                //objectiveList[currentObjInd - 1].gameObject.SetActive( false ); //disable completed obj
                 objectiveList[currentObjInd].gameObject.SetActive( true );      //enable current obj
 
                 updateObjectiveText();
@@ -180,7 +180,9 @@ public class LevelManager : MonoBehaviour
     public void setRespawnPoint(Transform newPoint)
     {
         if (newPoint != null) //if the newPoint is not empty
+        {
             currentRespawnPoint = newPoint; //set currentRespawnPoint to newPoint
+        }
     }
 
     private IEnumerator DelayedMenu( float waiter )
