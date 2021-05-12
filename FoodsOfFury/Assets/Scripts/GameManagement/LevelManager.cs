@@ -12,6 +12,9 @@ using UnityEngine.UI;
 //----------------------------------------------------------------------------------------
 public class LevelManager : MonoBehaviour
 {
+    [HideInInspector]
+    public static bool gameOver = false;
+
     public Objective[] objectiveList;    //list of all of the objectives for the level
 
     private PlayerManager lives;        //Reference to the PlayerManager
@@ -66,6 +69,7 @@ public class LevelManager : MonoBehaviour
     {
         lives = GameObject.FindGameObjectWithTag("Player").GetComponentInParent<PlayerManager>();
         movement = GameObject.FindGameObjectWithTag("Player").GetComponentInParent<PlayerMovementTwo>();
+        gameOver = false;
     }
 
     void Update()
@@ -85,6 +89,7 @@ public class LevelManager : MonoBehaviour
         //  restart level
         if (lives.fullyDied && !hasDied)
         {
+            gameOver = true;
             losingSound();
             hasDied = true;
             Debug.Log("Player has died");
