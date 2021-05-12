@@ -6,8 +6,8 @@ public class LoadThroneRoom : MonoBehaviour
 {
     void OnEnable()
     {
-        SceneManager.LoadScene("ThroneRoom", LoadSceneMode.Single);
-        //StartCoroutine(Loading("ThroneRoom"));
+        //SceneManager.LoadScene("ThroneRoom", LoadSceneMode.Single);
+        StartCoroutine(Loading("ThroneRoom"));
     }
 
     private IEnumerator Loading(string level)
