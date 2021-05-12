@@ -28,6 +28,7 @@ public class LevelManager : MonoBehaviour
     private int doneCount;              //Number of completed objectives
 
     //public float faintDelay = 2.0f;
+    public bool       inControlObjTxt = true;
     public Text       objectiveTxt;       //The text for the objective UI
     public GameObject endGameMenu;        //UI elements for the level completion
     public GameObject winMenu;            //Reference to the Win Menu UI
@@ -155,7 +156,8 @@ public class LevelManager : MonoBehaviour
 
     public void updateObjectiveText()
     {
-        objectiveTxt.text = objectiveList[currentObjInd].message;       //update objective UI
+        if ( inControlObjTxt )
+            objectiveTxt.text = objectiveList[currentObjInd].message;       //update objective UI
     }
 
     public void winningSound()
