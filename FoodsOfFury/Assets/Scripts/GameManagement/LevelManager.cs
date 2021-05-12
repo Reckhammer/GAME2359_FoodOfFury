@@ -74,6 +74,13 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
+        //If the text currently displayed does not match the current obj.'s text
+        //      update the objective text box
+        if ( !objectiveTxt.text.Equals(objectiveList[currentObjInd].message ))
+        {
+            updateObjectiveText();
+        }
+
         //if the number of done obj. is equal to total number of obj
         //      the level is complete. go to next lvl
         if ( doneCount == objectiveList.Length )
