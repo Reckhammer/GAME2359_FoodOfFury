@@ -37,6 +37,7 @@ public class CameraController : MonoBehaviour
         Cursor.visible = false;
         cam = GetComponent<Camera>();
         wantedDistance = cameraDistance;
+        Physics.IgnoreLayerCollision(16, 18);
 
         if (!GetComponent<Collider>())
         {
