@@ -2431,8 +2431,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 598476111}
   m_HandleRect: {fileID: 598476110}
   m_Direction: 2
-  m_Value: 1.0000001
-  m_Size: 0.19942258
+  m_Value: 1
+  m_Size: 0.19942257
   m_NumberOfSteps: 11
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2731,30 +2731,27 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 300
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '
-
-
-
-    One Sly Move by Kevin MacLeod
-
-    Link: https://incompetech.filmmusic.io/song/
-
-    4168-one-sly-move
-
-    License:
-    https://filmmusic.io/standard-license
-
-
-    Silly Fun by Kevin MacLeod
-
-    Link:
-    https://incompetech.filmmusic.io/song/4360-silly-fun'
+  m_Text: "\n\n\n\n\n\n\r\nRadish to the Rescue by Brian Fagan\r\nKing Hamburg\u2019s
+    Theme by Brian Fagan\r\nBurger Beet Down by Brian Fagan\r\nVeggies Victorious
+    by Brian Fagan\r\nRadish Uprooted by Brian Fagan\r\nRetro Radish by Brian Fagan\r\n\nSilly
+    Fun by Kevin MacLeod\r\nLink: https://incompetech.filmmusic.io/song/4360-silly-fun\r\nLicense:
+    https://filmmusic.io/standard-license\r\n\r\nOppressive Gloom by Kevin MacLeod\r\nLink:
+    https://incompetech.filmmusic.io/song/4174-oppressive-gloom\r\nLicense: https://filmmusic.io/standard-license\r\n\r\nBig
+    Rock by Kevin MacLeod\r\nLink: https://incompetech.filmmusic.io/song/3436-big-rock\r\nLicense:
+    https://filmmusic.io/standard-license\r\n\r\nOne Sly Move by Kevin MacLeod\r\nLink:
+    https://incompetech.filmmusic.io/song/4168-one-sly-move\r\nLicense: https://filmmusic.io/standard-license\r\n\r\nHidden
+    Agenda by Kevin MacLeod\r\nLink: https://incompetech.filmmusic.io/song/3872-hidden-agenda\r\nLicense:
+    https://filmmusic.io/standard-license\r\n\r\n\r\nRising Game by Kevin MacLeod\r\nLink:
+    https://incompetech.filmmusic.io/song/4289-rising-game\r\nLicense: https://filmmusic.io/standard-license\r\n\r\n\r\nStrength
+    Of The Titans by Kevin MacLeod\r\nLink: https://incompetech.filmmusic.io/song/5744-strength-of-the-titans\r\nLicense:
+    https://filmmusic.io/standard-license\r\n\r\nMove Forward by Kevin MacLeod\r\nLink:
+    https://incompetech.filmmusic.io/song/4087-move-forward\r\nLicense: https://filmmusic.io/standard-license\r\n"
 --- !u!222 &868672753
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2837,6 +2834,85 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 914244174}
+  m_CullTransparentMesh: 1
+--- !u!1 &914589126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 914589127}
+  - component: {fileID: 914589129}
+  - component: {fileID: 914589128}
+  m_Layer: 0
+  m_Name: Names_Sound_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &914589127
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914589126}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_Children: []
+  m_Father: {fileID: 941358028}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.60668945, y: 261.9391}
+  m_SizeDelta: {x: 627.528, y: 882.548}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &914589128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914589126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: d0b6263a16b0c5f4092869c899315f56, type: 3}
+    m_FontSize: 60
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 300
+    m_Alignment: 0
+    m_AlignByGeometry: 1
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: "\n\n\n\n\n LEAD \n \n SOUND DESIGNERS\n\n MUSIC\r\n"
+--- !u!222 &914589129
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914589126}
   m_CullTransparentMesh: 1
 --- !u!1 &930853748
 GameObject:
@@ -2943,6 +3019,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children:
   - {fileID: 868672751}
+  - {fileID: 914589127}
   m_Father: {fileID: 49446280}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2984,7 +3061,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\n    Brian Fagan"
+  m_Text: "\n\n    Brian Fagan\n\n    Larry Benson"
 --- !u!222 &941358030
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3075,7 +3152,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 962009984}
   m_HandleRect: {fileID: 962009983}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 1.0000001
   m_Size: 0.4917242
   m_NumberOfSteps: 11
   m_OnValueChanged:
@@ -3427,7 +3504,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 329, y: -168}
+  m_AnchoredPosition: {x: 329, y: -166.1}
   m_SizeDelta: {x: 663, y: 175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &993735950
@@ -3730,7 +3807,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 930853750}
   m_HandleRect: {fileID: 930853749}
   m_Direction: 2
-  m_Value: 0.99999976
+  m_Value: 0.99999994
   m_Size: 0.15052587
   m_NumberOfSteps: 11
   m_OnValueChanged:
@@ -4032,7 +4109,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1632403310}
   m_HandleRect: {fileID: 1632403309}
   m_Direction: 2
-  m_Value: 0.99999976
+  m_Value: 1.0000005
   m_Size: 0.45920047
   m_NumberOfSteps: 11
   m_OnValueChanged:
@@ -4111,7 +4188,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.000091552734, y: -0.000045776367}
-  m_SizeDelta: {x: 599.177, y: 531.33}
+  m_SizeDelta: {x: 599.18, y: 531.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1412117082
 MonoBehaviour:
@@ -4476,7 +4553,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 331, y: -200.007}
+  m_AnchoredPosition: {x: 331, y: -200.9}
   m_SizeDelta: {x: 660.918, y: 243.987}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1502806452
@@ -4994,39 +5071,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '
-
-
-    Sofia Eichelmann
-
-
-
-    Bekah Mares
-
-    Braiden Blunt
-
-    Brandon
-    Edwards
-
-    Dan Seilheimer
-
-    Jared Gilpin
-
-    Juan Gonzalez
-
-    Larry Benson
-
-    Paula
-    Cassa
-
-    Precious Boiser
-
-    Robert Ramos
-
-    Trisha Faye Villa
-
-    Zayne
-    Grogan'
+  m_Text: "\n\nSofia Eichelmann\n\n\nLarry Benson\r\nBraiden Blunt\r\nPrecious Boiser\r\nPaula
+    Cassa\r\nBrandon Edwards\r\nJared Gilpin\r\nJuan Gonzalez\nZayne Grogan\r\nRebekah
+    Mares\r\nRobert Ramos\r\nDan Seilheimer\r\nTrisha Villa\r"
 --- !u!222 &1617394947
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5106,9 +5153,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\n\n    Trisha Faye Villa\n\n\n    Angel Pina\n\n\n    Abdon Puente\n   
-    Bekah Mares\n    Brandon Edwards\n    Jared Gilpin\n    Larry Benson\n    Precious
-    Boiser"
+  m_Text: "\n\n    Trisha Faye Villa\n\n\n    Angel Pina\n\n\n    Larry Benson\r\n   
+    Precious Boiser\r\n    Brandon Edwards\r\n    Brian Fagan\r\n    Jared Gilpin\r\n   
+    Abdon Puente\r\n    Trisha Villa\r"
 --- !u!222 &1630984524
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5693,7 +5740,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 691093562}
   m_HandleRect: {fileID: 691093561}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
