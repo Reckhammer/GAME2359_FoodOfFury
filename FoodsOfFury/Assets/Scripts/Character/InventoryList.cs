@@ -42,17 +42,21 @@ public class InventoryList
         return false;
     }
 
-    // return next 'Item' in list and update 'current'
-    public GameObject next()
+    // return next 'Item' in list and update 'current' (if requested)
+    public GameObject next(bool updateCurrent = true)
     {
         if (list.Count == 0) // if empty return
         {
             return null;
         }
 
-        current = (current + 1 <= max && current + 1 <= list.Count - 1) ? current + 1 : 0; // update current to next available index (loops back to beginning '0')
+        int nextIndex = (current + 1 <= max && current + 1 <= list.Count - 1) ? current + 1 : 0; // update current to next available index (loops back to beginning '0')
+        if (updateCurrent)
+        {
+            current = nextIndex;
+        }
 
-        return list[current];
+        return list[nextIndex];
     }
 
     // return previous 'Item' in list and update 'current'

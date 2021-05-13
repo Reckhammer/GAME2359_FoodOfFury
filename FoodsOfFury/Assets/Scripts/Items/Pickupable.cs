@@ -64,7 +64,8 @@ public class Pickupable : MonoBehaviour
                 {
                     AudioManager.Instance.playRandom(transform.position, "Pickup_Health_02");
                 }
-                player.GetComponentInParent<PlayerManager>().equipNextItem(type);  // call player manager to equip next item
+                player.GetComponentInParent<PlayerManager>().equipItem(type); // call player manager to equip next item
+                //player.GetComponentInParent<PlayerManager>().equipNextItem(type);  // call player manager to equip next item
                 player.GetComponentInParent<PlayerManager>().itemSelection = null; // set player item selection to null
                 Destroy(gameObject); // item succesfully added, delete this object
             }
