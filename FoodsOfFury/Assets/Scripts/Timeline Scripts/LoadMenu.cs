@@ -6,8 +6,8 @@ public class LoadMenu : MonoBehaviour
 {
     void OnEnable()
     {
-        SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
-        //StartCoroutine(Loading("MenuScene"));
+        //SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
+        StartCoroutine(Loading("MenuScene"));
     }
 
     private IEnumerator Loading(string level)
