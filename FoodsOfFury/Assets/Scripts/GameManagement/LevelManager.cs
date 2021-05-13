@@ -164,7 +164,6 @@ public class LevelManager : MonoBehaviour
     {
         if (winSound == true)
         {
-            AudioManager.Instance.playRandom(transform.position, "Music_Mini_Victory"); 
             AudioManager.Instance.playRandom(transform.position, "Rollo_Win_01", "Rollo_Win_02");
             winSound = false;
         }
@@ -174,9 +173,8 @@ public class LevelManager : MonoBehaviour
     {
         if (loseSound == true)
         {
-            AudioManager.Instance.playRandom(transform.position, "Music_Mini_Game_Over");
-            AudioManager.Instance.playRandom(transform.position, "Rollo_Lose_01", "Rollo_Lose_02");
-            loseSound = false;
+           AudioManager.Instance.playRandom(transform.position, "Rollo_Lose_01", "Rollo_Lose_02");
+           loseSound = false;
         }
         
     }
