@@ -20,6 +20,7 @@ public class BossBurger : MonoBehaviour
     public delegate void EndFight();
     public event EndFight OnEnd;
     public GameObject[] waveStartAnimations;
+    public AudioSource bossMusic;
 
     private int[] waveCounts = { 0, 0, 0 }; // wave enemy amount array
     private int currentWave = 0;            // curent wave index
@@ -170,6 +171,8 @@ public class BossBurger : MonoBehaviour
     private void doDeath()
     {
         OnEnd();
+        Destroy(bossMusic.gameObject);
+        AudioManager.Instance.play("Music_Mini_Victory", animator.transform.position);
         UIManager.instance.setObjectiveText(bossDefeatedText);
         print(bossDefeatedText);
         endObject.SetActive(true);
