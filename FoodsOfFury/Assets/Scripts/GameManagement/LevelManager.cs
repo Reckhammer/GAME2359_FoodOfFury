@@ -27,7 +27,6 @@ public class LevelManager : MonoBehaviour
     private int currentObjInd;          //index in objectiveList of current obj.
     private int doneCount;              //Number of completed objectives
 
-    //public float faintDelay = 2.0f;
     public bool       inControlObjTxt = true;
     public Text       objectiveTxt;       //The text for the objective UI
     public GameObject endGameMenu;        //UI elements for the level completion
