@@ -30,7 +30,7 @@ Transform:
   - {fileID: 5281266423578826936}
   m_Father: {fileID: 5642894222236444067}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 31.098274, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -20.740557, z: 0}
 --- !u!1 &1390792250401218213
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,7 +42,8 @@ GameObject:
   - component: {fileID: 1130004579750081715}
   - component: {fileID: 5266004358045911362}
   - component: {fileID: 6174604930411416355}
-  m_Layer: 0
+  - component: {fileID: 2082979241}
+  m_Layer: 8
   m_Name: Soda_Straw1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,6 +113,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2082979241
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390792250401218213}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 5.77, z: 0.5}
+  m_Center: {x: 0, y: -0.2, z: 0.01}
 --- !u!1 &1798314258832089129
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +187,7 @@ Transform:
   - {fileID: 5154742918455525802}
   m_Father: {fileID: 4771642863010942793}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -40.657166, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 17.568558, z: 0}
 --- !u!1 &2770173663379209344
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,7 +218,7 @@ Transform:
   - {fileID: 941382606388297015}
   m_Father: {fileID: 5154742918455525802}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 20.718777, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 26.750189, z: 0}
 --- !u!1 &3727043505692171737
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +302,9 @@ GameObject:
   - component: {fileID: 7060252332143800111}
   - component: {fileID: 5768877755266073321}
   - component: {fileID: 5155649848756943431}
-  m_Layer: 0
+  - component: {fileID: 222531226}
+  - component: {fileID: 222531227}
+  m_Layer: 8
   m_Name: SodaCup_Lid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,6 +374,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &222531226
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4155733027989536594}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.05, y: 0.57, z: 3.39}
+  m_Center: {x: 0, y: 0.07, z: 0}
+--- !u!65 &222531227
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4155733027989536594}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.75, y: 0.57, z: 3.55}
+  m_Center: {x: 0, y: -0.13, z: 0}
 --- !u!1 &5703188448149262409
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,7 +519,7 @@ Transform:
   - {fileID: 5418419861780296172}
   m_Father: {fileID: 3959410891671033907}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 6.8148713, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 17.755592, z: 0}
 --- !u!1 &7660505778627922680
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,7 +580,7 @@ Transform:
   - {fileID: 3959410891671033907}
   m_Father: {fileID: 5281266423578826936}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0.06319405, y: -13.3548565, z: -0.10960913}
+  m_LocalEulerAnglesHint: {x: 0, y: 22.01953, z: 0}
 --- !u!1 &7946160031033325630
 GameObject:
   m_ObjectHideFlags: 0
