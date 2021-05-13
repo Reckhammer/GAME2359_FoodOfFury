@@ -19129,7 +19129,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2665118353826918177, guid: 0dbce5009e7ccf84eb61bb0ff037f34c, type: 3}
   m_PrefabInstance: {fileID: 1218142550}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1884263724}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82b6aeed6c60a254782650aeacf681c8, type: 3}
@@ -77107,6 +77107,11 @@ MonoBehaviour:
   message: Rescue the Veggies
   objectiveType: 2
   isDone: 0
+--- !u!1 &1884263724 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2665118353826918176, guid: 0dbce5009e7ccf84eb61bb0ff037f34c, type: 3}
+  m_PrefabInstance: {fileID: 1218142550}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1884841544 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6000985537954760478, guid: 55e13fd9e2168d5488395ad7bfdf8f56, type: 3}
@@ -94271,9 +94276,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 255222153}
     m_Modifications:
+    - target: {fileID: 760461131738572760, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
+      propertyPath: animObject
+      value: 
+      objectReference: {fileID: 1884263724}
     - target: {fileID: 973919636783303929, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099554438819193096, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
+      propertyPath: m_Size.x
+      value: 14.78944
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099554438819193096, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
+      propertyPath: m_Size.y
+      value: 10.530797
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099554438819193096, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
+      propertyPath: m_Size.z
+      value: 31.143291
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099554438819193096, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
+      propertyPath: m_Center.x
+      value: 6.89472
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099554438819193096, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
+      propertyPath: m_Center.y
+      value: 4.7653985
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099554438819193096, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
+      propertyPath: m_Center.z
+      value: 8.293176
       objectReference: {fileID: 0}
     - target: {fileID: 1174535133281294562, guid: 455e016ed9c7c5043bb18b8e36b1e1c4, type: 3}
       propertyPath: m_StaticEditorFlags

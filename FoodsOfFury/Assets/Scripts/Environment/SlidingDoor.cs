@@ -24,7 +24,7 @@ public class SlidingDoor : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" && isClose == false && animObject.activeSelf == false)
+        if (other.gameObject.tag == "Player" && isClose == false && animObject.activeSelf == true)
         {
 
             isClose = true;
@@ -34,7 +34,7 @@ public class SlidingDoor : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player" && isClose == true && animObject.activeSelf == false)
+        if (other.gameObject.tag == "Player" && isClose == true && animObject.activeSelf == true)
         {
             isClose = false;
         }
