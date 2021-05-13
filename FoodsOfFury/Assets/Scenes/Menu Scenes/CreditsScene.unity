@@ -667,7 +667,7 @@ RectTransform:
   m_GameObject: {fileID: 354880975}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 421}
-  m_LocalScale: {x: 0.7824905, y: 0.7824905, z: 0.7824905}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 914244175}
   - {fileID: 776158241}
@@ -678,7 +678,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2420.3635, y: 1365}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &354880977
 MonoBehaviour:
@@ -1588,8 +1588,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 687673092}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.275, y: 1.3229163, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000030517578}
+  m_LocalScale: {x: 0.99767536, y: 1.0351694, z: 0.7824905}
   m_Children:
   - {fileID: 1994315306}
   - {fileID: 678496516}
@@ -1602,7 +1602,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 460, y: -704}
+  m_AnchoredPosition: {x: 372.9899, y: -556.82355}
   m_SizeDelta: {x: 660, y: 871}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &687673094
@@ -2106,15 +2106,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 776158240}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000030517578}
+  m_LocalScale: {x: 0.7824905, y: 0.7824905, z: 0.7824905}
   m_Children: []
   m_Father: {fileID: 354880976}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.07325, y: 0.7721482}
   m_AnchorMax: {x: 0.07325, y: 0.7721482}
-  m_AnchoredPosition: {x: 1936, y: -954}
+  m_AnchoredPosition: {x: 1526.0348, y: -749.7347}
   m_SizeDelta: {x: 515, y: 131}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &776158242
@@ -2431,8 +2431,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 598476111}
   m_HandleRect: {fileID: 598476110}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.19942257
+  m_Value: 1.0000001
+  m_Size: 0.1994226
   m_NumberOfSteps: 11
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2771,6 +2771,7 @@ GameObject:
   - component: {fileID: 914244175}
   - component: {fileID: 914244177}
   - component: {fileID: 914244176}
+  - component: {fileID: 914244178}
   m_Layer: 0
   m_Name: Logo
   m_TagString: Untagged
@@ -2786,15 +2787,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 914244174}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.000039000573}
-  m_LocalScale: {x: 0.5373784, y: 0.5373784, z: 0.5373784}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000030517578}
+  m_LocalScale: {x: 0.42049345, y: 0.42049345, z: 0.42049345}
   m_Children: []
   m_Father: {fileID: 354880976}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 6, y: -155}
+  m_AnchoredPosition: {x: 4.6949573, y: -127.236275}
   m_SizeDelta: {x: 1600, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &914244176
@@ -2835,6 +2836,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 914244174}
   m_CullTransparentMesh: 1
+--- !u!111 &914244178
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914244174}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 866df0d7bf04ea549ac45fb14d04f44d, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 866df0d7bf04ea549ac45fb14d04f44d, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &914589126
 GameObject:
   m_ObjectHideFlags: 0
@@ -3152,8 +3169,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 962009984}
   m_HandleRect: {fileID: 962009983}
   m_Direction: 2
-  m_Value: 1.0000001
-  m_Size: 0.4917242
+  m_Value: 1
+  m_Size: 0.49172416
   m_NumberOfSteps: 11
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3807,7 +3824,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 930853750}
   m_HandleRect: {fileID: 930853749}
   m_Direction: 2
-  m_Value: 0.99999994
+  m_Value: 1
   m_Size: 0.15052587
   m_NumberOfSteps: 11
   m_OnValueChanged:
@@ -4109,7 +4126,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1632403310}
   m_HandleRect: {fileID: 1632403309}
   m_Direction: 2
-  m_Value: 1.0000005
+  m_Value: 1
   m_Size: 0.45920047
   m_NumberOfSteps: 11
   m_OnValueChanged:
