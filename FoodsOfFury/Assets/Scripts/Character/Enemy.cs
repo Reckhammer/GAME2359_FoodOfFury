@@ -317,6 +317,7 @@ public class Enemy : MonoBehaviour
 
             StartCoroutine( DelayedPoof(3.5f) );
             StartCoroutine( DelayedDestruction(5) ); //Wait 5 secs to destroy the enemy
+            agent.enabled = false;
         }
     }
 
