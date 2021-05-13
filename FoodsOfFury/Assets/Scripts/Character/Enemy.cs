@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
     public  bool            hasKey      = false;            //Boolean indicating if the enemy has a key for ObjectiveType.Rescues
     public  GameObject      keyDrop;                        //Key Object that they would drop
     public  GameObject      hitParticle;                    //Particle System effect to make appear when hit
+    public  GameObject      poofPartical;                   //Poof particle
 
     private bool        isDead = false;             //Boolean to indicate if the enemy is alive and active
     private int         index = 0;                  //Index of current waypoint
@@ -314,8 +315,15 @@ public class Enemy : MonoBehaviour
                 Instantiate( keyDrop, itemPos, transform.rotation );
             }
 
+            StartCoroutine( DelayedPoof(3.5f) );
             StartCoroutine( DelayedDestruction(5) ); //Wait 5 secs to destroy the enemy
         }
+    }
+
+    private IEnumerator DelayedPoof( float time )
+    {
+        yield return new WaitForSeconds( time );
+        Destroy(Instantiate(poofPartical, transform.position, poofPartical.transform.rotation), 1.5f);
     }
 
     private IEnumerator DelayedDestruction( float waiter )
