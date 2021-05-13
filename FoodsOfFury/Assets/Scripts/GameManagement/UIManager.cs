@@ -50,10 +50,27 @@ public class UIManager : MonoBehaviour
     // updates the weapoons UI
     public void updateWeaponUI(Sprite current, Sprite old)
     {
-        if (weaponImageUI == null)
+        //if (weaponImageUI == null)
+        //{
+        //    return;
+        //}
+
+        if (current == null)
         {
+            weaponImageUI.gameObject.SetActive(false);
+            oldWeaponImageUI.gameObject.SetActive(false);
             return;
         }
+
+        if (old == null)
+        {
+            oldWeaponImageUI.gameObject.SetActive(false);
+        }
+        else
+        {
+            oldWeaponImageUI.gameObject.SetActive(true);
+        }
+        weaponImageUI.gameObject.SetActive(true);
 
         weaponImageUI.sprite = current;
         oldWeaponImageUI.sprite = old;
@@ -77,11 +94,14 @@ public class UIManager : MonoBehaviour
     // updates the consumables UI
     public void updateConsumablesUI(Sprite image, float amount)
     {
-        if (consumableImageUI == null)
+        if (image == null)
         {
+            consumableImageUI.gameObject.SetActive(false);
+            consumableAmountUI.text = "x" + amount;
             return;
         }
 
+        consumableImageUI.gameObject.SetActive(true);
         consumableImageUI.sprite = image;
         consumableAmountUI.text = "x" + amount;
     }
