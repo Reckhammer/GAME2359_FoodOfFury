@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class SlidingDoor : MonoBehaviour
 {
-
+    public GameObject animObject;
     private Animator animator = null;
-    private LevelManager levelManager; //Reference to the level's level manager
     private string doorAnim = null;
     private bool isClose = false;
 
@@ -15,7 +14,6 @@ public class SlidingDoor : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
     }
 
     // Update is called once per frame
@@ -26,7 +24,7 @@ public class SlidingDoor : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" && isClose == false && levelManager.objectiveList.Length == 1)
+        if (other.gameObject.tag == "Player" && isClose == false && animObject.activeSelf == false)
         {
 
             isClose = true;
@@ -36,7 +34,7 @@ public class SlidingDoor : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player" && isClose == true && levelManager.objectiveList.Length == 1)
+        if (other.gameObject.tag == "Player" && isClose == true && animObject.activeSelf == false)
         {
             isClose = false;
         }
