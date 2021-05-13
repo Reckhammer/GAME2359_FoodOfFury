@@ -141,7 +141,7 @@ public class PlayerManager : MonoBehaviour
             case ItemType.Weapon:
                 Sprite oldImage = null;
 
-                if (currWeapon != null)
+                if (currWeapon != null && inventory.get(type) != currWeapon)
                 {
                     oldImage = currWeapon.GetComponent<WeaponReferences>().sprite;
                     currWeapon.SetActive(false);       // set old item inactive
@@ -154,6 +154,12 @@ public class PlayerManager : MonoBehaviour
                 if (old == currWeapon)
                 {
                     oldImage = null;
+
+                    GameObject next = inventory.next(type, false);
+                    if (next != null)
+                    {
+                        oldImage = next.GetComponent<WeaponReferences>().sprite;
+                    }
                 }
 
                 if (currWeapon != null) // update UI & turn on weapon script

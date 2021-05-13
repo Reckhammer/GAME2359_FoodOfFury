@@ -28,6 +28,8 @@ public class PlayerMovementTwo : MonoBehaviour
     public float maxSlope               = 0.7f;         // max slope player can move on
 
     public Transform[] normalCheckers   = null;         // posisitions to check for ground normal
+    public GameObject leftEvadeParticles;               // particles for evading left
+    public GameObject rightEvadeParticles;              // particles for evading right
 
     private Health health               = null;         // health reference
     private Rigidbody rb                = null;         // rigidbody of player
@@ -39,6 +41,7 @@ public class PlayerMovementTwo : MonoBehaviour
     private const int maxJump           = 2;            // max amount of jumps
     private int currentJump             = 0;            // current jump index
     private bool isGrounded             = true;         // for ground check
+    [HideInInspector]
     public bool isGliding               = false;        // for gliding check
     private bool inJump                 = false;        // for jump delay
     private bool canDash                = true;         // for dash delay check
@@ -258,10 +261,12 @@ public class PlayerMovementTwo : MonoBehaviour
                 if(inputs.z > 0)
                 {
                     animator.SetTrigger(evadeRightAnim);
+                    rightEvadeParticles.SetActive(true);
                 }
                 else
                 {
                     animator.SetTrigger(evadeLeftAnim);
+                    leftEvadeParticles.SetActive(true);
                 }
             }
             else
@@ -271,6 +276,7 @@ public class PlayerMovementTwo : MonoBehaviour
                 StartCoroutine(DashDelayTimer());                       // start dash delay timer
                 animator.SetTrigger(evadeRightAnim);
                 health.subtract(0, 1);
+                rightEvadeParticles.SetActive(true);
             }
         }
         
@@ -393,6 +399,15 @@ public class PlayerMovementTwo : MonoBehaviour
         {
             passed += Time.deltaTime;
             yield return null;
+        }
+
+        if (leftEvadeParticles.activeSelf)
+        {
+            leftEvadeParticles.SetActive(false);
+        }
+        else if (rightEvadeParticles.activeSelf)
+        {
+            rightEvadeParticles.SetActive(false);
         }
 
         canDash = true;

@@ -75,14 +75,14 @@ public class Inventory : MonoBehaviour
     }
 
     // returns the next item reference in list
-    public GameObject next(ItemType type)
+    public GameObject next(ItemType type, bool updateCurrent = true)
     {
         switch (type)
         {
             case ItemType.Weapon:
-                return weapons.next();
+                return weapons.next(updateCurrent);
             case ItemType.Consumable:
-                return consumables.next();
+                return consumables.next(updateCurrent);
             default:
                 return null;
         }
