@@ -42,7 +42,7 @@ public class nDamaging: MonoBehaviour
 
             if (other.tag == target && !hitRegistry.Contains(otherID)) // also check if object id is in list (did we hit the object already)
             {
-                if (other.GetComponent<Health>() == null)
+                if (other.GetComponent<nHealth>() == null)
                 {
                     Debug.LogWarning("Object hit: " + other.gameObject + ", Does not have the 'Health' script attached!");
                     return;
@@ -54,7 +54,7 @@ public class nDamaging: MonoBehaviour
                 //printHitRegistry();
                 print("hit: " + other + ", hits registered: " + hitsRegistered);
 
-                other.GetComponent<Health>().subtract(damageAmount);
+                other.GetComponent<nHealth>().subtract(damageAmount);
             }
         }
     }

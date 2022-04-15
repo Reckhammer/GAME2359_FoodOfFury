@@ -37,9 +37,9 @@ public class nPlayerManager : MonoBehaviour
     {
         oldHealth = GetComponent<nHealth>().max;
         currentLives = maxLives;
-        UIManager.instance.updateLivesUI(currentLives);
-        UIManager.instance.setHealthBarMax(oldHealth);
-        UIManager.instance.updateHealthBar(oldHealth);
+        nUIManager.instance.updateLivesUI(currentLives);
+        nUIManager.instance.setHealthBarMax(oldHealth);
+        nUIManager.instance.updateHealthBar(oldHealth);
         PPV.profile.TryGetSettings(out healthVignette);
         healthVignette.intensity.value = 0.0f;
         inventory = GetComponent<nPlayerInventory>();
@@ -76,10 +76,7 @@ public class nPlayerManager : MonoBehaviour
         // use consumable
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (inventory.healthPickups != 0) // if currConsumable exists
-            {
-                print("need to add health");
-            }
+            inventory.useHealthPickup();
         }
     }
 
@@ -105,14 +102,14 @@ public class nPlayerManager : MonoBehaviour
             AudioManager.Instance.playRandom(transform.position, "Rollo_Hurt_1", "Rollo_Hurt_2", "Rollo_Hurt_3").transform.SetParent(transform);
             Instantiate(hitParticle, transform.position, transform.rotation);
             healthVignette.intensity.value = 0.7f;
-            UIManager.instance?.updateHealthBar(amount);
+            nUIManager.instance?.updateHealthBar(amount);
         }
         else if (amount > oldHealth) // player healed
         {
             print("Player was healed!");
             // healed animations?
             AudioManager.Instance.playRandom(transform.position, "Rollo_Health_01", "Rollo_Health_02").transform.SetParent(transform);
-            UIManager.instance?.updateHealthBar(amount);
+            nUIManager.instance?.updateHealthBar(amount);
         }
 
         oldHealth = amount;

@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//----------------------------------------------------------------------------------------
+// Author: Jose Villanueva
+//
+// Description: Handles logic for onion weapon
+//----------------------------------------------------------------------------------------
+
 public class nOnionWeapon : MonoBehaviour
 {
     public Animation attackAnim;
     private bool attackOnePlayed = false;
     private bool followUp = false;
-
 
     // Update is called once per frame
     void Update()

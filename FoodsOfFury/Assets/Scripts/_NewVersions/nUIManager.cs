@@ -6,7 +6,7 @@ using UnityEngine.UI;
 //----------------------------------------------------------------------------------------
 // Author: Jose Villanueva
 //
-// Description: This class acts as a UI manager.
+// Description: Manages main UI
 //----------------------------------------------------------------------------------------
 
 public class nUIManager : MonoBehaviour
@@ -19,12 +19,13 @@ public class nUIManager : MonoBehaviour
     public Image[] weaponOneOverlays;       // references to weapon one overlays
     public Image consumableImageUI;         // reference to consumable image
     public Text consumableAmountUI;         // reference to consumable amount text
-    public Text collectibleAmoutUI;         // reference to collectible amount text
+    public Text starFruitAmountUI;          // reference to star fruit amount text
     public Text keyAmountUI;                // reference to key amount text
     public Text objectivesText;             // reference to objectives text
     public Text weaponUseAmountUI;          // reference to weapon use amount (ex. ketchup shots left)
     public Text livesAmountUI;
     public Slider loadingSlider;            // reference to loading slider for loading screen
+    public Sprite[] commonIcons;            // reference to icons to commonly used icons
 
     // do singleton stuff
     private void Awake()
@@ -47,78 +48,36 @@ public class nUIManager : MonoBehaviour
         healthBar?.setHealthBarMax(max);
     }
 
-    //// updates the weapoons UI
-    //public void updateWeaponUI(Sprite current, Sprite old)
-    //{
-    //    //if (weaponImageUI == null)
-    //    //{
-    //    //    return;
-    //    //}
-
-    //    if (current == null)
-    //    {
-    //        weaponImageUI.gameObject.SetActive(false);
-    //        oldWeaponImageUI.gameObject.SetActive(false);
-    //        return;
-    //    }
-
-    //    if (old == null)
-    //    {
-    //        oldWeaponImageUI.gameObject.SetActive(false);
-    //    }
-    //    else
-    //    {
-    //        oldWeaponImageUI.gameObject.SetActive(true);
-    //    }
-    //    weaponImageUI.gameObject.SetActive(true);
-
-    //    weaponImageUI.sprite = current;
-    //    oldWeaponImageUI.sprite = old;
-
-    //    if (weaponImageUI.sprite != null)
-    //    {
-    //        foreach (Image image in weaponSelectedOverlays)
-    //        {
-    //            image.gameObject.SetActive(true);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        foreach (Image image in weaponSelectedOverlays)
-    //        {
-    //            image.gameObject.SetActive(false);
-    //        }
-    //    }
-    //}
-
-    public void setWeaponOneUI(Sprite image)
+    // set weapon one UI
+    public void setWeaponOneUI(nItemType type)
     {
-        if (image == null)
+        if (type == nItemType.None)
         {
             weaponOneImageUI.gameObject.SetActive(false);
         }
         else
         {
-            weaponOneImageUI.sprite = image;
+            weaponOneImageUI.sprite = commonIcons[getIconFromType(type)];
         }
     }
 
-    public void setWeaponTwoUI(Sprite image)
+    // set weapon two UI
+    public void setWeaponTwoUI(nItemType type)
     {
-        if (image == null)
+        if (type == nItemType.None)
         {
             weaponTwoImageUI.gameObject.SetActive(false);
         }
         else
         {
-            weaponTwoImageUI.sprite = image;
+            weaponTwoImageUI.sprite = commonIcons[getIconFromType(type)];
         }
     }
 
-    // updates the consumables UI
-    public void updateConsumablesUI(Sprite image, float amount)
+    // set the consumable UI
+    public void setConsumablesUI(nItemType type, float amount)
     {
-        if (image == null)
+        if (type == nItemType.None)
         {
             consumableImageUI.gameObject.SetActive(false);
             consumableAmountUI.text = "x" + amount;
@@ -126,17 +85,14 @@ public class nUIManager : MonoBehaviour
         }
 
         consumableImageUI.gameObject.SetActive(true);
-        consumableImageUI.sprite = image;
+        consumableImageUI.sprite = commonIcons[getIconFromType(type)];
         consumableAmountUI.text = "x" + amount;
     }
 
-    //update the collectible UI
-    public void updateCollectibleUI()
+    // set the star fruit UI
+    public void setStarFruitUI(int amount)
     {
-        // find with tag is evil
-        Inventory playerInventory = GameObject.FindWithTag("Player").GetComponentInParent<Inventory>();
-
-        collectibleAmoutUI.text = "" + playerInventory.collectibleCount;
+        starFruitAmountUI.text = "" + amount;
     }
 
     public void updateLivesUI(int lives)
@@ -175,6 +131,22 @@ public class nUIManager : MonoBehaviour
         else
         {
             print("no loading slider is present");
+        }
+    }
+
+    // returns index for commonIcons from type
+    private int getIconFromType(nItemType type)
+    {
+        switch (type)
+        {
+            case nItemType.HealthPickup:
+                return 0;
+            case nItemType.OnionWeapon:
+                return 1;
+            case nItemType.KetchupWeapon:
+                return 2;
+            default:
+                return -1;
         }
     }
 }
