@@ -28,32 +28,18 @@ public class nPlayerInventory : MonoBehaviour
 
     private void Start()
     {
-        int weaponsSetup = 0;
-
-        //setup inital weapons
-        foreach (WeaponInfo weapon in weapons)
+        // set first weapon active
+        if (weapons != null)
         {
-            if (weapon.weaponRef == null)
-            {
-                Debug.LogWarning("nPlayerInventory: weapon in element " + currentWeapon + " is empty!");
-            }
-            else if (weaponsSetup < 2 && weapon.inInventory)
-            {
-                if (weaponsSetup == 0)
-                {
-                    weapon.weaponRef.SetActive(true);
-                    nUIManager.instance.setWeaponOneUI(weapon.weaponRef.GetComponent<nItem>().type);
-                }
-                else
-                {
-                    nUIManager.instance.setWeaponTwoUI(weapon.weaponRef.GetComponent<nItem>().type);
-                }
-                weaponsSetup++;
-            }
+            weapons[0].weaponRef.SetActive(true);
+        }
 
-            if (weaponsSetup == 0)
+        // set weapons icons
+        for (int x = 0; x < weapons.Length - 1; x++)
+        {
+            if (weapons[x].inInventory)
             {
-                currentWeapon++;
+                nUIManager.instance.setWeaponUI(x, weapons[x].weaponRef.GetComponent<nItem>().type);
             }
         }
     }
@@ -93,17 +79,10 @@ public class nPlayerInventory : MonoBehaviour
         {
             weapons[oldWeaponIndex].weaponRef.SetActive(false); // set old weapon inactive
             weapons[currentWeapon].weaponRef.SetActive(true);   // set new weapon active
-            nUIManager.instance.setWeaponOneUI(weapons[currentWeapon].weaponRef.GetComponent<nItem>().type);
-
-            if (weapons[oldWeaponIndex].inInventory) // update UI if old weapon is still inInventory
-            {
-                nUIManager.instance.setWeaponTwoUI(weapons[oldWeaponIndex].weaponRef.GetComponent<nItem>().type);
-            }
-            else
-            {
-                nUIManager.instance.setWeaponTwoUI(nItemType.None);
-            }
         }
+
+        nUIManager.instance.setWeaponOverlayInactive(oldWeaponIndex);
+        nUIManager.instance.setWeaponOverlayActive(currentWeapon);
     }
 
     // equip previous weapon in inventory
@@ -127,17 +106,10 @@ public class nPlayerInventory : MonoBehaviour
         {
             weapons[oldWeaponIndex].weaponRef.SetActive(false); // set old weapon inactive
             weapons[currentWeapon].weaponRef.SetActive(true);   // set new weapon active
-            nUIManager.instance.setWeaponOneUI(weapons[currentWeapon].weaponRef.GetComponent<nItem>().type);
-
-            if (weapons[oldWeaponIndex].inInventory) // update UI if old weapon is still inInventory
-            {
-                nUIManager.instance.setWeaponTwoUI(weapons[oldWeaponIndex].weaponRef.GetComponent<nItem>().type);
-            }
-            else
-            {
-                nUIManager.instance.setWeaponTwoUI(nItemType.None);
-            }
         }
+
+        nUIManager.instance.setWeaponOverlayInactive(oldWeaponIndex);
+        nUIManager.instance.setWeaponOverlayActive(currentWeapon);
     }
 
     // adds item to inventory
@@ -197,7 +169,7 @@ public class nPlayerInventory : MonoBehaviour
             if (w.weaponRef.GetComponent<T>() != null)
             {
                 w.inInventory = true;
-                nUIManager.instance.setWeaponTwoUI(w.weaponRef.GetComponent<nItem>().type);
+                nUIManager.instance.setWeaponUI(1, w.weaponRef.GetComponent<nItem>().type);
                 return true;
             }
         }
@@ -208,6 +180,7 @@ public class nPlayerInventory : MonoBehaviour
     public void disableCurrentWeapon()
     {
         weapons[currentWeapon].inInventory = false;
+        nUIManager.instance.setWeaponUI(currentWeapon, nItemType.None);
         equipNextWeapon();
     }
 

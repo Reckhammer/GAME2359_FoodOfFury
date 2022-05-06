@@ -100,7 +100,7 @@ public class nKetchupWeapon : MonoBehaviour
         player.GetComponent<PlayerMovementTwo>().setIdleAnim("KetchupIdle");       // set idle animation
         player.GetComponent<PlayerMovementTwo>().setRunAnim("KetchupRun");         // set run animation
         player.GetComponent<PlayerMovementTwo>().setJumpAnim("KetchupJump");       // set jump animation
-        nUIManager.instance.setWeaponUseUI(bulletAmount, true);
+        nUIManager.instance.setWeaponUseUI(1, bulletAmount, true);
     }
 
     private void OnDisable()
@@ -114,7 +114,7 @@ public class nKetchupWeapon : MonoBehaviour
         player.GetComponent<PlayerMovementTwo>()?.setAiming(false); // turn off aiming for player
         player.GetComponent<Animator>()?.SetTrigger("Restart");     // restart animations
         player.GetComponent<PlayerMovementTwo>()?.setBasicAnim();   // revert to basic animations
-        nUIManager.instance.setWeaponUseUI(0, false);
+        nUIManager.instance.setWeaponUseUI(1, 0, false);
     }
 
     // respond to events
@@ -133,7 +133,7 @@ public class nKetchupWeapon : MonoBehaviour
                     Instantiate(projectile, spawnPoint.position, transform.rotation);
                 }
                 bulletAmount--;
-                nUIManager.instance.setWeaponUseUI(bulletAmount, true);
+                nUIManager.instance.setWeaponUseUI(1, bulletAmount, true);
                 if (bulletAmount == 0)
                 {
                     player.GetComponent<nPlayerInventory>().disableCurrentWeapon();

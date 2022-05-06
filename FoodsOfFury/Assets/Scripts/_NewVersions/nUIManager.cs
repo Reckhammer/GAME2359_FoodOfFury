@@ -11,18 +11,23 @@ using UnityEngine.UI;
 
 public class nUIManager : MonoBehaviour
 {
+    [System.Serializable]
+    public class ImageGroup
+    {
+        public Image[] images;
+    }
+
     public static nUIManager instance { get; private set; } // GameController instance
 
     public HealthBar healthBar;             // reference to player health bar
-    public Image weaponOneImageUI;          // reference to weapon one image
-    public Image weaponTwoImageUI;          // reference to weapon two image
-    public Image[] weaponOneOverlays;       // references to weapon one overlays
+    public Image[] weaponImageUI;           // reference to weapon one image
+    public ImageGroup[] weaponOverlays;     // references to weapon overlays
     public Image consumableImageUI;         // reference to consumable image
     public Text consumableAmountUI;         // reference to consumable amount text
     public Text starFruitAmountUI;          // reference to star fruit amount text
     public Text keyAmountUI;                // reference to key amount text
     public Text objectivesText;             // reference to objectives text
-    public Text weaponUseAmountUI;          // reference to weapon use amount (ex. ketchup shots left)
+    public Text[] weaponUseAmountUI;        // reference to weapon use amount (ex. ketchup shots left)
     public Text livesAmountUI;
     public Slider loadingSlider;            // reference to loading slider for loading screen
     public Sprite[] commonIcons;            // reference to icons to commonly used icons
@@ -48,29 +53,37 @@ public class nUIManager : MonoBehaviour
         healthBar?.setHealthBarMax(max);
     }
 
-    // set weapon one UI
-    public void setWeaponOneUI(nItemType type)
+    // sets selected weapon overlays on
+    public void setWeaponOverlayActive(int weaponIndex)
     {
-        if (type == nItemType.None)
+        // set new weapon icon overlays active
+        foreach (Image i in weaponOverlays[weaponIndex].images)
         {
-            weaponOneImageUI.gameObject.SetActive(false);
-        }
-        else
-        {
-            weaponOneImageUI.sprite = commonIcons[getIconFromType(type)];
+            i.gameObject.SetActive(true);
         }
     }
 
-    // set weapon two UI
-    public void setWeaponTwoUI(nItemType type)
+    // sets selected weapon overlays off
+    public void setWeaponOverlayInactive(int weaponIndex)
+    {
+        // set new weapon icon overlays active
+        foreach (Image i in weaponOverlays[weaponIndex].images)
+        {
+            i.gameObject.SetActive(false);
+        }
+    }
+
+    // set selected weapon UI
+    public void setWeaponUI(int weaponIndex, nItemType type)
     {
         if (type == nItemType.None)
         {
-            weaponTwoImageUI.gameObject.SetActive(false);
+            weaponImageUI[weaponIndex].gameObject.SetActive(false);
         }
         else
         {
-            weaponTwoImageUI.sprite = commonIcons[getIconFromType(type)];
+            weaponImageUI[weaponIndex].sprite = commonIcons[getIconFromType(type)];
+            weaponImageUI[weaponIndex].gameObject.SetActive(true);
         }
     }
 
@@ -109,15 +122,17 @@ public class nUIManager : MonoBehaviour
         keyAmountUI.text = "" + keys;
     }
 
+    // sets objective text
     public void setObjectiveText(string text)
     {
         objectivesText.text = text;
     }
 
-    public void setWeaponUseUI(float amount, bool active = true)
+    // set weapon usage amount UI
+    public void setWeaponUseUI(int weaponIndex, float amount, bool active = true)
     {
-        weaponUseAmountUI.text = "x" + amount;
-        weaponUseAmountUI.transform.parent.gameObject.SetActive(active);
+        weaponUseAmountUI[weaponIndex].text = "x" + amount;
+        weaponUseAmountUI[weaponIndex].transform.parent.gameObject.SetActive(active);
     }
 
     public void setLoadingProgress(float value)
