@@ -36,26 +36,12 @@ public class nPlayerInventory : MonoBehaviour
         }
 
         // set weapons icons
-        for (int x = 0; x < weapons.Length - 1; x++)
+        for (int x = 0; x < weapons.Length; x++)
         {
             if (weapons[x].inInventory)
             {
                 nUIManager.instance.setWeaponUI(x, weapons[x].weaponRef.GetComponent<nItem>().type);
             }
-        }
-    }
-
-    private void Update()
-    {
-        // DEBUG
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            addHealthPickup();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            addKey();
         }
     }
 
@@ -127,7 +113,7 @@ public class nPlayerInventory : MonoBehaviour
             case nItemType.HealthPickup:
                 return addHealthPickup();
             case nItemType.KetchupWeapon:
-                return addWeaponInInventory<nKetchupWeapon>();
+                return addWeaponInInventory(item);
             default:
                 return false;
         }
@@ -163,16 +149,26 @@ public class nPlayerInventory : MonoBehaviour
     }
 
     // enable inInventory for selected weapon script
-    private bool addWeaponInInventory<T>()
+    private bool addWeaponInInventory(nItemType type)
     {
-        foreach (WeaponInfo w in weapons)
+        int index = 0;
+        bool success = false;
+
+        switch (type) // might become usefull later when adding more weapons
         {
-            if (w.weaponRef.GetComponent<T>() != null)
-            {
-                w.inInventory = true;
-                nUIManager.instance.setWeaponUI(1, w.weaponRef.GetComponent<nItem>().type);
-                return true;
-            }
+            case nItemType.KetchupWeapon:
+                index = 1;
+                success = weapons[1].weaponRef.GetComponent<nKetchupWeapon>().reload();
+                break;
+            default:
+                return false;
+        }
+
+        if (success)
+        {
+            weapons[index].inInventory = true;
+            nUIManager.instance.setWeaponUI(index, type);
+            return true;
         }
         return false;
     }

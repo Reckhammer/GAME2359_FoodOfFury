@@ -12,11 +12,11 @@ public class nKetchupWeapon : MonoBehaviour
 {
     public GameObject projectile;                       // shot projectile
     public Transform spawnPoint;                        // projectile spawn point
-    public float attackDelay = 0.5f;     // attack delay time
-    public int maxBullets = 10;       // max amount of bullets
-    public int bulletAmount = 10;       // amount of bullets
+    public float attackDelay = 0.5f;                    // attack delay time
+    public int maxBullets = 10;                         // max amount of bullets
+    public int bulletAmount = 0;                        // amount of bullets
     public GameObject reticle;                          // reticle to use
-    public float reticleMaxDistance = 10.0f;    // max distance for reticles
+    public float reticleMaxDistance = 10.0f;            // max distance for reticles
     public LayerMask reticleCollidesWith;               // layers for reticles to collide with
 
     private GameObject player;
@@ -140,5 +140,18 @@ public class nKetchupWeapon : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    // returns true if gun can add more bullets
+    public bool reload()
+    {
+        if (maxBullets != bulletAmount)
+        {
+            bulletAmount = maxBullets;
+            nUIManager.instance.setWeaponUseUI(1, bulletAmount, gameObject.activeSelf);
+            return true;
+        }
+
+        return false;
     }
 }
