@@ -32,6 +32,7 @@ public class nPlayerInventory : MonoBehaviour
         if (weapons != null)
         {
             weapons[0].weaponRef.SetActive(true);
+            nUIManager.instance.setWeaponOverlayActive(0);
         }
 
         // set weapons icons
@@ -194,6 +195,10 @@ public class nPlayerInventory : MonoBehaviour
             if (healthPickups == 0)
             {
                 nUIManager.instance.setConsumablesUI(nItemType.None, 0.0f);
+            }
+            else
+            {
+                nUIManager.instance.setConsumablesUI(nItemType.HealthPickup, healthPickups);
             }
             return true;
         }
