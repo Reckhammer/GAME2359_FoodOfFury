@@ -18,8 +18,10 @@ public class nKetchupWeapon : MonoBehaviour
     public GameObject reticle;                          // reticle to use
     public float reticleMaxDistance = 10.0f;            // max distance for reticles
     public LayerMask reticleCollidesWith;               // layers for reticles to collide with
+    public float attackSpeed = 1.0f;                    
 
     private GameObject player;
+    private bool inAttack = false;
 
     private void Start()
     {
@@ -38,7 +40,7 @@ public class nKetchupWeapon : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0) && !inAttack)
         {
             Attack();
         }
@@ -115,6 +117,7 @@ public class nKetchupWeapon : MonoBehaviour
         player.GetComponent<Animator>()?.SetTrigger("Restart");     // restart animations
         player.GetComponent<PlayerMovementTwo>()?.setBasicAnim();   // revert to basic animations
         nUIManager.instance.setWeaponUseUI(1, 0, false);
+        inAttack = false;
     }
 
     // respond to events
@@ -134,6 +137,16 @@ public class nKetchupWeapon : MonoBehaviour
                 }
                 bulletAmount--;
                 nUIManager.instance.setWeaponUseUI(1, bulletAmount, true);
+                break;
+            case "inAttack":
+                inAttack = true;
+                player.GetComponent<Animator>().SetFloat("KetchupAttackSpeed", attackSpeed);
+                //print("inAttack");
+                break;
+            case "outAttack":
+                inAttack = false;
+                player.GetComponent<Animator>().SetFloat("KetchupAttackSpeed", 1.0f);
+                //print("no longer in Attack");
                 if (bulletAmount == 0)
                 {
                     player.GetComponent<nPlayerInventory>().disableCurrentWeapon();

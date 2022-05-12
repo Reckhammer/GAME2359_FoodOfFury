@@ -241,20 +241,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &25973833
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3713839749350973440}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  m_Radius: 0.36
-  m_Height: 2.755504
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &59722284
 GameObject:
   m_ObjectHideFlags: 0
@@ -49595,9 +49581,6 @@ GameObject:
   - component: {fileID: 1906460429435549075}
   - component: {fileID: 1906460429435549081}
   - component: {fileID: 1906460429435549080}
-  - component: {fileID: 3026188308366361054}
-  - component: {fileID: 2008370847058713666}
-  - component: {fileID: 8420026091165868639}
   m_Layer: 10
   m_Name: KetchupWeapon
   m_TagString: Untagged
@@ -49627,6 +49610,7 @@ MonoBehaviour:
   reticleCollidesWith:
     serializedVersion: 2
     m_Bits: 4294967295
+  attackSpeed: 1
 --- !u!114 &1906460429435549081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49683,19 +49667,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -109}
   m_SizeDelta: {x: 1286, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!65 &2008370847058713666
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1906460429435549079}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.4, y: 1.2, z: 0.8}
-  m_Center: {x: 0, y: -0.08690217, z: 0}
 --- !u!1 &2059365955058590114
 GameObject:
   m_ObjectHideFlags: 0
@@ -51815,20 +51786,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &3026188308366361054
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1906460429435549079}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  m_Radius: 0.80997694
-  m_Height: 4.88502
-  m_Direction: 2
-  m_Center: {x: 0, y: 0.9130342, z: 0.13675952}
 --- !u!1 &3039766571869342099
 GameObject:
   m_ObjectHideFlags: 0
@@ -52843,7 +52800,6 @@ GameObject:
   - component: {fileID: 3713839749350973444}
   - component: {fileID: 3713839749350973442}
   - component: {fileID: 3713839749350973441}
-  - component: {fileID: 25973833}
   - component: {fileID: 858203155}
   m_Layer: 10
   m_Name: OnionWeapon
@@ -74945,25 +74901,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4875303389595924325}
   m_CullTransparentMesh: 1
---- !u!95 &8420026091165868639
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1906460429435549079}
-  m_Enabled: 0
-  m_Avatar: {fileID: 9000000, guid: b44a62af1e014534996be34009f5914a, type: 3}
-  m_Controller: {fileID: 9100000, guid: e2d25ae0db0f1f44dafb2c99d12b1c54, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &8454960727997584738
 Transform:
   m_ObjectHideFlags: 0
