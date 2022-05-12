@@ -22,16 +22,14 @@ public class nPlayerManager : MonoBehaviour
     public int currentLives;
     public bool fullyDied = false;
     private nPlayerInventory inventory;         // inventory reference
-    private GameObject currWeapon;              // current reference to weapon object
-    private GameObject currConsumable;          // current reference to consumable object
     private float oldHealth = 0.0f;             // old amount of health
     private Vignette healthVignette;            // Vignette reference
     private Coroutine vigTimer = null;          // Vignette fade coroutine timer reference
     private Coroutine switchTimer = null;       // switchTimer coroutine reference
     private bool canSwitch = true;              // if able to switch weapons
 
-    public delegate void KetchupGun(string message);
-    public event KetchupGun KetchupGunEvent;
+    public delegate void PlayerAnimationEvent(string message);
+    public event PlayerAnimationEvent playerEvent;
 
     private void Start()
     {
@@ -195,8 +193,8 @@ public class nPlayerManager : MonoBehaviour
         // send message to GameController
     }
 
-    public void bulletSpawn()
+    public void sendEvent(string eventName)
     {
-        KetchupGunEvent("bulletSpawn");
+        playerEvent(eventName);
     }
 }

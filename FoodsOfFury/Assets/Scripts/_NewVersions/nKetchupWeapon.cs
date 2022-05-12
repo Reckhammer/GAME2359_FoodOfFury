@@ -94,7 +94,7 @@ public class nKetchupWeapon : MonoBehaviour
     private void OnEnable()
     {
         player = transform.root.gameObject;
-        player.GetComponent<nPlayerManager>().KetchupGunEvent += eventHandle;
+        player.GetComponent<nPlayerManager>().playerEvent += eventHandle;
         AudioManager.Instance.playRandom(transform.position, "Ketchup_Reload_01"); //Sound for switch to Ketchup Weapon -Brian
         player.GetComponent<PlayerMovementTwo>().setOverallAnim("KetchupAnim");    // turn off basic animations
         player.GetComponent<PlayerMovementTwo>().setIdleAnim("KetchupIdle");       // set idle animation
@@ -107,7 +107,7 @@ public class nKetchupWeapon : MonoBehaviour
     {
         if (player.GetComponent<nPlayerManager>() != null)
         {
-            player.GetComponent<nPlayerManager>().KetchupGunEvent -= eventHandle;
+            player.GetComponent<nPlayerManager>().playerEvent -= eventHandle;
         }
         reticle.SetActive(false);
         CameraTarget.instance.returnDefault(0.25f);                 // return camera target to default
@@ -122,7 +122,7 @@ public class nKetchupWeapon : MonoBehaviour
     {
         switch (message)
         {
-            case "bulletSpawn": // only one event for now
+            case "spawnBullet": // only one event for now
                 AudioManager.Instance.playRandom(transform.position, "Ketchup_Fire_01"); // play audio clip, added sound -Brian 
                 if (reticle.activeSelf)
                 {
