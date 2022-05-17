@@ -187,7 +187,7 @@ public class nPlayerManager : MonoBehaviour
         currentLives--;
         UIManager.instance.updateLivesUI(currentLives);
 
-        GetComponent<PlayerMovementTwo>().stopInput(10.0f, true, true);
+        GetComponent<nPlayerMovement>().stopInput(10.0f, true, true);
         // do death animation?
         GetComponent<Animator>().SetTrigger("Death");
         // send message to GameController

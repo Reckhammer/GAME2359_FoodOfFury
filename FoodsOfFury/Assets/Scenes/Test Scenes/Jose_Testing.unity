@@ -16759,7 +16759,7 @@ Animation:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3713839749350973440}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: 09858a5514f42e746abe8c0e2907994f, type: 2}
   m_Animations:
@@ -49856,44 +49856,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2169602214252190053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2692829364229693696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dcaabc51e95dc5478bf10a9f208f7d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  glideSpeed: 7
-  jumpHeight: 10
-  dashForce: 20
-  dashDelay: 1
-  groundDetectRadius: 0.6
-  rotationSpeed: 10
-  ground:
-    serializedVersion: 2
-    m_Bits: 256
-  extraGravityMultiplier: 2
-  glideFallRate: 0.9
-  maxSlope: 0.8
-  normalCheckers:
-  - {fileID: 2692829365465536903}
-  - {fileID: 1186854762}
-  - {fileID: 269615613}
-  - {fileID: 612679979}
-  - {fileID: 862703865}
-  - {fileID: 1642528278}
-  - {fileID: 787910621}
-  - {fileID: 495443918}
-  - {fileID: 1276106128}
-  leftEvadeParticles: {fileID: 8486907151285715773}
-  rightEvadeParticles: {fileID: 5017721700889346571}
-  isGliding: 0
 --- !u!4 &2176072788460529296
 Transform:
   m_ObjectHideFlags: 0
@@ -50924,7 +50886,7 @@ GameObject:
   - component: {fileID: 2692829364229693701}
   - component: {fileID: 2692829364229693698}
   - component: {fileID: 2692829364229693699}
-  - component: {fileID: 2169602214252190053}
+  - component: {fileID: 2692829364229693703}
   - component: {fileID: 2692829363934631779}
   - component: {fileID: 2692829364229693697}
   - component: {fileID: 2692829364229693700}
@@ -51033,6 +50995,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2692829364229693703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2692829364229693696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddc2c415a93344b4f995fe369f1ae9f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  glideSpeed: 7
+  jumpHeight: 10
+  dashForce: 20
+  dashDelay: 1
+  groundDetectRadius: 0.6
+  rotationSpeed: 10
+  ground:
+    serializedVersion: 2
+    m_Bits: 256
+  extraGravityMultiplier: 2
+  glideFallRate: 0.9
+  maxSlope: 0.8
+  normalCheckers:
+  - {fileID: 2692829365465536903}
+  - {fileID: 1186854762}
+  - {fileID: 269615613}
+  - {fileID: 612679979}
+  - {fileID: 862703865}
+  - {fileID: 1642528278}
+  - {fileID: 787910621}
+  - {fileID: 495443918}
+  - {fileID: 1276106128}
+  leftEvadeParticles: {fileID: 8486907151285715773}
+  rightEvadeParticles: {fileID: 5017721700889346571}
+  isGliding: 0
 --- !u!1 &2692829365465536900
 GameObject:
   m_ObjectHideFlags: 0

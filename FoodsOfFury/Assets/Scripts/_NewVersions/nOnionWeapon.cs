@@ -22,7 +22,7 @@ public class nOnionWeapon : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && GetComponentInParent<PlayerMovementTwo>().onGround())
+        if (Input.GetKeyDown(KeyCode.Mouse0) && GetComponentInParent<nPlayerMovement>().onGround())
         {
 
             if ((attackOnePlayed == false && !followUp) || !attackAnim.isPlaying)
@@ -42,7 +42,7 @@ public class nOnionWeapon : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && GetComponentInParent<PlayerMovementTwo>().onGround() == false && GetComponentInParent<PlayerMovementTwo>().isGliding == false)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && GetComponentInParent<nPlayerMovement>().onGround() == false && GetComponentInParent<nPlayerMovement>().isGliding == false)
         {
             FallingAttack();
         }
@@ -60,14 +60,14 @@ public class nOnionWeapon : MonoBehaviour
 
     void AttackOne()
     {
-        if (!attackAnim.isPlaying && GetComponentInParent<PlayerMovementTwo>().onGround())
+        if (!attackAnim.isPlaying && GetComponentInParent<nPlayerMovement>().onGround())
         {
             attackOnePlayed = true;
 
             AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01"); // play audio clip 
 
             GetComponentInParent<nPlayerManager>().addSwitchDelay(0.7f);
-            //GetComponentInParent<PlayerMovementTwo>().stopInput(0.7f);      // stop player for a bit
+            //GetComponentInParent<nPlayerMovement>().stopInput(0.7f);      // stop player for a bit
             GetComponentInParent<Animator>().SetTrigger("OnionAttack_01");  // play visual attack animation
             GetComponentInParent<Animator>().SetBool("Attack01_Followup", false); // Set Attack01_Followup false
             attackAnim.Play("GreenOnion_Attack_01");                        // collider animation
@@ -76,7 +76,7 @@ public class nOnionWeapon : MonoBehaviour
 
     void FollowUpAttack()
     {
-        if (!attackAnim.isPlaying && GetComponentInParent<PlayerMovementTwo>().onGround())
+        if (!attackAnim.isPlaying && GetComponentInParent<nPlayerMovement>().onGround())
         {
             print("Attack played");
 
@@ -86,7 +86,7 @@ public class nOnionWeapon : MonoBehaviour
 
             GetComponentInParent<nPlayerManager>().addSwitchDelay(0.7f);
             //GetComponentInParent<Animator>().SetBool("Attack01_Followup", true);              // play visual attack animation
-            //GetComponentInParent<PlayerMovementTwo>().stopInput(0.7f);      // stop player for a bit
+            //GetComponentInParent<nPlayerMovement>().stopInput(0.7f);      // stop player for a bit
             attackAnim.Play("GreenOnion_Attack_FollowUp");                        // collider animation
             followUp = false;
         }
@@ -94,13 +94,13 @@ public class nOnionWeapon : MonoBehaviour
 
     void FallingAttack()
     {
-        if (!attackAnim.isPlaying)// && GetComponentInParent<PlayerMovementTwo>().onGround()
+        if (!attackAnim.isPlaying)// && GetComponentInParent<nPlayerMovement>().onGround()
         {
 
             AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01"); // play audio clip 
 
             GetComponentInParent<nPlayerManager>().addSwitchDelay(0.7f);
-            //GetComponentInParent<PlayerMovementTwo>().stopInput(0.7f);        // stop player for a bit
+            //GetComponentInParent<nPlayerMovement>().stopInput(0.7f);        // stop player for a bit
             GetComponentInParent<Animator>().SetTrigger("MidairAttack");        // play visual attack animation
             attackAnim.Play("GreenOnion_FallingAttack");                        // collider animation
         }
@@ -108,12 +108,12 @@ public class nOnionWeapon : MonoBehaviour
 
     void AttackTwo()
     {
-        if (!attackAnim.isPlaying && GetComponentInParent<PlayerMovementTwo>().onGround())
+        if (!attackAnim.isPlaying && GetComponentInParent<nPlayerMovement>().onGround())
         {
             AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01"); // play audio clip 
 
             GetComponentInParent<nPlayerManager>().addSwitchDelay(1.11f);
-            GetComponentInParent<PlayerMovementTwo>().stopInput(1.11f, true, true);     // stop player for a bit
+            GetComponentInParent<nPlayerMovement>().stopInput(1.11f, true, true);     // stop player for a bit
             GetComponentInParent<Animator>().SetTrigger("OnionAttack_02");  // play visual attack animation
             attackAnim.Play("GreenOnion_Attack_02");                        // collider animation
         }
@@ -122,17 +122,17 @@ public class nOnionWeapon : MonoBehaviour
     private void OnEnable()
     {
         AudioManager.Instance.playRandom(transform.position, "Sword_Draw_01"); //Sound for when sword is drawn -Brian
-        GetComponentInParent<PlayerMovementTwo>().setOverallAnim("OnionAnim");  // turn off basic animations
-        GetComponentInParent<PlayerMovementTwo>().setIdleAnim("OnionIdle");     // set idle animation
-        GetComponentInParent<PlayerMovementTwo>().setRunAnim("OnionRun");       // set run animation
-        GetComponentInParent<PlayerMovementTwo>().setJumpAnim("OnionJump");     // set jump animation
-        GetComponentInParent<PlayerMovementTwo>().setEvadeRightAnim("EvadeRight");
-        GetComponentInParent<PlayerMovementTwo>().setEvadeLeftAnim("EvadeLeft");
+        GetComponentInParent<nPlayerMovement>().setOverallAnim("OnionAnim");  // turn off basic animations
+        GetComponentInParent<nPlayerMovement>().setIdleAnim("OnionIdle");     // set idle animation
+        GetComponentInParent<nPlayerMovement>().setRunAnim("OnionRun");       // set run animation
+        GetComponentInParent<nPlayerMovement>().setJumpAnim("OnionJump");     // set jump animation
+        GetComponentInParent<nPlayerMovement>().setEvadeRightAnim("EvadeRight");
+        GetComponentInParent<nPlayerMovement>().setEvadeLeftAnim("EvadeLeft");
     }
 
     private void OnDisable()
     {
         GetComponentInParent<Animator>()?.SetTrigger("Restart");
-        GetComponentInParent<PlayerMovementTwo>()?.setBasicAnim(); // revert to basic animations
+        GetComponentInParent<nPlayerMovement>()?.setBasicAnim(); // revert to basic animations
     }
 }
