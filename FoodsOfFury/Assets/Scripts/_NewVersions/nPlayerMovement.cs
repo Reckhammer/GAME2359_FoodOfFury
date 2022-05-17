@@ -189,6 +189,7 @@ public class nPlayerMovement : MonoBehaviour
         if (Input.GetButton("Jump") && !isGrounded && rb.velocity.y < 0)
         {
             isGliding = true;
+            GetComponent<nPlayerManager>().sendEvent("MovementInterruption");
         }
 
         // stop glide if 'space' is released or grounded
@@ -233,6 +234,7 @@ public class nPlayerMovement : MonoBehaviour
         // space bar makes the character jump
         if (Input.GetButtonDown("Jump") && !inputStopped && (maxJump > currentJump) && !inJump)
         {
+            GetComponent<nPlayerManager>().sendEvent("MovementInterruption");
             StartCoroutine(JumpDelayTimer(0.1f)); // delay jump
             if (currentJump == 0)
             {

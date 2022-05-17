@@ -152,6 +152,15 @@ public class nKetchupWeapon : MonoBehaviour
                     player.GetComponent<nPlayerInventory>().disableCurrentWeapon();
                 }
                 break;
+            case "MovementInterruption":
+                inAttack = false;
+                if (bulletAmount == 0)
+                {
+                    player.GetComponent<nPlayerInventory>().disableCurrentWeapon();
+                }
+                break;
+            default:
+                break;
         }
     }
 

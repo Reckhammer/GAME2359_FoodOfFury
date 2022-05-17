@@ -195,6 +195,9 @@ public class nPlayerManager : MonoBehaviour
 
     public void sendEvent(string eventName)
     {
-        playerEvent(eventName);
+        if (playerEvent != null)
+        {
+            playerEvent(eventName);
+        }
     }
 }
