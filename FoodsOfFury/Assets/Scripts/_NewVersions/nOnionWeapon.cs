@@ -10,11 +10,13 @@ using UnityEngine;
 
 public class nOnionWeapon : MonoBehaviour
 {
-    public Animation triggerAnimation;
+    public Animator weaponComponentAnimator;
+    public CapsuleCollider triggerCollider;
 
     private GameObject player;
     private bool attackOneFollowup = false;
     private bool inAttack = false;
+    private string attackName;
 
     void Update()
     {
@@ -36,7 +38,7 @@ public class nOnionWeapon : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !GetComponentInParent<nPlayerMovement>().onGround() && !GetComponentInParent<nPlayerMovement>().isGliding)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !inAttack && !GetComponentInParent<nPlayerMovement>().onGround() && !GetComponentInParent<nPlayerMovement>().isGliding)
         {
             FallingAttack();
         }
@@ -49,58 +51,58 @@ public class nOnionWeapon : MonoBehaviour
 
     void AttackOne()
     {
-        AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01");    // play audio clip 
-        GetComponentInParent<nPlayerManager>().addSwitchDelay(0.7f);                // add delay to weapon switch
-        //GetComponentInParent<nPlayerMovement>().stopInput(0.7f);                  // stop player for a bit
-        GetComponentInParent<Animator>().SetTrigger("OnionAttack_01");              // play visual attack animation
-        GetComponentInParent<Animator>().SetBool("Attack01_Followup", false);       // Set Attack01_Followup false
-        triggerAnimation.Play("GreenOnion_Attack_01");                              // trigger animation
+        AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01");        // play audio clip 
+        GetComponentInParent<nPlayerManager>().addSwitchDelay(0.7f);                    // add delay to weapon switch
+        //GetComponentInParent<nPlayerMovement>().stopInput(0.7f);                      // stop player for a bit
+        player.GetComponent<Animator>().SetTrigger("GreenOnion_Attack_01");             // play visual attack animation
+        player.GetComponent<Animator>().SetBool("GreenOnion_Attack_FollowUp", false);   // set GreenOnion_Attack01_FollowUp false
+        attackName = "GreenOnion_Attack_01";                                            // set animation to be played
     }
 
     void FollowUpAttack()
     {
         attackOneFollowup = false;
-        AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01");    // play audio clip 
-        GetComponentInParent<nPlayerManager>().addSwitchDelay(0.7f);                // add delay to weapon switch
-        GetComponentInParent<Animator>().SetBool("Attack01_Followup", true);        // play visual attack animation
-        //GetComponentInParent<nPlayerMovement>().stopInput(0.7f);                  // stop player for a bit
-        triggerAnimation.Play("GreenOnion_Attack_FollowUp");                        // trigger animation
+        AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01");        // play audio clip
+        player.GetComponent<nPlayerManager>().addSwitchDelay(0.7f);                     // add delay to weapon switch
+        player.GetComponent<Animator>().SetBool("GreenOnion_Attack_FollowUp", true);    // play visual attack animation
+        //GetComponentInParent<nPlayerMovement>().stopInput(0.7f);                      // stop player for a bit
+        attackName = "GreenOnion_Attack_FollowUp";                                      // set animation to be played
     }
 
     void AttackTwo()
     {
-        AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01");    // play audio clip 
-        GetComponentInParent<nPlayerManager>().addSwitchDelay(1.11f);               // add delay to weapon switch
-        GetComponentInParent<nPlayerMovement>().stopInput(1.11f, true, true);       // stop player for a bit
-        GetComponentInParent<Animator>().SetTrigger("OnionAttack_02");              // play visual attack animation
-        triggerAnimation.Play("GreenOnion_Attack_02");                              // trigger animation
+        AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01");        // play audio clip 
+        player.GetComponent<nPlayerManager>().addSwitchDelay(1.11f);                    // add delay to weapon switch
+        player.GetComponent<nPlayerMovement>().stopInput(1.11f, true, true);            // stop player for a bit
+        player.GetComponent<Animator>().SetTrigger("GreenOnion_Attack_02");             // play visual attack animation
+        attackName = "GreenOnion_Attack_02";                                            // set animation to be played
     }
 
     void FallingAttack()
     {
-        AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01");    // play audio clip 
-        GetComponentInParent<nPlayerManager>().addSwitchDelay(0.7f);                // add delay to weapon switch
-        GetComponentInParent<Animator>().SetTrigger("MidairAttack");                // play visual attack animation
-        triggerAnimation.Play("GreenOnion_FallingAttack");                          // trigger animation
+        AudioManager.Instance.playRandom(transform.position, "Weapon_Swing_01");        // play audio clip 
+        player.GetComponent<nPlayerManager>().addSwitchDelay(0.7f);                     // add delay to weapon switch
+        player.GetComponent<Animator>().SetTrigger("GreenOnion_FallingAttack");         // play visual attack animation
+        attackName = "GreenOnion_FallingAttack";                                        // set animation to be played
     }
 
     private void OnEnable()
     {
         player = transform.root.gameObject;
-        AudioManager.Instance.playRandom(transform.position, "Sword_Draw_01");      // Sound for when sword is drawn -Brian
-        GetComponentInParent<nPlayerMovement>().setOverallAnim("OnionAnim");        // turn off basic animations
-        GetComponentInParent<nPlayerMovement>().setIdleAnim("OnionIdle");           // set idle animation
-        GetComponentInParent<nPlayerMovement>().setRunAnim("OnionRun");             // set run animation
-        GetComponentInParent<nPlayerMovement>().setJumpAnim("OnionJump");           // set jump animation
-        GetComponentInParent<nPlayerMovement>().setEvadeRightAnim("EvadeRight");
-        GetComponentInParent<nPlayerMovement>().setEvadeLeftAnim("EvadeLeft");
+        AudioManager.Instance.playRandom(transform.position, "Sword_Draw_01");          // Sound for when sword is drawn -Brian
+        player.GetComponent<nPlayerMovement>().setOverallAnim("OnionAnim");             // turn off basic animations
+        player.GetComponent<nPlayerMovement>().setIdleAnim("OnionIdle");                // set idle animation
+        player.GetComponent<nPlayerMovement>().setRunAnim("OnionRun");                  // set run animation
+        player.GetComponent<nPlayerMovement>().setJumpAnim("OnionJump");                // set jump animation
+        player.GetComponent<nPlayerMovement>().setEvadeRightAnim("EvadeRight");
+        player.GetComponent<nPlayerMovement>().setEvadeLeftAnim("EvadeLeft");
         player.GetComponent<nPlayerManager>().playerEvent += eventHandle;
     }
 
     private void OnDisable()
     {
-        GetComponentInParent<Animator>()?.SetTrigger("Restart");
-        GetComponentInParent<nPlayerMovement>()?.setBasicAnim(); // revert to basic animations
+        player.GetComponent<Animator>()?.SetTrigger("Restart");
+        player.GetComponent<nPlayerMovement>()?.setBasicAnim(); // revert to basic animations
 
         if (player.GetComponent<nPlayerManager>() != null)
         {
@@ -115,17 +117,21 @@ public class nOnionWeapon : MonoBehaviour
         {
             case "inAttack":
                 inAttack = true;
+                weaponComponentAnimator.SetTrigger(attackName); // play component animation
                 //player.GetComponent<Animator>().SetFloat("KetchupAttackSpeed", attackSpeed);
                 //print("inAttack");
                 break;
             case "outAttack":
                 inAttack = false;
-                //player.GetComponent<Animator>().SetFloat("KetchupAttackSpeed", 1.0f);
                 attackOneFollowup = false;
+                //player.GetComponent<Animator>().SetFloat("KetchupAttackSpeed", 1.0f);
                 //print("no longer in Attack");
                 break;
             case "MovementInterruption":
                 inAttack = false;
+                attackOneFollowup = false;
+                triggerCollider.enabled = false;
+                weaponComponentAnimator.SetTrigger("Iterruption");
                 break;
             default:
                 break;
