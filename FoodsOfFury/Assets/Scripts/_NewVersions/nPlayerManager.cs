@@ -25,7 +25,6 @@ public class nPlayerManager : MonoBehaviour
     private float oldHealth = 0.0f;             // old amount of health
     private Vignette healthVignette;            // Vignette reference
     private Coroutine vigTimer = null;          // Vignette fade coroutine timer reference
-    private Coroutine switchTimer = null;       // switchTimer coroutine reference
     private bool canSwitch = true;              // if able to switch weapons
 
     public delegate void PlayerAnimationEvent(string message);
@@ -95,7 +94,7 @@ public class nPlayerManager : MonoBehaviour
         }
         else if (amount < oldHealth) // player damaged
         {
-            print("Player was damaged!");
+            //print("Player was damaged!");
             // hurt animations?
             AudioManager.Instance.playRandom(transform.position, "Rollo_Hurt_1", "Rollo_Hurt_2", "Rollo_Hurt_3").transform.SetParent(transform);
             Instantiate(hitParticle, transform.position, transform.rotation);
@@ -104,7 +103,7 @@ public class nPlayerManager : MonoBehaviour
         }
         else if (amount > oldHealth) // player healed
         {
-            print("Player was healed!");
+            //print("Player was healed!");
             // healed animations?
             AudioManager.Instance.playRandom(transform.position, "Rollo_Health_01", "Rollo_Health_02").transform.SetParent(transform);
             nUIManager.instance?.updateHealthBar(amount);
@@ -154,29 +153,9 @@ public class nPlayerManager : MonoBehaviour
         }
     }
 
-    public void addSwitchDelay(float duration)
+    public void enableWeaponSwitch(bool enable)
     {
-        if (switchTimer != null)
-        {
-            StopCoroutine(switchTimer);
-        }
-
-        switchTimer = StartCoroutine(switchingDelay(duration));
-    }
-
-    // weapon switching timer
-    private IEnumerator switchingDelay(float duration)
-    {
-        float passed = 0.0f;
-        canSwitch = false;
-
-        while (passed < duration)
-        {
-            passed += Time.deltaTime;
-            yield return null;
-        }
-
-        canSwitch = true;
+        canSwitch = enable;
     }
 
     // hangles death operations
@@ -186,8 +165,8 @@ public class nPlayerManager : MonoBehaviour
 
         currentLives--;
         UIManager.instance.updateLivesUI(currentLives);
-
-        GetComponent<nPlayerMovement>().stopInput(10.0f, true, true);
+        GetComponent<nPlayerMovement>().stopInput(true);
+        GetComponent<nPlayerMovement>().stopRotation(true);
         // do death animation?
         GetComponent<Animator>().SetTrigger("Death");
         // send message to GameController

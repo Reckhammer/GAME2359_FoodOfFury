@@ -24,11 +24,14 @@ public class nPlayerMovement : MonoBehaviour
     public float glideFallRate = 0.9f;              // falling rate for gliding (how much gravity)
 
     [Range(0.0f, 1.0f)]
-    public float maxSlope = 0.7f;                   // max slope player can move on
+    public float maxSlope = 0.2f;                   // max slope player can move on
 
     public Transform[] normalCheckers = null;       // posisitions to check for ground normal
     public GameObject leftEvadeParticles;           // particles for evading left
     public GameObject rightEvadeParticles;          // particles for evading right
+
+    public float slideForce = 5.0f;
+    public float slopeDetectDistance = 1.0f;
 
     private nHealth health = null;                  // health reference
     private Rigidbody rb = null;                    // rigidbody of player
@@ -40,12 +43,10 @@ public class nPlayerMovement : MonoBehaviour
     private const int maxJump = 2;                  // max amount of jumps
     private int currentJump = 0;                    // current jump index
     private bool isGrounded = true;                 // for ground check
-    [HideInInspector]
-    public bool isGliding = false;                  // for gliding check
+    private bool isGliding = false;                 // for gliding check
     private bool inJump = false;                    // for jump delay
     private bool canDash = true;                    // for dash delay check
     private Vector3 groundNormal = Vector3.up;      // normal of the ground
-    private Coroutine inputStoppedCr = null;        // reference to input stop timer coroutine
     private float extraForceTime = 0.0f;            // time to allow extra force to be applied
     private Animator animator = null;               // reference to animator
     private string overalAnim = null;               // name of overall animation
@@ -56,6 +57,11 @@ public class nPlayerMovement : MonoBehaviour
     private string evadeLeftAnim = null;            // name of left evade animation
     private Vector3 extraVel = Vector3.zero;        // extra force velocity (recorded to lerp from extra to movement)
     private bool isAiming = false;                  // to change camera rotation style
+    private bool onMaxSlope = false;
+    private bool touchingSlope = false;
+    private Vector3 slopeHitPos = Vector3.zero;
+    private bool isSliding = false;
+    private Vector3 slopeDownDirection = Vector3.zero;
 
     private void Awake()
     {
@@ -83,15 +89,36 @@ public class nPlayerMovement : MonoBehaviour
                     wantVel = movement - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));
                 }
 
-                // if on steep slope, stop inputs
-                if (maxSlope > Vector3.Dot(Vector3.up, groundNormal))
+                // slide down slope
+                if (!inJump && onMaxSlope)
                 {
-                    wantVel = Vector3.zero;
+                    //print("sliding");
+
+                    if (slopeDownDirection == Vector3.zero)
+                    {
+                        wantVel = transform.position - slopeHitPos;
+                        wantVel.y = 0.0f;
+                        wantVel *= 0.1f; // on flat ground, send force in opposite direction of hit point
+                    }
+                    else
+                    {
+                        wantVel = slopeDownDirection * slideForce;
+                    }
+
+                    isSliding = true;
+                    rb.AddForce(wantVel, ForceMode.VelocityChange);
+                    //rb.velocity = test;
+                    // Why does it not go directly downwards (current velocity is not cancelled out)
+                }
+                else
+                {
+                    isSliding = false;
+                    //print("not sliding");
+                    rb.AddForce(wantVel, ForceMode.VelocityChange);
                 }
 
-                rb.AddForce(wantVel, ForceMode.VelocityChange);
             }
-            else // extra force calculations. NOTE: bounce pads/damaging needs to call PlayerMovementTwo (for now)
+            else // extra force calculations.
             {
                 if (isGrounded) // grounded movement
                 {
@@ -113,8 +140,8 @@ public class nPlayerMovement : MonoBehaviour
             }
         }
 
-        // falling & not gliding, add downward force
-        if ((!isGrounded && !isGliding && !inJump) || maxSlope > Vector3.Dot(Vector3.up, groundNormal))
+        // when not falling, gliding, or sliding. Add "extra" gravity
+        if (!isGrounded && !isGliding && !inJump && !isSliding)
         {
             Vector3 extraGrav = Physics.gravity * extraGravityMultiplier;
             rb.AddForce(extraGrav);
@@ -150,29 +177,29 @@ public class nPlayerMovement : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
-    {
-        // undo unwanted rotation (when paranted to a rotating object)
-        if (transform.up != Vector3.up)
-        {
-            //print("reverting unwanted rotation");
-            Quaternion rotation = transform.rotation;
-            rotation.x = 0;
-            rotation.z = 0;
-            transform.rotation = rotation;
-        }
+    //private void LateUpdate()
+    //{
+    //    // undo unwanted rotation (when paranted to a rotating object)
+    //    if (transform.up != Vector3.up)
+    //    {
+    //        //print("reverting unwanted rotation");
+    //        Quaternion rotation = transform.rotation;
+    //        rotation.x = 0;
+    //        rotation.z = 0;
+    //        transform.rotation = rotation;
+    //    }
 
-        //print("local scale x: " + transform.localScale.x);
-        //print("lossy scale: " + transform.lossyScale);
-        //print("parent: " + transform.parent);
+    //    //print("local scale x: " + transform.localScale.x);
+    //    //print("lossy scale: " + transform.lossyScale);
+    //    //print("parent: " + transform.parent);
 
-        // fix broken scaling (when parented to an object that breaks the scale rules and gets away with it)
-        if (transform.parent == null && (transform.localScale.x != 1 || transform.localScale.y != 1 || transform.localScale.z != 1))
-        {
-            //print("fixing scale");
-            transform.localScale = Vector3.one;
-        }
-    }
+    //    // fix broken scaling (when parented to an object that breaks the scale rules and gets away with it)
+    //    if (transform.parent == null && (transform.localScale.x != 1 || transform.localScale.y != 1 || transform.localScale.z != 1))
+    //    {
+    //        //print("fixing scale");
+    //        transform.localScale = Vector3.one;
+    //    }
+    //}
 
     private void Update()
     {
@@ -181,8 +208,11 @@ public class nPlayerMovement : MonoBehaviour
             return;
         }
 
+        checkSlope(slopeDetectDistance);    // get slope normal
+
         // check ground
-        isGrounded = Physics.CheckSphere(groundChecker.position, groundDetectRadius, ground, QueryTriggerInteraction.Ignore);
+        isGrounded = (Physics.CheckSphere(groundChecker.position, groundDetectRadius, ground, QueryTriggerInteraction.Ignore) || (touchingSlope && !onMaxSlope)) ? true : false;
+
         inputs = Vector3.zero; // reset inputs
 
         // start glide if 'space' is pressed (when not grounded)
@@ -210,11 +240,10 @@ public class nPlayerMovement : MonoBehaviour
             inputs.z = Input.GetAxis("Horizontal") * speed;
         }
 
-        checkSlope();           // get slope normal
-        calculateMovement();    // calculate movement
+        calculateMovement();                // calculate movement
 
         // when grounded reset current jump and turn off gravity
-        if (isGrounded)
+        if (isGrounded || isSliding)
         {
             if (inJump == false) // check if in timer (to allow player to get off ground before reseting jumps)
             {
@@ -250,36 +279,36 @@ public class nPlayerMovement : MonoBehaviour
         }
 
         // do dash (change to side step)
-        if (isGrounded && canDash && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)))
-        {
-            if (inputs.z != 0) // don't dash if no movement(movement != Vector3.zero)
-            {
-                Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;
-                Vector3 dash = camRight * inputs.z;
-                applyExtraForce(dash.normalized * dashForce, 0.1f); // apply dash
-                StartCoroutine(DashDelayTimer());                       // start dash delay timer
-                health.giveInvincibility(1.0f);
-                if (inputs.z > 0)
-                {
-                    animator.SetTrigger(evadeRightAnim);
-                    rightEvadeParticles.SetActive(true);
-                }
-                else
-                {
-                    animator.SetTrigger(evadeLeftAnim);
-                    leftEvadeParticles.SetActive(true);
-                }
-            }
-            else
-            {
-                Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;
-                applyExtraForce(camRight * dashForce, 0.1f); // apply dash
-                StartCoroutine(DashDelayTimer());                       // start dash delay timer
-                animator.SetTrigger(evadeRightAnim);
-                health.giveInvincibility(1.0f);
-                rightEvadeParticles.SetActive(true);
-            }
-        }
+        //if (isGrounded && canDash && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)))
+        //{
+        //    if (inputs.z != 0) // don't dash if no movement(movement != Vector3.zero)
+        //    {
+        //        Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;
+        //        Vector3 dash = camRight * inputs.z;
+        //        applyExtraForce(dash.normalized * dashForce, 0.1f); // apply dash
+        //        StartCoroutine(DashDelayTimer());                       // start dash delay timer
+        //        health.giveInvincibility(1.0f);
+        //        if (inputs.z > 0)
+        //        {
+        //            animator.SetTrigger(evadeRightAnim);
+        //            rightEvadeParticles.SetActive(true);
+        //        }
+        //        else
+        //        {
+        //            animator.SetTrigger(evadeLeftAnim);
+        //            leftEvadeParticles.SetActive(true);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;
+        //        applyExtraForce(camRight * dashForce, 0.1f); // apply dash
+        //        StartCoroutine(DashDelayTimer());                       // start dash delay timer
+        //        animator.SetTrigger(evadeRightAnim);
+        //        health.giveInvincibility(1.0f);
+        //        rightEvadeParticles.SetActive(true);
+        //    }
+        //}
 
         // DEBUG: GODMODE kinda (delete later)
         if (Input.GetKeyDown(KeyCode.F5))
@@ -307,30 +336,54 @@ public class nPlayerMovement : MonoBehaviour
     // checks for steepest slope in normal checker positions
     private void checkSlope(float distance = 1.0f)
     {
+        float smallestDistance = distance;
         groundNormal = Vector3.up;
+        onMaxSlope = false;
+        touchingSlope = false;
+        slopeHitPos = Vector3.zero;
 
         foreach (Transform start in normalCheckers)
         {
             Vector3 end = start.position + (Vector3.down * distance);
-            Debug.DrawLine(start.position, end, Color.green);
 
             RaycastHit hit;
+            Color c = Color.green;
 
-            if (Physics.Raycast(start.position, Vector3.down, out hit, distance))
+            if (Physics.Raycast(start.position, Vector3.down, out hit, distance, ground, QueryTriggerInteraction.Ignore))
             {
+                touchingSlope = true;
                 //Debug.DrawLine(start, start + (hit.normal * 5.0f), Color.red); // draw normal of ground
-                if (Vector3.Dot(Vector3.up, groundNormal) > Vector3.Dot(Vector3.up, hit.normal))
+
+                // is the next hit the closest and is next slope more steep than current slope
+                if ((hit.distance < smallestDistance) && (Vector3.Dot(Vector3.up, groundNormal) > Vector3.Dot(Vector3.up, hit.normal)))
                 {
                     groundNormal = hit.normal;
+                    slopeHitPos = hit.point;
+                    smallestDistance = hit.distance;
+                    c = Color.cyan;
+                }
+
+                // check if on max slope
+                if ((1 - maxSlope) > Vector3.Dot(Vector3.up, groundNormal))
+                {
+                    onMaxSlope = true;
                 }
             }
+            Debug.DrawLine(start.position, end, c);
+        }
+
+        if (onMaxSlope) // if on slope calculate downward direction of slope
+        {
+            slopeDownDirection = Vector3.Cross(groundNormal, -transform.up);
+            slopeDownDirection = Vector3.Cross(slopeDownDirection, groundNormal);
+            //Debug.DrawRay(transform.position, slopeDownDirection, Color.cyan); // draw slope affected movement line
+            //print("slopeDownDirection: " + slopeDownDirection);
         }
     }
 
-    // applies extra force to gameobject with an option of stopping player input for a duration
-    public void applyExtraForce(Vector3 force, float inputStopDuration = 0.0f, bool resetJump = false)
+    // applies extra force to gameobject
+    public void applyExtraForce(Vector3 force, bool resetJump = false)
     {
-        stopInput(inputStopDuration);
         rb.AddForce(force, ForceMode.VelocityChange); // applyforce
         extraVel = force;
 
@@ -342,70 +395,54 @@ public class nPlayerMovement : MonoBehaviour
         extraForceTime = 1.0f; // since we do a velocity change, time to complete extra force is roughly 1 second
     }
 
-    public void stopInput(float inputStopDuration = 0.0f, bool stopPlayer = true, bool stopRotation = false)
+    public void stopPlayerVelocity()
     {
-        if (stopPlayer)
-        {
-            rb.AddForce(-rb.velocity, ForceMode.VelocityChange);    // cancel current velocity
-        }
-
-        if (inputStoppedCr != null) // new input stop timer
-        {
-            StopCoroutine(inputStoppedCr);
-            inputStopped = false;
-            rotationStopped = false;
-        }
-
-        if (inputStopDuration != 0.0f) // start input stop timer (if duration is not 0)
-        {
-            inputStoppedCr = StartCoroutine(InputStopTimer(inputStopDuration, stopRotation));
-        }
+        rb.velocity = Vector3.zero;
     }
 
-    // timer for stopping input
-    private IEnumerator InputStopTimer(float duration, bool stopRotation)
+    public void stopInput(bool stopInput)
     {
-        float passed = 0.0f;
-        inputStopped = true;
+        inputStopped = stopInput;
+    }
 
-        if (stopRotation)
-        {
-            rotationStopped = true;
-        }
+    public void stopRotation(bool stopRotation)
+    {
+        rotationStopped = stopRotation;
+    }
 
-        while (passed < duration)
-        {
-            passed += Time.deltaTime;
-            yield return null;
-        }
+    public bool onGround()
+    {
+        return isGrounded;
+    }
 
-        inputStopped = false;
-        rotationStopped = false;
+    public bool currentlyGliding()
+    {
+        return isGliding;
     }
 
     // timer for dash delay (needs to change into dodge timer)
-    private IEnumerator DashDelayTimer()
-    {
-        float passed = 0.0f;
-        canDash = false;
+    //private IEnumerator DashDelayTimer()
+    //{
+    //    float passed = 0.0f;
+    //    canDash = false;
 
-        while (passed < dashDelay)
-        {
-            passed += Time.deltaTime;
-            yield return null;
-        }
+    //    while (passed < dashDelay)
+    //    {
+    //        passed += Time.deltaTime;
+    //        yield return null;
+    //    }
 
-        if (leftEvadeParticles.activeSelf)
-        {
-            leftEvadeParticles.SetActive(false);
-        }
-        else if (rightEvadeParticles.activeSelf)
-        {
-            rightEvadeParticles.SetActive(false);
-        }
+    //    if (leftEvadeParticles.activeSelf)
+    //    {
+    //        leftEvadeParticles.SetActive(false);
+    //    }
+    //    else if (rightEvadeParticles.activeSelf)
+    //    {
+    //        rightEvadeParticles.SetActive(false);
+    //    }
 
-        canDash = true;
-    }
+    //    canDash = true;
+    //}
 
     // jump delay timer
     private IEnumerator JumpDelayTimer(float duration)
@@ -420,32 +457,6 @@ public class nPlayerMovement : MonoBehaviour
         }
 
         inJump = false;
-    }
-
-    // returns isGrounded
-    public bool onGround()
-    {
-        return isGrounded;
-    }
-
-    // DEBUG: draw ground checker sphere
-    private void OnDrawGizmos()
-    {
-        if (!Application.isPlaying)
-        {
-            return;
-        }
-
-        if (isGrounded)
-        {
-            Gizmos.color = Color.cyan;
-        }
-        else
-        {
-            Gizmos.color = Color.yellow;
-        }
-
-        Gizmos.DrawSphere(groundChecker.position, groundDetectRadius);
     }
 
     // do animations based on movement
@@ -576,5 +587,25 @@ public class nPlayerMovement : MonoBehaviour
 
         overalAnim = anim;                      // set new animation set
         animator.SetBool(overalAnim, true);     // turn on new animation set
+    }
+
+    // DEBUG: draw ground checker sphere
+    private void OnDrawGizmos()
+    {
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
+        if (isGrounded)
+        {
+            Gizmos.color = Color.cyan;
+        }
+        else
+        {
+            Gizmos.color = Color.yellow;
+        }
+
+        Gizmos.DrawSphere(groundChecker.position, groundDetectRadius);
     }
 }

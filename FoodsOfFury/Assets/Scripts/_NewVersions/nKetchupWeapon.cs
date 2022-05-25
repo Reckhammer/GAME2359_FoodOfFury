@@ -40,19 +40,24 @@ public class nKetchupWeapon : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenu.gameIsPaused)
+        {
+            return;
+        }
+
         if (Input.GetKey(KeyCode.Mouse0) && !inAttack)
         {
             Attack();
         }
 
-        if (Input.GetKey(KeyCode.Mouse1) && (!player.GetComponent<nPlayerMovement>().isGliding && !reticle.activeSelf))
+        if (Input.GetKey(KeyCode.Mouse1) && (!player.GetComponent<nPlayerMovement>().currentlyGliding() && !reticle.activeSelf))
         {
             player.GetComponent<nPlayerMovement>().setAiming(true);
             CameraTarget.instance.offsetTo(new Vector3(2, 2, 0), 0.25f); // offset camera target
             reticleCollision();
             reticle.SetActive(true);
         }
-        else if (Input.GetKeyUp(KeyCode.Mouse1) || (player.GetComponent<nPlayerMovement>().isGliding && reticle.activeSelf))
+        else if (Input.GetKeyUp(KeyCode.Mouse1) || (player.GetComponent<nPlayerMovement>().currentlyGliding() && reticle.activeSelf))
         {
             player.GetComponent<nPlayerMovement>().setAiming(false);
             CameraTarget.instance.returnDefault(0.25f); // return camera target to default
@@ -87,8 +92,8 @@ public class nKetchupWeapon : MonoBehaviour
     {
         if (bulletAmount != 0)
         {
-            player.GetComponent<Animator>().SetTrigger("KetchupAttack_01");   // play visual attack animation
-            player.GetComponent<nPlayerManager>().addSwitchDelay(attackDelay + 0.1f);
+            player.GetComponent<Animator>().SetTrigger("KetchupAttack_01"); // play visual attack animation
+            GetComponentInParent<nPlayerManager>().enableWeaponSwitch(false);  // stop weapon switch
             //GetComponentInParent<nPlayerMovement>().stopInput(attackDelay + 0.1f);            // stop player for a bit
         }
     }
@@ -147,6 +152,7 @@ public class nKetchupWeapon : MonoBehaviour
                 inAttack = false;
                 player.GetComponent<Animator>().SetFloat("KetchupAttackSpeed", 1.0f);
                 //print("no longer in Attack");
+                GetComponentInParent<nPlayerManager>().enableWeaponSwitch(true); // enable weapon switch
                 if (bulletAmount == 0)
                 {
                     player.GetComponent<nPlayerInventory>().disableCurrentWeapon();
@@ -154,6 +160,7 @@ public class nKetchupWeapon : MonoBehaviour
                 break;
             case "MovementInterruption":
                 inAttack = false;
+                GetComponentInParent<nPlayerManager>().enableWeaponSwitch(true); // enable weapon switch
                 if (bulletAmount == 0)
                 {
                     player.GetComponent<nPlayerInventory>().disableCurrentWeapon();
