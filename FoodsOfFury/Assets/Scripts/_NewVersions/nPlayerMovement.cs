@@ -228,18 +228,6 @@ public class nPlayerMovement : MonoBehaviour
             isGliding = false;
         }
 
-
-        if (isGliding) // gliding movement
-        {
-            inputs.x = Input.GetAxis("Vertical") * glideSpeed;
-            inputs.z = Input.GetAxis("Horizontal") * glideSpeed;
-        }
-        else // regular movement
-        {
-            inputs.x = Input.GetAxis("Vertical") * speed;
-            inputs.z = Input.GetAxis("Horizontal") * speed;
-        }
-
         calculateMovement();                // calculate movement
 
         // when grounded reset current jump and turn off gravity
@@ -263,19 +251,7 @@ public class nPlayerMovement : MonoBehaviour
         // space bar makes the character jump
         if (Input.GetButtonDown("Jump") && !inputStopped && (maxJump > currentJump) && !inJump)
         {
-            GetComponent<nPlayerManager>().sendEvent("MovementInterruption");
-            StartCoroutine(JumpDelayTimer(0.1f)); // delay jump
-            if (currentJump == 0)
-            {
-                AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_01", "Rollo_Jump_02").transform.SetParent(transform);
-            }
-            else
-            {
-                AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_Double_01", "Rollo_Jump_Double_02").transform.SetParent(transform);
-            }
-            animator.SetTrigger(jumpAnim);
-            rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y) + Vector3.up * -rb.velocity.y, ForceMode.VelocityChange); // regular jump (+ y velocity canceled)
-            currentJump++;
+            jump();
         }
 
         // do dash (change to side step)
@@ -325,12 +301,40 @@ public class nPlayerMovement : MonoBehaviour
     // calculate movement based on camera rotation and player inputs
     private void calculateMovement()
     {
+        if (isGliding) // gliding movement
+        {
+            inputs.x = Input.GetAxis("Vertical") * glideSpeed;
+            inputs.z = Input.GetAxis("Horizontal") * glideSpeed;
+        }
+        else // regular movement
+        {
+            inputs.x = Input.GetAxis("Vertical") * speed;
+            inputs.z = Input.GetAxis("Horizontal") * speed;
+        }
+
         Vector3 camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized; // cam forward without y value
         Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;     // cam right without y value
         movement = inputs.x * camForward + inputs.z * camRight;                                             // calculate movement (velocity)
         movement = Vector3.ProjectOnPlane(movement, groundNormal);                                          // project movement to ground normal
         movement = Vector3.ClampMagnitude(movement, speed); // clamp magnitiude of vector by speed (stops diagonal movement being faster than hor/ver movement)
         //Debug.DrawRay(transform.position, movement.normalized, Color.red);
+    }
+
+    private void jump()
+    {
+        GetComponent<nPlayerManager>().sendEvent("MovementInterruption");
+        StartCoroutine(JumpDelayTimer(0.1f)); // delay jump
+        if (currentJump == 0)
+        {
+            AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_01", "Rollo_Jump_02").transform.SetParent(transform);
+        }
+        else
+        {
+            AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_Double_01", "Rollo_Jump_Double_02").transform.SetParent(transform);
+        }
+        animator.SetTrigger(jumpAnim);
+        rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y) + Vector3.up * -rb.velocity.y, ForceMode.VelocityChange); // regular jump (+ y velocity canceled)
+        currentJump++;
     }
 
     // checks for steepest slope in normal checker positions
