@@ -27,8 +27,8 @@ public class nPlayerMovement : MonoBehaviour
     public float maxSlope = 0.2f;                   // max slope player can move on
 
     public Transform[] normalCheckers = null;       // posisitions to check for ground normal
-    public GameObject leftEvadeParticles;           // particles for evading left
-    public GameObject rightEvadeParticles;          // particles for evading right
+    //public GameObject leftEvadeParticles;           // particles for evading left
+    //public GameObject rightEvadeParticles;          // particles for evading right
 
     public float slideForce = 5.0f;
     public float slopeDetectDistance = 1.0f;
@@ -46,7 +46,6 @@ public class nPlayerMovement : MonoBehaviour
     private bool isGliding = false;                 // for gliding check
     private bool inJump = false;                    // for jump delay
     private bool canDash = true;                    // for dash delay check
-    private Vector3 groundNormal = Vector3.up;      // normal of the ground
     private float extraForceTime = 0.0f;            // time to allow extra force to be applied
     private Animator animator = null;               // reference to animator
     private string overalAnim = null;               // name of overall animation
@@ -59,9 +58,9 @@ public class nPlayerMovement : MonoBehaviour
     private bool isAiming = false;                  // to change camera rotation style
     private bool onMaxSlope = false;
     private bool touchingSlope = false;
-    private Vector3 slopeHitPos = Vector3.zero;
     private bool isSliding = false;
     private Vector3 slopeDownDirection = Vector3.zero;
+    private RaycastHit slopeHit;
 
     private void Awake()
     {
@@ -93,22 +92,10 @@ public class nPlayerMovement : MonoBehaviour
                 if (!inJump && onMaxSlope)
                 {
                     //print("sliding");
-
-                    if (slopeDownDirection == Vector3.zero)
-                    {
-                        wantVel = transform.position - slopeHitPos;
-                        wantVel.y = 0.0f;
-                        wantVel *= 0.1f; // on flat ground, send force in opposite direction of hit point
-                    }
-                    else
-                    {
-                        wantVel = slopeDownDirection * slideForce;
-                    }
-
+                    wantVel = slopeDownDirection * slideForce;
                     isSliding = true;
                     rb.AddForce(wantVel, ForceMode.VelocityChange);
-                    //rb.velocity = test;
-                    // Why does it not go directly downwards (current velocity is not cancelled out)
+                    // Why does it not go directly downwards (because current velocity is not cancelled out?)
                 }
                 else
                 {
@@ -211,7 +198,7 @@ public class nPlayerMovement : MonoBehaviour
         checkSlope(slopeDetectDistance);    // get slope normal
 
         // check ground
-        isGrounded = (Physics.CheckSphere(groundChecker.position, groundDetectRadius, ground, QueryTriggerInteraction.Ignore) || (touchingSlope && !onMaxSlope)) ? true : false;
+        isGrounded = (touchingSlope && !onMaxSlope) ? true : false;
 
         inputs = Vector3.zero; // reset inputs
 
@@ -287,13 +274,13 @@ public class nPlayerMovement : MonoBehaviour
         //}
 
         // DEBUG: GODMODE kinda (delete later)
-        if (Input.GetKeyDown(KeyCode.F5))
-        {
-            GetComponent<nHealth>().max = 1000;
-            GetComponent<nHealth>().add(1000);
-            UIManager.instance.setHealthBarMax(1000);
-            UIManager.instance.updateHealthBar(1000);
-        }
+        //if (Input.GetKeyDown(KeyCode.F5))
+        //{
+        //    GetComponent<nHealth>().max = 1000;
+        //    GetComponent<nHealth>().add(1000);
+        //    UIManager.instance.setHealthBarMax(1000);
+        //    UIManager.instance.updateHealthBar(1000);
+        //}
 
         doAnimations();
     }
@@ -315,7 +302,7 @@ public class nPlayerMovement : MonoBehaviour
         Vector3 camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized; // cam forward without y value
         Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;     // cam right without y value
         movement = inputs.x * camForward + inputs.z * camRight;                                             // calculate movement (velocity)
-        movement = Vector3.ProjectOnPlane(movement, groundNormal);                                          // project movement to ground normal
+        movement = Vector3.ProjectOnPlane(movement, slopeHit.normal);                                          // project movement to ground normal
         movement = Vector3.ClampMagnitude(movement, speed); // clamp magnitiude of vector by speed (stops diagonal movement being faster than hor/ver movement)
         //Debug.DrawRay(transform.position, movement.normalized, Color.red);
     }
@@ -340,63 +327,75 @@ public class nPlayerMovement : MonoBehaviour
     // checks for steepest slope in normal checker positions
     private void checkSlope(float distance = 1.0f)
     {
+        Vector3 chosenStart = Vector3.zero;
         float smallestDistance = distance;
-        groundNormal = Vector3.up;
         onMaxSlope = false;
         touchingSlope = false;
-        slopeHitPos = Vector3.zero;
+        slopeHit.normal = Vector3.up;
+        slopeHit.point = Vector3.zero;
 
         foreach (Transform start in normalCheckers)
         {
-            Vector3 end = start.position + (Vector3.down * distance);
-
             RaycastHit hit;
-            Color c = Color.green;
 
             if (Physics.Raycast(start.position, Vector3.down, out hit, distance, ground, QueryTriggerInteraction.Ignore))
             {
-                touchingSlope = true;
+                float grace = 0.5f;
+                float dist = hit.distance - 1.0f;
+
+                if (dist <= grace)
+                {
+                    //print("grace: " + grace + ", distnace: " + dist);
+                    touchingSlope = true;
+                }
+
                 //Debug.DrawLine(start, start + (hit.normal * 5.0f), Color.red); // draw normal of ground
 
-                // is the next hit the closest and is next slope more steep than current slope
-                if ((hit.distance < smallestDistance) && (Vector3.Dot(Vector3.up, groundNormal) > Vector3.Dot(Vector3.up, hit.normal)))
+                // grab the closest hit
+                if (hit.distance < smallestDistance)
                 {
-                    groundNormal = hit.normal;
-                    slopeHitPos = hit.point;
+                    slopeHit = hit;
                     smallestDistance = hit.distance;
-                    c = Color.cyan;
-                }
-
-                // check if on max slope
-                if ((1 - maxSlope) > Vector3.Dot(Vector3.up, groundNormal))
-                {
-                    onMaxSlope = true;
+                    chosenStart = start.position;
                 }
             }
-            Debug.DrawLine(start.position, end, c);
+            Debug.DrawLine(start.position, start.position + (Vector3.down * distance), Color.green);
         }
 
-        if (onMaxSlope) // if on slope calculate downward direction of slope
+        Debug.DrawLine(chosenStart, chosenStart + (Vector3.down * distance), Color.cyan);
+        float graceDistance = 0.01f;
+
+        // if on max slope, calculate downward direction of slope
+        if ((1 - maxSlope) > Vector3.Dot(Vector3.up, slopeHit.normal))
         {
-            slopeDownDirection = Vector3.Cross(groundNormal, -transform.up);
-            slopeDownDirection = Vector3.Cross(slopeDownDirection, groundNormal);
+            onMaxSlope = true;
+            slopeDownDirection = Vector3.Cross(slopeHit.normal, -transform.up);
+            slopeDownDirection = Vector3.Cross(slopeDownDirection, slopeHit.normal);
             //Debug.DrawRay(transform.position, slopeDownDirection, Color.cyan); // draw slope affected movement line
             //print("slopeDownDirection: " + slopeDownDirection);
+        }
+        else if (!inJump && touchingSlope && ((slopeHit.distance - 1.0f) > graceDistance)) // need to clamp to ground
+        {
+            Vector3 wantedPos = transform.position - new Vector3(0, smallestDistance - 1.0f, 0);
+            //print("slope distance: " + heightDistance);
+            //print("calculated distance" + wantedPos);
+            //print("Fixing Hieght Position");
+            //transform.position = wantedPos;
+            rb.position = wantedPos;
         }
     }
 
     // applies extra force to gameobject
-    public void applyExtraForce(Vector3 force, bool resetJump = false)
+    public void applyExtraForce(Vector3 force)
     {
         rb.AddForce(force, ForceMode.VelocityChange); // applyforce
         extraVel = force;
-
-        if (resetJump)
-        {
-            currentJump = 0;
-        }
-
         extraForceTime = 1.0f; // since we do a velocity change, time to complete extra force is roughly 1 second
+    }
+
+    public void resetJump()
+    {
+        currentJump = 0;
     }
 
     public void stopPlayerVelocity()
@@ -591,25 +590,5 @@ public class nPlayerMovement : MonoBehaviour
 
         overalAnim = anim;                      // set new animation set
         animator.SetBool(overalAnim, true);     // turn on new animation set
-    }
-
-    // DEBUG: draw ground checker sphere
-    private void OnDrawGizmos()
-    {
-        if (!Application.isPlaying)
-        {
-            return;
-        }
-
-        if (isGrounded)
-        {
-            Gizmos.color = Color.cyan;
-        }
-        else
-        {
-            Gizmos.color = Color.yellow;
-        }
-
-        Gizmos.DrawSphere(groundChecker.position, groundDetectRadius);
     }
 }
