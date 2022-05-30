@@ -45,13 +45,7 @@ public class nPlayerMovement : MonoBehaviour
     private bool inJump = false;                        // for jump delay
     private bool canDash = true;                        // for dash delay check
     private float extraForceTime = 0.0f;                // time to allow extra force to be applied
-    private Animator animator = null;                   // reference to animator
-    private string overalAnim = null;                   // name of overall animation
-    private string idleAnim = null;                     // name of idle animation
-    private string runAnim = null;                      // name of run animation
-    private string jumpAnim = null;                     // name of jump animation
-    private string evadeRightAnim = null;               // name of right evade animation
-    private string evadeLeftAnim = null;                // name of left evade animation
+    private nPlayerAnimations anim;                     // reference to player animation handler
     private Vector3 extraVel = Vector3.zero;            // extra force velocity (recorded to lerp from extra to movement)
     private bool isAiming = false;                      // to change camera rotation style
     private bool onMaxSlope = false;                    // for max slope check
@@ -65,7 +59,7 @@ public class nPlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         health = GetComponent<nHealth>();
         groundChecker = transform.GetChild(1);
-        animator = GetComponent<Animator>();
+        anim = GetComponent<nPlayerAnimations>();
     }
 
     private void FixedUpdate()
@@ -287,8 +281,6 @@ public class nPlayerMovement : MonoBehaviour
         //    UIManager.instance.setHealthBarMax(1000);
         //    UIManager.instance.updateHealthBar(1000);
         //}
-
-        doAnimations();
     }
 
     // calculate movement based on camera rotation and player inputs
@@ -325,7 +317,7 @@ public class nPlayerMovement : MonoBehaviour
         {
             AudioManager.Instance.playRandom(transform.position, "Rollo_Jump_Double_01", "Rollo_Jump_Double_02").transform.SetParent(transform);
         }
-        animator.SetTrigger(jumpAnim);
+        anim.playJump();
         rb.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y) + Vector3.up * -rb.velocity.y, ForceMode.VelocityChange); // regular jump (+ y velocity canceled)
         currentJump++;
     }
@@ -341,13 +333,13 @@ public class nPlayerMovement : MonoBehaviour
 
         RaycastHit[] rays;
         // check if hit ground near "feet" (normals are from the capsule cast shape)
-        rays = Physics.CapsuleCastAll(transform.position, transform.position, 1.0f, Vector3.down, 2.0f, ground, QueryTriggerInteraction.Ignore);
+        rays = Physics.CapsuleCastAll(transform.position, transform.position, 0.9f, Vector3.down, 2.0f, ground, QueryTriggerInteraction.Ignore);
 
         if (rays.Length != 0)
         {
             foreach (RaycastHit hit in rays)
             {
-                // do another raycast (with a slight offset) from capsule cast point to get intended slope
+                // do another raycast (with a slight offset) from capsule cast point to get intended slope normal
                 float offset = 0.05f;
                 Vector3 changedPosition = new Vector3(hit.point.x, 0, hit.point.z);
                 changedPosition += (-(new Vector3(transform.position.x, 0, transform.position.z) - changedPosition).normalized * offset);
@@ -419,6 +411,32 @@ public class nPlayerMovement : MonoBehaviour
         return isGliding;
     }
 
+    public Vector3 getMovement()
+    {
+        return movement;
+    }
+
+    // set aiming
+    public void setAiming(bool aim)
+    {
+        isAiming = aim;
+    }
+
+    // jump delay timer
+    private IEnumerator JumpDelayTimer(float duration)
+    {
+        float passed = 0.0f;
+        inJump = true;
+
+        while (passed < duration)
+        {
+            passed += Time.deltaTime;
+            yield return null;
+        }
+
+        inJump = false;
+    }
+
     // timer for dash delay (needs to change into dodge timer)
     //private IEnumerator DashDelayTimer()
     //{
@@ -442,149 +460,4 @@ public class nPlayerMovement : MonoBehaviour
 
     //    canDash = true;
     //}
-
-    // jump delay timer
-    private IEnumerator JumpDelayTimer(float duration)
-    {
-        float passed = 0.0f;
-        inJump = true;
-
-        while (passed < duration)
-        {
-            passed += Time.deltaTime;
-            yield return null;
-        }
-
-        inJump = false;
-    }
-
-    // do animations based on movement
-    private void doAnimations()
-    {
-        if (isGliding)
-        {
-            animator.SetBool("isGliding", true);
-        }
-        else
-        {
-            animator.SetBool("isGliding", false);
-
-            if (rb.velocity.y < 0 && !isGrounded)
-            {
-                animator.SetBool("isFalling", true);
-            }
-            else
-            {
-                animator.SetBool("isFalling", false);
-            }
-        }
-
-        if (movement.magnitude > 0 && isGrounded) // running
-        {
-            if (idleAnim != null)
-            {
-                animator.SetBool(idleAnim, false);
-            }
-
-            if (runAnim != null)
-            {
-                animator.SetBool(runAnim, true);
-            }
-        }
-        else if (isGrounded) // idle
-        {
-            if (runAnim != null)
-            {
-                animator.SetBool(runAnim, false);
-            }
-
-            if (idleAnim != null)
-            {
-                animator.SetBool(idleAnim, true);
-            }
-        }
-        else // non-grounded
-        {
-            if (idleAnim != null)
-            {
-                animator.SetBool(idleAnim, false);
-            }
-
-            if (runAnim != null)
-            {
-                animator.SetBool(runAnim, false);
-            }
-        }
-    }
-
-    // set run animation to be used
-    public void setIdleAnim(string anim)
-    {
-        idleAnim = anim;
-    }
-
-    // set idle animation to be used
-    public void setRunAnim(string anim)
-    {
-        runAnim = anim;
-    }
-
-    // set jump animation to be used
-    public void setJumpAnim(string anim)
-    {
-        jumpAnim = anim;
-    }
-
-    // set right evade animation to be used
-    public void setEvadeRightAnim(string anim)
-    {
-        evadeRightAnim = anim;
-    }
-
-    // set right evade animation to be used
-    public void setEvadeLeftAnim(string anim)
-    {
-        evadeLeftAnim = anim;
-    }
-
-    // set aiming
-    public void setAiming(bool aim)
-    {
-        isAiming = aim;
-    }
-
-    // returns if inputs stopped
-    public bool isInputStopped()
-    {
-        return inputStopped;
-    }
-
-    // reverts to basic animation (set old animations to false)
-    public void setBasicAnim()
-    {
-        if (idleAnim != null)
-        {
-            animator.SetBool(idleAnim, false);
-        }
-
-        if (runAnim != null)
-        {
-            animator.SetBool(runAnim, false);
-        }
-
-        idleAnim = null;
-        runAnim = null;
-    }
-
-    // changes overall animation set
-    public void setOverallAnim(string anim)
-    {
-        if (overalAnim != null)
-        {
-            animator.SetBool(overalAnim, false);    // turn off prevous animation set
-        }
-
-        overalAnim = anim;                      // set new animation set
-        animator.SetBool(overalAnim, true);     // turn on new animation set
-    }
 }

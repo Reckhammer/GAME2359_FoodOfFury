@@ -106,19 +106,18 @@ public class nOnionWeapon : MonoBehaviour
     {
         player = transform.root.gameObject;
         AudioManager.Instance.playRandom(transform.position, "Sword_Draw_01");  // Sound for when sword is drawn -Brian
-        player.GetComponent<nPlayerMovement>().setOverallAnim("OnionAnim");     // turn off basic animations
-        player.GetComponent<nPlayerMovement>().setIdleAnim("OnionIdle");        // set idle animation
-        player.GetComponent<nPlayerMovement>().setRunAnim("OnionRun");          // set run animation
-        player.GetComponent<nPlayerMovement>().setJumpAnim("OnionJump");        // set jump animation
-        player.GetComponent<nPlayerMovement>().setEvadeRightAnim("EvadeRight");
-        player.GetComponent<nPlayerMovement>().setEvadeLeftAnim("EvadeLeft");
+        player.GetComponent<nPlayerAnimations>().setOverallAnim("OnionAnim");     // turn off basic animations
+        player.GetComponent<nPlayerAnimations>().setIdleAnim("OnionIdle");        // set idle animation
+        player.GetComponent<nPlayerAnimations>().setRunAnim("OnionRun");          // set run animation
+        player.GetComponent<nPlayerAnimations>().setJumpAnim("OnionJump");        // set jump animation
+        player.GetComponent<nPlayerAnimations>().setEvadeRightAnim("EvadeRight");
+        player.GetComponent<nPlayerAnimations>().setEvadeLeftAnim("EvadeLeft");
         player.GetComponent<nPlayerManager>().playerEvent += eventHandle;
     }
 
     private void OnDisable()
     {
-        player.GetComponent<Animator>()?.SetTrigger("Restart");
-        player.GetComponent<nPlayerMovement>()?.setBasicAnim(); // revert to basic animations
+        player.GetComponent<nPlayerAnimations>()?.setBasicAnim(); // revert to basic animations
 
         if (player.GetComponent<nPlayerManager>() != null)
         {

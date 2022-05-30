@@ -103,10 +103,10 @@ public class nKetchupWeapon : MonoBehaviour
         player = transform.root.gameObject;
         player.GetComponent<nPlayerManager>().playerEvent += eventHandle;
         AudioManager.Instance.playRandom(transform.position, "Ketchup_Reload_01"); //Sound for switch to Ketchup Weapon -Brian
-        player.GetComponent<nPlayerMovement>().setOverallAnim("KetchupAnim");    // turn off basic animations
-        player.GetComponent<nPlayerMovement>().setIdleAnim("KetchupIdle");       // set idle animation
-        player.GetComponent<nPlayerMovement>().setRunAnim("KetchupRun");         // set run animation
-        player.GetComponent<nPlayerMovement>().setJumpAnim("KetchupJump");       // set jump animation
+        player.GetComponent<nPlayerAnimations>().setOverallAnim("KetchupAnim");    // turn off basic animations
+        player.GetComponent<nPlayerAnimations>().setIdleAnim("KetchupIdle");       // set idle animation
+        player.GetComponent<nPlayerAnimations>().setRunAnim("KetchupRun");         // set run animation
+        player.GetComponent<nPlayerAnimations>().setJumpAnim("KetchupJump");       // set jump animation
         nUIManager.instance.setWeaponUseUI(1, bulletAmount, true);
     }
 
@@ -119,8 +119,7 @@ public class nKetchupWeapon : MonoBehaviour
         reticle.SetActive(false);
         CameraTarget.instance.returnDefault(0.25f);                 // return camera target to default
         player.GetComponent<nPlayerMovement>()?.setAiming(false); // turn off aiming for player
-        player.GetComponent<Animator>()?.SetTrigger("Restart");     // restart animations
-        player.GetComponent<nPlayerMovement>()?.setBasicAnim();   // revert to basic animations
+        player.GetComponent<nPlayerAnimations>()?.setBasicAnim();   // revert to basic animations
         nUIManager.instance.setWeaponUseUI(1, 0, false);
         inAttack = false;
     }
