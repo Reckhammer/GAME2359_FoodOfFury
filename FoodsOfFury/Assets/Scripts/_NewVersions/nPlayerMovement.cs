@@ -10,57 +10,55 @@ using UnityEngine;
 
 public class nPlayerMovement : MonoBehaviour
 {
-    public float speed = 10f;                       // speed if player
-    public float glideSpeed = 5.0f;                 // movement speed while gliding
-    public float jumpHeight = 5.0f;                 // jump force of player
-    public float dashForce = 0.0f;                  // force of dash
-    public float dashDelay = 1.0f;                  // time before dash can be used again
-    public float groundDetectRadius = 0.3f;         // radius of sphere to check for ground
-    public float rotationSpeed = 10.0f;             // speed of rotation
-    public LayerMask ground;                        // layers to check if grounded
-    public float extraGravityMultiplier = 1.0f;     // extra gravity multiplier
+    public float speed = 10f;                           // speed if player
+    public float glideSpeed = 7.0f;                     // movement speed while gliding
+    public float jumpHeight = 10.0f;                     // jump force of player
+    public float dashForce = 20.0f;                      // force of dash
+    public float dashDelay = 1.0f;                      // time before dash can be used again
+    public float rotationSpeed = 10.0f;                 // speed of rotation
+    public LayerMask ground;                            // layers to check if grounded
+    public float extraGravityMultiplier = 2.0f;         // extra gravity multiplier
 
     [Range(1.0f, 0.0f)]
-    public float glideFallRate = 0.9f;              // falling rate for gliding (how much gravity)
+    public float glideFallRate = 0.9f;                  // falling rate for gliding (how much gravity)
 
     [Range(0.0f, 1.0f)]
-    public float maxSlope = 0.2f;                   // max slope player can move on
+    public float maxSlope = 0.2f;                       // max slope player can move on
 
-    public Transform[] normalCheckers = null;       // posisitions to check for ground normal
-    //public GameObject leftEvadeParticles;           // particles for evading left
-    //public GameObject rightEvadeParticles;          // particles for evading right
+    //public GameObject leftEvadeParticles;             // particles for evading left
+    //public GameObject rightEvadeParticles;            // particles for evading right
 
-    public float slideForce = 5.0f;
-    public float slopeDetectDistance = 1.0f;
+    public float slideForce = 5.0f;                     // downwards force when sliding
+    public float slopeDetectDistance = 2.5f;            // distance to detect slopes
 
-    private nHealth health = null;                  // health reference
-    private Rigidbody rb = null;                    // rigidbody of player
-    private bool inputStopped = false;              // for stopping input
-    private bool rotationStopped = false;           // for stopping rotation
-    private Transform groundChecker = null;         // position of groundchecker
-    private Vector3 inputs = Vector3.zero;          // inputs from player
-    private Vector3 movement = Vector3.zero;        // calculated velocity to move the character
-    private const int maxJump = 2;                  // max amount of jumps
-    private int currentJump = 0;                    // current jump index
-    private bool isGrounded = true;                 // for ground check
-    private bool isGliding = false;                 // for gliding check
-    private bool inJump = false;                    // for jump delay
-    private bool canDash = true;                    // for dash delay check
-    private float extraForceTime = 0.0f;            // time to allow extra force to be applied
-    private Animator animator = null;               // reference to animator
-    private string overalAnim = null;               // name of overall animation
-    private string idleAnim = null;                 // name of idle animation
-    private string runAnim = null;                  // name of run animation
-    private string jumpAnim = null;                 // name of jump animation
-    private string evadeRightAnim = null;           // name of right evade animation
-    private string evadeLeftAnim = null;            // name of left evade animation
-    private Vector3 extraVel = Vector3.zero;        // extra force velocity (recorded to lerp from extra to movement)
-    private bool isAiming = false;                  // to change camera rotation style
-    private bool onMaxSlope = false;
-    private bool touchingSlope = false;
-    private bool isSliding = false;
-    private Vector3 slopeDownDirection = Vector3.zero;
-    private RaycastHit slopeHit;
+    private nHealth health = null;                      // health reference
+    private Rigidbody rb = null;                        // rigidbody of player
+    private bool inputStopped = false;                  // for stopping input
+    private bool rotationStopped = false;               // for stopping rotation
+    private Transform groundChecker = null;             // position of groundchecker
+    private Vector3 inputs = Vector3.zero;              // inputs from player
+    private Vector3 movement = Vector3.zero;            // calculated velocity to move the character
+    private const int maxJump = 2;                      // max amount of jumps
+    private int currentJump = 0;                        // current jump index
+    private bool isGrounded = true;                     // for ground check
+    private bool isGliding = false;                     // for gliding check
+    private bool inJump = false;                        // for jump delay
+    private bool canDash = true;                        // for dash delay check
+    private float extraForceTime = 0.0f;                // time to allow extra force to be applied
+    private Animator animator = null;                   // reference to animator
+    private string overalAnim = null;                   // name of overall animation
+    private string idleAnim = null;                     // name of idle animation
+    private string runAnim = null;                      // name of run animation
+    private string jumpAnim = null;                     // name of jump animation
+    private string evadeRightAnim = null;               // name of right evade animation
+    private string evadeLeftAnim = null;                // name of left evade animation
+    private Vector3 extraVel = Vector3.zero;            // extra force velocity (recorded to lerp from extra to movement)
+    private bool isAiming = false;                      // to change camera rotation style
+    private bool onMaxSlope = false;                    // for max slope check
+    private bool touchingSlope = false;                 // for touching slope check
+    private bool isSliding = false;                     // for slide check
+    private Vector3 slopeDownDirection = Vector3.zero;  // downwards direction of steep slope
+    private RaycastHit slopeHit;                        // raycast hit info of slope
 
     private void Awake()
     {
@@ -162,6 +160,14 @@ public class nPlayerMovement : MonoBehaviour
         {
             extraVel = Vector3.zero;
         }
+
+        // clamp to ground
+        if (!inJump && touchingSlope && !isSliding)
+        {
+            float wantedDistance = slopeHit.point.y + 2; // from slope hit.point to start of ray checks (half of character height)
+            Vector3 wantedPos = new Vector3(transform.position.x, wantedDistance, transform.position.z);
+            transform.position = wantedPos;
+        }
     }
 
     //private void LateUpdate()
@@ -195,7 +201,7 @@ public class nPlayerMovement : MonoBehaviour
             return;
         }
 
-        checkSlope(slopeDetectDistance);    // get slope normal
+        checkSlope(); // get slope info
 
         // check ground
         isGrounded = (touchingSlope && !onMaxSlope) ? true : false;
@@ -325,45 +331,44 @@ public class nPlayerMovement : MonoBehaviour
     }
 
     // checks for steepest slope in normal checker positions
-    private void checkSlope(float distance = 1.0f)
+    private void checkSlope()
     {
-        Vector3 chosenStart = Vector3.zero;
-        float smallestDistance = distance;
+        float minDistance = slopeDetectDistance;
         onMaxSlope = false;
         touchingSlope = false;
         slopeHit.normal = Vector3.up;
         slopeHit.point = Vector3.zero;
 
-        foreach (Transform start in normalCheckers)
+        RaycastHit[] rays;
+        // check if hit ground near "feet" (normals are from the capsule cast shape)
+        rays = Physics.CapsuleCastAll(transform.position, transform.position, 1.0f, Vector3.down, 2.0f, ground, QueryTriggerInteraction.Ignore);
+
+        if (rays.Length != 0)
         {
-            RaycastHit hit;
-
-            if (Physics.Raycast(start.position, Vector3.down, out hit, distance, ground, QueryTriggerInteraction.Ignore))
+            foreach (RaycastHit hit in rays)
             {
-                float grace = 0.5f;
-                float dist = hit.distance - 1.0f;
+                // do another raycast (with a slight offset) from capsule cast point to get intended slope
+                float offset = 0.05f;
+                Vector3 changedPosition = new Vector3(hit.point.x, 0, hit.point.z);
+                changedPosition += (-(new Vector3(transform.position.x, 0, transform.position.z) - changedPosition).normalized * offset);
+                changedPosition.y = transform.position.y; // start from middle of gameobject
 
-                if (dist <= grace)
+                // Debug.DrawLine(hit.point, hit.point + (hit.normal * 1.0f), Color.green); // normal of capsulecast
+                // Debug.DrawLine(changedPosition, changedPosition + (Vector3.down * slopeDetectDistance), Color.red); // normal of changed position
+
+                RaycastHit ChangedPositionHit;
+                if (Physics.Raycast(changedPosition, Vector3.down, out ChangedPositionHit, slopeDetectDistance, ground, QueryTriggerInteraction.Ignore))
                 {
-                    //print("grace: " + grace + ", distnace: " + dist);
                     touchingSlope = true;
-                }
-
-                //Debug.DrawLine(start, start + (hit.normal * 5.0f), Color.red); // draw normal of ground
-
-                // grab the closest hit
-                if (hit.distance < smallestDistance)
-                {
-                    slopeHit = hit;
-                    smallestDistance = hit.distance;
-                    chosenStart = start.position;
+                    if (hit.distance < minDistance)
+                    {
+                        slopeHit = ChangedPositionHit;
+                        minDistance = hit.distance;
+                    }
                 }
             }
-            Debug.DrawLine(start.position, start.position + (Vector3.down * distance), Color.green);
+            Debug.DrawLine(slopeHit.point, slopeHit.point + (slopeHit.normal * 1.0f), Color.cyan); // normal of closest ground normal
         }
-
-        Debug.DrawLine(chosenStart, chosenStart + (Vector3.down * distance), Color.cyan);
-        float graceDistance = 0.01f;
 
         // if on max slope, calculate downward direction of slope
         if ((1 - maxSlope) > Vector3.Dot(Vector3.up, slopeHit.normal))
@@ -373,15 +378,6 @@ public class nPlayerMovement : MonoBehaviour
             slopeDownDirection = Vector3.Cross(slopeDownDirection, slopeHit.normal);
             //Debug.DrawRay(transform.position, slopeDownDirection, Color.cyan); // draw slope affected movement line
             //print("slopeDownDirection: " + slopeDownDirection);
-        }
-        else if (!inJump && touchingSlope && ((slopeHit.distance - 1.0f) > graceDistance)) // need to clamp to ground
-        {
-            Vector3 wantedPos = transform.position - new Vector3(0, smallestDistance - 1.0f, 0);
-            //print("slope distance: " + heightDistance);
-            //print("calculated distance" + wantedPos);
-            //print("Fixing Hieght Position");
-            //transform.position = wantedPos;
-            rb.position = wantedPos;
         }
     }
 
