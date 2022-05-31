@@ -45,6 +45,7 @@ public class nPlayerMovement : MonoBehaviour
     private bool inJump = false;                        // for jump delay
     private bool canDash = true;                        // for dash delay check
     private float extraForceTime = 0.0f;                // time to allow extra force to be applied
+    private float extraForceOriginalTime = 1.0f;        // extra force original time
     private nPlayerAnimations anim;                     // reference to player animation handler
     private Vector3 extraVel = Vector3.zero;            // extra force velocity (recorded to lerp from extra to movement)
     private bool isAiming = false;                      // to change camera rotation style
@@ -64,59 +65,56 @@ public class nPlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!inputStopped)
+        if (extraForceTime <= 0.0f)
         {
-            if (extraForceTime <= 0.0f)
+            Vector3 wantVel = Vector3.zero;
+
+            if (isGrounded && !inJump) // grounded movement (we mess with y values (slopes))
             {
-                Vector3 wantVel = Vector3.zero;
-
-                if (isGrounded && !inJump) // grounded movement (we mess with y values (slopes))
-                {
-                    wantVel = movement - rb.velocity;
-                }
-                else // air movement/flat ground movement (leave gravity alone (when on))
-                {
-                    movement.y = 0.0f; // remove y
-                    wantVel = movement - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));
-                }
-
-                // slide down slope
-                if (!inJump && onMaxSlope)
-                {
-                    //print("sliding");
-                    wantVel = slopeDownDirection * slideForce;
-                    isSliding = true;
-                    rb.AddForce(wantVel, ForceMode.VelocityChange);
-                    // Why does it not go directly downwards (because current velocity is not cancelled out?)
-                }
-                else
-                {
-                    isSliding = false;
-                    //print("not sliding");
-                    rb.AddForce(wantVel, ForceMode.VelocityChange);
-                }
-
+                wantVel = movement - rb.velocity;
             }
-            else // extra force calculations.
+            else // air movement/flat ground movement (leave gravity alone (when on))
             {
-                if (isGrounded) // grounded movement
-                {
-                    Vector3 lVel = Vector3.Lerp(movement - rb.velocity, extraVel - rb.velocity, extraForceTime);
-                    rb.AddForce(lVel, ForceMode.VelocityChange);
-                }
-                else // air/ flat ground movement
-                {
-                    movement.y = 0.0f; // remove y
-                    Vector3 lVel = Vector3.Lerp(movement - rb.velocity, extraVel - rb.velocity, extraForceTime);
-                    lVel.y = 0; // cut out y (y force was added in function. Allow gravity in extray force)
-                    rb.AddForce(lVel, ForceMode.VelocityChange);
-                }
+                movement.y = 0.0f; // remove y
+                wantVel = movement - Vector3.Scale(rb.velocity, new Vector3(1, 0, 1));
             }
 
-            if (isGliding)
+            // slide down slope
+            if (!inJump && onMaxSlope)
             {
-                rb.AddForce(-Physics.gravity * glideFallRate);
+                //print("sliding");
+                wantVel = slopeDownDirection * slideForce;
+                isSliding = true;
+                rb.AddForce(wantVel, ForceMode.VelocityChange);
+                // Why does it not go directly downwards (because current velocity is not cancelled out?)
             }
+            else
+            {
+                isSliding = false;
+                //print("not sliding");
+                rb.AddForce(wantVel, ForceMode.VelocityChange);
+            }
+
+        }
+        else // extra force calculations.
+        {
+            if (isGrounded) // grounded movement
+            {
+                Vector3 lVel = Vector3.Lerp((movement - rb.velocity), (extraVel - rb.velocity), (extraForceTime / extraForceOriginalTime));
+                rb.AddForce(lVel, ForceMode.VelocityChange);
+            }
+            else // air/ flat ground movement
+            {
+                movement.y = 0.0f; // remove y
+                Vector3 lVel = Vector3.Lerp((movement - rb.velocity), (extraVel - rb.velocity), (extraForceTime / extraForceOriginalTime));
+                lVel.y = 0; // cut out y (y force was added in function. Allow gravity in extray force)
+                rb.AddForce(lVel, ForceMode.VelocityChange);
+            }
+        }
+
+        if (isGliding)
+        {
+            rb.AddForce(-Physics.gravity * glideFallRate);
         }
 
         // when not falling, gliding, or sliding. Add "extra" gravity
@@ -148,11 +146,13 @@ public class nPlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.fixedDeltaTime * rotationSpeed); // slerp rotation with rotation speed
         }
 
-        extraForceTime = (extraForceTime > 0.0f) ? extraForceTime - Time.fixedDeltaTime : 0.0f; // decrease timer
-
-        if (extraForceTime <= 0.0)
+        if (extraForceTime <= 0.0 && extraVel != Vector3.zero)
         {
             extraVel = Vector3.zero;
+        }
+        else if(extraForceTime > 0.0f)
+        {
+            extraForceTime = extraForceTime - Time.fixedDeltaTime; // decrease timer
         }
 
         // clamp to ground
@@ -201,6 +201,7 @@ public class nPlayerMovement : MonoBehaviour
         isGrounded = (touchingSlope && !onMaxSlope) ? true : false;
 
         inputs = Vector3.zero; // reset inputs
+        movement = Vector3.zero;
 
         // start glide if 'space' is pressed (when not grounded)
         if (Input.GetButton("Jump") && !isGrounded && rb.velocity.y < 0)
@@ -286,21 +287,29 @@ public class nPlayerMovement : MonoBehaviour
     // calculate movement based on camera rotation and player inputs
     private void calculateMovement()
     {
+        if (inputStopped)
+        {
+            return;
+        }
+
+        inputs.x = Input.GetAxis("Vertical");
+        inputs.z = Input.GetAxis("Horizontal");
+
         if (isGliding) // gliding movement
         {
-            inputs.x = Input.GetAxis("Vertical") * glideSpeed;
-            inputs.z = Input.GetAxis("Horizontal") * glideSpeed;
+            inputs.x = inputs.x * glideSpeed;
+            inputs.z = inputs.z * glideSpeed;
         }
         else // regular movement
         {
-            inputs.x = Input.GetAxis("Vertical") * speed;
-            inputs.z = Input.GetAxis("Horizontal") * speed;
+            inputs.x = inputs.x * speed;
+            inputs.z = inputs.z * speed;
         }
 
         Vector3 camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized; // cam forward without y value
         Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;     // cam right without y value
         movement = inputs.x * camForward + inputs.z * camRight;                                             // calculate movement (velocity)
-        movement = Vector3.ProjectOnPlane(movement, slopeHit.normal);                                          // project movement to ground normal
+        movement = Vector3.ProjectOnPlane(movement, slopeHit.normal);                                       // project movement to ground normal
         movement = Vector3.ClampMagnitude(movement, speed); // clamp magnitiude of vector by speed (stops diagonal movement being faster than hor/ver movement)
         //Debug.DrawRay(transform.position, movement.normalized, Color.red);
     }
@@ -346,7 +355,7 @@ public class nPlayerMovement : MonoBehaviour
                 changedPosition.y = transform.position.y; // start from middle of gameobject
 
                 // Debug.DrawLine(hit.point, hit.point + (hit.normal * 1.0f), Color.green); // normal of capsulecast
-                // Debug.DrawLine(changedPosition, changedPosition + (Vector3.down * slopeDetectDistance), Color.red); // normal of changed position
+                Debug.DrawLine(changedPosition, changedPosition + (Vector3.down * slopeDetectDistance), Color.red); // normal of changed position
 
                 RaycastHit ChangedPositionHit;
                 if (Physics.Raycast(changedPosition, Vector3.down, out ChangedPositionHit, slopeDetectDistance, ground, QueryTriggerInteraction.Ignore))
@@ -374,11 +383,12 @@ public class nPlayerMovement : MonoBehaviour
     }
 
     // applies extra force to gameobject
-    public void applyExtraForce(Vector3 force)
+    public void applyExtraForce(Vector3 force, float forceTime = 1.0f)
     {
         rb.AddForce(force, ForceMode.VelocityChange); // applyforce
         extraVel = force;
-        extraForceTime = 1.0f; // since we do a velocity change, time to complete extra force is roughly 1 second
+        extraForceTime = forceTime;
+        extraForceOriginalTime = forceTime;
     }
 
     public void resetJump()
@@ -411,9 +421,9 @@ public class nPlayerMovement : MonoBehaviour
         return isGliding;
     }
 
-    public Vector3 getMovement()
+    public Vector3 getInputs()
     {
-        return movement;
+        return inputs;
     }
 
     // set aiming

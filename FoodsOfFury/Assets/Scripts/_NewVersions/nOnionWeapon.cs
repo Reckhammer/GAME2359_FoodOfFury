@@ -63,6 +63,22 @@ public class nOnionWeapon : MonoBehaviour
         attackName = "GreenOnion_Attack_01";                                                                    // set animation to be played
         player.GetComponent<Animator>().SetFloat("GreenOnion_Attack_01_Speed", attackOneSpeed);                 // set animation speed
         weaponComponentAnimator.SetFloat("GreenOnion_Attack_01_Speed", attackOneSpeed);
+        player.GetComponent<nPlayerMovement>().stopPlayerVelocity();
+        player.GetComponent<nPlayerMovement>().stopInput(true);
+        player.GetComponent<nPlayerMovement>().stopRotation(true);
+
+        Vector3 camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;     // cam forward without y value
+        Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;         // cam right without y value
+        Vector3 direction = Input.GetAxisRaw("Vertical") * camForward + Input.GetAxisRaw("Horizontal") * camRight;    // calculate direction
+        if (direction != Vector3.zero)
+        {
+            player.GetComponent<nPlayerMovement>().applyExtraForce(direction * 20.0f, 0.25f);
+            player.transform.rotation = Quaternion.LookRotation(direction);
+        }
+        else
+        {
+            player.GetComponent<nPlayerMovement>().applyExtraForce(transform.forward * 20.0f, 0.25f);
+        }
     }
 
     void FollowUpAttack()
@@ -75,6 +91,22 @@ public class nOnionWeapon : MonoBehaviour
         attackName = "GreenOnion_Attack_FollowUp";                                                              // set animation to be played
         player.GetComponent<Animator>().SetFloat("GreenOnion_Attack_FollowUp_Speed", attackOneFollowUpSpeed);   // set animation speed
         weaponComponentAnimator.SetFloat("GreenOnion_Attack_FollowUp_Speed", attackOneFollowUpSpeed);
+        player.GetComponent<nPlayerMovement>().stopPlayerVelocity();
+        player.GetComponent<nPlayerMovement>().stopInput(true);
+        player.GetComponent<nPlayerMovement>().stopRotation(true);
+
+        Vector3 camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;     // cam forward without y value
+        Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;         // cam right without y value
+        Vector3 direction = Input.GetAxisRaw("Vertical") * camForward + Input.GetAxisRaw("Horizontal") * camRight;    // calculate direction
+        if (direction != Vector3.zero)
+        {
+            player.GetComponent<nPlayerMovement>().applyExtraForce(direction * 20.0f, 0.25f);
+            player.transform.rotation = Quaternion.LookRotation(direction);
+        }
+        else
+        {
+            player.GetComponent<nPlayerMovement>().applyExtraForce(transform.forward * 20.0f, 0.25f);
+        }
     }
 
     void AttackTwo()
@@ -150,6 +182,8 @@ public class nOnionWeapon : MonoBehaviour
                 triggerCollider.enabled = false;
                 weaponComponentAnimator.SetTrigger("Iterruption");
                 GetComponentInParent<nPlayerManager>().enableWeaponSwitch(true); // enable weapon switch
+                player.GetComponent<nPlayerMovement>().stopRotation(false);
+                player.GetComponent<nPlayerMovement>().stopInput(false);
                 break;
             default:
                 break;

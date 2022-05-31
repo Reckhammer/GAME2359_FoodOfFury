@@ -46,7 +46,7 @@ public class nPlayerAnimations : MonoBehaviour
             }
         }
 
-        if (playerMovement.getMovement().magnitude > 0 && playerMovement.onGround()) // running
+        if ((playerMovement.getInputs() != Vector3.zero) && playerMovement.onGround()) // running
         {
             playIdle(false);
             playRun();
