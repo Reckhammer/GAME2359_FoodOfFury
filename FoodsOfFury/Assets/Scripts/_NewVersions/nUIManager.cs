@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
 
 //----------------------------------------------------------------------------------------
 // Author: Jose Villanueva
@@ -31,6 +32,10 @@ public class nUIManager : MonoBehaviour
     public Text livesAmountUI;
     public Slider loadingSlider;            // reference to loading slider for loading screen
     public Sprite[] commonIcons;            // reference to icons to commonly used icons
+    public PostProcessVolume PPV;           // reference to post proccessing
+
+    private Vignette healthVignette;        // ppv vignette settings
+    private Coroutine vigTimer = null;      // vignette fade effect coroutine
 
     // do singleton stuff
     private void Awake()
@@ -39,6 +44,12 @@ public class nUIManager : MonoBehaviour
             instance = this;
         else
             Destroy(this);
+    }
+
+    private void Start()
+    {
+        PPV.profile.TryGetSettings(out healthVignette);
+        healthVignette.intensity.value = 0.0f;
     }
 
     // update health bar
@@ -149,6 +160,26 @@ public class nUIManager : MonoBehaviour
         }
     }
 
+    public void setVignetteIntensity(float intensity)
+    {
+        if (vigTimer != null)
+        {
+            StopCoroutine(vigTimer);
+        }
+
+        healthVignette.intensity.value = intensity;
+    }
+
+    public void doVignetteFadeEffect(float duration, float intensity)
+    {
+        if (vigTimer != null)
+        {
+            StopCoroutine(vigTimer);
+        }
+
+        vigTimer = StartCoroutine(vignetteFadeEffect(duration, intensity));
+    }
+
     // returns index for commonIcons from type
     private int getIconFromType(nItemType type)
     {
@@ -162,6 +193,20 @@ public class nUIManager : MonoBehaviour
                 return 2;
             default:
                 return -1;
+        }
+    }
+
+    // timer for vignette effect
+    private IEnumerator vignetteFadeEffect(float duration, float toIntensity)
+    {
+        float passed = 0.0f;
+        float original = healthVignette.intensity.value;
+
+        while (passed < duration)
+        {
+            passed += Time.deltaTime;
+            healthVignette.intensity.value = Mathf.Lerp(original, toIntensity, passed / duration);
+            yield return null;
         }
     }
 }
