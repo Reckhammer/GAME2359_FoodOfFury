@@ -233,7 +233,7 @@ public class nEnemy : MonoBehaviour
         GetComponent<Collider>().enabled = false; //Turn off their collider
         agent.enabled = false;
         dropLoot();
-        animator.SetBool("IsDead", true); //Play the animation
+        animator.SetTrigger("Death"); //Play the animation
         AudioManager.Instance.playRandom(transform.position, "Enemy_KO_01"); //Play Sound
         StartCoroutine(DelayedPoof(3.5f));
         StartCoroutine(DelayedDestruction(5)); //Wait 5 secs to destroy the enemy
