@@ -201,6 +201,7 @@ public class nOnionWeapon : MonoBehaviour
                 player.GetComponent<nPlayerMovement>().stopInput(false);
                 GetComponentInParent<nPlayerManager>().enableWeaponSwitch(true);
                 player.GetComponent<nPlayerMovement>().stopRotation(false);
+                triggerCollider.GetComponent<nDamaging>().resetAttack();
                 break;
             case "MovementInterruption":
                 inAttack = false;
@@ -210,6 +211,7 @@ public class nOnionWeapon : MonoBehaviour
                 GetComponentInParent<nPlayerManager>().enableWeaponSwitch(true); // enable weapon switch
                 player.GetComponent<nPlayerMovement>().stopRotation(false);
                 player.GetComponent<nPlayerMovement>().stopInput(false);
+                triggerCollider.GetComponent<nDamaging>().resetAttack();
                 break;
             default:
                 break;

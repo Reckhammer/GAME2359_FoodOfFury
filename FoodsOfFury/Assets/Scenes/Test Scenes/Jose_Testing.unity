@@ -123,30 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: ee7af8675e34e01468838b76ca0499e5, type: 2}
---- !u!114 &2354458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2005123206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b03136f49d1df6f4a95fc57c551452a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targets:
-  - Enemy
-  - Objective
-  damageAmount: 2
-  delayAmount: 0.5
-  destroyOnImpact: 0
-  destroyOnImpactIgnore:
-    serializedVersion: 2
-    m_Bits: 0
-  doesKnockback: 0
-  knockbackForce: 0
-  audioOnHit: []
 --- !u!1 &2985167
 GameObject:
   m_ObjectHideFlags: 0
@@ -37513,8 +37489,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2005123207}
-  - component: {fileID: 2354458}
   - component: {fileID: 673681429}
+  - component: {fileID: 2005123208}
   m_Layer: 13
   m_Name: Trigger
   m_TagString: Untagged
@@ -37536,6 +37512,22 @@ Transform:
   m_Father: {fileID: 3713839749350973444}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2005123208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005123206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8249e6785f0c9749ba1fbaa7d2452a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets:
+  - Enemy
+  damageAmount: 2
+  maxHitRegistrations: 1
 --- !u!114 &2006729770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80407,19 +80399,6 @@ Transform:
   m_Father: {fileID: 6000985538439455628}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6110665546701465857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6344472508867082550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e577f4440b8e584f906209de9b7a590, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  max: 3
 --- !u!136 &6110665546701465860
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -80434,38 +80413,6 @@ CapsuleCollider:
   m_Height: 5.121435
   m_Direction: 1
   m_Center: {x: 0, y: 2.4264345, z: 0}
---- !u!114 &6110665546701465862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6344472508867082550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dd56774b50cc1446baf8d2bb6f6c7ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackType: 1
-  attackRange: 10
-  aggroRange: 20
-  patrolTime: 15
-  attackRate: 2
-  projectileSpeed: 100
-  waypoints:
-  - {fileID: 0}
-  attackPoint: {fileID: 6110665545334661487}
-  projectile: {fileID: 3219141175014800803, guid: fe07f59b8af57924c94acb8bb2fbff0e, type: 3}
-  meleeAttackAnim: {fileID: 0}
-  loot:
-  - {fileID: 3005119487648897704, guid: dbb3765d188425740945a9f4e87e7d73, type: 3}
-  - {fileID: 5251202806957510440, guid: 8047da479e6aca04fad126362c535780, type: 3}
-  dropChance: 0300000005000000
-  hasKey: 0
-  keyDrop: {fileID: 3033228088778992547, guid: 51302dbcbfa6e364898bdfcb627f2ecc, type: 3}
-  hitParticle: {fileID: 3634812190018391470, guid: 15005ef950ac0064ab7aa62b16b8b3a3, type: 3}
-  poofPartical: {fileID: 280762898541702598, guid: f2f5ddfe1b614584c8e962890da9a4bb, type: 3}
-  render: {fileID: 701595916486178345}
 --- !u!195 &6110665546701465863
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -80774,9 +80721,9 @@ GameObject:
   - component: {fileID: 407545366457448950}
   - component: {fileID: 6110665546701465860}
   - component: {fileID: 6110665546701465863}
-  - component: {fileID: 6110665546701465862}
-  - component: {fileID: 6110665546701465857}
   - component: {fileID: 158276623}
+  - component: {fileID: 6344472508867082552}
+  - component: {fileID: 6344472508867082551}
   m_Layer: 11
   m_Name: Enemy_Fry
   m_TagString: Enemy
@@ -80784,6 +80731,51 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6344472508867082551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6344472508867082550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d0f7e6a3f440a45af6f631d1e2941c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  max: 3
+--- !u!114 &6344472508867082552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6344472508867082550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fed5d47a6ada80f43b9daa5acdf9c431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackType: 1
+  attackRange: 10
+  aggroRange: 20
+  patrolTime: 15
+  attackRate: 2
+  projectileSpeed: 100
+  waypoints:
+  - {fileID: 0}
+  attackPoint: {fileID: 6110665545334661487}
+  projectile: {fileID: 3219141175014800803, guid: fe07f59b8af57924c94acb8bb2fbff0e, type: 3}
+  meleeAttackAnim: {fileID: 0}
+  loot:
+  - {fileID: 3005119487648897704, guid: dbb3765d188425740945a9f4e87e7d73, type: 3}
+  - {fileID: 5251202806957510440, guid: 8047da479e6aca04fad126362c535780, type: 3}
+  dropChance: 0300000005000000
+  hasKey: 0
+  keyDrop: {fileID: 3033228088778992547, guid: 51302dbcbfa6e364898bdfcb627f2ecc, type: 3}
+  hitParticle: {fileID: 3634812190018391470, guid: 15005ef950ac0064ab7aa62b16b8b3a3, type: 3}
+  poofPartical: {fileID: 280762898541702598, guid: f2f5ddfe1b614584c8e962890da9a4bb, type: 3}
+  render: {fileID: 701595916486178345}
 --- !u!1 &6358055187699748574
 GameObject:
   m_ObjectHideFlags: 0
