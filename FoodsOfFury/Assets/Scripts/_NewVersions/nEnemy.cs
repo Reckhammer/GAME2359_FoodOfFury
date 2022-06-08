@@ -11,14 +11,6 @@ using UnityEngine.AI;
 //----------------------------------------------------------------------------------------
 public class nEnemy : MonoBehaviour
 {
-    private enum BehaviorStates
-    {
-        Patrolling,
-        Aggro,
-        Attacking,
-        Dead
-    };
-
     [System.Serializable]
     public class EnemyLoot
     {
@@ -27,9 +19,6 @@ public class nEnemy : MonoBehaviour
         public float dropChancePercentage;
     };
 
-
-    private BehaviorStates currentState = BehaviorStates.Patrolling;
-
     public float attackRange = 1f;          //The distance in unity units to start attacking
     public float aggroRange = 10f;          //The distance in unity units to start aggressive behavior when player is in range
     //public float patrolTime = 15f;        //The wait time in seconds before moving to next waypoint
@@ -37,10 +26,12 @@ public class nEnemy : MonoBehaviour
     public EnemyLoot[] loot;                //Items that the enemy can drop when killed
     public GameObject hitParticle;          //Particle System effect to make appear when hit
     public GameObject poofPartical;         //Poof particle
+    public MonoBehaviour attackScript;
 
     private int index = 0;                  //Index of current waypoint
     private float agentSpeed;               //NavMesh movement speed. Maximum movement speed of enemy
     private float oldHealth;
+    private bool isDead = false;
 
     private Transform player;               //Reference to the player's transform
     private Animator animator;              //Reference to animator component
@@ -48,6 +39,9 @@ public class nEnemy : MonoBehaviour
     public Renderer render;
     private Color ogColor;
     private float colorDelay = 1.0f;
+
+    public delegate void EnemyEvent(string message);
+    public event EnemyEvent enemyEvent;
 
     void Start()
     {
@@ -92,24 +86,12 @@ public class nEnemy : MonoBehaviour
             }
         }
 
-        switch (currentState)
-        {
-            case BehaviorStates.Patrolling:
-                patrol();
-                break;
-            case BehaviorStates.Attacking:
-                // TODO: send attack event where enemy attack class handles attack
-                break;
-            default:
-                break;
-        }
-
-        if (currentState != BehaviorStates.Dead)
+        if (!isDead)
         {
             checkStatus();
         }
 
-        print("current state: " + currentState);
+        //print("current state: " + currentState);
     }
 
     // subscribe to Health.OnUpdate() event
@@ -132,7 +114,7 @@ public class nEnemy : MonoBehaviour
         ////print("Enemy health updated " + amount + " " + oldHealth);
         if (amount == 0) // enemy died
         {
-            currentState = BehaviorStates.Dead;
+            isDead = true;
             onDeath();
             render.material.SetColor("_BaseColor", Color.red);
             StartCoroutine(RendererTimer());
@@ -187,30 +169,35 @@ public class nEnemy : MonoBehaviour
     //----------------------------------------------------------------------------------------
     private void checkStatus()
     {
-        if (currentState == BehaviorStates.Dead)
-        {
-            return;
-        }
-
-        currentState = BehaviorStates.Patrolling;
-
         //Attack behavior
         //Check if the player is w/in attackRange
         if (player != null && Vector3.Distance(transform.position, player.position) < attackRange)
         {
-            currentState = BehaviorStates.Attacking;
             agent.speed = 0;
             Vector3 dir = player.position;
             dir.y = transform.position.y;
             transform.LookAt(dir); //Rotate the enemy to face the player
+
+            if (!attackScript.enabled)
+            {
+                attackScript.enabled = true;
+            }
         }
         //Aggro behavior
         //Check if the player is w/in aggroRange
         else if (player != null && Vector3.Distance(transform.position, player.position) < aggroRange)
         {
-            currentState = BehaviorStates.Aggro;
             agent.destination = player.position;    //Tell the navmesh to move to the player
             agent.speed = agentSpeed;               //Set speed to their maximum speed
+        }
+        else
+        {
+            patrol();
+
+            if (attackScript.enabled) // need to turn off attack script
+            {
+                attackScript.enabled = false;
+            }
         }
     }
 
@@ -230,6 +217,7 @@ public class nEnemy : MonoBehaviour
 
     private void onDeath()
     {
+        attackScript.enabled = false;
         GetComponent<Collider>().enabled = false; //Turn off their collider
         agent.enabled = false;
         dropLoot();
@@ -250,5 +238,13 @@ public class nEnemy : MonoBehaviour
         yield return new WaitForSeconds(waiter);
         AudioManager.Instance.playRandom(transform.position, "Vegetable_Char_Poof_01");
         Destroy(gameObject);
+    }
+
+    public void sendEvent(string eventName)
+    {
+        if (enemyEvent != null)
+        {
+            enemyEvent(eventName);
+        }
     }
 }
