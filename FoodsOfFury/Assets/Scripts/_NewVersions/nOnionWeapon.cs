@@ -67,9 +67,10 @@ public class nOnionWeapon : MonoBehaviour
         player.GetComponent<nPlayerMovement>().stopInput(true);
         player.GetComponent<nPlayerMovement>().stopRotation(true);
 
-        Vector3 camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;     // cam forward without y value
-        Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;         // cam right without y value
-        Vector3 direction = Input.GetAxisRaw("Vertical") * camForward + Input.GetAxisRaw("Horizontal") * camRight;    // calculate direction
+        Vector3 camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;         // cam forward without y value
+        Vector3 camRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;             // cam right without y value
+        Vector3 direction = Input.GetAxisRaw("Vertical") * camForward + Input.GetAxisRaw("Horizontal") * camRight;  // calculate direction
+
         if (direction != Vector3.zero)
         {
             player.GetComponent<nPlayerMovement>().applyExtraForce(direction * 20.0f, 0.25f);
@@ -133,6 +134,31 @@ public class nOnionWeapon : MonoBehaviour
         player.GetComponent<Animator>().SetFloat("GreenOnion_FallingAttack_Speed", fallingAttackSpeed);         // set animation speed
         weaponComponentAnimator.SetFloat("GreenOnion_FallingAttack_Speed", fallingAttackSpeed);
     }
+
+    // needs testing
+    //private GameObject checkForCloseHit()
+    //{
+    //    List<GameObject> hits = triggerCollider.GetComponent<nDamaging>().getHits();
+
+    //    if (hits.Count == 0)
+    //    {
+    //        return null;
+    //    }
+
+    //    float closestHit = Mathf.Infinity;
+    //    GameObject result = null;
+
+    //    foreach (GameObject obj in hits)
+    //    {
+    //        if (Vector3.Distance(player.transform.position, obj.transform.position) < closestHit)
+    //        {
+    //            closestHit = Vector3.Distance(player.transform.position, obj.transform.position);
+    //            result = gameObject;
+    //        }
+    //    }
+
+    //    return result;
+    //}
 
     private void OnEnable()
     {

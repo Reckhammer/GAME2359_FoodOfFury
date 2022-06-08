@@ -12,12 +12,12 @@ using UnityEngine;
 
 public class nDamaging: MonoBehaviour
 {
-    public string[] targets;                            // targets to damage
-    public float damageAmount = 0.0f;                   // amount of damage to be delt
-    public int maxHitRegistrations = 1;                 // max amount of enemies that can be hit with attack
+    public string[] targets;                                        // targets to damage
+    public float damageAmount = 0.0f;                               // amount of damage to be delt
+    public int maxHitRegistrations = 1;                             // max amount of enemies that can be hit with attack
 
-    private List<int> hitRegistry = new List<int>();    // list of object id's that were hit
-    private int hitsRegistered = 0;                     // amount of objects hit in attack
+    private List<GameObject> hitRegistry = new List<GameObject>();  // list of objects that were hit
+    private int hitsRegistered = 0;                                 // amount of objects hit in attack
 
     private void Start()
     {
@@ -35,12 +35,10 @@ public class nDamaging: MonoBehaviour
             return;
         }
 
-        // iterate through targets and compare with 'other.tag'
+        // iterate through targets and compare with 'other.tag' and check if object in list (did we hit the object already)
         foreach (string target in targets)
         {
-            int otherID = other.gameObject.GetInstanceID();
-
-            if (other.tag == target && !hitRegistry.Contains(otherID)) // also check if object id is in list (did we hit the object already)
+            if (other.tag == target && (hitRegistry.Find(x => (x.GetInstanceID() == other.gameObject.GetInstanceID())) == null))
             {
                 if (other.GetComponent<nHealth>() == null)
                 {
@@ -50,9 +48,9 @@ public class nDamaging: MonoBehaviour
 
                 hitsRegistered++;
 
-                hitRegistry.Add(otherID);
+                hitRegistry.Add(other.gameObject);
                 //printHitRegistry();
-                print("hit: " + other + ", hits registered: " + hitsRegistered);
+                //print("hit: " + other + ", hits registered: " + hitsRegistered);
 
                 other.GetComponent<nHealth>().subtract(damageAmount);
             }
@@ -70,10 +68,15 @@ public class nDamaging: MonoBehaviour
     // prints id's of all objects hit
     private void printHitRegistry()
     {
-        print("hit registry id's");
-        foreach (int id in hitRegistry)
+        print("hit registry");
+        foreach (GameObject gameObject in hitRegistry)
         {
-            print(id);
+            print(gameObject);
         }
+    }
+
+    public List<GameObject> getHits()
+    {
+        return hitRegistry;
     }
 }
