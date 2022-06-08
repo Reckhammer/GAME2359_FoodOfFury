@@ -4,103 +4,76 @@ using UnityEngine;
 using UnityEngine.AI;
 
 //----------------------------------------------------------------------------------------
-// Author: Joshua Rechkemmer
+// Author: Joshua Rechkemmer, Jose Villanueva
 //
 // Description: This class controls the movement and actions of enemy npcs
 //
 //----------------------------------------------------------------------------------------
 public class nEnemy : MonoBehaviour
 {
-    //Enumeration to describe attacking behavior
-    public enum EnemyType { Melee, Range }; //Maybe we could make an enemy with both melee and range attacks?
+    private enum BehaviorStates
+    {
+        Patrolling,
+        Aggro,
+        Attacking,
+        Dead
+    };
 
-    public EnemyType attackType = EnemyType.Melee;   //Attack behavior of the enemy
-    public float attackRange = 1f;               //The distance in unity units to start attacking
-    public float aggroRange = 10f;              //The distance in unity units to start aggressive behavior when player is in range
-    public float patrolTime = 15f;              //The wait time in seconds before moving to next waypoint
-    public float attackRate = 2f;               //The time between attacks
-    public float projectileSpeed = 100f;         //Speed of the projectile
-    public Transform[] waypoints;                      //Locations that the npc will travel to
-    public Transform attackPoint;                    //Child gameObj that the projectiles will come from or that is the hitbox of melee
-    public GameObject projectile;                     //GameObj. that will be shot out from attackPoint if it's a ranged enemy
-    public Animation meleeAttackAnim;                //Melee attack animation for enemy
-    public GameObject[] loot;                           //Items that the enemy can drop when killed
-    public int[] dropChance;                     //Array of integers that describe the chance of the item in the same index of the loot array. Chance is 1/dropChance[ind]
-    public bool hasKey = false;            //Boolean indicating if the enemy has a key for ObjectiveType.Rescues
-    public GameObject keyDrop;                        //Key Object that they would drop
-    public GameObject hitParticle;                    //Particle System effect to make appear when hit
-    public GameObject poofPartical;                   //Poof particle
+    [System.Serializable]
+    public class EnemyLoot
+    {
+        public GameObject item;
+        [Range(0, 100)]
+        public float dropChancePercentage;
+    };
 
-    private bool isDead = false;             //Boolean to indicate if the enemy is alive and active
+
+    private BehaviorStates currentState = BehaviorStates.Patrolling;
+
+    public float attackRange = 1f;          //The distance in unity units to start attacking
+    public float aggroRange = 10f;          //The distance in unity units to start aggressive behavior when player is in range
+    //public float patrolTime = 15f;        //The wait time in seconds before moving to next waypoint
+    public Transform[] waypoints;           //Locations that the npc will travel to
+    public EnemyLoot[] loot;                //Items that the enemy can drop when killed
+    public GameObject hitParticle;          //Particle System effect to make appear when hit
+    public GameObject poofPartical;         //Poof particle
+
     private int index = 0;                  //Index of current waypoint
-    private float agentSpeed;                 //NavMesh movement speed. Maximum movement speed of enemy
-    private float nextFire;                   //The next point in time where the enemy can attack again
+    private float agentSpeed;               //NavMesh movement speed. Maximum movement speed of enemy
     private float oldHealth;
-    private GameObject keyFx;                      //Particle fx to indicate that they have a key
 
-    private Transform player;             //Reference to the player's transform
-    private Animator animator;           //Reference to animator component
-    private NavMeshAgent agent;              //Reference to NavMeshAgent component
+    private Transform player;               //Reference to the player's transform
+    private Animator animator;              //Reference to animator component
+    private NavMeshAgent agent;             //Reference to NavMeshAgent component
     public Renderer render;
     private Color ogColor;
     private float colorDelay = 1.0f;
 
     void Start()
     {
-        oldHealth = GetComponent<nHealth>().amount;
-        ////print("oldHealth " + oldHealth);
-        ogColor = render.material.color;
-
-        //render = GetComponentInChildren<MeshRenderer>();
-    }
-
-    void Awake()
-    {
         //Initilize the script's variables
+        oldHealth = GetComponent<nHealth>().amount;
+        ogColor = render.material.color;
         animator = GetComponent<Animator>();
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        agentSpeed = agent.speed;
 
-
-        if (agent != null)
-        {
-            agentSpeed = agent.speed;
-        }
-
-        //if they have a key
-        //      activate a special particle effect
-        if (hasKey)
-        {
-            //find the child transform with the name of the particle effect
-            //and make it active
-            keyFx = transform.Find("Key Effect").gameObject;
-            keyFx.gameObject.SetActive(true);
-        }
-
-        //if there is now waypoints given, initialize a waypoint to be on the enemy's position
-        if (waypoints == null || waypoints[0] == null)
+        //if there is no waypoints given, initialize a waypoint to be on the enemy's position
+        if (waypoints.Length == 0)
         {
             waypoints = new Transform[1];
             waypoints[0] = this.transform;
         }
-
-        //Do the checkStatus function repeatedly
-        InvokeRepeating("checkStatus", 0, 0.5f);
-
-        //Increment the waypoint if there is more than 1
-        if (waypoints.Length > 1)
+        else // do patroll
         {
-            InvokeRepeating("patrol", 0, patrolTime);
+            agent.destination = waypoints[index].position;  //Tell the navmesh to move the enemy to the waypoint
+            agent.speed = agentSpeed / 2;                   //Set the movement to a walking pace
         }
     }
 
     void Update()
     {
-        //if ( GetComponent<Health>().amount == 0 )
-        //{
-        //    onDeath();
-        //}
-
         if (animator != null)
         {
             //If the current agent speed is zero,
@@ -118,6 +91,25 @@ public class nEnemy : MonoBehaviour
                 animator.SetBool("IsMoving", true);
             }
         }
+
+        switch (currentState)
+        {
+            case BehaviorStates.Patrolling:
+                patrol();
+                break;
+            case BehaviorStates.Attacking:
+                // TODO: send attack event where enemy attack class handles attack
+                break;
+            default:
+                break;
+        }
+
+        if (currentState != BehaviorStates.Dead)
+        {
+            checkStatus();
+        }
+
+        print("current state: " + currentState);
     }
 
     // subscribe to Health.OnUpdate() event
@@ -140,6 +132,7 @@ public class nEnemy : MonoBehaviour
         ////print("Enemy health updated " + amount + " " + oldHealth);
         if (amount == 0) // enemy died
         {
+            currentState = BehaviorStates.Dead;
             onDeath();
             render.material.SetColor("_BaseColor", Color.red);
             StartCoroutine(RendererTimer());
@@ -175,60 +168,17 @@ public class nEnemy : MonoBehaviour
     }
 
     //----------------------------------------------------------------------------------------
-    // patrol() - increment the current index of the waypoints array
+    // patrol() - check position and increment the current index of the waypoints array
     //
     //----------------------------------------------------------------------------------------
     private void patrol()
     {
-        //if the index is at the last index of the array, set it to 0
-        //else add 1 to the current index
-        index = index == (waypoints.Length - 1) ? 0 : index + 1;
-        //Patrol behavior
-        agent.destination = waypoints[index].position;  //Tell the navmesh to move the enemy to the waypoint
-        agent.speed = agentSpeed / 2;   //Set the movement to a walking pace
-    }
-
-    //----------------------------------------------------------------------------------------
-    // attack() - handles the behavior when the enemy is attacking and damages player
-    //
-    //----------------------------------------------------------------------------------------
-    private void attack()
-    {
-        //Check if the enemy can attack again
-        if (Time.time > nextFire)
+        if (Vector3.Distance(transform.position, waypoints[index].position) < 0.3f)
         {
-            //Use switch statement to jump to the code to do corresponding attack behavior
-            switch (attackType)
-            {
-                case EnemyType.Melee:
-                    ////Debug.Log( "Enemy Hit player" );
-                    //Insert damaging code here
-                    ////print("attacking");
-                    if (!meleeAttackAnim.isPlaying)
-                    {
-                        meleeAttackAnim.Play();
-                        //AudioManager.Instance.playRandom(transform.position, "IceCream_Cone_Attack01"); 
-                    }
-                    break;
-                case EnemyType.Range:
-                    GameObject projectileInst = Instantiate(projectile, attackPoint.position, Quaternion.LookRotation((player.position - transform.position).normalized, Vector3.up)); //Create the projectile
-                    Rigidbody projectileRB = projectileInst.GetComponent<Rigidbody>(); //Get a reference to its rigidbody
-
-                    //AudioManager.Instance.playRandom(transform.position, "Fry_Attack_01");
-                    AudioManager.Instance.playRandom(transform.position, "Ketchup_Fire_01"); //Added sound of ketchup firing -Brian
-
-                    break;
-            }
-
-            nextFire = Time.time + attackRate; //set nextfire to the next available time to attack
-
-            if (animator != null) //Check if animator exists
-            {
-                animator.SetTrigger("Attack"); //play the attack animation
-            }
-
-            AudioManager.Instance.playRandom(transform.position, "Enemy_Attack_01"); //Play Sound
+            index = (index == (waypoints.Length - 1)) ? 0 : index + 1; // increment index
         }
+        agent.destination = waypoints[index].position;  //Tell the navmesh to move the enemy to the waypoint
+        agent.speed = agentSpeed / 2;                   //Set the movement to a walking pace
     }
 
     //----------------------------------------------------------------------------------------
@@ -237,55 +187,42 @@ public class nEnemy : MonoBehaviour
     //----------------------------------------------------------------------------------------
     private void checkStatus()
     {
-        //if the enemy is alive
-        //      Do their behaviors
-        if (!isDead)
+        if (currentState == BehaviorStates.Dead)
         {
-            //For all of the Transform points in the waypoints array
-            //      Check if current position equals the point's position
-            //      If it does set the agent speed to 0
-            foreach (Transform point in waypoints)
-            {
-                if (this.transform.position == point.position)
-                {
-                    agent.speed = 0;
-                }
-            }
+            return;
+        }
 
-            //////print( "distance: " + Vector3.Distance( transform.position, player.position ) );
-            //Attack behavior
-            //Check if the player is w/in attackRange
-            if (player != null && Vector3.Distance(transform.position, player.position) < attackRange)
-            {
-                agent.speed = 0;
-                Vector3 dir = player.position;
-                dir.y = transform.position.y;
-                transform.LookAt(dir); //Rotate the enemy to face the player
-                attack();
-            }
-            //Aggro behavior
-            //Check if the player is w/in aggroRange
-            else if (player != null && Vector3.Distance(transform.position, player.position) < aggroRange)
-            {
-                agent.destination = player.position;    //Tell the navmesh to move to the player
-                agent.speed = agentSpeed;   //Set speed to their maximum speed
-            }
+        currentState = BehaviorStates.Patrolling;
+
+        //Attack behavior
+        //Check if the player is w/in attackRange
+        if (player != null && Vector3.Distance(transform.position, player.position) < attackRange)
+        {
+            currentState = BehaviorStates.Attacking;
+            agent.speed = 0;
+            Vector3 dir = player.position;
+            dir.y = transform.position.y;
+            transform.LookAt(dir); //Rotate the enemy to face the player
+        }
+        //Aggro behavior
+        //Check if the player is w/in aggroRange
+        else if (player != null && Vector3.Distance(transform.position, player.position) < aggroRange)
+        {
+            currentState = BehaviorStates.Aggro;
+            agent.destination = player.position;    //Tell the navmesh to move to the player
+            agent.speed = agentSpeed;               //Set speed to their maximum speed
         }
     }
 
     private void dropLoot()
     {
-        if (loot != null || loot[0] != null)
+        if (loot.Length != 0)
         {
-            for (int ind = 0; ind < loot.Length; ind++)
+            foreach (EnemyLoot drop in loot)
             {
-                int chance = (int)Random.Range(1, dropChance[ind]); //Get a random number
-
-                if (chance == 1)
+                if (Random.Range(0, 100) <= drop.dropChancePercentage)
                 {
-                    Vector3 itemPos = transform.position;
-                    itemPos.y = itemPos.y + 1f;
-                    Instantiate(loot[ind], itemPos, transform.rotation); //Create the obj at the enemy's location
+                    Instantiate(drop.item, transform.position + new Vector3(0,1,0), transform.rotation); //Create the obj at the enemy's location
                 }
             }
         }
@@ -293,32 +230,13 @@ public class nEnemy : MonoBehaviour
 
     private void onDeath()
     {
-        if (!isDead)
-        {
-            isDead = true;
-            GetComponent<Collider>().enabled = false; //Turn off their collider
-            dropLoot();
-
-            if (animator != null)
-            {
-                animator.SetBool("IsDead", true); //Play the animation
-            }
-
-            AudioManager.Instance.playRandom(transform.position, "Enemy_KO_01"); //Play Sound
-
-            //if it has a key
-            //      increment player's key count
-            if (hasKey)
-            {
-                Vector3 itemPos = transform.position;
-                itemPos.y = itemPos.y + 1f;
-                Instantiate(keyDrop, itemPos, transform.rotation);
-            }
-
-            StartCoroutine(DelayedPoof(3.5f));
-            StartCoroutine(DelayedDestruction(5)); //Wait 5 secs to destroy the enemy
-            agent.enabled = false;
-        }
+        GetComponent<Collider>().enabled = false; //Turn off their collider
+        agent.enabled = false;
+        dropLoot();
+        animator.SetBool("IsDead", true); //Play the animation
+        AudioManager.Instance.playRandom(transform.position, "Enemy_KO_01"); //Play Sound
+        StartCoroutine(DelayedPoof(3.5f));
+        StartCoroutine(DelayedDestruction(5)); //Wait 5 secs to destroy the enemy
     }
 
     private IEnumerator DelayedPoof(float time)
